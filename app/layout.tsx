@@ -1,5 +1,7 @@
 import "../styles/globals.css";
 import type { ReactNode } from "react";
+import { HeaderScrollEffect } from "../components/Effects";
+
 
 export const metadata = {
   title: "Media Stream AI",
@@ -20,22 +22,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur bg-black/60 border-b border-white/5">
-      <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-3">
-          <img src="/media/MediaStreamAI-Logo-White.svg" alt="Media Stream AI" className="h-8 w-auto" />
-        </a>
-        <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
-          <a href="/about" className="hover:text-white">About</a>
-          <a href="/solutions" className="hover:text-white">Solutions</a>
-          <a href="/technology" className="hover:text-white">Technology</a>
-          <a href="/datacentre" className="hover:text-white">Data Centre</a>
-          <a href="/vp-studio" className="hover:text-white">VP Studio</a>
-          <a href="/contact" className="hover:text-white">Contact</a>
-          <a href="https://www.intuitv.app" target="_blank" className="hover:text-white">IntuiTV</a>
-        </nav>
-      </div>
-    </header>
+  <header className="header sticky top-0 z-50 backdrop-blur bg-black/60 border-b border-white/5">
+  <HeaderScrollEffect />
+  <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <a href="/" className="flex items-center gap-3">
+      <img src="/media/MediaStreamAI-Logo-White.svg" alt="Media Stream AI" className="h-8 w-auto" />
+    </a>
+    <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
+      <a href="/about" className="hover:text-white">About</a>
+      <a href="/solutions" className="hover:text-white">Solutions</a>
+      <a href="/technology" className="hover:text-white">Technology</a>
+      <a href="/datacentre" className="hover:text-white">Data Centre</a>
+      <a href="/vp-studio" className="hover:text-white">VP Studio</a>
+      <a href="/contact" className="hover:text-white">Contact</a>
+      <a href="https://www.intuitv.app" target="_blank" className="hover:text-white">IntuiTV</a>
+    </nav>
+  </div>
+</header>
+
   );
 }
 
