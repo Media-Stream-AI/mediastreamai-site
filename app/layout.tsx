@@ -45,9 +45,9 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/5 py-10 text-sm text-white/60">
-      <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2">
+<footer className="border-t border-white/5 py-10 text-sm text-white/60 relative overflow-hidden">
+  <div className="grid-bg" aria-hidden />
+  <div className="mx-auto max-w-7xl px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <img src="/media/MediaStreamAI-Logo-White.svg" alt="Media Stream AI" className="h-6 w-auto" />
         </div>
         <div className="flex gap-6">
