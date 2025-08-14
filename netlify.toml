@@ -7,4 +7,6 @@
   package = "@netlify/plugin-nextjs"
 
 [functions]
+  # Let the Next plugin output its own functions here
   directory = ".netlify/functions-internal"
+  node_bundler = "esbuild"
