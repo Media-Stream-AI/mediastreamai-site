@@ -3,3 +3,52 @@
 @tailwind utilities;
 
 html, body { @apply bg-black text-white; }
+
+/* --- Futuristic accents --- */
+:root{
+  --glow: 0 0 20px rgba(0,255,255,.35), 0 0 40px rgba(120,0,255,.25);
+}
+
+/* Gradient headline text */
+.gradient-text{
+  background: linear-gradient(90deg,#22d3ee,#3b82f6,#a855f7 60%,#22d3ee);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* Animated section underline */
+.h2-underline{
+  position: relative; display:inline-block;
+}
+.h2-underline:after{
+  content:""; position:absolute; left:0; right:0; bottom:-10px; height:2px;
+  background: linear-gradient(90deg,#22d3ee,#a855f7);
+  filter: drop-shadow(0 0 6px #22d3eeaa);
+  transform-origin:left; transform:scaleX(.4); transition:transform .6s ease;
+}
+.section:hover .h2-underline:after{ transform:scaleX(1); }
+
+/* Glowing card on hover */
+.card-glow{ transition: box-shadow .4s ease, transform .4s ease; }
+.card-glow:hover{ box-shadow: var(--glow); transform: translateY(-2px); }
+
+/* Subtle grid bg (used in hero/footer) */
+.grid-bg{
+  position:absolute; inset:0; pointer-events:none; opacity:.18; mix-blend:screen;
+  background-image:
+    radial-gradient(800px 400px at 50% 85%, rgba(34,211,238,.20), transparent 60%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px);
+  animation: gridFloat 12s ease-in-out infinite alternate;
+}
+@keyframes gridFloat{
+  from{ transform: translateY(0px) scale(1); }
+  to{ transform: translateY(-10px) scale(1.02); }
+}
+
+/* Subtle header shrink on scroll */
+.header{ transition: backdrop-filter .3s ease, background-color .3s ease, padding .3s ease; }
+.header.scrolled{ background-color: rgba(0,0,0,.7); backdrop-filter: blur(8px); padding-top:.5rem; padding-bottom:.5rem; }
+
+/* Utility */
+.section{ padding-top:6rem; padding-bottom:6rem; }
+
