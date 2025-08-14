@@ -12,6 +12,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden" style={{ minHeight: "80vh" }}>
         <img src="/media/biometric-hero.png" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60" />
         <div className="absolute inset-0" style={{ background: "radial-gradient(60% 40% at 50% 80%, rgba(34,211,238,.15), transparent 60%), rgba(0,0,0,0.55)" }} />
+        <Particles density={0.0001} />
         <GridBackground />
 
         <div className="relative mx-auto max-w-7xl px-6 text-center py-28">
