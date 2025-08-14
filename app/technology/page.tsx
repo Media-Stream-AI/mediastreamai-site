@@ -1,4 +1,6 @@
-import { Section, Container, Card, H2, Lead } from "../../components/Blocks";
+"use client";
+import { Section, Container, Card, H2, Lead, Grid } from "../../components/Blocks";
+
 
 export default function TechnologyPage() {
   return (
