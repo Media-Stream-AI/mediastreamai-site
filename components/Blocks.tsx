@@ -1,5 +1,24 @@
+"use client";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
+};
+
 export function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <section className={`py-24 border-t border-white/5 ${className}`}>{children}</section>;
+  return (
+    <section className={`section border-t border-white/5 ${className}`}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={fadeUp}
+      >
+        {children}
+      </motion.div>
+    </section>
+  );
 }
 
 export function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -7,11 +26,11 @@ export function Container({ children, className = "" }: { children: React.ReactN
 }
 
 export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-3xl border border-white/10 bg-white/[0.03] ${className}`}>{children}</div>;
+  return <div className={`rounded-3xl border border-white/10 bg-white/[0.03] card-glow ${className}`}>{children}</div>;
 }
 
 export function H2({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-3xl md:text-4xl font-semibold">{children}</h2>;
+  return <h2 className="text-3xl md:text-4xl font-semibold h2-underline">{children}</h2>;
 }
 
 export function Lead({ children }: { children: React.ReactNode }) {
@@ -22,3 +41,7 @@ export function Grid({ children, cols = "lg:grid-cols-3" }: { children: React.Re
   return <div className={`mt-10 grid gap-6 sm:grid-cols-2 ${cols}`}>{children}</div>;
 }
 
+/** Fancy headline wrapper */
+export function GradientHeadline({ children }: { children: React.ReactNode }) {
+  return <div className="gradient-text">{children}</div>;
+}
