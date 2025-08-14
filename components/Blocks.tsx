@@ -21,3 +21,4 @@ export function Lead({ children }: { children: React.ReactNode }) {
 export function Grid({ children, cols = "lg:grid-cols-3" }: { children: React.ReactNode; cols?: string }) {
   return <div className={`mt-10 grid gap-6 sm:grid-cols-2 ${cols}`}>{children}</div>;
 }
+
