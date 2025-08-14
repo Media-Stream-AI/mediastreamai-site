@@ -1,4 +1,4 @@
-import { Section, Container, Card, H2, Lead, Grid } from "@/components/Blocks";
+import { Section, Container, Card, H2, Lead, Grid } from "../../components/Blocks";
 
 export default function VPStudioPage() {
   return (
