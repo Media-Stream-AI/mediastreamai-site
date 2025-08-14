@@ -1,5 +1,6 @@
 "use client";
 
+import Particles from "../components/Particles";
 import { motion } from "framer-motion";
 import { Section, Container, Card, H2, Lead, Grid, GradientHeadline } from "../components/Blocks";
 import { GridBackground } from "../components/Effects";
