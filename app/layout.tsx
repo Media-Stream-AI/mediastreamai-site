@@ -1,5 +1,3 @@
-"use client";
-
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -39,29 +37,13 @@ function Header() {
           />
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
-          <Link href="/about" className="nav-link hover:text-white">
-            About
-          </Link>
-          <Link href="/solutions" className="nav-link hover:text-white">
-            Solutions
-          </Link>
-          <Link href="/technology" className="nav-link hover:text-white">
-            Technology
-          </Link>
-          <Link href="/datacentre" className="nav-link hover:text-white">
-            Data Centre
-          </Link>
-          <Link href="/vp-studio" className="nav-link hover:text-white">
-            VP Studio
-          </Link>
-          <Link href="/contact" className="nav-link hover:text-white">
-            Contact
-          </Link>
-          <a
-            href="https://www.intuitv.app"
-            target="_blank"
-            className="nav-link hover:text-white"
-          >
+          <Link href="/about" className="nav-link hover:text-white">About</Link>
+          <Link href="/solutions" className="nav-link hover:text-white">Solutions</Link>
+          <Link href="/technology" className="nav-link hover:text-white">Technology</Link>
+          <Link href="/datacentre" className="nav-link hover:text-white">Data Centre</Link>
+          <Link href="/vp-studio" className="nav-link hover:text-white">VP Studio</Link>
+          <Link href="/contact" className="nav-link hover:text-white">Contact</Link>
+          <a href="https://www.intuitv.app" target="_blank" className="nav-link hover:text-white">
             IntuiTV ↗
           </a>
         </nav>
@@ -73,7 +55,6 @@ function Header() {
 function Footer() {
   return (
     <footer className="border-t border-white/5 py-10 text-sm text-white/60 relative overflow-hidden">
-      {/* Background grid overlay */}
       <div className="grid-bg absolute inset-0" aria-hidden="true" />
 
       <div className="mx-auto max-w-7xl px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
