@@ -2,72 +2,125 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { @apply bg-black text-white; }
-
-/* --- Futuristic accents --- */
-:root{
-  --glow: 0 0 20px rgba(0,255,255,.35), 0 0 40px rgba(120,0,255,.25);
+/* --------------------------
+   Font setup
+--------------------------- */
+:root {
+  --font-horizon: "Horizon", sans-serif;
+  --font-glacial: "Glacial Indifference", sans-serif;
 }
 
-/* Gradient headline text */
-.gradient-text{
-  background: linear-gradient(90deg,#22d3ee,#3b82f6,#a855f7 60%,#22d3ee);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+/* Apply body font */
+body {
+  font-family: var(--font-glacial);
+  background-color: #000; /* black site */
+  color: white;
 }
 
-/* Animated section underline */
-.h2-underline{
-  position: relative; display:inline-block;
-}
-.h2-underline:after{
-  content:""; position:absolute; left:0; right:0; bottom:-10px; height:2px;
-  background: linear-gradient(90deg,#22d3ee,#a855f7);
-  filter: drop-shadow(0 0 6px #22d3eeaa);
-  transform-origin:left; transform:scaleX(.4); transition:transform .6s ease;
-}
-.section:hover .h2-underline:after{ transform:scaleX(1); }
-
-/* Glowing card on hover */
-.card-glow{ transition: box-shadow .4s ease, transform .4s ease; }
-.card-glow:hover{ box-shadow: var(--glow); transform: translateY(-2px); }
-
-/* Subtle grid bg (used in hero/footer) */
-.grid-bg{
-  position:absolute; inset:0; pointer-events:none; opacity:.18; mix-blend:screen;
-  background-image:
-    radial-gradient(800px 400px at 50% 85%, rgba(34,211,238,.20), transparent 60%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px);
-  animation: gridFloat 12s ease-in-out infinite alternate;
-}
-@keyframes gridFloat{
-  from{ transform: translateY(0px) scale(1); }
-  to{ transform: translateY(-10px) scale(1.02); }
+/* Headings use Horizon font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-horizon);
+  letter-spacing: 0.5px;
 }
 
-/* Subtle header shrink on scroll */
-.header{ transition: backdrop-filter .3s ease, background-color .3s ease, padding .3s ease; }
-.header.scrolled{ background-color: rgba(0,0,0,.7); backdrop-filter: blur(8px); padding-top:.5rem; padding-bottom:.5rem; }
-
-/* Utility */
-.section{ padding-top:6rem; padding-bottom:6rem; }
-
-/* --- Neon nav underline sweep --- */
-.nav-link{
-  position:relative; padding-bottom:.2rem;
+/* Smooth transitions */
+a, button {
+  transition: all 0.3s ease;
 }
-.nav-link::after{
-  content:""; position:absolute; left:0; bottom:-3px; height:2px; width:100%;
-  background: linear-gradient(90deg,#22d3ee,#a855f7,#22d3ee);
-  transform: scaleX(0); transform-origin:left;
-  transition: transform .35s ease;
-  filter: drop-shadow(0 0 6px rgba(34,211,238,.7));
-}
-.nav-link:hover::after,.nav-link:focus-visible::after{ transform: scaleX(1); }
 
-/* Better focus ring */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(34,211,238,.4), 0 0 0 6px rgba(168,85,247,.25);
-  border-radius: 12px;
+/* Hover glow on links */
+a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* --------------------------
+   Futuristic grid background
+--------------------------- */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  animation: gridMove 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes gridMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 40px;
+  }
+}
+
+/* --------------------------
+   Section titles with neon accent
+--------------------------- */
+h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #00f0ff, #ff00ff);
+  border-radius: 2px;
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(0, 240, 255, 0.7), 0 0 12px rgba(255, 0, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.9), 0 0 20px rgba(255, 0, 255, 0.6);
+  }
+}
+
+/* --------------------------
+   Cards & buttons
+--------------------------- */
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+}
+
+button, .btn {
+  border-radius: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(90deg, #00f0ff, #ff00ff);
+  color: black;
+}
+
+button:hover, .btn:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.7),
+              0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+/* --------------------------
+   Utility
+--------------------------- */
+.section {
+  padding: 5rem 1.5rem;
 }
