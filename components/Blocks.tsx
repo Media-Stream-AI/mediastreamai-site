@@ -26,8 +26,17 @@ export function Container({ children, className = "" }: { children: React.ReactN
 }
 
 export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-3xl border border-white/10 bg-white/[0.03] card-glow ${className}`}>{children}</div>;
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02, rotate: 0.3 }}
+      transition={{ type: "spring", stiffness: 220, damping: 16 }}
+      className={`rounded-3xl border border-white/10 bg-white/[0.03] card-glow ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
 }
+
 
 export function H2({ children }: { children: React.ReactNode }) {
   return <h2 className="text-3xl md:text-4xl font-semibold h2-underline">{children}</h2>;
