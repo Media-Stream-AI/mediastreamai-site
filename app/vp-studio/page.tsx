@@ -1,4 +1,6 @@
+"use client";
 import { Section, Container, Card, H2, Lead, Grid } from "../../components/Blocks";
+
 
 export default function VPStudioPage() {
   return (
