@@ -29,12 +29,12 @@ function Header() {
       <img src="/media/MediaStreamAI-Logo-White.svg" alt="Media Stream AI" className="h-8 w-auto" />
     </a>
     <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
-      <a href="/about" className="hover:text-white">About</a>
-      <a href="/solutions" className="hover:text-white">Solutions</a>
-      <a href="/technology" className="hover:text-white">Technology</a>
-      <a href="/datacentre" className="hover:text-white">Data Centre</a>
-      <a href="/vp-studio" className="hover:text-white">VP Studio</a>
-      <a href="/contact" className="hover:text-white">Contact</a>
+      <a href="/about" className="nav-link hover:text-white">About</a>
+      <a href="/solutions" className="nav-link hover:text-white">Solutions</a>
+      <a href="/technology" className="nav-link hover:text-white">Technology</a>
+      <a href="/datacentre" className="nav-link hover:text-white">Data Centre</a>
+      <a href="/vp-studio" className="nav-link hover:text-white">VP Studio</a>
+      <a href="/contact" className="nav-link hover:text-white">Contact</a>
       <a href="https://www.intuitv.app" target="_blank" className="hover:text-white">IntuiTV</a>
     </nav>
   </div>
