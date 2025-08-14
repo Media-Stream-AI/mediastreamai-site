@@ -1,0 +1,23 @@
+{
+  "name": "mediastreamai-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.6",
+    "autoprefixer": "8.4.35",
+    "postcss": "8.4.35",
+    "typescript": "5.5.4",
+    "@types/react": "18.2.66",
+    "@types/node": "20.12.12"
+  }
+}
