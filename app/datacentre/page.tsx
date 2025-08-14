@@ -1,4 +1,4 @@
-import { Section, Container, Card, H2, Lead } from "@/components/Blocks";
+import { Section, Container, Card, H2, Lead } from "../../components/Blocks";
 
 export default function DataCentrePage() {
   return (
