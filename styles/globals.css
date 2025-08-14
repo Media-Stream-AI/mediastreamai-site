@@ -52,3 +52,22 @@ html, body { @apply bg-black text-white; }
 /* Utility */
 .section{ padding-top:6rem; padding-bottom:6rem; }
 
+/* --- Neon nav underline sweep --- */
+.nav-link{
+  position:relative; padding-bottom:.2rem;
+}
+.nav-link::after{
+  content:""; position:absolute; left:0; bottom:-3px; height:2px; width:100%;
+  background: linear-gradient(90deg,#22d3ee,#a855f7,#22d3ee);
+  transform: scaleX(0); transform-origin:left;
+  transition: transform .35s ease;
+  filter: drop-shadow(0 0 6px rgba(34,211,238,.7));
+}
+.nav-link:hover::after,.nav-link:focus-visible::after{ transform: scaleX(1); }
+
+/* Better focus ring */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34,211,238,.4), 0 0 0 6px rgba(168,85,247,.25);
+  border-radius: 12px;
+}
