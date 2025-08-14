@@ -1,4 +1,4 @@
-import { Section, Container, Card, H2, Lead, Grid } from "@/components/Blocks";
+import { Section, Container, Card, H2, Lead, Grid } from "../../components/Blocks";
 
 const rows = [
   { title: "Broadcasters", desc: "Personalized linear streams (plussed channels) without changing your ad tech." },
