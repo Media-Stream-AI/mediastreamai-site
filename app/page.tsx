@@ -1,145 +1,203 @@
 "use client";
 
-import Particles from "../components/Particles";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Section, Container, Card, H2, Lead, Grid, GradientHeadline } from "../components/Blocks";
-import { GridBackground } from "../components/Effects";
+import { ArrowRight, Sparkles, Gauge, Film, Cpu } from "lucide-react";
 
 export default function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden" style={{ minHeight: "80vh" }}>
-     <motion.img
-  src="/media/biometric-hero.png"
-  alt=""
-  className="absolute inset-0 w-full h-full object-cover opacity-60"
-  initial={{ scale: 1.05 }}
-  animate={{ scale: 1 }}
-  transition={{ duration: 2.5, ease: "easeOut" }}
-/>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(60% 40% at 50% 80%, rgba(34,211,238,.15), transparent 60%), rgba(0,0,0,0.55)" }} />
-        <Particles density={0.0001} />
-        <GridBackground />
-
-        <div className="relative mx-auto max-w-7xl px-6 text-center py-28">
+      {/* Hero */}
+      <section className="h-[90vh] grid place-items-center relative overflow-hidden">
+        <Image
+          src="/media/Biometric Hero Image.png"
+          alt="Biometric personalization"
+          fill
+          className="absolute inset-0 object-cover opacity-60"
+        />
+        <div className="relative z-10 text-center max-w-3xl">
           <motion.h1
-            className="text-4xl md:text-6xl font-semibold gradient-text"
-            initial={{ opacity: 0, y: 16 }}
+            className="text-4xl md:text-6xl font-horizon"
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 1 }}
           >
             Smart TV, Made Personal.
           </motion.h1>
-
           <motion.p
-            className="mt-5 text-white/70 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+            className="mt-4 text-white/70 font-glacial"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 1 }}
           >
             Hyper-personalized, emotionally aware television across all platforms.
           </motion.p>
-
           <motion.div
-            className="mt-8 flex flex-wrap justify-center gap-3"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
+            className="mt-6 flex flex-wrap justify-center gap-3 font-glacial"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 1 }}
           >
-            <a href="/technology" className="bg-white text-black px-5 py-3 rounded-2xl inline-flex items-center gap-2">Explore the Platform</a>
-            <a href="/solutions" className="bg-white/10 px-5 py-3 rounded-2xl">See how it works</a>
+            <a
+              href="/technology"
+              className="bg-white text-black px-5 py-3 rounded-2xl flex items-center gap-2 hover:scale-105 transition"
+            >
+              Explore the Platform <ArrowRight className="h-4 w-4" />
+            </a>
+            <a href="/solutions" className="bg-white/10 px-5 py-3 rounded-2xl hover:bg-white/20 transition">
+              See how it works
+            </a>
           </motion.div>
         </div>
       </section>
 
-      {/* WHAT IS */}
-      <Section className="border-t-0">
-        <Container>
-          <H2><GradientHeadline>What is Media Stream AI?</GradientHeadline></H2>
-          <Lead>
-            Media Stream AI blends broadcast-grade playout with proprietary in-house LLMs to deliver fully personalized live TV streams.
-            We license our technology to broadcasters and content owners globally across live, VOD, and FAST.
-          </Lead>
-
-          <Grid cols="lg:grid-cols-4">
-            <Card className="p-6"><div className="text-white/90">Proprietary LLMs</div><div className="mt-2 text-white/70 text-sm">Trained for media tasks</div></Card>
-            <Card className="p-6"><div className="text-white/90">Adaptive Playout</div><div className="mt-2 text-white/70 text-sm">Per-viewer schedules</div></Card>
-            <Card className="p-6"><div className="text-white/90">Content Tagging AI</div><div className="mt-2 text-white/70 text-sm">Topics • Tone • Safety</div></Card>
-            <Card className="p-6"><div className="text-white/90">Broadcast-Grade</div><div className="mt-2 text-white/70 text-sm">Live • VOD • FAST</div></Card>
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* HOW IT WORKS */}
-      <Section>
-        <Container>
-          <H2><GradientHeadline>How it works</GradientHeadline></H2>
-          <Lead>AI tagging + knowledge graph + behavioral & opt-in biometric signals feed a real-time preference model that drives adaptive playout.</Lead>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center mt-10">
-            <div>
-              <ul className="space-y-2 text-white/80">
-                <li>• Content Tagging AI maps topics, tone, and compliance</li>
-                <li>• Personalization blends behavior with user-consented biometrics</li>
-                <li>• Adaptive playout generates schedules in milliseconds</li>
-              </ul>
-            </div>
-            <Card className="p-6">
-              <div className="aspect-[16/9] w-full overflow-hidden rounded-xl">
-                <img src="/media/mrf-litterstream-pid.png" alt="System diagram" className="w-full h-full object-cover" />
-              </div>
-            </Card>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ECOSYSTEM */}
-      <Section>
-        <Container>
-          <H2><GradientHeadline>Ecosystem</GradientHeadline></H2>
-          <Grid>
-            <a href="https://www.intuitv.app" className="group">
-              <Card className="overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden">
-                  <img src="/media/intuitv-colourful.jpg" alt="IntuiTV" className="w-full h-full object-cover group-hover:scale-[1.02] transition" />
-                </div>
-                <div className="p-6">
-                  <div className="text-sm uppercase tracking-wider text-white/60">Initiative</div>
-                  <div className="mt-2 text-xl">IntuiTV — Personalized Channels</div>
-                  <p className="mt-2 text-white/70">Our consumer brand for mood-aware live TV.</p>
-                </div>
-              </Card>
-            </a>
-
-            <a href="/datacentre" className="group">
-              <Card className="overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden">
-                  <img src="/media/datacentre-office.png" alt="Data Centre" className="w-full h-full object-cover group-hover:scale-[1.02] transition" />
-                </div>
-                <div className="p-6">
-                  <div className="text-sm uppercase tracking-wider text-white/60">Initiative</div>
-                  <div className="mt-2 text-xl">Canal-Side AI Data Centre</div>
-                  <p className="mt-2 text-white/70">Sustainable, canal-cooled compute powering our AI.</p>
-                </div>
-              </Card>
-            </a>
-
-            <a href="/vp-studio" className="group">
-              <Card className="overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden">
-                  <img src="/media/vp-studio-mockup.jpg" alt="VP Studio" className="w-full h-full object-cover group-hover:scale-[1.02] transition" />
-                </div>
-                <div className="p-6">
-                  <div className="text-sm uppercase tracking-wider text-white/60">Initiative</div>
-                  <div className="mt-2 text-xl">AI-Powered VP Studios</div>
-                  <p className="mt-2 text-white/70">Cost-efficient virtual stages with AI Director.</p>
-                </div>
-              </Card>
-            </a>
-          </Grid>
-        </Container>
-      </Section>
+      {/* Ecosystem moved up */}
+      <EcosystemSection />
+      <WhatIsSection />
+      <HowItWorksSection />
     </>
+  );
+}
+
+function EcosystemSection() {
+  return (
+    <section className="py-20 border-t border-white/5">
+      <motion.div
+        className="max-w-7xl mx-auto px-6 grid lg:grid-cols-3 gap-6"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: { staggerChildren: 0.2 },
+          },
+        }}
+      >
+        <EcosystemCard
+          title="IntuiTV — Personalized Channels"
+          desc="Our consumer brand for mood-aware live TV."
+          href="https://www.intuitv.app"
+          cta="Visit intuitv.app"
+          image="/media/IntuiTV - Colourful Image.png"
+        />
+        <EcosystemCard
+          title="Canal-Side AI Data Centre"
+          desc="Sustainable, canal-cooled compute powering our AI."
+          href="/datacentre"
+          cta="Explore Data Centre"
+          image="/media/AI DATA CENTRE - WHITE.png"
+        />
+        <EcosystemCard
+          title="AI-Powered VP Studios"
+          desc="Cost-efficient virtual stages with AI Director."
+          href="/vp-studio"
+          cta="See the Studio"
+          image="/media/Virtual Production Studio Mock Up.png"
+        />
+      </motion.div>
+    </section>
+  );
+}
+
+function EcosystemCard({ title, desc, href, cta, image }: any) {
+  return (
+    <motion.a
+      href={href}
+      className="group rounded-3xl border border-white/10 bg-white/[0.03] p-6 block hover:bg-white/[0.06] transition relative overflow-hidden"
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+      }}
+      whileHover={{ scale: 1.03 }}
+    >
+      {/* subtle glow effect on hover */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-cyan-500/10 blur-2xl" />
+      <Image src={image} alt={title} width={600} height={400} className="rounded-xl mb-4 relative z-10" />
+      <div className="text-sm uppercase tracking-wider text-white/60 font-glacial relative z-10">Initiative</div>
+      <div className="mt-2 text-xl font-horizon relative z-10">{title}</div>
+      <p className="mt-2 text-white/70 font-glacial relative z-10">{desc}</p>
+      <div className="mt-4 inline-flex items-center gap-2 text-white/80 group-hover:text-white font-glacial relative z-10">
+        {cta} <ArrowRight className="h-4 w-4" />
+      </div>
+    </motion.a>
+  );
+}
+
+function WhatIsSection() {
+  return (
+    <section className="py-20 max-w-7xl mx-auto px-6">
+      <h2 className="text-3xl font-horizon">What is Media Stream AI?</h2>
+      <p className="mt-4 text-white/70 max-w-3xl font-glacial">
+        Media Stream AI blends broadcast-grade playout with proprietary in-house LLMs to deliver fully
+        personalized live TV streams. We license our technology to broadcasters and content owners globally
+        across live, VOD, and FAST.
+      </p>
+      <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Feature icon={<Cpu className="h-5 w-5" />} title="Proprietary LLMs" desc="Trained for media tasks" />
+        <Feature icon={<Gauge className="h-5 w-5" />} title="Adaptive Playout" desc="Per-viewer schedules" />
+        <Feature icon={<Sparkles className="h-5 w-5" />} title="Content Tagging AI" desc="Topics • Tone • Safety" />
+        <Feature icon={<Film className="h-5 w-5" />} title="Broadcast-Grade" desc="Live • VOD • FAST" />
+      </div>
+    </section>
+  );
+}
+
+function HowItWorksSection() {
+  return (
+    <section className="py-20 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-horizon">How it works</h2>
+          <p className="mt-4 text-white/70 font-glacial">
+            AI tagging + knowledge graph + behavioral & opt-in biometric signals feed a real-time preference
+            model that drives adaptive playout.
+          </p>
+          <ul className="mt-6 space-y-2 text-white/80 font-glacial">
+            <li>• Content Tagging AI maps topics, tone, and compliance</li>
+            <li>• Personalization blends behavior with user-consented biometrics</li>
+            <li>• Adaptive playout generates schedules in milliseconds</li>
+          </ul>
+        </motion.div>
+        <motion.div
+          className="rounded-3xl border border-white/10 p-6 bg-white/[0.03]"
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <Image
+            src="/media/MRF_LitterStream_PID.png"
+            alt="Content flow diagram"
+            width={900}
+            height={360}
+            className="rounded-xl"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Feature({ icon, title, desc }: any) {
+  return (
+    <motion.div
+      className="rounded-2xl border border-white/10 p-4 bg-white/[0.03]"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
+      <div className="flex items-center gap-2 text-white/90">
+        <span className="rounded-lg bg-white/10 p-2">{icon}</span>
+        <span className="font-horizon">{title}</span>
+      </div>
+      <div className="mt-2 text-sm text-white/70 font-glacial">{desc}</div>
+    </motion.div>
   );
 }
