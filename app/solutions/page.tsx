@@ -10,28 +10,28 @@ export default function SolutionsPage() {
       key: "tagging",
       title: "Content Tagging AI Model",
       tagline: "Automated metadata enrichment for faster, smarter media workflows.",
-      logo: "/media/logos/solutions/content-tagging.png", // put your PNG here
+      logo: "/media/logos/solutions/tagging.png", // put your PNG here
       href: "/contact",
     },
     {
       key: "personalisation",
       title: "Content Personalisation AI Model",
       tagline: "Real-time recommendations that adapt to mood, context, and behavior.",
-      logo: "/media/logos/solutions/content-personalisation.png",
+      logo: "/media/logos/solutions/personalisation.png",
       href: "/contact",
     },
     {
       key: "hls",
       title: "AI Powered HLS Playout System",
       tagline: "Dynamic broadcast playout that responds to every viewer.",
-      logo: "/media/logos/solutions/hls-playout.png",
+      logo: "/media/logos/solutions/hls.png",
       href: "/contact",
     },
     {
       key: "vpstudio",
       title: "Autonomous // Robotic AI Powered VP Studio",
       tagline: "A fully AI-directed virtual production studio — from script to screen.",
-      logo: "/media/logos/solutions/ai-vp-studio.png",
+      logo: "/media/logos/solutions/vpstudio.png",
       href: "/vp-studio",
     },
   ];
