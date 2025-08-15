@@ -2,125 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --------------------------
-   Font setup
---------------------------- */
-:root {
-  --font-horizon: "Horizon", sans-serif;
-  --font-glacial: "Glacial Indifference", sans-serif;
+/* -----------------------
+   Fonts
+------------------------*/
+
+/* Horizon (headline) — place Horizon.woff2 at /public/fonts/Horizon.woff2 */
+@font-face {
+  font-family: "Horizon";
+  src: url("/fonts/Horizon.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* Apply body font */
-body {
-  font-family: var(--font-glacial);
-  background-color: #000; /* black site */
-  color: white;
+/* Glacial Indifference (body) */
+@import url("https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700&display=swap");
+
+/* Utilities to apply fonts */
+.font-horizon { font-family: "Horizon", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+.font-glacial { font-family: "Glacial Indifference", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+
+/* Enforce typography everywhere (mobile → desktop) */
+html, body { @apply bg-black text-white antialiased font-glacial; }
+h1, h2, h3, h4, h5, h6 { @apply font-horizon; }
+
+/* -----------------------
+   Futuristic Accents
+------------------------*/
+
+/* Neon nav underline micro-interaction */
+.nav-link{ position:relative; padding-bottom:.2rem; }
+.nav-link::after{
+  content:""; position:absolute; left:0; bottom:-3px; height:2px; width:100%;
+  background: linear-gradient(90deg,#22d3ee,#a855f7,#22d3ee);
+  transform: scaleX(0); transform-origin:left;
+  transition: transform .35s ease;
+  filter: drop-shadow(0 0 6px rgba(34,211,238,.7));
+}
+.nav-link:hover::after, .nav-link:focus-visible::after{ transform: scaleX(1); }
+
+/* Focus ring */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34,211,238,.4), 0 0 0 6px rgba(168,85,247,.25);
+  border-radius: 12px;
 }
 
-/* Headings use Horizon font */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-horizon);
-  letter-spacing: 0.5px;
-}
-
-/* Smooth transitions */
-a, button {
-  transition: all 0.3s ease;
-}
-
-/* Hover glow on links */
-a:hover {
-  color: #fff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-}
-
-/* --------------------------
-   Futuristic grid background
---------------------------- */
+/* Glowing grid background for sections/footers */
 .grid-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background:
+    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
   -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
   animation: gridMove 20s linear infinite;
   z-index: 0;
 }
+@keyframes gridMove { from { background-position: 0 0; } to { background-position: 40px 40px; } }
 
-@keyframes gridMove {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 40px 40px;
-  }
-}
-
-/* --------------------------
-   Section titles with neon accent
---------------------------- */
+/* Section headline underline glow */
 h2 {
   position: relative;
   display: inline-block;
-  padding-bottom: 0.5rem;
+  padding-bottom: .6rem;
 }
-
-h2::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 100%;
-  background: linear-gradient(90deg, #00f0ff, #ff00ff);
+h2::after{
+  content:""; position:absolute; left:0; bottom:0; height:3px; width:100%;
+  background: linear-gradient(90deg,#22d3ee,#a855f7);
   border-radius: 2px;
-  animation: pulseGlow 2s infinite;
+  box-shadow: 0 0 12px rgba(34,211,238,.6), 0 0 18px rgba(168,85,247,.4);
 }
 
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 6px rgba(0, 240, 255, 0.7), 0 0 12px rgba(255, 0, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(0, 240, 255, 0.9), 0 0 20px rgba(255, 0, 255, 0.6);
-  }
-}
+/* Card glow */
+.card-glow { transition: box-shadow .35s ease, transform .35s ease; }
+.card-glow:hover { box-shadow: 0 0 20px rgba(34,211,238,.25), 0 0 40px rgba(168,85,247,.15); transform: translateY(-2px); }
 
-/* --------------------------
-   Cards & buttons
---------------------------- */
-.card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+/* Section padding helper */
+.section { padding-top: 5rem; padding-bottom: 5rem; }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-medium;
 }
-
-button, .btn {
-  border-radius: 1rem;
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(90deg, #00f0ff, #ff00ff);
-  color: black;
+.btn-primary {
+  background: #fff; color: #000;
 }
-
-button:hover, .btn:hover {
-  filter: brightness(1.2);
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.7),
-              0 0 20px rgba(255, 0, 255, 0.5);
+.btn-ghost {
+  background: rgba(255,255,255,0.08); color: #fff;
 }
-
-/* --------------------------
-   Utility
---------------------------- */
-.section {
-  padding: 5rem 1.5rem;
-}
+.btn:hover { filter: brightness(1.06); }
