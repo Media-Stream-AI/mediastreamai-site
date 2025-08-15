@@ -5,6 +5,30 @@ import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// app/layout.tsx
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Media Stream AI",
+  description: "SMART TV, MADE PERSONAL",
+  icons: {
+    icon: "/favicon.png", // path inside public/
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+
 export const metadata = {
   title: "Media Stream AI",
   description:
