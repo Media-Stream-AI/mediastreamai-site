@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-// If you added the interactive block:
-import AIDirectorWidget from "@/components/AIDirectorWidget"; // or remove this line if not using yet
+import AIDirectorWidget from "@/components/AIDirectorWidget"; // ensure this file exists
 
 export default function VPStudioPage() {
   return (
@@ -97,19 +96,24 @@ export default function VPStudioPage() {
         </div>
       </section>
 
-      {/* Speak To Our Director (optional new section) */}
-      {/* Remove this whole section if you don't want the interactive block here yet */}
+      {/* Speak To Our Director */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl mb-6">Speak To Our Director</h2>
-          {/* Ensure this component exists, or comment it out */}
-          <AIDirectorWidget />
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl sm:text-4xl">Speak To Our Director</h2>
+            {/* optional small brand mark */}
+            {/* <img src="/logo/msai-logo.svg" alt="Media Stream AI" className="h-8 opacity-60" /> */}
+          </div>
+
+          <div className="rounded-2xl bg-slate-900/50 ring-1 ring-slate-700/50 shadow-2xl p-4 md:p-6 relative overflow-hidden">
+            <AIDirectorWidget />
+          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="section border-t border-white/10 text-center">
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-ww-3xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl">See the Studio</h2>
           <p className="mt-4 text-white/70">
             Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.
