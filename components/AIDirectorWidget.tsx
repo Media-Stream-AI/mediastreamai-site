@@ -98,7 +98,7 @@ export default function AIDirectorWidget() {
       setWebglSupported(false);
       // Soft fallback message
       const fallback = document.createElement("div");
-      fallback.className = "text-sm opacity-70";
+      fallback.className = "p-4 text-center text-xs opacity-70";
       fallback.innerText =
         "Your browser doesn’t support WebGL. The director will respond via text/voice only.";
       mountRef.current.appendChild(fallback);
@@ -132,7 +132,7 @@ export default function AIDirectorWidget() {
     });
     ro.observe(mountRef.current);
 
-    // Lights
+    // Lights (cool key + rim, soft fill)
     const key = new THREE.DirectionalLight(0xffffff, 1.05);
     key.position.set(2, 2, 3);
     scene.add(key);
@@ -144,28 +144,65 @@ export default function AIDirectorWidget() {
     const fill = new THREE.AmbientLight(0x334466, 0.6);
     scene.add(fill);
 
-    // Head group
+    // ------------- ANDROID / DATA-INSPIRED HEAD -------------
     const headGroup = new THREE.Group();
     scene.add(headGroup);
     headGroupRef.current = headGroup;
 
-    // Head (ellipsoid)
-    const headGeo = new THREE.SphereGeometry(1, 48, 48);
+    /** Palette tuned for “android” look */
+    const SKIN = 0xf0f2ff;       // pale porcelain
+    const SHEEN = { metalness: 0.18, roughness: 0.3 };
+    const HAIR = 0x1a1f2b;       // very dark blue-black
+    const AMBER = 0xd8ff72;      // android-amber iris
+    const LIP  = 0x9aa4c6;       // subtle cool lip line
+
+    // Head (taller ellipsoid, slightly squared jaw)
+    const headGeo = new THREE.SphereGeometry(1, 64, 64);
     const headMat = new THREE.MeshStandardMaterial({
-      color: 0xd6d9ff,
-      metalness: 0.2,
-      roughness: 0.35,
+      color: SKIN,
+      ...SHEEN,
     });
     const head = new THREE.Mesh(headGeo, headMat);
-    head.scale.set(1.0, 1.15, 1.0);
+    head.scale.set(0.98, 1.2, 1.0);
+    head.position.set(0, 0, 0);
     headGroup.add(head);
 
-    // Eyes
-    const eyeGeo = new THREE.SphereGeometry(0.08, 24, 24);
+    // Subtle jaw “square-off”
+    const pos = (head.geometry as any).attributes.position as THREE.BufferAttribute;
+    for (let i = 0; i < pos.count; i++) {
+      const y = pos.getY(i);
+      if (y < -0.2) {
+        const x = pos.getX(i);
+        const z = pos.getZ(i);
+        const scale = 1 + (Math.min(0, y + 0.2) * -0.6); // widens lower face
+        pos.setX(i, x * scale);
+        pos.setZ(i, z * scale * 0.95);
+      }
+    }
+    pos.needsUpdate = true;
+    head.geometry.computeVertexNormals();
+
+    // Hair cap (slicked-back cap via clipping plane)
+    const hairGeo = new THREE.SphereGeometry(1.01, 64, 64);
+    const hairMat = new THREE.MeshStandardMaterial({
+      color: HAIR,
+      metalness: 0.0,
+      roughness: 0.9,
+    });
+    const hair = new THREE.Mesh(hairGeo, hairMat);
+    hair.scale.copy(head.scale);
+    hair.position.copy(head.position);
+    const clipPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0.05); // keeps above y=0.05
+    (hair.material as any).clippingPlanes = [clipPlane];
+    (hair.material as any).clipShadows = true;
+    scene.add(hair);
+
+    // Eyes (android amber)
+    const eyeGeo = new THREE.SphereGeometry(0.085, 24, 24);
     const eyeMat = new THREE.MeshStandardMaterial({
-      emissive: 0xe6ff66,
+      emissive: AMBER,
       color: 0x222222,
-      emissiveIntensity: 1.2,
+      emissiveIntensity: 1.35,
     });
     const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
     leftEye.position.set(-0.32, 0.18, 0.82);
@@ -173,39 +210,76 @@ export default function AIDirectorWidget() {
     rightEye.position.set(0.32, 0.18, 0.82);
     headGroup.add(leftEye, rightEye);
 
-    // Eyelids (simple planes)
-    const lidGeo = new THREE.PlaneGeometry(0.22, 0.12);
+    // Pupils (tiny dark discs)
+    const pupilGeo = new THREE.CylinderGeometry(0.018, 0.018, 0.01, 16);
+    const pupilMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0, roughness: 1 });
+    const pupilL = new THREE.Mesh(pupilGeo, pupilMat);
+    const pupilR = new THREE.Mesh(pupilGeo, pupilMat);
+    [pupilL, pupilR].forEach((p) => (p.rotation.x = Math.PI / 2));
+    pupilL.position.set(-0.32, 0.18, 0.88);
+    pupilR.position.set(0.32, 0.18, 0.88);
+    headGroup.add(pupilL, pupilR);
+
+    // Eyelids (slightly darker)
+    const lidGeo = new THREE.PlaneGeometry(0.23, 0.12);
     const lidMat = new THREE.MeshStandardMaterial({
-      color: 0x070a0f,
+      color: 0x0a0e16,
       metalness: 0,
       roughness: 1,
     });
-    const UL = new THREE.Mesh(lidGeo, lidMat);
-    UL.position.set(-0.32, 0.24, 0.79);
-    const UR = new THREE.Mesh(lidGeo, lidMat);
-    UR.position.set(0.32, 0.24, 0.79);
-    const LL = new THREE.Mesh(lidGeo, lidMat);
-    LL.position.set(-0.32, 0.12, 0.79);
-    const LR = new THREE.Mesh(lidGeo, lidMat);
-    LR.position.set(0.32, 0.12, 0.79);
+    const UL = new THREE.Mesh(lidGeo, lidMat); UL.position.set(-0.32, 0.24, 0.79);
+    const UR = new THREE.Mesh(lidGeo, lidMat); UR.position.set(0.32, 0.24, 0.79);
+    const LL = new THREE.Mesh(lidGeo, lidMat); LL.position.set(-0.32, 0.12, 0.79);
+    const LR = new THREE.Mesh(lidGeo, lidMat); LR.position.set(0.32, 0.12, 0.79);
     headGroup.add(UL, UR, LL, LR);
     eyelidsRef.current = { upper: [UL, UR], lower: [LL, LR] };
 
-    // Jaw
+    // Simple nose bridge (thin box)
+    const noseGeo = new THREE.BoxGeometry(0.08, 0.22, 0.06);
+    const noseMat = new THREE.MeshStandardMaterial({ color: SKIN, ...SHEEN });
+    const nose = new THREE.Mesh(noseGeo, noseMat);
+    nose.position.set(0, 0.12, 0.85);
+    headGroup.add(nose);
+
+    // Eyebrows (thin bars)
+    const browGeo = new THREE.BoxGeometry(0.25, 0.02, 0.02);
+    const browMat = new THREE.MeshStandardMaterial({ color: 0x2b3344, metalness: 0, roughness: 1 });
+    const browL = new THREE.Mesh(browGeo, browMat);
+    const browR = new THREE.Mesh(browGeo, browMat);
+    browL.position.set(-0.29, 0.28, 0.82);
+    browR.position.set(0.29, 0.28, 0.82);
+    headGroup.add(browL, browR);
+
+    // Lip line (thin, slightly darker band)
+    const lipGeo = new THREE.BoxGeometry(0.36, 0.01, 0.04);
+    const lipMat = new THREE.MeshStandardMaterial({ color: LIP, metalness: 0.05, roughness: 0.6 });
+    const lip = new THREE.Mesh(lipGeo, lipMat);
+    lip.position.set(0, -0.06, 0.86);
+    headGroup.add(lip);
+
+    // Ear nubs (small half-spheres)
+    const earGeo = new THREE.SphereGeometry(0.12, 24, 24, 0, Math.PI * 2, Math.PI / 2, Math.PI);
+    const earMat = new THREE.MeshStandardMaterial({ color: SKIN, ...SHEEN });
+    const earL = new THREE.Mesh(earGeo, earMat);
+    const earR = new THREE.Mesh(earGeo, earMat);
+    earL.position.set(-0.9, 0.06, 0.0);
+    earR.position.set(0.9, 0.06, 0.0);
+    earL.rotation.z = Math.PI / 2;
+    earR.rotation.z = -Math.PI / 2;
+    headGroup.add(earL, earR);
+
+    // Jaw (animated)
     const jawGroup = new THREE.Group();
     jawGroup.position.set(0, -0.22, 0.76);
     headGroup.add(jawGroup);
     const jawGeo = new THREE.BoxGeometry(0.9, 0.4, 0.5);
-    const jawMat = new THREE.MeshStandardMaterial({
-      color: 0xd6d9ff,
-      metalness: 0.25,
-      roughness: 0.4,
-    });
+    const jawMat = new THREE.MeshStandardMaterial({ color: SKIN, ...SHEEN });
     const jaw = new THREE.Mesh(jawGeo, jawMat);
     jaw.position.set(0, -0.2, 0);
     jawGroup.add(jaw);
     jawRef.current = jawGroup;
 
+    // subtle overall placement
     headGroup.position.y = 0.1;
 
     // Animation loop
@@ -311,9 +385,40 @@ export default function AIDirectorWidget() {
     }
   }
 
+  // Small helper to give a “measured android” cadence
+  function applyAndroidProsody(s: string) {
+    return s
+      .replace(/, /g, ", … ")
+      .replace(/: /g, ": … ")
+      .replace(/; /g, "; … ")
+      .replace(/\. /g, ". … ");
+  }
+
+  // Optional: short “android chime” at start of speech
+  function pingChime() {
+    try {
+      const ctx =
+        audioCtxRef.current ||
+        new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioCtxRef.current = ctx;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 880; // A5
+      gain.gain.value = 0.0001;
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      // quick ping envelope
+      gain.gain.linearRampToValueAtTime(0.04, ctx.currentTime + 0.03);
+      gain.gain.linearRampToValueAtTime(0.0, ctx.currentTime + 0.12);
+      osc.stop(ctx.currentTime + 0.14);
+    } catch {}
+  }
+
   function startSpeaking() {
     talkingRef.current = true;
     setSpeaking(true);
+    pingChime();
     if (themeAudioRef.current) themeAudioRef.current.volume = 0.04; // duck theme
   }
   function stopSpeaking() {
@@ -332,7 +437,7 @@ export default function AIDirectorWidget() {
         const res = await fetch("/api/tts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, voice: "alloy" }),
+          body: JSON.stringify({ text: applyAndroidProsody(text), voice: "verse" }), // neutral/precise vibe
         });
         if (!res.ok) throw new Error("TTS failed");
         const blob = await res.blob();
@@ -355,19 +460,27 @@ export default function AIDirectorWidget() {
       }
     }
 
-    // Fallback: browser SpeechSynthesis (no lipsync analyser, but we animate)
+    // Fallback: browser SpeechSynthesis (tighter, precise cadence)
     try {
       (window as any).speechSynthesis.cancel();
     } catch {}
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.pitch = 1.05;
-    utter.rate = 1.0;
+    const utter = new SpeechSynthesisUtterance(applyAndroidProsody(text));
+    utter.pitch = 0.95;  // slightly lower
+    utter.rate = 1.05;   // slightly brisk
     utter.lang = "en-GB";
+
+    // Try to pick a neutral/UK voice if available
+    const voices = (window as any).speechSynthesis.getVoices?.() || [];
+    const preferred =
+      voices.find((v: any) => /en-GB|English.*United Kingdom/i.test(v.lang || v.name)) ||
+      voices.find((v: any) => /English/i.test(v.lang || v.name));
+    if (preferred) utter.voice = preferred;
+
     utter.onstart = () => {
       startSpeaking();
     };
     utter.onboundary = () => {
-      talkTargetOpenRef.current = 0.6 + Math.random() * 0.3;
+      talkTargetOpenRef.current = 0.55 + Math.random() * 0.25;
     };
     utter.onend = () => {
       stopSpeaking();
@@ -454,9 +567,8 @@ export default function AIDirectorWidget() {
   // ---------- INITIAL WELCOME ----------
   useEffect(() => {
     const opener =
-      "Hello, I’m your Virtual Director. Say: ‘Let’s create a music video’ or ‘I want a corporate video.’";
+      "Hello, I am your Virtual Director. Shall we create a music video, or would you prefer a corporate film?";
     pushLog("AI", opener);
-    // Don't auto-speak on SSR/first paint to avoid autoplay issues.
     setTimeout(() => speak(opener), 400);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
