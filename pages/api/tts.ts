@@ -1,21 +1,27 @@
-// pages/api/tts.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import OpenAI from "openai";
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
+export const config = {
+  api: {
+    bodyParser: { sizeLimit: "1mb" },
+  },
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+  if (req.method !== "POST") return res.status(405).end();
+
+  const { text, voice = "verse" } = req.body || {};
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  // If no key, signal widget to fall back to browser TTS
+  if (!apiKey) return res.status(204).end();
 
   try {
-    const { text, voice = "alloy" } = req.body as { text?: string; voice?: string };
-    if (!text || typeof text !== "string") {
-      return res.status(400).json({ error: "Missing 'text' string in body" });
-    }
+    // Lazy import to avoid type issues if SDK changes
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const OpenAI = require("openai");
+    const client = new OpenAI({ apiKey });
 
-    // No `format` here — the SDK returns audio/mpeg by default.
+    // Newer SDKs: audio.speech.create({ model, voice, input })
     const audio = await client.audio.speech.create({
       model: "gpt-4o-mini-tts",
       voice,
@@ -23,12 +29,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     const buffer = Buffer.from(await audio.arrayBuffer());
-
     res.setHeader("Content-Type", "audio/mpeg");
-    res.setHeader("Content-Length", buffer.length.toString());
-    res.status(200).send(buffer);
-  } catch (err: any) {
-    console.error("[/api/tts] error:", err?.message || err);
-    res.status(500).json({ error: "TTS failed" });
+    res.setHeader("Cache-Control", "no-store");
+    return res.status(200).send(buffer);
+  } catch (e) {
+    // Any error → let widget fall back gracefully
+    return res.status(204).end();
   }
 }
