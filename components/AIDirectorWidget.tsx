@@ -2,12 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import type {
-  Group,
-  Mesh,
-  WebGLRenderer,
-  PerspectiveCamera
-} from "three";
 
 type ChatTurn = { who: "AI" | "You"; text: string };
 
@@ -22,11 +16,11 @@ export default function AIDirectorWidget() {
 
   // --- 3D Refs ---
   const mountRef = useRef<HTMLDivElement | null>(null);
-  const jawRef = useRef<Group | null>(null);
-  const headGroupRef = useRef<Group | null>(null);
-  const eyelidsRef = useRef<{ upper: Mesh[]; lower: Mesh[] } | null>(null);
-  const rendererRef = useRef<WebGLRenderer | null>(null);
-  const cameraRef = useRef<PerspectiveCamera | null>(null);
+  const jawRef = useRef<THREE.Object3D | null>(null);
+  const headGroupRef = useRef<THREE.Object3D | null>(null);
+  const eyelidsRef = useRef<{ upper: THREE.Mesh[]; lower: THREE.Mesh[] } | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rafRef = useRef<number | null>(null);
 
   // --- Lipsync (Web Audio) ---
