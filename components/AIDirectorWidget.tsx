@@ -2,13 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import type {
+  Group,
+  Mesh,
+  WebGLRenderer,
+  PerspectiveCamera
+} from "three";
 
 type ChatTurn = { who: "AI" | "You"; text: string };
 
 export default function AIDirectorWidget() {
   // --- UI State ---
   const [listening, setListening] = useState(false);
-  const [recognition, setRecognition] = useState<any>(null); // keep 'any' to avoid TS DOM conflicts
+  const [recognition, setRecognition] = useState<any>(null); // keep 'any' to avoid DOM typing collisions
   const [log, setLog] = useState<ChatTurn[]>([]);
   const [textInput, setTextInput] = useState("");
   const [speaking, setSpeaking] = useState(false);
@@ -16,11 +22,11 @@ export default function AIDirectorWidget() {
 
   // --- 3D Refs ---
   const mountRef = useRef<HTMLDivElement | null>(null);
-  const jawRef = useRef<THREE.Group | null>(null);
-  const headGroupRef = useRef<THREE.Group | null>(null);
-  const eyelidsRef = useRef<{ upper: THREE.Mesh[]; lower: THREE.Mesh[] } | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const jawRef = useRef<Group | null>(null);
+  const headGroupRef = useRef<Group | null>(null);
+  const eyelidsRef = useRef<{ upper: Mesh[]; lower: Mesh[] } | null>(null);
+  const rendererRef = useRef<WebGLRenderer | null>(null);
+  const cameraRef = useRef<PerspectiveCamera | null>(null);
   const rafRef = useRef<number | null>(null);
 
   // --- Lipsync (Web Audio) ---
@@ -67,9 +73,7 @@ export default function AIDirectorWidget() {
     };
     setRecognition(recog);
     return () => {
-      try {
-        recog.stop();
-      } catch {}
+      try { recog.stop(); } catch {}
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -102,9 +106,11 @@ export default function AIDirectorWidget() {
     const key = new THREE.DirectionalLight(0xffffff, 1.0);
     key.position.set(2, 2, 3);
     scene.add(key);
+
     const rim = new THREE.DirectionalLight(0x99bbff, 0.8);
     rim.position.set(-2, 1.5, -2);
     scene.add(rim);
+
     const fill = new THREE.AmbientLight(0x334466, 0.6);
     scene.add(fill);
 
@@ -118,7 +124,7 @@ export default function AIDirectorWidget() {
     const headMat = new THREE.MeshStandardMaterial({
       color: 0xd6d9ff,
       metalness: 0.2,
-      roughness: 0.35,
+      roughness: 0.35
     });
     const head = new THREE.Mesh(headGeo, headMat);
     head.scale.set(1.0, 1.15, 1.0);
@@ -129,7 +135,7 @@ export default function AIDirectorWidget() {
     const eyeMat = new THREE.MeshStandardMaterial({
       emissive: 0xe6ff66,
       color: 0x222222,
-      emissiveIntensity: 1.2,
+      emissiveIntensity: 1.2
     });
     const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
     leftEye.position.set(-0.32, 0.18, 0.82);
@@ -139,15 +145,11 @@ export default function AIDirectorWidget() {
 
     // Eyelids
     const lidGeo = new THREE.PlaneGeometry(0.22, 0.12);
-    const lidMat = new THREE.MeshStandardMaterial({ color: 0x070a0f });
-    const UL = new THREE.Mesh(lidGeo, lidMat);
-    UL.position.set(-0.32, 0.24, 0.79);
-    const UR = new THREE.Mesh(lidGeo, lidMat);
-    UR.position.set(0.32, 0.24, 0.79);
-    const LL = new THREE.Mesh(lidGeo, lidMat);
-    LL.position.set(-0.32, 0.12, 0.79);
-    const LR = new THREE.Mesh(lidGeo, lidMat);
-    LR.position.set(0.32, 0.12, 0.79);
+    const lidMat = new THREE.MeshStandardMaterial({ color: 0x070a0f, metalness: 0, roughness: 1 });
+    const UL = new THREE.Mesh(lidGeo, lidMat); UL.position.set(-0.32, 0.24, 0.79);
+    const UR = new THREE.Mesh(lidGeo, lidMat); UR.position.set(0.32, 0.24, 0.79);
+    const LL = new THREE.Mesh(lidGeo, lidMat); LL.position.set(-0.32, 0.12, 0.79);
+    const LR = new THREE.Mesh(lidGeo, lidMat); LR.position.set(0.32, 0.12, 0.79);
     headGroup.add(UL, UR, LL, LR);
     eyelidsRef.current = { upper: [UL, UR], lower: [LL, LR] };
 
@@ -155,11 +157,12 @@ export default function AIDirectorWidget() {
     const jawGroup = new THREE.Group();
     jawGroup.position.set(0, -0.22, 0.76);
     headGroup.add(jawGroup);
+
     const jawGeo = new THREE.BoxGeometry(0.9, 0.4, 0.5);
     const jawMat = new THREE.MeshStandardMaterial({
       color: 0xd6d9ff,
       metalness: 0.25,
-      roughness: 0.4,
+      roughness: 0.4
     });
     const jaw = new THREE.Mesh(jawGeo, jawMat);
     jaw.position.set(0, -0.2, 0);
@@ -206,12 +209,12 @@ export default function AIDirectorWidget() {
     };
     rafRef.current = requestAnimationFrame(tick);
 
+    // Cleanup
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       renderer.dispose();
       if (renderer.domElement && mountRef.current)
         mountRef.current.removeChild(renderer.domElement);
-      // Cleanup geometries/materials
       scene.traverse((obj: any) => {
         if (obj.isMesh) {
           obj.geometry?.dispose?.();
@@ -273,6 +276,7 @@ export default function AIDirectorWidget() {
   async function speak(text: string) {
     pushLog("AI", text);
 
+    // Prefer HQ TTS via API if available
     if (useHQVoice) {
       try {
         const res = await fetch("/api/tts", {
@@ -302,23 +306,17 @@ export default function AIDirectorWidget() {
     }
 
     // Fallback: browser SpeechSynthesis
-    try {
-      (window as any).speechSynthesis.cancel();
-    } catch {}
+    try { (window as any).speechSynthesis.cancel(); } catch {}
     const utter = new SpeechSynthesisUtterance(text);
     utter.pitch = 1.05;
     utter.rate = 1.0;
     utter.lang = "en-GB";
-    utter.onstart = () => {
-      startSpeaking();
-    };
+    utter.onstart = () => { startSpeaking(); };
     utter.onboundary = () => {
       // jitter mouth a bit on word boundaries
       talkTargetOpenRef.current = 0.6 + Math.random() * 0.3;
     };
-    utter.onend = () => {
-      stopSpeaking();
-    };
+    utter.onend = () => { stopSpeaking(); };
     (window as any).speechSynthesis.speak(utter);
   }
 
@@ -366,15 +364,10 @@ export default function AIDirectorWidget() {
   const toggleListen = () => {
     if (!recognition) return;
     if (listening) {
-      try {
-        recognition.stop();
-      } catch {}
+      try { recognition.stop(); } catch {}
       setListening(false);
     } else {
-      try {
-        recognition.start();
-        setListening(true);
-      } catch {}
+      try { recognition.start(); setListening(true); } catch {}
       if (themeAudioRef.current && themeAudioRef.current.paused) {
         themeAudioRef.current.volume = 0.12;
         themeAudioRef.current.play().catch(() => {});
@@ -407,12 +400,7 @@ export default function AIDirectorWidget() {
           className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/50"
         />
         {/* Ambient theme */}
-        <audio
-          id="ai-theme-audio"
-          src="/audio/ai-director-theme.mp3"
-          loop
-          preload="auto"
-        />
+        <audio id="ai-theme-audio" src="/audio/ai-director-theme.mp3" loop preload="auto" />
         {/* Watermark */}
         <div className="pointer-events-none select-none absolute top-2 right-2 text-xs opacity-30 tracking-widest">
           Media Stream AI
@@ -468,8 +456,7 @@ export default function AIDirectorWidget() {
         </div>
 
         <p className="text-xs opacity-70">
-          Prototype only — simulates creative collaboration. No actual set generation or hardware
-          control yet.
+          Prototype only — simulates creative collaboration. No actual set generation or hardware control yet.
         </p>
       </div>
     </div>
