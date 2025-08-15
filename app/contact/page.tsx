@@ -1,6 +1,5 @@
 "use client";
 
-import { Section, Container, Card, H2, Lead } from "../../components/Blocks";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -17,14 +16,14 @@ export default function ContactPage() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // Netlify requires posting to a STATIC file for forms
     try {
+      // Netlify requires posting to a STATIC file for form handling
       const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(data as any).toString(),
       });
-      if (!res.ok) throw new Error("Failed to submit form");
+      if (!res.ok) throw new Error("Form submit failed");
       router.push("/thanks");
     } catch (err: any) {
       setError(err?.message || "Something went wrong");
@@ -33,19 +32,20 @@ export default function ContactPage() {
   }
 
   return (
-    <Section className="border-t-0">
-      <Container>
-        <H2>Talk to Sales</H2>
-        <Lead>Tell us about your goals — we’ll follow up with a tailored demo.</Lead>
+    <div className="bg-black text-white">
+      <section className="relative overflow-hidden text-center px-6 py-24">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-horizon">Contact Sales</h1>
+        <p className="mt-5 text-white/70 max-w-2xl mx-auto text-base sm:text-lg font-glacial">
+          Tell us about your goals — we’ll follow up with a tailored demo.
+        </p>
+      </section>
 
-        <Card className="p-6 mt-8">
-          {/* No data-netlify here; detection happens via public/__forms.html */}
-          <form name="contact" onSubmit={handleSubmit}>
+      <section className="section border-t border-white/10">
+        <div className="max-w-3xl mx-auto px-6">
+          <form name="contact" onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <input type="hidden" name="form-name" value="contact" />
-            {/* Honeypot matches the static form */}
-            <p className="hidden">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
-            </p>
+            {/* honeypot (must match __forms.html) */}
+            <p className="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -65,16 +65,16 @@ export default function ContactPage() {
 
             <div className="mt-4">
               <label className="text-sm text-white/70">How can we help?</label>
-              <textarea name="message" rows={5} required className="mt-1 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none" />
+              <textarea name="message" rows={6} required className="mt-1 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none" />
             </div>
 
-            <button disabled={pending} className="mt-6 px-6 py-3 rounded-2xl bg-white text-black">
+            <button disabled={pending} className="btn btn-primary mt-6">
               {pending ? "Sending…" : "Send"}
             </button>
             {error && <p className="mt-3 text-red-400 text-sm">{error}</p>}
           </form>
-        </Card>
-      </Container>
-    </Section>
+        </div>
+      </section>
+    </div>
   );
 }
