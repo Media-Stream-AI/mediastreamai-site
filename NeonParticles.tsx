@@ -2,9 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export default function NeonParticles({
-  density = 80, // lower = faster
-}: { density?: number }) {
+export default function NeonParticles({ density = 80 }: { density?: number }) {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const raf = useRef<number | null>(null);
 
@@ -43,7 +41,7 @@ export default function NeonParticles({
         ctx.fillStyle = "rgba(150, 200, 255, 0.35)";
         ctx.fill();
 
-        // soft glow
+        // glow
         ctx.beginPath();
         ctx.arc(x, y, r * 3, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(120, 180, 255, 0.07)";
@@ -63,7 +61,6 @@ export default function NeonParticles({
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden rounded-3xl">
       <canvas ref={ref} className="w-full h-full block" />
-      {/* holographic vignette */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(126,216,255,0.08),transparent_60%)]" />
     </div>
   );
