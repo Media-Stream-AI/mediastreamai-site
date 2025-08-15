@@ -9,6 +9,7 @@ import {
   personaRetail,
 } from "@/components/AnimatedMindMaps/personas";
 
+
 export default function TechnologyPage() {
   return (
     <div className="px-6 py-12 text-white bg-black min-h-screen">
