@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import type { Object3D, Mesh, WebGLRenderer, PerspectiveCamera } from "three";
 
 type ChatTurn = { who: "AI" | "You"; text: string };
 
@@ -15,13 +14,13 @@ export default function AIDirectorWidget() {
   const [speaking, setSpeaking] = useState(false);
   const [useHQVoice, setUseHQVoice] = useState(true);
 
-  // --- 3D Refs ---
+  // --- 3D Refs (untyped to avoid TS namespace issues in CI) ---
   const mountRef = useRef<HTMLDivElement | null>(null);
-  const jawRef = useRef<Object3D | null>(null);
-  const headGroupRef = useRef<Object3D | null>(null);
-  const eyelidsRef = useRef<{ upper: Mesh[]; lower: Mesh[] } | null>(null);
-  const rendererRef = useRef<WebGLRenderer | null>(null);
-  const cameraRef = useRef<PerspectiveCamera | null>(null);
+  const jawRef = useRef<any>(null);
+  const headGroupRef = useRef<any>(null);
+  const eyelidsRef = useRef<any>(null);
+  const rendererRef = useRef<any>(null);
+  const cameraRef = useRef<any>(null);
   const rafRef = useRef<number | null>(null);
 
   // --- Lipsync (Web Audio) ---
@@ -98,16 +97,9 @@ export default function AIDirectorWidget() {
     mountRef.current.appendChild(renderer.domElement);
 
     // Lights
-    const key = new THREE.DirectionalLight(0xffffff, 1.0);
-    key.position.set(2, 2, 3);
-    scene.add(key);
-
-    const rim = new THREE.DirectionalLight(0x99bbff, 0.8);
-    rim.position.set(-2, 1.5, -2);
-    scene.add(rim);
-
-    const fill = new THREE.AmbientLight(0x334466, 0.6);
-    scene.add(fill);
+    const key = new THREE.DirectionalLight(0xffffff, 1.0); key.position.set(2, 2, 3); scene.add(key);
+    const rim = new THREE.DirectionalLight(0x99bbff, 0.8); rim.position.set(-2, 1.5, -2); scene.add(rim);
+    const fill = new THREE.AmbientLight(0x334466, 0.6); scene.add(fill);
 
     // Head group
     const headGroup = new THREE.Group();
@@ -116,26 +108,16 @@ export default function AIDirectorWidget() {
 
     // Head (ellipsoid)
     const headGeo = new THREE.SphereGeometry(1, 48, 48);
-    const headMat = new THREE.MeshStandardMaterial({
-      color: 0xd6d9ff,
-      metalness: 0.2,
-      roughness: 0.35
-    });
+    const headMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.2, roughness: 0.35 });
     const head = new THREE.Mesh(headGeo, headMat);
     head.scale.set(1.0, 1.15, 1.0);
     headGroup.add(head);
 
     // Eyes
     const eyeGeo = new THREE.SphereGeometry(0.08, 24, 24);
-    const eyeMat = new THREE.MeshStandardMaterial({
-      emissive: 0xe6ff66,
-      color: 0x222222,
-      emissiveIntensity: 1.2
-    });
-    const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
-    leftEye.position.set(-0.32, 0.18, 0.82);
-    const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
-    rightEye.position.set(0.32, 0.18, 0.82);
+    const eyeMat = new THREE.MeshStandardMaterial({ emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2 });
+    const leftEye = new THREE.Mesh(eyeGeo, eyeMat); leftEye.position.set(-0.32, 0.18, 0.82);
+    const rightEye = new THREE.Mesh(eyeGeo, eyeMat); rightEye.position.set(0.32, 0.18, 0.82);
     headGroup.add(leftEye, rightEye);
 
     // Eyelids
@@ -154,11 +136,7 @@ export default function AIDirectorWidget() {
     headGroup.add(jawGroup);
 
     const jawGeo = new THREE.BoxGeometry(0.9, 0.4, 0.5);
-    const jawMat = new THREE.MeshStandardMaterial({
-      color: 0xd6d9ff,
-      metalness: 0.25,
-      roughness: 0.4
-    });
+    const jawMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.25, roughness: 0.4 });
     const jaw = new THREE.Mesh(jawGeo, jawMat);
     jaw.position.set(0, -0.2, 0);
     jawGroup.add(jaw);
@@ -178,7 +156,7 @@ export default function AIDirectorWidget() {
         headGroupRef.current.position.y = 0.1 + Math.sin(now * 0.8) * 0.03;
       }
 
-      // Blink
+      // Blink timer
       blinkTimerRef.current -= dt;
       if (blinkTimerRef.current <= 0) {
         blinkTimerRef.current = 3 + Math.random() * 3;
@@ -195,8 +173,7 @@ export default function AIDirectorWidget() {
         openTarget = Math.min(1, avg / 160);
       }
       const speed = 8.0;
-      currentOpenRef.current +=
-        (openTarget - currentOpenRef.current) * Math.min(1, speed * dt);
+      currentOpenRef.current += (openTarget - currentOpenRef.current) * Math.min(1, speed * dt);
       if (jawRef.current) jawRef.current.rotation.x = -currentOpenRef.current * 0.55;
 
       renderer.render(scene, camera);
@@ -208,12 +185,11 @@ export default function AIDirectorWidget() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       renderer.dispose();
-      if (renderer.domElement && mountRef.current)
-        mountRef.current.removeChild(renderer.domElement);
+      if (renderer.domElement && mountRef.current) mountRef.current.removeChild(renderer.domElement);
       scene.traverse((obj: any) => {
         if (obj.isMesh) {
           obj.geometry?.dispose?.();
-          if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose?.());
+          if (Array.isArray(obj.material)) obj.material.forEach((m: any) => m.dispose?.());
           else obj.material?.dispose?.();
         }
       });
@@ -230,12 +206,12 @@ export default function AIDirectorWidget() {
       const t = (performance.now() - start) / (duration * 1000);
       const k = t < 0.5 ? t * 2 : 1 - (t - 0.5) * 2;
       const amt = Math.max(0, Math.min(1, k));
-      lids.upper.forEach((m) => (m.scale.y = 1 + amt * 3));
-      lids.lower.forEach((m) => (m.scale.y = 1 + amt * 2.5));
+      lids.upper.forEach((m: any) => (m.scale.y = 1 + amt * 3));
+      lids.lower.forEach((m: any) => (m.scale.y = 1 + amt * 2.5));
       if (t < 1) requestAnimationFrame(step);
       else {
-        lids.upper.forEach((m) => (m.scale.y = 1));
-        lids.lower.forEach((m) => (m.scale.y = 1));
+        lids.upper.forEach((m: any) => (m.scale.y = 1));
+        lids.lower.forEach((m: any) => (m.scale.y = 1));
       }
     };
     requestAnimationFrame(step);
@@ -243,8 +219,7 @@ export default function AIDirectorWidget() {
 
   function ensureAudioGraphFor(el: HTMLAudioElement) {
     if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
+      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
     const ctx = audioCtxRef.current!;
     const source = ctx.createMediaElementSource(el);
@@ -307,10 +282,7 @@ export default function AIDirectorWidget() {
     utter.rate = 1.0;
     utter.lang = "en-GB";
     utter.onstart = () => { startSpeaking(); };
-    utter.onboundary = () => {
-      // jitter mouth a bit on word boundaries
-      talkTargetOpenRef.current = 0.6 + Math.random() * 0.3;
-    };
+    utter.onboundary = () => { talkTargetOpenRef.current = 0.6 + Math.random() * 0.3; };
     utter.onend = () => { stopSpeaking(); };
     (window as any).speechSynthesis.speak(utter);
   }
@@ -408,22 +380,12 @@ export default function AIDirectorWidget() {
           <button
             onClick={toggleListen}
             disabled={!recognition}
-            className={`px-4 py-2 rounded-xl text-white ${
-              listening ? "bg-red-600" : "bg-blue-600"
-            }`}
+            className={`px-4 py-2 rounded-xl text-white ${listening ? "bg-red-600" : "bg-blue-600"}`}
           >
-            {recognition
-              ? listening
-                ? "Stop Listening"
-                : "Talk via Microphone"
-              : "Mic not supported — use text"}
+            {recognition ? (listening ? "Stop Listening" : "Talk via Microphone") : "Mic not supported — use text"}
           </button>
           <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={useHQVoice}
-              onChange={(e) => setUseHQVoice(e.target.checked)}
-            />
+            <input type="checkbox" checked={useHQVoice} onChange={(e) => setUseHQVoice(e.target.checked)} />
             Use AI Voice (HQ)
           </label>
           <span className="text-xs opacity-70">{speaking ? "Speaking…" : ""}</span>
