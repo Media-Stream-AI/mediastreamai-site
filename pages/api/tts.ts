@@ -1,31 +1,34 @@
+// pages/api/tts.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
 
-export const config = { api: { responseLimit: false } };
-
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY!,
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") return res.status(405).end();
-  if (!process.env.OPENAI_API_KEY) return res.status(501).json({ error: "Server missing OPENAI_API_KEY" });
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   try {
-    const { text, voice = "alloy" } = req.body || {};
-    if (!text || typeof text !== "string") return res.status(400).json({ error: "Missing text" });
+    const { text, voice = "alloy" } = req.body as { text?: string; voice?: string };
+    if (!text || typeof text !== "string") {
+      return res.status(400).json({ error: "Missing 'text' string in body" });
+    }
 
+    // No `format` here — the SDK returns audio/mpeg by default.
     const audio = await client.audio.speech.create({
       model: "gpt-4o-mini-tts",
       voice,
       input: text,
-      format: "mp3",
     });
 
     const buffer = Buffer.from(await audio.arrayBuffer());
+
     res.setHeader("Content-Type", "audio/mpeg");
-    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Content-Length", buffer.length.toString());
     res.status(200).send(buffer);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "TTS error" });
+  } catch (err: any) {
+    console.error("[/api/tts] error:", err?.message || err);
+    res.status(500).json({ error: "TTS failed" });
   }
 }
