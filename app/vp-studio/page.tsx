@@ -2,7 +2,15 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import AIDirectorWidget from "@/components/AIDirectorWidget"; // ensure this file exists
+import dynamic from "next/dynamic";
+
+// Load the widget only in the browser (mic/WebGL need window)
+const AIDirectorWidget = dynamic(() => import("@/components/AIDirectorWidget"), {
+  ssr: false,
+});
+
+// Prevent static export errors – this page must be dynamic
+export const dynamic = "force-dynamic";
 
 export default function VPStudioPage() {
   return (
@@ -23,9 +31,10 @@ export default function VPStudioPage() {
         </p>
       </section>
 
-      {/* Studio visual + pipeline */}
+      {/* Studio visual + AI Director Head */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Stage concept image */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -40,12 +49,12 @@ export default function VPStudioPage() {
                 width={1200}
                 height={675}
                 className="w-full h-full object-cover"
-                priority
               />
             </div>
             <p className="mt-3 text-white/70 text-sm">Stage concept</p>
           </motion.div>
 
+          {/* Right: Speak to our Director (AI Head Widget) */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -53,16 +62,24 @@ export default function VPStudioPage() {
             transition={{ duration: 0.6 }}
             className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
           >
-            <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src="/media/ai-powered-vp-diagram.png"
-                alt="AI Director pipeline"
-                width={1200}
-                height={675}
-                className="w-full h-full object-cover"
-              />
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-2xl sm:text-3xl">Speak to our Director</h3>
+                <p className="mt-2 text-white/70 text-sm">
+                  Turn on your microphone to chat with the Virtual Director. Try:{" "}
+                  <em>“Let’s create a music video”</em> or <em>“I want a corporate video.”</em>
+                </p>
+              </div>
+              {/* Mic nudge */}
+              <div className="shrink-0 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs leading-5">
+                <div className="opacity-80">Mic access</div>
+                <div className="opacity-60">Click <strong>Talk via Microphone</strong> → Allow</div>
+              </div>
             </div>
-            <p className="mt-3 text-white/70 text-sm">AI Director pipeline</p>
+
+            <div className="mt-6">
+              <AIDirectorWidget />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -96,24 +113,9 @@ export default function VPStudioPage() {
         </div>
       </section>
 
-      {/* Speak To Our Director */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl sm:text-4xl">Speak To Our Director</h2>
-            {/* optional small brand mark */}
-            {/* <img src="/logo/msai-logo.svg" alt="Media Stream AI" className="h-8 opacity-60" /> */}
-          </div>
-
-          <div className="rounded-2xl bg-slate-900/50 ring-1 ring-slate-700/50 shadow-2xl p-4 md:p-6 relative overflow-hidden">
-            <AIDirectorWidget />
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="section border-t border-white/10 text-center">
-        <div className="max-ww-3xl mx-auto px-6">
+        <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl">See the Studio</h2>
           <p className="mt-4 text-white/70">
             Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.
