@@ -1,10 +1,9 @@
 "use client";
-
 import React from "react";
 
 /** 
- * Minimal placeholder implementation so the site builds.
- * Replace the internals later with your real animated SVG/Canvas.
+ * Placeholder so production builds succeed.
+ * Replace internals later with your real animated components.
  */
 
 export function BiometricSignalsMap() {
@@ -31,42 +30,35 @@ export function PersonaMindMap() {
   );
 }
 
-/** Example persona data objects (shape is up to your page usage) */
+/** Named persona objects expected by the page */
 export const personaProductManager = {
   role: "Product Manager",
   goals: ["Roadmap clarity", "Stakeholder buy-in", "Data-driven tests"],
 };
-
 export const personaStudent = {
   role: "Student",
   goals: ["Revision planning", "Concept mastery", "Exam technique"],
 };
-
 export const personaNurse = {
   role: "Nurse",
   goals: ["Patient safety", "Shift efficiency", "Compliance"],
 };
-
 export const personaRetail = {
   role: "Retail",
   goals: ["Conversion", "Merchandising", "Queue time"],
 };
 
-/** Optional default export (handy if some pages import the module default) */
+/** Default export (optional convenience) */
 export default function AnimatedMindMaps() {
   return (
-    <div style={box}>
-      <h3 style={title}>Animated Mind Maps</h3>
-      <p style={muted}>Module default (placeholder)</p>
-      <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
-        <BiometricSignalsMap />
-        <PersonaMindMap />
-      </div>
+    <div style={{ display: "grid", gap: 12 }}>
+      <BiometricSignalsMap />
+      <PersonaMindMap />
     </div>
   );
 }
 
-/* inline styles to keep this file dependency-free */
+/* simple inline styles (no Tailwind dependency here) */
 const box: React.CSSProperties = {
   padding: 16,
   border: "1px solid rgba(255,255,255,0.12)",
