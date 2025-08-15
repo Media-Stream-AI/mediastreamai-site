@@ -92,8 +92,8 @@ export default function VPStudioPage() {
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { t: "AI Director", d: "Shot planning, continuity checks, take scoring." },
-              { t: "Lighting Presets", d: "Scene-aware LUTs & DMX cue sheets." },
-              { t: "Virtual Scenery", d: "Procedural sets and live parallax." },
+              { t: "Robotic Camera System", d: "Fully automated robotic cameras deliver precision shots, tracking, and smooth movements without manual operators." },
+              { t: "Virtual Sets", d: "Immersive, real-time rendered sets designed for broadcast and streaming environments" },
               { t: "On-set Inference", d: "Object/person tracking and safety flags." },
               { t: "Cloud Rendering", d: "Burst rendering on our GPU clusters." },
               { t: "Editorial Exports", d: "EDL/AAF/OTIO to your NLE." }
