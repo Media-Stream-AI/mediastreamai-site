@@ -8,7 +8,8 @@ type ChatTurn = { who: "AI" | "You"; text: string };
 export default function AIDirectorWidget() {
   // --- UI State ---
   const [listening, setListening] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+  // NOTE: use `any` to avoid TS DOM type requirements for SpeechRecognition
+  const [recognition, setRecognition] = useState<any>(null);
   const [log, setLog] = useState<ChatTurn[]>([]);
   const [textInput, setTextInput] = useState("");
   const [speaking, setSpeaking] = useState(false);
@@ -44,30 +45,45 @@ export default function AIDirectorWidget() {
 
   // --- Speech Recognition init ---
   useEffect(() => {
-    const SR: any = (globalThis as any).SpeechRecognition || (globalThis as any).webkitSpeechRecognition;
-    if (!SR) return;
-    const recog: SpeechRecognition = new SR();
+    if (typeof window === "undefined") return;
+    const SR: any =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) {
+      setRecognition(null);
+      return;
+    }
+    const recog: any = new SR();
     recog.continuous = true;
     recog.interimResults = false;
     recog.lang = "en-GB";
-    recog.onresult = (event: SpeechRecognitionEvent) => {
-      const transcript = event.results[event.results.length - 1][0].transcript.trim();
-      handleUserInput(transcript);
+    recog.onresult = (event: any) => {
+      try {
+        const transcript = event.results[event.results.length - 1][0].transcript.trim();
+        handleUserInput(transcript);
+      } catch {
+        // ignore malformed events
+      }
     };
     setRecognition(recog);
     return () => {
-      try { recog.stop(); } catch {}
+      try {
+        recog.stop();
+      } catch {}
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Ambient theme element ref ---
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const el = document.getElementById("ai-theme-audio") as HTMLAudioElement | null;
     if (el) themeAudioRef.current = el;
   }, []);
 
   // --- Three.js scene setup ---
   useEffect(() => {
+    if (!mountRef.current) return;
+
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x070a0f);
 
@@ -79,44 +95,78 @@ export default function AIDirectorWidget() {
     renderer.setSize(440, 440);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     rendererRef.current = renderer;
-    mountRef.current?.appendChild(renderer.domElement);
+    mountRef.current.appendChild(renderer.domElement);
 
     // Lights
-    const key = new THREE.DirectionalLight(0xffffff, 1.0); key.position.set(2, 2, 3); scene.add(key);
-    const rim = new THREE.DirectionalLight(0x99bbff, 0.8); rim.position.set(-2, 1.5, -2); scene.add(rim);
-    const fill = new THREE.AmbientLight(0x334466, 0.6); scene.add(fill);
+    const key = new THREE.DirectionalLight(0xffffff, 1.0);
+    key.position.set(2, 2, 3);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0x99bbff, 0.8);
+    rim.position.set(-2, 1.5, -2);
+    scene.add(rim);
+    const fill = new THREE.AmbientLight(0x334466, 0.6);
+    scene.add(fill);
 
     // Head group
-    const headGroup = new THREE.Group(); scene.add(headGroup);
+    const headGroup = new THREE.Group();
+    scene.add(headGroup);
     headGroupRef.current = headGroup;
 
     // Head (ellipsoid)
     const headGeo = new THREE.SphereGeometry(1, 48, 48);
-    const headMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.2, roughness: 0.35 });
-    const head = new THREE.Mesh(headGeo, headMat); head.scale.set(1.0, 1.15, 1.0); headGroup.add(head);
+    const headMat = new THREE.MeshStandardMaterial({
+      color: 0xd6d9ff,
+      metalness: 0.2,
+      roughness: 0.35,
+    });
+    const head = new THREE.Mesh(headGeo, headMat);
+    head.scale.set(1.0, 1.15, 1.0);
+    headGroup.add(head);
 
     // Eyes
     const eyeGeo = new THREE.SphereGeometry(0.08, 24, 24);
-    const eyeMat = new THREE.MeshStandardMaterial({ emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2 });
-    const leftEye = new THREE.Mesh(eyeGeo, eyeMat); leftEye.position.set(-0.32, 0.18, 0.82);
-    const rightEye = new THREE.Mesh(eyeGeo, eyeMat); rightEye.position.set(0.32, 0.18, 0.82);
+    const eyeMat = new THREE.MeshStandardMaterial({
+      emissive: 0xe6ff66,
+      color: 0x222222,
+      emissiveIntensity: 1.2,
+    });
+    const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+    leftEye.position.set(-0.32, 0.18, 0.82);
+    const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+    rightEye.position.set(0.32, 0.18, 0.82);
     headGroup.add(leftEye, rightEye);
 
     // Eyelids
     const lidGeo = new THREE.PlaneGeometry(0.22, 0.12);
-    const lidMat = new THREE.MeshStandardMaterial({ color: 0x070a0f, metalness: 0, roughness: 1 });
-    const UL = new THREE.Mesh(lidGeo, lidMat); UL.position.set(-0.32, 0.24, 0.79);
-    const UR = new THREE.Mesh(lidGeo, lidMat); UR.position.set(0.32, 0.24, 0.79);
-    const LL = new THREE.Mesh(lidGeo, lidMat); LL.position.set(-0.32, 0.12, 0.79);
-    const LR = new THREE.Mesh(lidGeo, lidMat); LR.position.set(0.32, 0.12, 0.79);
+    const lidMat = new THREE.MeshStandardMaterial({
+      color: 0x070a0f,
+      metalness: 0,
+      roughness: 1,
+    });
+    const UL = new THREE.Mesh(lidGeo, lidMat);
+    UL.position.set(-0.32, 0.24, 0.79);
+    const UR = new THREE.Mesh(lidGeo, lidMat);
+    UR.position.set(0.32, 0.24, 0.79);
+    const LL = new THREE.Mesh(lidGeo, lidMat);
+    LL.position.set(-0.32, 0.12, 0.79);
+    const LR = new THREE.Mesh(lidGeo, lidMat);
+    LR.position.set(0.32, 0.12, 0.79);
     headGroup.add(UL, UR, LL, LR);
     eyelidsRef.current = { upper: [UL, UR], lower: [LL, LR] };
 
     // Jaw
-    const jawGroup = new THREE.Group(); jawGroup.position.set(0, -0.22, 0.76); headGroup.add(jawGroup);
+    const jawGroup = new THREE.Group();
+    jawGroup.position.set(0, -0.22, 0.76);
+    headGroup.add(jawGroup);
     const jawGeo = new THREE.BoxGeometry(0.9, 0.4, 0.5);
-    const jawMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.25, roughness: 0.4 });
-    const jaw = new THREE.Mesh(jawGeo, jawMat); jaw.position.set(0, -0.2, 0); jawGroup.add(jaw);
+    const jawMat = new THREE.MeshStandardMaterial({
+      color: 0xd6d9ff,
+      metalness: 0.25,
+      roughness: 0.4,
+    });
+    const jaw = new THREE.Mesh(jawGeo, jawMat);
+    jaw.position.set(0, -0.2, 0);
+    jawGroup.add(jaw);
     jawRef.current = jawGroup;
 
     headGroup.position.y = 0.1;
@@ -150,7 +200,8 @@ export default function AIDirectorWidget() {
         openTarget = Math.min(1, avg / 160);
       }
       const speed = 8.0;
-      currentOpenRef.current += (openTarget - currentOpenRef.current) * Math.min(1, speed * dt);
+      currentOpenRef.current +=
+        (openTarget - currentOpenRef.current) * Math.min(1, speed * dt);
       if (jawRef.current) jawRef.current.rotation.x = -currentOpenRef.current * 0.55;
 
       renderer.render(scene, camera);
@@ -161,12 +212,14 @@ export default function AIDirectorWidget() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       renderer.dispose();
-      if (renderer.domElement && mountRef.current) mountRef.current.removeChild(renderer.domElement);
+      if (renderer.domElement && mountRef.current)
+        mountRef.current.removeChild(renderer.domElement);
       scene.traverse((obj: any) => {
-        if (obj.isMesh) {
-          obj.geometry?.dispose?.();
-          if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose?.());
-          else obj.material?.dispose?.();
+        if ((obj as any).isMesh) {
+          (obj as any).geometry?.dispose?.();
+          if (Array.isArray((obj as any).material))
+            (obj as any).material.forEach((m: any) => m.dispose?.());
+          else (obj as any).material?.dispose?.();
         }
       });
     };
@@ -180,7 +233,7 @@ export default function AIDirectorWidget() {
     const start = performance.now();
     const up = () => {
       t = (performance.now() - start) / (duration * 1000);
-      const k = t < 0.5 ? t * 2 : (1 - (t - 0.5) * 2);
+      const k = t < 0.5 ? t * 2 : 1 - (t - 0.5) * 2;
       const amt = Math.max(0, Math.min(1, k));
       lids.upper.forEach((m) => (m.scale.y = 1 + amt * 3));
       lids.lower.forEach((m) => (m.scale.y = 1 + amt * 2.5));
@@ -196,10 +249,10 @@ export default function AIDirectorWidget() {
   // --- Speaking helpers ---
   function ensureAudioGraphFor(el: HTMLAudioElement) {
     if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioCtxRef.current = new (window.AudioContext ||
+        (window as any).webkitAudioContext)();
     }
     const ctx = audioCtxRef.current!;
-    // Recreate graph each time to keep it simple and robust
     const source = ctx.createMediaElementSource(el);
     const analyser = ctx.createAnalyser();
     analyser.fftSize = 1024;
@@ -229,7 +282,7 @@ export default function AIDirectorWidget() {
         const res = await fetch("/api/tts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, voice: "alloy" })
+          body: JSON.stringify({ text, voice: "alloy" }),
         });
         if (!res.ok) throw new Error("TTS failed");
         const blob = await res.blob();
@@ -249,12 +302,14 @@ export default function AIDirectorWidget() {
         await el.play();
         return;
       } catch {
-        // Fall through to browser TTS
+        // fall back to browser TTS
       }
     }
 
     // Fallback: browser SpeechSynthesis
-    try { (window as any).speechSynthesis.cancel(); } catch {}
+    try {
+      (window as any).speechSynthesis.cancel();
+    } catch {}
     const utter = new SpeechSynthesisUtterance(text);
     utter.pitch = 1.05;
     utter.rate = 1.0;
@@ -287,7 +342,7 @@ export default function AIDirectorWidget() {
       const res = await fetch("/api/director", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: historyRef.current })
+        body: JSON.stringify({ message: text, history: historyRef.current }),
       });
       const data = await res.json();
       const reply = data?.reply || defaultReply(text);
@@ -304,20 +359,27 @@ export default function AIDirectorWidget() {
 
   function defaultReply(text: string) {
     const lower = text.toLowerCase();
-    if (lower.includes("music")) return "Great—music video it is. Start with LED wall performance, or build a 3D Unreal set first?";
-    if (lower.includes("corporate")) return "Understood. Prefer a sleek office environment or a branded digital stage with motion graphics?";
-    if (lower.includes("commercial") || lower.includes("advert")) return "Nice. What’s the core message in 6–10 words? I’ll shape scenes and robotic camera moves around it.";
+    if (lower.includes("music"))
+      return "Great—music video it is. Start with LED wall performance, or build a 3D Unreal set first?";
+    if (lower.includes("corporate"))
+      return "Understood. Prefer a sleek office environment or a branded digital stage with motion graphics?";
+    if (lower.includes("commercial") || lower.includes("advert"))
+      return "Nice. What’s the core message in 6–10 words? I’ll shape scenes and robotic camera moves around it.";
     return "I can help with sets, cameras, lighting, and deliverables. What should we decide first?";
   }
 
   const toggleListen = () => {
     if (!recognition) return;
     if (listening) {
-      recognition.stop();
+      try {
+        recognition.stop();
+      } catch {}
       setListening(false);
     } else {
-      recognition.start();
-      setListening(true);
+      try {
+        recognition.start();
+        setListening(true);
+      } catch {}
       if (themeAudioRef.current && themeAudioRef.current.paused) {
         themeAudioRef.current.volume = 0.12;
         themeAudioRef.current.play().catch(() => {});
@@ -345,9 +407,17 @@ export default function AIDirectorWidget() {
     <div className="grid md:grid-cols-[auto,1fr] gap-6 items-center">
       {/* Visual */}
       <div className="relative place-self-center">
-        <div ref={mountRef} className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/50" />
+        <div
+          ref={mountRef}
+          className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/50"
+        />
         {/* Ambient theme */}
-        <audio id="ai-theme-audio" src="/audio/ai-director-theme.mp3" loop preload="auto" />
+        <audio
+          id="ai-theme-audio"
+          src="/audio/ai-director-theme.mp3"
+          loop
+          preload="auto"
+        />
         {/* Watermark */}
         <div className="pointer-events-none select-none absolute top-2 right-2 text-xs opacity-30 tracking-widest">
           Media Stream AI
@@ -360,12 +430,22 @@ export default function AIDirectorWidget() {
           <button
             onClick={toggleListen}
             disabled={!recognition}
-            className={`px-4 py-2 rounded-xl text-white ${listening ? "bg-red-600" : "bg-blue-600"}`}
+            className={`px-4 py-2 rounded-xl text-white ${
+              listening ? "bg-red-600" : "bg-blue-600"
+            }`}
           >
-            {recognition ? (listening ? "Stop Listening" : "Talk via Microphone") : "Mic not supported — use text"}
+            {recognition
+              ? listening
+                ? "Stop Listening"
+                : "Talk via Microphone"
+              : "Mic not supported — use text"}
           </button>
           <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={useHQVoice} onChange={(e) => setUseHQVoice(e.target.checked)} />
+            <input
+              type="checkbox"
+              checked={useHQVoice}
+              onChange={(e) => setUseHQVoice(e.target.checked)}
+            />
             Use AI Voice (HQ)
           </label>
           <span className="text-xs opacity-70">{speaking ? "Speaking…" : ""}</span>
@@ -379,7 +459,10 @@ export default function AIDirectorWidget() {
             placeholder="Type here if mic isn’t supported…"
             className="flex-1 border border-slate-700 bg-slate-900/50 rounded-xl px-3 py-2"
           />
-          <button onClick={submitText} className="px-4 py-2 rounded-xl bg-slate-800 text-white">
+          <button
+            onClick={submitText}
+            className="px-4 py-2 rounded-xl bg-slate-800 text-white"
+          >
             Send
           </button>
         </div>
@@ -393,7 +476,8 @@ export default function AIDirectorWidget() {
         </div>
 
         <p className="text-xs opacity-70">
-          Prototype only — simulates creative collaboration. No actual set generation or hardware control yet.
+          Prototype only — simulates creative collaboration. No actual set generation or
+          hardware control yet.
         </p>
       </div>
     </div>
