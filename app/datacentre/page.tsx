@@ -1,137 +1,120 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  Cpu,
-  Droplets,
-  Cloud,
-  Zap,
-  ShieldCheck,
-  Globe2,
-  MapPin,
-  ChevronDown
-} from "lucide-react";
-import { useState } from "react";
+import Image from "next/image";
 
 export default function DataCentrePage() {
   return (
-    <main className="relative overflow-hidden">
+    <div className="bg-black text-white font-glacial">
       {/* Hero */}
-      <section className="h-[70vh] relative flex items-center justify-center text-center">
-        <Image
-          src="/media/AI DATA CENTRE - WHITE.png"
-          alt="AI Data Centre"
-          width={240}
-          height={240}
-          className="relative z-10 mx-auto"
-        />
+      <section className="relative py-24 px-6 text-center overflow-hidden">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="absolute bottom-12 text-4xl md:text-6xl font-horizon text-white"
+          className="text-4xl md:text-6xl font-horizon"
         >
           Canal-Cooled AI Data Centre
         </motion.h1>
-        <div className="grid-bg absolute inset-0" />
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-6 text-lg text-white/70 max-w-2xl mx-auto"
+        >
+          Sustainable, high-performance AI compute — cooled by Manchester’s canal
+          network and designed for next-generation GPU workloads.
+        </motion.p>
       </section>
 
-      {/* Intro */}
-      <section className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-10 items-center">
-        <div>
-          <h2 className="text-3xl font-horizon mb-4">
-            Sustainable Power for AI
-          </h2>
-          <p className="font-glacial text-white/70 leading-relaxed">
-            Our Manchester-based AI Data Centre is uniquely designed around
-            canal-side cooling technology, using the natural water system to
-            reduce energy consumption and deliver a sustainable alternative to
-            traditional server farms.
+      {/* Canal Cooling Visual */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Image
+              src="/media/water-loop.svg"
+              alt="Canal cooling loop"
+              width={500}
+              height={500}
+              className="max-w-full h-auto mx-auto"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl font-horizon">Green Cooling Technology</h2>
+            <p className="mt-4 text-white/70">
+              Our canal-cooled system reduces energy costs by up to 40% while
+              ensuring stable thermal performance for GPU clusters. Using a
+              closed-loop water exchange, we deliver carbon-efficient compute
+              without compromising power density.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* GPU Cluster */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl font-horizon text-center"
+          >
+            GPU Compute Clusters
+          </motion.h2>
+          <p className="mt-4 text-center text-white/70 max-w-2xl mx-auto">
+            Purpose-built for training, inference, and real-time video AI.
           </p>
-          <p className="mt-4 font-glacial text-white/70 leading-relaxed">
-            At its core, the facility hosts cutting-edge NVIDIA GPU clusters,
-            powering Media Stream AI’s in-house LLMs and providing clients with
-            scalable AI compute capacity for cloud playout, generative content,
-            and real-time rendering.
-          </p>
-        </div>
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 relative overflow-hidden">
-          <Image
-            src="/media/MRF_AddOn_Schematic.png"
-            alt="Cooling schematic"
-            width={700}
-            height={500}
-            className="rounded-xl relative z-10"
-          />
-          <div className="absolute inset-0 neon-glow" />
-        </div>
-      </section>
-
-      {/* Feature Grid */}
-      <section className="py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Feature
-            icon={<Droplets className="h-6 w-6" />}
-            title="Canal Cooling"
-            desc="Sustainable water-based cooling reduces energy footprint by up to 40%."
-          />
-          <Feature
-            icon={<Cpu className="h-6 w-6" />}
-            title="GPU Clusters"
-            desc="NVIDIA H100 & A100 servers for AI inference, training & broadcast playout."
-          />
-          <Feature
-            icon={<Cloud className="h-6 w-6" />}
-            title="Cloud Services"
-            desc="Private LLM hosting, real-time TV playout APIs, and generative rendering."
-          />
-          <Feature
-            icon={<Zap className="h-6 w-6" />}
-            title="High Performance"
-            desc="Low-latency compute designed for media workloads and AI innovation."
-          />
-        </div>
-      </section>
-
-      {/* Spec Table */}
-      <section className="py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-horizon mb-6">GPU Specification Table</h2>
-          <div className="overflow-x-auto rounded-xl border border-white/10">
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-white/[0.05] text-white/80 font-glacial">
+          <div className="mt-10">
+            <Image
+              src="/media/gpu-cluster.svg"
+              alt="GPU cluster visualization"
+              width={700}
+              height={400}
+              className="max-w-full h-auto mx-auto"
+            />
+          </div>
+          <div className="overflow-x-auto mt-10">
+            <table className="w-full border border-white/10 text-left text-white/80 text-sm">
+              <thead className="bg-white/5 font-horizon text-white">
                 <tr>
-                  <th className="px-4 py-3">Tier</th>
-                  <th className="px-4 py-3">GPU Model</th>
-                  <th className="px-4 py-3">VRAM</th>
-                  <th className="px-4 py-3">Best For</th>
+                  <th className="px-4 py-3">Cluster</th>
+                  <th className="px-4 py-3">GPU Type</th>
+                  <th className="px-4 py-3">Per Node</th>
+                  <th className="px-4 py-3">Use Case</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10 font-glacial text-white/70">
-                <tr className="hover:bg-white/[0.03]">
-                  <td className="px-4 py-3">Inference (Real-Time)</td>
-                  <td className="px-4 py-3">A100 / H100 mix</td>
-                  <td className="px-4 py-3">40–80 GB</td>
-                  <td className="px-4 py-3">
-                    Personalization, content tagging, live playout AI
-                  </td>
+              <tbody>
+                <tr className="border-t border-white/10">
+                  <td className="px-4 py-3">AI-TrainX</td>
+                  <td className="px-4 py-3">NVIDIA H100</td>
+                  <td className="px-4 py-3">8 GPUs / 80GB HBM3</td>
+                  <td className="px-4 py-3">LLM Training</td>
                 </tr>
-                <tr className="hover:bg-white/[0.03]">
-                  <td className="px-4 py-3">Training (Batch)</td>
-                  <td className="px-4 py-3">H100 Pods</td>
-                  <td className="px-4 py-3">80 GB</td>
-                  <td className="px-4 py-3">
-                    LLM fine-tuning, distributed AI training, media models
-                  </td>
+                <tr className="border-t border-white/10">
+                  <td className="px-4 py-3">AI-Stream</td>
+                  <td className="px-4 py-3">NVIDIA L40S</td>
+                  <td className="px-4 py-3">4 GPUs / 48GB</td>
+                  <td className="px-4 py-3">Inference / Media AI</td>
                 </tr>
-                <tr className="hover:bg-white/[0.03]">
-                  <td className="px-4 py-3">Rendering / VP</td>
-                  <td className="px-4 py-3">RTX / A-Series</td>
-                  <td className="px-4 py-3">24–48 GB</td>
-                  <td className="px-4 py-3">
-                    Generative video, VP studio pipelines, real-time rendering
-                  </td>
+                <tr className="border-t border-white/10">
+                  <td className="px-4 py-3">AI-Edge</td>
+                  <td className="px-4 py-3">A100 80GB</td>
+                  <td className="px-4 py-3">2 GPUs / 80GB</td>
+                  <td className="px-4 py-3">Video + Edge AI</td>
                 </tr>
               </tbody>
             </table>
@@ -139,65 +122,105 @@ export default function DataCentrePage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 border-t border-white/5">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-horizon mb-6">FAQ</h2>
-          <FAQ
-            q="How does canal cooling work?"
-            a="We circulate canal water through a closed-loop heat exchange system, avoiding chemical treatments while dramatically cutting cooling energy costs."
-          />
-          <FAQ
-            q="What is your Power Usage Effectiveness (PUE)?"
-            a="Our projected PUE is under 1.2, significantly more efficient than the 1.6–1.8 seen in legacy data centres."
-          />
-          <FAQ
-            q="Can workloads stay within the UK/EU for compliance?"
-            a="Yes. Manchester (Q1 2026) guarantees UK data residency. EU clusters (Germany & France, 2026) ensure GDPR compliance."
-          />
-          <FAQ
-            q="What uptime guarantees do you offer?"
-            a="We provide 99.99% uptime SLAs, supported by redundant power feeds and fibre interconnects."
-          />
-          <FAQ
-            q="How is pricing structured?"
-            a="Clients can provision by the hour, reserve GPU pods monthly, or establish private sovereign clusters."
-          />
+      {/* Cloud Services */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-horizon">Available Cloud Services</h2>
+          <p className="mt-4 text-white/70 max-w-2xl mx-auto">
+            Scale AI workloads with sovereign, sustainable compute.
+          </p>
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "GPU Cloud",
+                desc: "On-demand H100 / A100 instances",
+              },
+              {
+                title: "Managed Training",
+                desc: "Pre-optimised LLM + vision training pipelines",
+              },
+              {
+                title: "Inference APIs",
+                desc: "Deploy AI services at scale with ultra-low latency",
+              },
+              {
+                title: "Hybrid Hosting",
+                desc: "Bring your own models + datasets to secure UK compute",
+              },
+            ].map((s, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
+                className="p-6 border border-white/10 bg-white/[0.03] rounded-2xl"
+              >
+                <h3 className="font-horizon text-xl">{s.title}</h3>
+                <p className="mt-2 text-white/70">{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
-    </main>
-  );
-}
 
-/* --- UI Components --- */
-function Feature({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 p-6 bg-white/[0.03] hover:bg-white/[0.06] transition hover:scale-[1.02]">
-      <div className="flex items-center gap-3 text-white/90">
-        <span className="rounded-lg bg-white/10 p-3">{icon}</span>
-        <span className="font-horizon text-lg">{title}</span>
-      </div>
-      <p className="mt-3 text-sm text-white/70 font-glacial">{desc}</p>
+      {/* Expansion */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <Image
+            src="/media/expansion-map.svg"
+            alt="Expansion map"
+            width={700}
+            height={450}
+            className="max-w-full h-auto mx-auto"
+          />
+          <div>
+            <h2 className="text-3xl font-horizon">Expansion Roadmap</h2>
+            <p className="mt-4 text-white/70">
+              Our Manchester Canal-Side Data Centre launches in Q1 2026 as a
+              sovereign UK compute cluster. Expansion into Germany and France is
+              planned later in 2026 to support EU-based workloads with full
+              compliance and low latency.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-3xl font-horizon text-center">FAQ</h2>
+          <div className="mt-10 space-y-6">
+            <FAQ
+              q="Why canal cooling?"
+              a="Using Manchester’s canal network provides a renewable, cost-efficient cooling loop — cutting energy costs and improving sustainability."
+            />
+            <FAQ
+              q="Can I bring my own models?"
+              a="Yes, our Hybrid Hosting option allows you to upload datasets and models for training and inference inside our sovereign compute clusters."
+            />
+            <FAQ
+              q="When will EU data centres be live?"
+              a="Our UK Manchester hub launches Q1 2026, with expansion into Germany and France later in 2026."
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
 
 function FAQ({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-white/10 py-4">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex justify-between items-center w-full text-left"
-      >
-        <span className="font-horizon text-white">{q}</span>
-        <ChevronDown
-          className={`h-5 w-5 text-white/60 transition-transform ${
-            open ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-      {open && <p className="mt-2 text-white/70 font-glacial">{a}</p>}
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="p-6 border border-white/10 bg-white/[0.03] rounded-2xl"
+    >
+      <h3 className="font-horizon text-lg">{q}</h3>
+      <p className="mt-2 text-white/70">{a}</p>
+    </motion.div>
   );
 }
