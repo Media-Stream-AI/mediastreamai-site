@@ -96,9 +96,9 @@ export default function DataCentrePage() {
             className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
           >
             <div className="relative w-full aspect-video rounded-xl overflow-hidden">
-              {/* ⬇️ Replace with your GPU cluster visual: /public/media/gpu-array.jpg */}
+              {/* ⬇️ Replace with your GPU cluster visual: /public/media/gpu-cluster.svg */}
               <Image
-                src="/media/gpu-array.jpg"
+                src="/media/gpu-cluster.svg"
                 alt="GPU Array Visualization"
                 fill
                 className="object-cover"
