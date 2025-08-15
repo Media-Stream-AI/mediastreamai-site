@@ -1,159 +1,198 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="bg-black text-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden text-center px-6 py-24">
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-6xl"
-        >
-          Media Stream AI
-        </motion.h1>
-        <p className="mt-5 text-white/70 max-w-2xl mx-auto text-base sm:text-lg">
-          Next-generation AI for television and virtual production — personalized channels, AI-powered playout, and immersive VP studios.
-        </p>
-
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Link href="/vp-studio" className="btn btn-primary">
-            Explore VP Studio
-          </Link>
-          <Link href="/technology" className="btn border border-white/20 rounded-xl px-4 py-2">
-            Technology
-          </Link>
+    <div className="bg-black text-white">
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden">
+        {/* Big background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/media/home-hero.jpg"  // ← replace with your actual hero image path if different
+            alt="Media Stream AI – Smart TV, Made Personal"
+            fill
+            priority
+            className="object-cover object-center opacity-90"
+          />
+          {/* Gradient overlays for readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/80" />
+          <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(120,180,255,0.12),transparent_60%)]" />
         </div>
 
-        {/* Subtle background art */}
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-20">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeOpacity="0.05" strokeWidth="0.4" />
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
-          </svg>
+        <div className="relative max-w-7xl mx-auto px-6 py-28 sm:py-36">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="font-horizon text-center text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight"
+          >
+            SMART TV, MADE PERSONAL
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-6 text-center mx-auto max-w-2xl text-base sm:text-lg text-white/80"
+          >
+            AI-powered TV experiences tailored to every viewer — informed by biometric and behavioral understanding.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-8 flex items-center justify-center gap-3"
+          >
+            <Link href="/vp-studio" className="btn btn-primary">
+              Explore AI VP Studio
+            </Link>
+            <Link
+              href="/contact"
+              className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+            >
+              Talk to us
+            </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* Highlights / Features (icon placeholders are inline SVGs, no lucide-react) */}
+      {/* WHAT WE DO */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl">What we do</h2>
 
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "AI Director",
-                desc: "On-set creative assistant for VP — questioning, planning, take scoring.",
-              },
-              {
-                title: "Personalized TV",
-                desc: "Live, adaptive channels powered by in-house models and data signals.",
-              },
-              {
-                title: "Virtual Production",
-                desc: "LED volume workflows, Unreal sets, robotic camera choreography.",
-              },
-              {
-                title: "Playout Technology",
-                desc: "Low-latency, data-driven scheduling across CTV platforms.",
-              },
-              {
-                title: "Editorial Tools",
-                desc: "EDL/AAF/OTIO exports, scripted shot lists, continuity checks.",
-              },
-              {
-                title: "Cloud + GPU",
-                desc: "Burst rendering and scalable inference on GPU infrastructure.",
-              },
-            ].map((card, i) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-              >
-                {/* Icon placeholder (inline SVG). Replace or restyle anytime. */}
-                <div className="mb-4">
-                  <svg width="28" height="28" viewBox="0 0 24 24" className="opacity-70" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10" fill="currentColor" />
-                  </svg>
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Card 1 — Media Stream AI */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/media/logos/msai.png"  // ← drop your PNG into /public/media/logos/
+                    alt="Media Stream AI"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
                 </div>
-                <div className="text-lg">{card.title}</div>
-                <p className="mt-2 text-white/70 text-sm">{card.desc}</p>
-              </motion.div>
-            ))}
+                <div className="text-lg">Media Stream AI</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                AI Powered technology for broadcasters, allowing personalised TV based on viewer Biometric &amp; Behavioral data.
+              </p>
+            </motion.div>
+
+            {/* Card 2 — IntuiTV */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/media/logos/intuitv.png"
+                    alt="IntuiTV"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-lg">IntuiTV</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                Our global direct to viewer, personalised TV Platform.
+              </p>
+            </motion.div>
+
+            {/* Card 3 — Canal Side AI Data Centre */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/media/logos/canal-side.png"
+                    alt="Canal Side AI Data Centre"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-lg">Canal Side AI Data Centre</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                Our Canal Cleaning &amp; GPU Cooling technology, powering canal restoration alongside our AI GPU Cluster data centre.
+              </p>
+            </motion.div>
+
+            {/* Card 4 — AI VP Studio (Prototype) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/media/logos/ai-director.png"
+                    alt="AI VP Studio"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-lg">AI VP Studio</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                Our fully AI-controlled Virtual Production Studio (Prototype).
+              </p>
+
+              <div className="mt-4">
+                <Link
+                  href="/vp-studio"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white"
+                >
+                  Explore the prototype
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Visual row (update images if paths differ) */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-          >
-            <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src="/media/vp-studio-mockup.jpg"
-                alt="VP Studio stage"
-                width={1200}
-                height={675}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <p className="mt-3 text-white/70 text-sm">AI-Powered VP Studio</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-          >
-            <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src="/media/ai-powered-vp-diagram.png"
-                alt="AI Director pipeline"
-                width={1200}
-                height={675}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <p className="mt-3 text-white/70 text-sm">AI Director pipeline</p>
-          </motion.div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="section border-t border-white/10 text-center">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl">See the Studio</h2>
+          <h2 className="text-3xl sm:text-4xl">Ready to personalise TV?</h2>
           <p className="mt-4 text-white/70">
-            Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.
+            We partner with broadcasters and platforms to deliver AI-powered experiences that feel made for every viewer.
           </p>
-          <Link href="/contact" className="btn btn-primary mt-6">
-            Talk to our team
-          </Link>
+          <Link href="/contact" className="btn btn-primary mt-6">Contact our team</Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
