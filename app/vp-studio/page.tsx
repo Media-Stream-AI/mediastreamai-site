@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import NextDynamic from "next/dynamic"; // ⬅️ renamed import
 
 // Load the widget only in the browser (mic/WebGL need window)
-const AIDirectorWidget = dynamic(() => import("@/components/AIDirectorWidget"), {
+const AIDirectorWidget = NextDynamic(() => import("@/components/AIDirectorWidget"), {
   ssr: false,
 });
 
