@@ -2,95 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
-/* -----------------------
-   Fonts
-------------------------*/
-
-/* Horizon (headline) — place Horizon.woff2 at /public/fonts/Horizon.woff2 */
+/* -------------------------------
+   FONT IMPORTS
+-------------------------------- */
 @font-face {
   font-family: "Horizon";
-  src: url("/fonts/Horizon.woff2") format("woff2");
-  font-weight: 400;
+  src: url("/fonts/Horizon.woff2") format("woff2"),
+       url("/fonts/Horizon.woff") format("woff");
+  font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
-/* Glacial Indifference (body) */
-@import url("https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700&display=swap");
-
-/* Utilities to apply fonts */
-.font-horizon { font-family: "Horizon", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-.font-glacial { font-family: "Glacial Indifference", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-
-/* Enforce typography everywhere (mobile → desktop) */
-html, body { @apply bg-black text-white antialiased font-glacial; }
-h1, h2, h3, h4, h5, h6 { @apply font-horizon; }
-
-/* -----------------------
-   Futuristic Accents
-------------------------*/
-
-/* Neon nav underline micro-interaction */
-.nav-link{ position:relative; padding-bottom:.2rem; }
-.nav-link::after{
-  content:""; position:absolute; left:0; bottom:-3px; height:2px; width:100%;
-  background: linear-gradient(90deg,#22d3ee,#a855f7,#22d3ee);
-  transform: scaleX(0); transform-origin:left;
-  transition: transform .35s ease;
-  filter: drop-shadow(0 0 6px rgba(34,211,238,.7));
-}
-.nav-link:hover::after, .nav-link:focus-visible::after{ transform: scaleX(1); }
-
-/* Focus ring */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(34,211,238,.4), 0 0 0 6px rgba(168,85,247,.25);
-  border-radius: 12px;
+@font-face {
+  font-family: "Glacial Indifference";
+  src: url("/fonts/GlacialIndifference-Regular.woff2") format("woff2"),
+       url("/fonts/GlacialIndifference-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* Glowing grid background for sections/footers */
-.grid-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-  animation: gridMove 20s linear infinite;
-  z-index: 0;
-}
-@keyframes gridMove { from { background-position: 0 0; } to { background-position: 40px 40px; } }
-
-/* Section headline underline glow */
-h2 {
-  position: relative;
-  display: inline-block;
-  padding-bottom: .6rem;
-}
-h2::after{
-  content:""; position:absolute; left:0; bottom:0; height:3px; width:100%;
-  background: linear-gradient(90deg,#22d3ee,#a855f7);
-  border-radius: 2px;
-  box-shadow: 0 0 12px rgba(34,211,238,.6), 0 0 18px rgba(168,85,247,.4);
+:root {
+  --color-bg: #000000;
+  --color-fg: #ffffff;
+  --color-accent: #3b82f6;
 }
 
-/* Card glow */
-.card-glow { transition: box-shadow .35s ease, transform .35s ease; }
-.card-glow:hover { box-shadow: 0 0 20px rgba(34,211,238,.25), 0 0 40px rgba(168,85,247,.15); transform: translateY(-2px); }
+/* -------------------------------
+   BASE STYLES
+-------------------------------- */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Glacial Indifference", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
-/* Section padding helper */
-.section { padding-top: 5rem; padding-bottom: 5rem; }
+h1, h2, h3, h4, h5, h6,
+.font-horizon {
+  font-family: "Horizon", sans-serif;
+  letter-spacing: -0.02em;
+}
 
-/* Buttons */
+.font-glacial {
+  font-family: "Glacial Indifference", sans-serif;
+}
+
+/* -------------------------------
+   LAYOUT HELPERS
+-------------------------------- */
+.section {
+  padding: 5rem 0;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+/* -------------------------------
+   BUTTONS
+-------------------------------- */
 .btn {
-  @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-medium;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
+
 .btn-primary {
-  background: #fff; color: #000;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  color: white;
+  border: none;
 }
-.btn-ghost {
-  background: rgba(255,255,255,0.08); color: #fff;
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
 }
-.btn:hover { filter: brightness(1.06); }
+
+/* -------------------------------
+   CARD EFFECTS
+-------------------------------- */
+.card-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
+  transform: translateY(-4px);
+}
+
+/* -------------------------------
+   TICKER ANIMATION
+-------------------------------- */
+.ticker {
+  animation: ticker-scroll 20s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* -------------------------------
+   BACKGROUND GRID EFFECT
+-------------------------------- */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* -------------------------------
+   FAQ STYLE (expand animation)
+-------------------------------- */
+details[open] summary ~ * {
+  animation: faq-expand 0.3s ease-in-out;
+}
+
+@keyframes faq-expand {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
