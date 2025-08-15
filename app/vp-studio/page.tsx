@@ -2,14 +2,13 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import NextDynamic from "next/dynamic"; // ⬅️ renamed import
+import NextDynamic from "next/dynamic";
+import NeonParticles from "@/components/NeonParticles";
 
-// Load the widget only in the browser (mic/WebGL need window)
 const AIDirectorWidget = NextDynamic(() => import("@/components/AIDirectorWidget"), {
   ssr: false,
 });
 
-// Prevent static export errors – this page must be dynamic
 export const dynamic = "force-dynamic";
 
 export default function VPStudioPage() {
@@ -17,6 +16,7 @@ export default function VPStudioPage() {
     <div className="bg-black text-white">
       {/* Hero */}
       <section className="relative overflow-hidden text-center px-6 py-24">
+        <NeonParticles />
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,17 +31,18 @@ export default function VPStudioPage() {
         </p>
       </section>
 
-      {/* Studio visual + AI Director Head */}
+      {/* Stage visual + Speak to our Director */}
       <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Stage concept image */}
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-stretch">
+          {/* Stage concept */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow overflow-hidden"
           >
+            <NeonParticles density={70} />
             <div className="aspect-video w-full overflow-hidden rounded-xl">
               <Image
                 src="/media/vp-studio-mockup.jpg"
@@ -54,14 +55,15 @@ export default function VPStudioPage() {
             <p className="mt-3 text-white/70 text-sm">Stage concept</p>
           </motion.div>
 
-          {/* Right: Speak to our Director (AI Head Widget) */}
+          {/* Speak to our Director */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow overflow-hidden"
           >
+            <NeonParticles density={60} />
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h3 className="text-2xl sm:text-3xl">Speak to our Director</h3>
@@ -70,7 +72,6 @@ export default function VPStudioPage() {
                   <em>“Let’s create a music video”</em> or <em>“I want a corporate video.”</em>
                 </p>
               </div>
-              {/* Mic nudge */}
               <div className="shrink-0 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs leading-5">
                 <div className="opacity-80">Mic access</div>
                 <div className="opacity-60">Click <strong>Talk via Microphone</strong> → Allow</div>
@@ -84,7 +85,7 @@ export default function VPStudioPage() {
         </div>
       </section>
 
-      {/* Feature grid */}
+      {/* Feature grid (unchanged) */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl">What’s inside</h2>
@@ -113,7 +114,7 @@ export default function VPStudioPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA (unchanged) */}
       <section className="section border-t border-white/10 text-center">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl">See the Studio</h2>
