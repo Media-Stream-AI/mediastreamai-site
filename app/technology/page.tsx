@@ -1,4 +1,12 @@
-import { BiometricSignalsMap, PersonaMindMap, personaProductManager, personaStudent, personaNurse, personaRetail } from "@/components/AnimatedMindMaps";
+import BiometricSignalsMap from "@/components/AnimatedMindMaps/BiometricSignalsMap";
+import PersonaMindMap from "@/components/AnimatedMindMaps/PersonaMindMap";
+import {
+  personaProductManager,
+  personaStudent,
+  personaNurse,
+  personaRetail,
+} from "@/components/AnimatedMindMaps/personas";
+
 
 export default function TechnologyPage() {
   return (
