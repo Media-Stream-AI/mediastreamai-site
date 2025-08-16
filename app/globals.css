@@ -200,3 +200,18 @@
     100% { transform: translateY(0px); }
   }
 }
+
+/* AIDirector container */
+.ai-director {
+  width: 100%;
+  max-width: 500px;   /* fits desktop */
+  height: auto;
+  aspect-ratio: 1/1;  /* keeps proportions */
+  margin: 0 auto;     /* center on all screens */
+}
+
+@media (max-width: 640px) {
+  .ai-director {
+    max-width: 90vw;   /* shrink for mobile */
+  }
+}
