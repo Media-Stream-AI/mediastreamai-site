@@ -71,6 +71,34 @@ export default function DataCentrePage() {
         </div>
       </section>
 
+            {/* How it works */}
+      <section className="section border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-2xl sm:text-3xl">How it works</h2>
+          <div className="mt-8 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6">
+            {[
+              { n: 1, t: "Intake & Filter", d: "Pull canal water through debris screens & multi-stage filtration." },
+              { n: 2, t: "Heat Exchange", d: "Closed-loop coolant rejects heat via plate exchangers & flow control." },
+              { n: 3, t: "Smart Orchestration", d: "Telemetry drives pump speed, coolant flow & cluster scheduling." },
+              { n: 4, t: "Return & Restore", d: "Water returned to canal with improved clarity; habitat protected." },
+            ].map((s, i) => (
+              <motion.div
+                key={s.n}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+              >
+                <div className="text-3xl font-semibold">{s.n}</div>
+                <div className="mt-2 text-lg">{s.t}</div>
+                <p className="mt-2 text-white/70 text-sm">{s.d}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Cooling animation */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6">
@@ -175,34 +203,6 @@ export default function DataCentrePage() {
               >
                 <div className="text-lg">{c.t}</div>
                 <p className="mt-2 text-white/70 text-sm">{c.d}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl">How it works</h2>
-          <div className="mt-8 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6">
-            {[
-              { n: 1, t: "Intake & Filter", d: "Pull canal water through debris screens & multi-stage filtration." },
-              { n: 2, t: "Heat Exchange", d: "Closed-loop coolant rejects heat via plate exchangers & flow control." },
-              { n: 3, t: "Smart Orchestration", d: "Telemetry drives pump speed, coolant flow & cluster scheduling." },
-              { n: 4, t: "Return & Restore", d: "Water returned to canal with improved clarity; habitat protected." },
-            ].map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
-              >
-                <div className="text-3xl font-semibold">{s.n}</div>
-                <div className="mt-2 text-lg">{s.t}</div>
-                <p className="mt-2 text-white/70 text-sm">{s.d}</p>
               </motion.div>
             ))}
           </div>
