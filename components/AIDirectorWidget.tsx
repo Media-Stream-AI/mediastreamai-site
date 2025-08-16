@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-// Lazy-load GLTFLoader in browser only
+// Lazy-load loaders on the client (avoid SSR/TS headaches)
 let GLTFLoader: any = null;
+let DRACOLoaderMod: any = null;
 
 type ChatTurn = { who: "AI" | "You"; text: string };
 
-// SSR-safe speech types
+// SSR-safe aliases (don’t declare in global scope to avoid collisions)
 type SSRSafeSpeechRecognition = any;
 type SSRSafeSpeechRecognitionEvent = any;
 
@@ -51,12 +52,17 @@ export default function AIDirectorWidget() {
   const pushLog = (who: "AI" | "You", text: string) =>
     setLog((prev) => [...prev.slice(-18), { who, text }]);
 
-  // Lazy-import GLTFLoader
+  // Lazy-import loaders (client only)
   useEffect(() => {
     (async () => {
       if (typeof window === "undefined") return;
-      const mod = await import("three/examples/jsm/loaders/GLTFLoader.js");
-      GLTFLoader = mod.GLTFLoader;
+      const gltf = await import("three/examples/jsm/loaders/GLTFLoader.js");
+      GLTFLoader = gltf.GLTFLoader;
+      try {
+        DRACOLoaderMod = await import("three/examples/jsm/loaders/DRACOLoader.js");
+      } catch {
+        DRACOLoaderMod = null;
+      }
     })();
   }, []);
 
@@ -70,13 +76,12 @@ export default function AIDirectorWidget() {
     recog.interimResults = false;
     recog.lang = "en-GB";
 
-    // Feed transcripts into the chat
     recog.onresult = (event: SSRSafeSpeechRecognitionEvent) => {
       const transcript = event.results[event.results.length - 1][0].transcript.trim();
       if (transcript) handleUserInput(transcript);
     };
 
-    // Keep it alive while listening (auto-restart on end/error)
+    // Keep alive while "listening" and not speaking (auto-restart)
     recog.onend = () => {
       if (listening && !speaking) {
         try { recog.start(); } catch {}
@@ -114,6 +119,9 @@ export default function AIDirectorWidget() {
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.outputColorSpace = (THREE as any).SRGBColorSpace ?? THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     rendererRef.current = renderer;
     mountRef.current.appendChild(renderer.domElement);
@@ -145,7 +153,7 @@ export default function AIDirectorWidget() {
     headGroupRef.current = headGroup;
     headGroup.position.y = 0.1;
 
-    // Fallback head (if GLB missing)
+    // Fallback head (if GLB missing / fails)
     const addFallbackSphere = () => {
       const headGeo = new THREE.SphereGeometry(1, 48, 48);
       const headMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.2, roughness: 0.35 });
@@ -154,9 +162,30 @@ export default function AIDirectorWidget() {
       headGroup.add(head);
     };
 
+    // Camera fitting helper
+    const fitCameraToObject = (obj: THREE.Object3D) => {
+      const box = new THREE.Box3().setFromObject(obj);
+      if (!isFinite(box.max.x)) return; // guard if nothing in group yet
+      const size = new THREE.Vector3();
+      const center = new THREE.Vector3();
+      box.getSize(size);
+      box.getCenter(center);
+      // Recenter model about origin
+      obj.position.sub(center);
+
+      // Frame object
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fov = (camera.fov * Math.PI) / 180;
+      const dist = Math.abs(maxDim / (2 * Math.tan(fov / 2))) * 1.3;
+      camera.position.set(0, 0.15 * maxDim, dist);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+    };
+
     // Load the GLB head (visual shell)
     (async () => {
       try {
+        // wait for loaders
         let tries = 0;
         while (!GLTFLoader && tries < 50) {
           await new Promise((r) => setTimeout(r, 40));
@@ -165,28 +194,49 @@ export default function AIDirectorWidget() {
         if (!GLTFLoader) throw new Error("GLTFLoader not ready");
 
         const loader = new GLTFLoader();
+
+        // If your asset is Draco-compressed, wire DRACO
+        if (DRACOLoaderMod?.DRACOLoader) {
+          const draco = new DRACOLoaderMod.DRACOLoader();
+          draco.setDecoderPath("/draco/"); // put decoder files in /public/draco/
+          loader.setDRACOLoader(draco);
+        }
+
         loader.load(
           "/models/android_female_head.glb",
           (gltf: any) => {
             const model = gltf.scene || gltf.scenes?.[0];
-            if (!model) addFallbackSphere();
-            else {
-              model.traverse((o: any) => {
-                if (o.isMesh && o.material) {
-                  o.material.metalness = 0.35;
-                  o.material.roughness = 0.4;
-                  o.material.color = new THREE.Color(0xd6d9ff);
-                }
-              });
-              model.scale.set(1.15, 1.25, 1.15);
-              model.position.set(0, 0, 0.1);
-              headGroup.add(model);
+            if (!model) {
+              addFallbackSphere();
+              return;
             }
+
+            model.traverse((o: any) => {
+              if (o.isMesh) {
+                o.castShadow = false;
+                o.receiveShadow = false;
+                if (!o.material || !("metalness" in o.material)) {
+                  o.material = new THREE.MeshStandardMaterial({ color: 0xd6d9ff });
+                }
+                o.material.metalness = 0.35;
+                o.material.roughness = 0.45;
+                if (o.material.color) o.material.color = new THREE.Color(0xd6d9ff);
+                o.geometry?.computeVertexNormals?.();
+              }
+            });
+
+            model.scale.set(1, 1, 1);
+            headGroup.add(model);
+            fitCameraToObject(headGroup);
           },
           undefined,
-          () => addFallbackSphere()
+          (err: any) => {
+            console.error("GLB load error:", err);
+            addFallbackSphere();
+          }
         );
-      } catch {
+      } catch (e) {
+        console.error(e);
         addFallbackSphere();
       }
 
@@ -207,7 +257,7 @@ export default function AIDirectorWidget() {
       headGroup.add(UL, UR, LL, LR);
       eyelidsRef.current = { upper: [UL, UR], lower: [LL, LR] };
 
-      // Procedural jaw (demo talking now even if GLB has no morphs)
+      // Procedural jaw (speaking demo even without blendshapes)
       const jawGroup = new THREE.Group(); jawGroup.position.set(0, -0.22, 0.76); headGroup.add(jawGroup);
       const jawGeo = new THREE.BoxGeometry(0.9, 0.4, 0.5);
       const jawMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.25, roughness: 0.4 });
@@ -316,15 +366,9 @@ export default function AIDirectorWidget() {
     setSpeaking(false);
     talkTargetOpenRef.current = 0;
     if (themeAudioRef.current) themeAudioRef.current.volume = 0.12; // restore theme
-
-    // 🔁 Robust mic auto-restart (fix)
+    // Resume mic if user had it on
     if (listening && recognition) {
-      try { recognition.stop(); } catch {}
-      setTimeout(() => {
-        if (!speaking) {
-          try { recognition.start(); } catch {}
-        }
-      }, 300);
+      try { recognition.start(); } catch {}
     }
   }
 
@@ -355,7 +399,7 @@ export default function AIDirectorWidget() {
         await el.play();
         return;
       } catch {
-        // Fall through to browser TTS
+        // Fall back to browser TTS
       }
     }
 
@@ -381,8 +425,7 @@ export default function AIDirectorWidget() {
   ];
 
   async function maybeAutoNudge() {
-    // Nudge only every 2 user turns, don’t repeat same index
-    if (turnCountRef.current % 2 !== 0) return;
+    if (turnCountRef.current % 2 !== 0) return; // nudge every 2 user turns
     const nextIndex = (lastNudgeIndexRef.current + 1) % personaNudges.length;
     lastNudgeIndexRef.current = nextIndex;
     await speak(personaNudges[nextIndex]);
