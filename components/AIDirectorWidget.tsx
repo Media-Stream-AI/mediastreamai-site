@@ -316,9 +316,15 @@ export default function AIDirectorWidget() {
     setSpeaking(false);
     talkTargetOpenRef.current = 0;
     if (themeAudioRef.current) themeAudioRef.current.volume = 0.12; // restore theme
-    // Resume mic if user had it on
+
+    // 🔁 Robust mic auto-restart (fix)
     if (listening && recognition) {
-      try { recognition.start(); } catch {}
+      try { recognition.stop(); } catch {}
+      setTimeout(() => {
+        if (!speaking) {
+          try { recognition.start(); } catch {}
+        }
+      }, 300);
     }
   }
 
