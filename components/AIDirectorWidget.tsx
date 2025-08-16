@@ -3,13 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-// Lazy-load loaders on the client (avoid SSR/TS headaches)
+// Lazy-load loaders / env only in the browser
 let GLTFLoader: any = null;
 let DRACOLoaderMod: any = null;
+let RoomEnvironmentMod: any = null;
+let PMREMGeneratorCtor: typeof THREE.PMREMGenerator | null =
+  (THREE as any).PMREMGenerator || THREE.PMREMGenerator;
 
 type ChatTurn = { who: "AI" | "You"; text: string };
 
-// SSR-safe aliases (don’t declare in global scope to avoid collisions)
+// SSR-safe aliases (avoid global collisions on Next SSR)
 type SSRSafeSpeechRecognition = any;
 type SSRSafeSpeechRecognitionEvent = any;
 
@@ -52,7 +55,7 @@ export default function AIDirectorWidget() {
   const pushLog = (who: "AI" | "You", text: string) =>
     setLog((prev) => [...prev.slice(-18), { who, text }]);
 
-  // Lazy-import loaders (client only)
+  // Lazy-import loaders & environment (client only)
   useEffect(() => {
     (async () => {
       if (typeof window === "undefined") return;
@@ -62,6 +65,11 @@ export default function AIDirectorWidget() {
         DRACOLoaderMod = await import("three/examples/jsm/loaders/DRACOLoader.js");
       } catch {
         DRACOLoaderMod = null;
+      }
+      try {
+        RoomEnvironmentMod = await import("three/examples/jsm/environments/RoomEnvironment.js");
+      } catch {
+        RoomEnvironmentMod = null;
       }
     })();
   }, []);
@@ -76,6 +84,7 @@ export default function AIDirectorWidget() {
     recog.interimResults = false;
     recog.lang = "en-GB";
 
+    // Feed transcripts into the chat
     recog.onresult = (event: SSRSafeSpeechRecognitionEvent) => {
       const transcript = event.results[event.results.length - 1][0].transcript.trim();
       if (transcript) handleUserInput(transcript);
@@ -119,7 +128,9 @@ export default function AIDirectorWidget() {
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.outputColorSpace = (THREE as any).SRGBColorSpace ?? THREE.sRGBEncoding;
+    // Color/tone for modern THREE
+    (renderer as any).outputColorSpace =
+      (THREE as any).SRGBColorSpace ?? (THREE as any).sRGBEncoding ?? undefined;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -137,7 +148,20 @@ export default function AIDirectorWidget() {
     window.addEventListener("resize", resize);
     resize();
 
-    // Lights
+    // --- Environment map (crucial for non-blob PBR look)
+    if (RoomEnvironmentMod?.RoomEnvironment && PMREMGeneratorCtor) {
+      const pmrem = new PMREMGeneratorCtor(renderer);
+      const envScene = new RoomEnvironmentMod.RoomEnvironment(renderer);
+      const envRT = pmrem.fromScene(envScene, 0.04);
+      scene.environment = envRT.texture;
+      // keep dark bg for contrast; environment still lights meshes
+      scene.background = new THREE.Color(0x070a0f);
+      // creators can be disposed (env texture is kept by scene.environment)
+      pmrem.dispose();
+      envScene.dispose?.();
+    }
+
+    // Lights for some directional shaping
     const key = new THREE.DirectionalLight(0xffffff, 1.0);
     key.position.set(2, 2, 3);
     scene.add(key);
@@ -156,7 +180,9 @@ export default function AIDirectorWidget() {
     // Fallback head (if GLB missing / fails)
     const addFallbackSphere = () => {
       const headGeo = new THREE.SphereGeometry(1, 48, 48);
-      const headMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.2, roughness: 0.35 });
+      const headMat = new THREE.MeshStandardMaterial({
+        color: 0xd6d9ff, metalness: 0.2, roughness: 0.35,
+      });
       const head = new THREE.Mesh(headGeo, headMat);
       head.scale.set(1.0, 1.15, 1.0);
       headGroup.add(head);
@@ -170,14 +196,25 @@ export default function AIDirectorWidget() {
       const center = new THREE.Vector3();
       box.getSize(size);
       box.getCenter(center);
-      // Recenter model about origin
+
+      // Recenter about origin (shift group, not camera)
       obj.position.sub(center);
 
-      // Frame object
+      // Normalize scale so it fits nicely
       const maxDim = Math.max(size.x, size.y, size.z);
+      if (maxDim > 0) {
+        const target = 2.0; // desired head height in scene units
+        const s = target / maxDim;
+        obj.scale.setScalar(s);
+      }
+
+      // Recompute fit & position camera
+      const box2 = new THREE.Box3().setFromObject(obj);
+      const size2 = new THREE.Vector3(); box2.getSize(size2);
+      const maxDim2 = Math.max(size2.x, size2.y, size2.z);
       const fov = (camera.fov * Math.PI) / 180;
-      const dist = Math.abs(maxDim / (2 * Math.tan(fov / 2))) * 1.3;
-      camera.position.set(0, 0.15 * maxDim, dist);
+      const dist = Math.abs(maxDim2 / (2 * Math.tan(fov / 2))) * 1.35;
+      camera.position.set(0, 0.15 * maxDim2, dist);
       camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
     };
@@ -198,7 +235,7 @@ export default function AIDirectorWidget() {
         // If your asset is Draco-compressed, wire DRACO
         if (DRACOLoaderMod?.DRACOLoader) {
           const draco = new DRACOLoaderMod.DRACOLoader();
-          draco.setDecoderPath("/draco/"); // put decoder files in /public/draco/
+          draco.setDecoderPath("/draco/"); // ensure decoder files in /public/draco/
           loader.setDRACOLoader(draco);
         }
 
@@ -206,28 +243,38 @@ export default function AIDirectorWidget() {
           "/models/android_female_head.glb",
           (gltf: any) => {
             const model = gltf.scene || gltf.scenes?.[0];
-            if (!model) {
-              addFallbackSphere();
-              return;
-            }
+            if (!model) { addFallbackSphere(); return; }
 
+            // Normalize materials for visibility + nice speculars
             model.traverse((o: any) => {
               if (o.isMesh) {
-                o.castShadow = false;
-                o.receiveShadow = false;
+                // Ensure standard mat
                 if (!o.material || !("metalness" in o.material)) {
                   o.material = new THREE.MeshStandardMaterial({ color: 0xd6d9ff });
                 }
-                o.material.metalness = 0.35;
-                o.material.roughness = 0.45;
-                if (o.material.color) o.material.color = new THREE.Color(0xd6d9ff);
+                const mat = o.material as THREE.MeshStandardMaterial;
+                mat.metalness = 0.25;
+                mat.roughness = 0.45;
+                mat.color = new THREE.Color(0xd6d9ff);
+                (mat as any).envMapIntensity = 1.0;
+                mat.side = THREE.FrontSide; // helps avoid odd planes disappearing
+
                 o.geometry?.computeVertexNormals?.();
+                o.castShadow = false;
+                o.receiveShadow = false;
               }
             });
 
-            model.scale.set(1, 1, 1);
+            // Add the model first, then center/fit the whole group
             headGroup.add(model);
             fitCameraToObject(headGroup);
+
+            // Optional: debug list of meshes
+            try {
+              console.groupCollapsed("[AIDirector] GLB contents");
+              model.traverse((o: any) => o.isMesh && console.log("mesh:", o.name || "(unnamed)"));
+              console.groupEnd();
+            } catch {}
           },
           undefined,
           (err: any) => {
@@ -242,7 +289,9 @@ export default function AIDirectorWidget() {
 
       // Eyes
       const eyeGeo = new THREE.SphereGeometry(0.08, 24, 24);
-      const eyeMat = new THREE.MeshStandardMaterial({ emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2 });
+      const eyeMat = new THREE.MeshStandardMaterial({
+        emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2,
+      });
       const leftEye = new THREE.Mesh(eyeGeo, eyeMat); leftEye.position.set(-0.32, 0.18, 0.82);
       const rightEye = new THREE.Mesh(eyeGeo, eyeMat); rightEye.position.set(0.32, 0.18, 0.82);
       headGroup.add(leftEye, rightEye);
