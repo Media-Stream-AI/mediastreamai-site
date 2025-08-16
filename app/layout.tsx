@@ -5,14 +5,14 @@ import localFont from "next/font/local";
 
 // Load Horizon (normal)
 const horizon = localFont({
-  src: "./fonts/Horizon.woff2",
+  src: "./fonts/horizon.woff2",
   variable: "--font-horizon",
   display: "swap",
 });
 
 // Load Horizon_Outlined
 const horizonOutlined = localFont({
-  src: "./fonts/Horizon_Outlined.woff2",
+  src: "./fonts/horizon_Outlined.woff2",
   variable: "--font-horizon-outlined",
   display: "swap",
 });
