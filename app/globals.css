@@ -1,28 +1,27 @@
+/* -------------------------------------------------
+   Tailwind (must stay at the top)
+-------------------------------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* -----------------------------
+/* -------------------------------------------------
    BASE (fonts + element defaults)
--------------------------------- */
+   - Uses fonts provided by next/font/local:
+     --font-horizon (via app/layout.tsx variable/class)
+     --font-horizon-outlined (variable only)
+   - Falls back gracefully if variables aren't present
+-------------------------------------------------- */
 @layer base {
-  /* Font face (served from /public/fonts/Horizon.ttf) */
-  @font-face {
-    font-family: "Horizon";
-    src: url("/fonts/Horizon.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  html, body {
+  html,
+  body {
     @apply bg-black text-white antialiased;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
   }
 
-  /* Use system fonts for body text */
+  /* Body text: system font stack (keeps UI crisp) */
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
@@ -30,10 +29,17 @@
     line-height: 1.6;
   }
 
-  /* Horizon ONLY for headings */
+  /* Headings use Horizon (from next/font/local) with fallback */
   h1, h2, h3, h4 {
-    font-family: "Horizon", sans-serif;
+    font-family: var(--font-horizon, "Horizon"), sans-serif;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Optional outlined variant for hero headings */
+  .outlined-heading {
+    font-family: var(--font-horizon-outlined, "Horizon_Outlined"), sans-serif;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
@@ -44,9 +50,9 @@
   }
 }
 
-/* -----------------------------
+/* -------------------------------------------------
    COMPONENTS (named classes)
--------------------------------- */
+-------------------------------------------------- */
 @layer components {
   a {
     @apply transition-colors duration-300;
@@ -119,15 +125,58 @@
     z-index: 0;
     pointer-events: none;
   }
+
+  /* Section padding helper (used across pages) */
+  .section {
+    padding: 4rem 0;
+  }
+  @media (min-width: 640px) {
+    .section {
+      padding: 5rem 0;
+    }
+  }
+
+  /* Button styles (match existing look) */
+  .btn {
+    @apply inline-flex items-center justify-center;
+    gap: .5rem;
+    padding: .75rem 1.1rem;
+    border-radius: .9rem;
+    background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+    color: #fff;
+    font-weight: 600;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.55),
+      0 0 24px rgba(255, 0, 255, 0.45);
+  }
+
+  .card-glow {
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08) inset,
+      0 0 24px rgba(0, 255, 255, 0.06),
+      0 0 48px rgba(255, 0, 255, 0.05);
+  }
+
+  .neon-surface {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
+      repeating-linear-gradient(to right, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.2rem;
+  }
 }
 
-/* -----------------------------
+/* -------------------------------------------------
    UTILITIES (keyframes etc.)
--------------------------------- */
+-------------------------------------------------- */
 @layer utilities {
   @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
 
