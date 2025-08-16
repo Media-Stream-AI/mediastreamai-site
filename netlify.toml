@@ -1,14 +1,15 @@
 [build]
-  command = "npm run build"
+  command = "bash ./netlify-build-debug.sh"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
+  NPM_FLAGS = "--loglevel=verbose"
+  NEXT_TELEMETRY_DISABLED = "1"
+  NEXT_DISABLE_ESLINT = "1"
+  # Uncomment to see extremely verbose module resolution logs (noisy!)
+  # DEBUG = "*"
+  TZ = "UTC"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[functions]
-  # Let the Next plugin output its own functions here
-  directory = ".netlify/functions-internal"
-  node_bundler = "esbuild"
