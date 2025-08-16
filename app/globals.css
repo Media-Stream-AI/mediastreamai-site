@@ -3,134 +3,137 @@
 @tailwind utilities;
 
 /* -----------------------------
-   FONT IMPORTS
+   BASE (fonts + element defaults)
 -------------------------------- */
-@font-face {
-  font-family: "Horizon";
-  src: url("/fonts/Horizon.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+@layer base {
+  /* Font face (served from /public/fonts/Horizon.ttf) */
+  @font-face {
+    font-family: "Horizon";
+    src: url("/fonts/Horizon.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  html, body {
+    @apply bg-black text-white antialiased;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Use system fonts for body text */
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji";
+    line-height: 1.6;
+  }
+
+  /* Horizon ONLY for headings */
+  h1, h2, h3, h4 {
+    font-family: "Horizon", sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
 }
 
 /* -----------------------------
-   BASE STYLES
+   COMPONENTS (named classes)
 -------------------------------- */
-html, body {
-  @apply bg-black text-white antialiased;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
+@layer components {
+  a {
+    @apply transition-colors duration-300;
+  }
+  a:hover {
+    color: #22d3ee; /* cyan-400 */
+  }
 
-/* Use system fonts for body */
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji";
-  line-height: 1.6;
-}
+  /* Active nav link styling */
+  .nav-link-active {
+    position: relative;
+    color: #22d3ee; /* neon cyan */
+  }
+  .nav-link-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background: #22d3ee;
+    box-shadow: 0 0 6px #22d3ee, 0 0 12px #0891b2;
+    border-radius: 2px;
+  }
 
-/* Horizon ONLY for headings */
-h1, h2, h3, h4 {
-  font-family: "Horizon", sans-serif;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  /* Neon glowing text */
+  .neon-text {
+    color: #22d3ee;
+    text-shadow: 0 0 8px #22d3ee, 0 0 16px #0891b2;
+  }
+
+  /* Neon glowing box */
+  .neon-box {
+    border: 2px solid #22d3ee;
+    box-shadow: 0 0 10px #22d3ee, 0 0 20px #0891b2 inset;
+    border-radius: 0.75rem;
+  }
+
+  /* Animated gradient background */
+  .gradient-bg {
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #0e7490, #22d3ee);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+  }
+
+  /* Floating animation for futuristic elements */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Particle canvas */
+  canvas.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* Grid overlay */
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(#22d3ee33 1px, transparent 1px),
+      linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    pointer-events: none;
+  }
 }
 
 /* -----------------------------
-   NAV + LINKS
+   UTILITIES (keyframes etc.)
 -------------------------------- */
-a {
-  @apply transition-colors duration-300;
-}
-a:hover {
-  color: #22d3ee; /* cyan-400 */
-}
+@layer utilities {
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-/* Active nav link styling */
-.nav-link-active {
-  position: relative;
-  color: #22d3ee; /* neon cyan */
-}
-.nav-link-active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 100%;
-  height: 2px;
-  background: #22d3ee;
-  box-shadow: 0 0 6px #22d3ee, 0 0 12px #0891b2;
-  border-radius: 2px;
-}
-
-/* -----------------------------
-   CUSTOM UTILITIES
--------------------------------- */
-
-/* Neon glowing text */
-.neon-text {
-  color: #22d3ee;
-  text-shadow: 0 0 8px #22d3ee, 0 0 16px #0891b2;
-}
-
-/* Neon glowing box */
-.neon-box {
-  border: 2px solid #22d3ee;
-  box-shadow: 0 0 10px #22d3ee, 0 0 20px #0891b2 inset;
-  border-radius: 0.75rem;
-}
-
-/* Animated gradient background */
-.gradient-bg {
-  background: linear-gradient(-45deg, #0f172a, #1e293b, #0e7490, #22d3ee);
-  background-size: 400% 400%;
-  animation: gradientShift 12s ease infinite;
-}
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating animation for futuristic elements */
-@keyframes float {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
-}
-.float {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Particle background (paired with NeonParticles component) */
-canvas.particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Grid overlay (paired with NeonGrid component) */
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(#22d3ee33 1px, transparent 1px),
-    linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* -----------------------------
-   RESPONSIVE FIXES
--------------------------------- */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  @keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+  }
 }
