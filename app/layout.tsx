@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { useState } from "react";
+import NeonGrid from "@/components/NeonGrid";
+import NeonParticles from "@/components/NeonParticles";
 
 export const metadata: Metadata = {
   title: "Media Stream AI",
@@ -14,7 +16,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="flex justify-between items-center p-6 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+    <header className="flex justify-between items-center p-6 bg-black/80 backdrop-blur-md fixed top-0 w-full z-50">
       {/* Logo */}
       <Link
         href="/"
@@ -91,9 +93,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white">
+      <head>
+        <link rel="icon" href="/media/logo.png" /> {/* ✅ Favicon */}
+      </head>
+      <body className="bg-black text-white font-sans relative overflow-x-hidden">
+        {/* Background Effects */}
+        <NeonGrid />
+        <NeonParticles />
+
+        {/* Navbar */}
         <Header />
-        <main>{children}</main>
+
+        {/* Page Content */}
+        <main className="relative z-10 pt-20">{children}</main>
       </body>
     </html>
   );
