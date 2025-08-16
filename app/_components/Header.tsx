@@ -13,11 +13,12 @@ export default function Header() {
     { href: "/solutions", label: "Solutions" },
     { href: "/technology", label: "Technology" },
     { href: "/vp-studio", label: "VP Studio" },
-    { href: "/datacentre", label: "Data Centre" },
+    { href: "/datacentre", label: "Data Centre" }
   ];
 
   return (
     <header className="flex justify-between items-center p-4 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+      {/* Logo */}
       <Link href="/" className="flex items-center">
         <Image
           src="/media/msai-logo.png"
@@ -29,6 +30,7 @@ export default function Header() {
         />
       </Link>
 
+      {/* Desktop nav */}
       <nav className="hidden md:flex space-x-6 text-lg">
         {navItems.map(({ href, label }) => (
           <Link
@@ -41,6 +43,7 @@ export default function Header() {
         ))}
       </nav>
 
+      {/* Mobile Hamburger */}
       <button
         className="md:hidden text-white focus:outline-none"
         onClick={() => setIsOpen(v => !v)}
@@ -50,6 +53,7 @@ export default function Header() {
         ☰
       </button>
 
+      {/* Mobile Dropdown */}
       {isOpen && (
         <nav className="absolute top-16 right-6 bg-black border border-cyan-500 rounded-lg shadow-lg flex flex-col space-y-4 p-4 md:hidden z-50">
           {navItems.map(({ href, label }) => (
