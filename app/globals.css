@@ -1,101 +1,188 @@
-/* --- Tailwind entry points (must be first) --- */
+/* -------------------------------------------------
+   Tailwind entry (must be first)
+-------------------------------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* -------------------------------------------------
+   Fonts
+   - Place your font files in /public/fonts/
+   - Horizon used ONLY for headings & logo
+-------------------------------------------------- */
 @font-face {
   font-family: "Horizon";
   src: url("/fonts/Horizon.woff2") format("woff2"),
        url("/fonts/Horizon.woff") format("woff");
-  font-weight: normal;
+  font-weight: 400 800;
   font-style: normal;
   font-display: swap;
 }
 
-* {
-  -webkit-text-size-adjust: none !important;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Apply Horizon everywhere */
-html, body {
-  font-family: "Horizon", ui-sans-serif, system-ui, sans-serif;
-}
-
-/* Base theme */
-:root {
-  --bg: #000000;
-  --bg-grad: radial-gradient(circle at 20% -10%, #0b0e16 0%, #020305 45%, #000 100%);
-  --text: #ffffff;
-  --muted: #cfd6e6;
-  --line: rgba(255,255,255,0.08);
-  --card: rgba(255,255,255,0.03);
-  --glow-cyan: rgba(0,240,255,0.55);
-  --glow-pink: rgba(255,0,255,0.45);
+/* -------------------------------------------------
+   CSS Reset-ish base
+-------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html, body {
   height: 100%;
-  background: var(--bg-grad);
-  color: var(--text);
-  font-family: 'Horizon', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Helpful utilities that your pages use */
-.section { padding: 4rem 0; }
-@media (min-width: 640px) { .section { padding: 5rem 0; } }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 20% -10%, #0b0e16 0%, #020305 45%, #000 100%);
+  color: #ffffff;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+/* Headings ONLY in Horizon */
+h1, h2, h3, h4, h5, h6,
+.font-horizon {
+  font-family: "Horizon", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .02em;
+  text-shadow:
+    0 0 10px rgba(0, 255, 255, .12),
+    0 0 18px rgba(255, 0, 255, .10);
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* -------------------------------------------------
+   Layout helpers
+-------------------------------------------------- */
+.section {
+  padding: 3.5rem 0;
+}
+@media (min-width: 640px) {
+  .section { padding: 4.5rem 0; }
+}
+@media (min-width: 1024px) {
+  .section { padding: 5.5rem 0; }
+}
+
+/* -------------------------------------------------
+   Buttons & Cards (neon theme)
+-------------------------------------------------- */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
+  @apply inline-flex items-center justify-center font-semibold rounded-xl;
   padding: .75rem 1.1rem;
-  border-radius: .9rem;
   background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
   color: #fff;
-  font-weight: 600;
-  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
 }
-.btn:hover { transform: translateY(-1px); box-shadow: 0 0 20px var(--glow-cyan), 0 0 24px var(--glow-pink); }
-.btn-primary { }
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 18px rgba(0, 240, 255, 0.45),
+    0 0 26px rgba(255, 0, 255, 0.32);
+}
+.btn:active { transform: translateY(0); opacity: 0.95; }
+.btn-primary { /* alias for clarity */ }
 
 .card-glow {
   box-shadow:
-    0 0 0 1px var(--line) inset,
+    0 0 0 1px rgba(255,255,255,0.08) inset,
     0 0 24px rgba(0, 255, 255, 0.06),
     0 0 48px rgba(255, 0, 255, 0.05);
 }
 
-/* Headings with subtle neon */
-h1, h2, h3 {
-  letter-spacing: .02em;
-  text-shadow:
-    0 0 10px rgba(0, 255, 255, .15),
-    0 0 18px rgba(255, 0, 255, .12);
-}
-
-/* Optional backdrop grid look */
+/* Subtle grid/glass surface */
 .neon-surface {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
     repeating-linear-gradient(
-      to right,
-      rgba(255,255,255,0.03) 0 1px,
-      transparent 1px 22px
+      to right, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px
     ),
     repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.03) 0 1px,
-      transparent 1px 22px
+      to bottom, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px
     );
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 1.2rem;
 }
 
-/* Particle layer (optional — safe if empty) */
-.neon-particles {
-  position: fixed; inset: 0; pointer-events: none; z-index: -1;
+/* -------------------------------------------------
+   Header / Nav basics
+-------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(0,0,0,0.82);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-link {
+  opacity: 0.92;
+  transition: color .15s ease, opacity .15s ease;
+}
+.nav-link:hover {
+  color: #7ee9ff;
+  opacity: 1;
+}
+
+/* Mobile menu panel */
+.mobile-nav {
+  background: rgba(10,10,16, 0.95);
+  border: 1px solid rgba(126, 233, 255, 0.25);
+  border-radius: 0.9rem;
+  box-shadow:
+    0 0 20px rgba(126, 233, 255, 0.15),
+    0 0 30px rgba(255, 0, 255, 0.10);
+}
+
+/* -------------------------------------------------
+   Small utilities for neon feel
+-------------------------------------------------- */
+.glow-cyan { text-shadow: 0 0 12px rgba(0, 240, 255, 0.55); }
+.glow-pink { text-shadow: 0 0 12px rgba(255, 0, 255, 0.45); }
+
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(0,240,255,0.5), 0 0 16px rgba(255,0,255,0.35); }
+  50%      { text-shadow: 0 0 6px rgba(0,240,255,0.35), 0 0 10px rgba(255,0,255,0.25); }
+}
+.animate-pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+
+/* Optional fixed particle layer (safe if unused) */
+.neon-particles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
+
+/* -------------------------------------------------
+   Forms minimalist
+-------------------------------------------------- */
+.input {
+  @apply rounded-lg w-full;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  padding: .6rem .8rem;
+}
+.input::placeholder { color: rgba(255,255,255,0.45); }
+
+.label {
+  color: #cfd6e6;
+  font-size: .875rem;
+}
+
+/* -------------------------------------------------
+   Images
+-------------------------------------------------- */
+img, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
