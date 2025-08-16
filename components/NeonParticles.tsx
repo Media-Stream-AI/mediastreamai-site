@@ -1,67 +1,71 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 
-export default function NeonParticles({ density = 80 }: { density?: number }) {
-  const ref = useRef<HTMLCanvasElement | null>(null);
-  const raf = useRef<number | null>(null);
+export default function NeonParticles() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = ref.current!;
-    const ctx = canvas.getContext("2d")!;
-    let w = (canvas.width = canvas.offsetWidth);
-    let h = (canvas.height = canvas.offsetHeight);
-    let t = 0;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    const onResize = () => {
-      w = canvas.width = canvas.offsetWidth;
-      h = canvas.height = canvas.offsetHeight;
-    };
-    window.addEventListener("resize", onResize);
+    let particles: { x: number; y: number; r: number; dx: number; dy: number; color: string }[] = [];
+    const colors = ["#00f0ff", "#ff00ff", "#7ee9ff"];
 
-    const draw = () => {
-      t += 0.003;
-      ctx.clearRect(0, 0, w, h);
-
-      // neon gradient bg
-      const g = ctx.createLinearGradient(0, 0, w, h);
-      g.addColorStop(0, "rgba(51, 67, 102, 0.15)");
-      g.addColorStop(1, "rgba(7, 10, 15, 0.6)");
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, w, h);
-
-      // particles
-      const count = Math.max(80, Math.floor((w * h) / (density * 1000)));
-      for (let i = 0; i < count; i++) {
-        const x = (i * 97 + Math.sin(t * (i % 7 + 1)) * 200) % (w + 200) - 100;
-        const y = (i * 71 + Math.cos(t * (i % 5 + 1)) * 120) % (h + 200) - 100;
-        const r = 0.6 + ((i % 5) * 0.6);
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(150, 200, 255, 0.35)";
-        ctx.fill();
-
-        // glow
-        ctx.beginPath();
-        ctx.arc(x, y, r * 3, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(120, 180, 255, 0.07)";
-        ctx.fill();
+    const init = () => {
+      particles = [];
+      for (let i = 0; i < 80; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2 + 1,
+          dx: (Math.random() - 0.5) * 0.3,
+          dy: (Math.random() - 0.5) * 0.3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+        });
       }
-
-      raf.current = requestAnimationFrame(draw);
     };
 
-    draw();
-    return () => {
-      if (raf.current) cancelAnimationFrame(raf.current);
-      window.removeEventListener("resize", onResize);
+    const animate = () => {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = 0.8;
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+
+      requestAnimationFrame(animate);
     };
-  }, [density]);
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    animate();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden rounded-3xl">
-      <canvas ref={ref} className="w-full h-full block" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(126,216,255,0.08),transparent_60%)]" />
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="neon-particles"
+      style={{ position: "fixed", inset: 0, zIndex: -1 }}
+    />
   );
 }
