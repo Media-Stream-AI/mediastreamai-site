@@ -3,16 +3,16 @@ import "./globals.css";
 import RootClient from "./_components/RootClient";
 import localFont from "next/font/local";
 
-// Regular Horizon
+// Load Horizon (normal)
 const horizon = localFont({
-  src: [{ path: "../public/fonts/horizon.woff2", weight: "400", style: "normal" }],
+  src: "./fonts/Horizon.woff2",
   variable: "--font-horizon",
   display: "swap",
 });
 
-// Outlined Horizon
+// Load Horizon_Outlined
 const horizonOutlined = localFont({
-  src: [{ path: "../public/fonts/horizon_outlined.woff2", weight: "700", style: "normal" }],
+  src: "./fonts/Horizon_Outlined.woff2",
   variable: "--font-horizon-outlined",
   display: "swap",
 });
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`${horizon.className} ${horizonOutlined.variable} bg-black text-white`}
+        className={`${horizon.variable} ${horizonOutlined.variable} bg-black text-white`}
       >
         <RootClient>{children}</RootClient>
       </body>
