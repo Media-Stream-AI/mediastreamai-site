@@ -29,9 +29,9 @@
     line-height: 1.6;
   }
 
-  /* Headings: Horizon variable from next/font/local */
-  h1, h2, h3, h4 {
-    font-family: var(--font-horizon), sans-serif;
+/* Headings: Horizon variable from next/font/local */
+h1, h2, h3, h4 { font-family: var(--font-horizon), sans-serif; }
+.outlined-heading { font-family: var(--font-horizon-outlined), var(--font-horizon), sans-serif; }
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
