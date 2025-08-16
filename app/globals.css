@@ -7,7 +7,7 @@
 
 /* -------------------------------------------------
    BASE (fonts + element defaults)
-   - Uses fonts provided by next/font/local:
+   - Uses fonts provided by app/fonts/local:
      --font-horizon (via app/layout.tsx variable/class)
      --font-horizon-outlined (variable only)
    - Falls back gracefully if variables aren't present
@@ -29,21 +29,16 @@
     line-height: 1.6;
   }
 
+  /* Headings: Horizon variable from next/font/local */
   h1, h2, h3, h4 {
-  font-family: var(--font-horizon), sans-serif;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
+    font-family: var(--font-horizon), sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
 
-.outlined-heading {
-  font-family: var(--font-horizon-outlined), sans-serif;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-  /* Optional outlined variant for hero headings */
+  /* Outlined heading variant */
   .outlined-heading {
-    font-family: var(--font-horizon-outlined, "horizon_outlined"), sans-serif;
+    font-family: var(--font-horizon-outlined), var(--font-horizon), sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
@@ -131,7 +126,7 @@
     pointer-events: none;
   }
 
-  /* Section padding helper (used across pages) */
+  /* Section padding helper */
   .section {
     padding: 4rem 0;
   }
@@ -141,7 +136,7 @@
     }
   }
 
-  /* Button styles (match existing look) */
+  /* Button styles */
   .btn {
     @apply inline-flex items-center justify-center;
     gap: .5rem;
