@@ -62,6 +62,7 @@
     height: auto;
     display: block;
   }
+} /* ← this was missing */
 
 /* -------------------------------------------------
    COMPONENTS (named classes)
