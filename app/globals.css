@@ -1,188 +1,119 @@
-/* -------------------------------------------------
-   Tailwind entry (must be first)
--------------------------------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* -------------------------------------------------
-   Fonts
-   - Place your font files in /public/fonts/
-   - Horizon used ONLY for headings & logo
--------------------------------------------------- */
+/* -----------------------------
+   FONT IMPORTS
+-------------------------------- */
 @font-face {
   font-family: "Horizon";
-  src: url("/fonts/Horizon.woff2") format("woff2"),
-       url("/fonts/Horizon.woff") format("woff");
-  font-weight: 400 800;
+  src: url("/fonts/Horizon.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-/* -------------------------------------------------
-   CSS Reset-ish base
--------------------------------------------------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+/* -----------------------------
+   BASE STYLES
+-------------------------------- */
 html, body {
-  height: 100%;
-}
-
-body {
+  @apply bg-black text-white antialiased;
   margin: 0;
-  background:
-    radial-gradient(circle at 20% -10%, #0b0e16 0%, #020305 45%, #000 100%);
-  color: #ffffff;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-/* Headings ONLY in Horizon */
-h1, h2, h3, h4, h5, h6,
-.font-horizon {
-  font-family: "Horizon", ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: .02em;
-  text-shadow:
-    0 0 10px rgba(0, 255, 255, .12),
-    0 0 18px rgba(255, 0, 255, .10);
+/* Use system fonts for body */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  line-height: 1.6;
 }
 
-/* Links */
+/* Horizon ONLY for headings */
+h1, h2, h3, h4 {
+  font-family: "Horizon", sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* -----------------------------
+   NAV + LINKS
+-------------------------------- */
 a {
-  color: inherit;
-  text-decoration: none;
+  @apply transition-colors duration-300;
 }
 a:hover {
-  text-decoration: none;
+  color: #22d3ee; /* cyan-400 */
 }
 
-/* -------------------------------------------------
-   Layout helpers
--------------------------------------------------- */
-.section {
-  padding: 3.5rem 0;
-}
-@media (min-width: 640px) {
-  .section { padding: 4.5rem 0; }
-}
-@media (min-width: 1024px) {
-  .section { padding: 5.5rem 0; }
+/* -----------------------------
+   CUSTOM UTILITIES
+-------------------------------- */
+
+/* Neon glowing text */
+.neon-text {
+  color: #22d3ee;
+  text-shadow: 0 0 8px #22d3ee, 0 0 16px #0891b2;
 }
 
-/* -------------------------------------------------
-   Buttons & Cards (neon theme)
--------------------------------------------------- */
-.btn {
-  @apply inline-flex items-center justify-center font-semibold rounded-xl;
-  padding: .75rem 1.1rem;
-  background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
-  color: #fff;
-  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
-}
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 18px rgba(0, 240, 255, 0.45),
-    0 0 26px rgba(255, 0, 255, 0.32);
-}
-.btn:active { transform: translateY(0); opacity: 0.95; }
-.btn-primary { /* alias for clarity */ }
-
-.card-glow {
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08) inset,
-    0 0 24px rgba(0, 255, 255, 0.06),
-    0 0 48px rgba(255, 0, 255, 0.05);
+/* Neon glowing box */
+.neon-box {
+  border: 2px solid #22d3ee;
+  box-shadow: 0 0 10px #22d3ee, 0 0 20px #0891b2 inset;
+  border-radius: 0.75rem;
 }
 
-/* Subtle grid/glass surface */
-.neon-surface {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
-    repeating-linear-gradient(
-      to right, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px
-    ),
-    repeating-linear-gradient(
-      to bottom, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px
-    );
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 1.2rem;
+/* Animated gradient background */
+.gradient-bg {
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0e7490, #22d3ee);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* -------------------------------------------------
-   Header / Nav basics
--------------------------------------------------- */
-.site-header {
-  position: sticky;
+/* Floating animation for futuristic elements */
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Particle background (paired with NeonParticles component) */
+canvas.particles {
+  position: absolute;
   top: 0;
-  z-index: 50;
-  background-color: rgba(0,0,0,0.82);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.nav-link {
-  opacity: 0.92;
-  transition: color .15s ease, opacity .15s ease;
-}
-.nav-link:hover {
-  color: #7ee9ff;
-  opacity: 1;
-}
-
-/* Mobile menu panel */
-.mobile-nav {
-  background: rgba(10,10,16, 0.95);
-  border: 1px solid rgba(126, 233, 255, 0.25);
-  border-radius: 0.9rem;
-  box-shadow:
-    0 0 20px rgba(126, 233, 255, 0.15),
-    0 0 30px rgba(255, 0, 255, 0.10);
+/* Grid overlay (paired with NeonGrid component) */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#22d3ee33 1px, transparent 1px),
+    linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* -------------------------------------------------
-   Small utilities for neon feel
--------------------------------------------------- */
-.glow-cyan { text-shadow: 0 0 12px rgba(0, 240, 255, 0.55); }
-.glow-pink { text-shadow: 0 0 12px rgba(255, 0, 255, 0.45); }
-
-@keyframes pulseGlow {
-  0%, 100% { text-shadow: 0 0 10px rgba(0,240,255,0.5), 0 0 16px rgba(255,0,255,0.35); }
-  50%      { text-shadow: 0 0 6px rgba(0,240,255,0.35), 0 0 10px rgba(255,0,255,0.25); }
-}
-.animate-pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
-
-/* Optional fixed particle layer (safe if unused) */
-.neon-particles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
-
-/* -------------------------------------------------
-   Forms minimalist
--------------------------------------------------- */
-.input {
-  @apply rounded-lg w-full;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
-  padding: .6rem .8rem;
-}
-.input::placeholder { color: rgba(255,255,255,0.45); }
-
-.label {
-  color: #cfd6e6;
-  font-size: .875rem;
-}
-
-/* -------------------------------------------------
-   Images
--------------------------------------------------- */
-img, svg, video {
-  display: block;
+/* -----------------------------
+   RESPONSIVE FIXES
+-------------------------------- */
+img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
