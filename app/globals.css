@@ -43,7 +43,7 @@
 
   /* Optional outlined variant for hero headings */
   .outlined-heading {
-    font-family: var(--font-horizon-outlined, "Horizon_Outlined"), sans-serif;
+    font-family: var(--font-horizon-outlined, "horizon_outlined"), sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
