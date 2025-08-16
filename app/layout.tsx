@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   title: "Media Stream AI",
   description:
     "AI-powered personalised TV, virtual production, and AI data centres.",
+  icons: {
+    icon: "/favicon.png",       // place favicon.png in /public/
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 function Header() {
@@ -28,7 +33,7 @@ function Header() {
       {/* Logo */}
       <Link href="/" className="flex items-center">
         <Image
-          src="/media/msai-logo.png" // make sure your logo is saved here: public/media/msai-logo.png
+          src="/media/msai-logo.png" // make sure logo exists here: public/media/msai-logo.png
           alt="Media Stream AI"
           width={160}
           height={40}
