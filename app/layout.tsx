@@ -1,39 +1,89 @@
 // app/layout.tsx
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { useState } from "react";
 
-// ---- Single metadata export (keep only this one) ----
 export const metadata: Metadata = {
   title: "Media Stream AI",
-  description: "SMART TV, MADE PERSONAL",
-  icons: {
-    icon: [
-      // Make sure these files exist in /public
-      { url: "/favicon.png" },                       // fallback
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
-  // Optional: good defaults
-  themeColor: "#000000",
-  openGraph: {
-    title: "Media Stream AI",
-    description: "SMART TV, MADE PERSONAL",
-    url: "https://your-domain.example", // <- set your live domain
-    siteName: "Media Stream AI",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Media Stream AI",
-    description: "SMART TV, MADE PERSONAL",
-    images: ["/og-image.png"],
-  },
+  description:
+    "AI-powered personalised TV, virtual production, and AI data centres.",
 };
 
-// ---- Single default export (keep only this) ----
+function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <header className="flex justify-between items-center p-6 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+      {/* Logo */}
+      <Link
+        href="/"
+        className="text-2xl font-horizon tracking-wide hover:text-cyan-400 transition"
+      >
+        Media Stream AI
+      </Link>
+
+      {/* Desktop nav */}
+      <nav className="hidden md:flex space-x-6 text-lg">
+        <Link href="/solutions" className="hover:text-cyan-400 transition">
+          Solutions
+        </Link>
+        <Link href="/technology" className="hover:text-cyan-400 transition">
+          Technology
+        </Link>
+        <Link href="/vp-studio" className="hover:text-cyan-400 transition">
+          VP Studio
+        </Link>
+        <Link href="/datacentre" className="hover:text-cyan-400 transition">
+          Data Centre
+        </Link>
+      </nav>
+
+      {/* Mobile Hamburger */}
+      <button
+        className="md:hidden text-white focus:outline-none"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        ☰
+      </button>
+
+      {/* Mobile Dropdown */}
+      {isOpen && (
+        <nav className="absolute top-16 right-6 bg-black border border-cyan-500 rounded-lg shadow-lg flex flex-col space-y-4 p-4 md:hidden z-50">
+          <Link
+            href="/solutions"
+            className="hover:text-cyan-400 transition"
+            onClick={() => setIsOpen(false)}
+          >
+            Solutions
+          </Link>
+          <Link
+            href="/technology"
+            className="hover:text-cyan-400 transition"
+            onClick={() => setIsOpen(false)}
+          >
+            Technology
+          </Link>
+          <Link
+            href="/vp-studio"
+            className="hover:text-cyan-400 transition"
+            onClick={() => setIsOpen(false)}
+          >
+            VP Studio
+          </Link>
+          <Link
+            href="/datacentre"
+            className="hover:text-cyan-400 transition"
+            onClick={() => setIsOpen(false)}
+          >
+            Data Centre
+          </Link>
+        </nav>
+      )}
+    </header>
+  );
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -41,8 +91,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* If you use global bg/text colors, keep them in globals.css or here */}
-      <body>{children}</body>
+      <body className="bg-black text-white">
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
