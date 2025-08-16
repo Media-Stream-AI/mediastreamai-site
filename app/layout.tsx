@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import RootClient from "./_components/RootClient";
@@ -13,15 +14,17 @@ export const metadata: Metadata = {
   },
 };
 
-// ✅ Load fonts from lowercase files in /public/fonts
+// ✅ Fonts must exist (lowercase) at:
+// app/fonts/horizon.woff2
+// app/fonts/horizon_outlined.woff2
 const horizon = localFont({
-  src: "/fonts/horizon.woff2",
+  src: "./fonts/horizon.woff2",
   variable: "--font-horizon",
   display: "swap",
 });
 
 const horizonOutlined = localFont({
-  src: "/fonts/horizon_outlined.woff2",
+  src: "./fonts/horizon_outlined.woff2",
   variable: "--font-horizon-outlined",
   display: "swap",
 });
