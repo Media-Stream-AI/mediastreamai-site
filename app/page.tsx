@@ -104,6 +104,14 @@ export default function HomePage() {
                 AI Powered technology for broadcasters, allowing personalised TV
                 based on viewer Biometric &amp; Behavioral data.
               </p>
+              <div className="mt-4">
+                <Link
+                  href="/technology"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white"
+                >
+                  Explore <span aria-hidden>→</span>
+                </Link>
+              </div>
             </motion.div>
 
             {/* IntuiTV */}
@@ -129,6 +137,16 @@ export default function HomePage() {
               <p className="mt-3 text-white/70 text-sm">
                 Our global direct to viewer, personalised TV Platform.
               </p>
+              <div className="mt-4">
+                <a
+                  href="https://www.intuitv.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white"
+                >
+                  Explore <span aria-hidden>↗</span>
+                </a>
+              </div>
             </motion.div>
 
             {/* Canal Side AI Data Centre */}
@@ -154,6 +172,14 @@ export default function HomePage() {
               <p className="mt-3 text-white/70 text-sm">
                 Our Canal Cleaning &amp; GPU Cooling technology, powering canal restoration alongside our AI GPU Cluster data centre.
               </p>
+              <div className="mt-4">
+                <Link
+                  href="/data-centre"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white"
+                >
+                  Explore <span aria-hidden>→</span>
+                </Link>
+              </div>
             </motion.div>
 
             {/* AI VP Studio */}
