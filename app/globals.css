@@ -7,12 +7,26 @@
 
 /* -------------------------------------------------
    BASE (fonts + element defaults)
-   - Uses fonts provided by app/fonts/local:
-     --font-horizon (via app/layout.tsx variable/class)
-     --font-horizon-outlined (variable only)
-   - Falls back gracefully if variables aren't present
+   - Fonts are served from /public/fonts:
+     /public/fonts/horizon.woff2
+     /public/fonts/horizon_outlined.woff2
 -------------------------------------------------- */
 @layer base {
+  @font-face {
+    font-family: "Horizon";
+    src: url("/fonts/horizon.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Horizon_Outlined";
+    src: url("/fonts/horizon_outlined.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
   html,
   body {
     @apply bg-black text-white antialiased;
@@ -29,16 +43,16 @@
     line-height: 1.6;
   }
 
-/* Headings: Horizon variable from next/font/local */
-h1, h2, h3, h4 { font-family: var(--font-horizon), sans-serif; }
-.outlined-heading { font-family: var(--font-horizon-outlined), var(--font-horizon), sans-serif; }
+  /* Headings: Horizon */
+  h1, h2, h3, h4 {
+    font-family: "Horizon", sans-serif;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
-  /* Outlined heading variant */
+  /* Optional outlined variant for hero headings */
   .outlined-heading {
-    font-family: var(--font-horizon-outlined), var(--font-horizon), sans-serif;
+    font-family: "Horizon_Outlined", "Horizon", sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
@@ -126,7 +140,7 @@ h1, h2, h3, h4 { font-family: var(--font-horizon), sans-serif; }
     pointer-events: none;
   }
 
-  /* Section padding helper */
+  /* Section padding helper (used across pages) */
   .section {
     padding: 4rem 0;
   }
@@ -136,7 +150,7 @@ h1, h2, h3, h4 { font-family: var(--font-horizon), sans-serif; }
     }
   }
 
-  /* Button styles */
+  /* Button styles (match existing look) */
   .btn {
     @apply inline-flex items-center justify-center;
     gap: .5rem;
