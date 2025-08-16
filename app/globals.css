@@ -12,6 +12,13 @@
   font-display: swap;
 }
 
+* {
+  -webkit-text-size-adjust: none !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Apply Horizon everywhere */
 html, body {
   font-family: "Horizon", ui-sans-serif, system-ui, sans-serif;
