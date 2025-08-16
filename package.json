@@ -1,6 +1,6 @@
 {
   "name": "mediastreamai-site",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,6 +14,7 @@
     "@ckeditor/ckeditor5-markdown-gfm": "^46.0.0",
     "@ckeditor/ckeditor5-react": "^6.3.0",
     "framer-motion": "^11.0.0",
+    "lucide-react": "^0.460.0",
     "next": "^14.2.31",
     "openai": "^4.56.0",
     "react": "^18.2.0",
