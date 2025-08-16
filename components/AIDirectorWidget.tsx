@@ -3,16 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-// Lazy-load loaders / env only in the browser
+// Lazy-load loaders on the client (avoid SSR/TS headaches)
 let GLTFLoader: any = null;
 let DRACOLoaderMod: any = null;
-let RoomEnvironmentMod: any = null;
-let PMREMGeneratorCtor: typeof THREE.PMREMGenerator | null =
-  (THREE as any).PMREMGenerator || THREE.PMREMGenerator;
 
 type ChatTurn = { who: "AI" | "You"; text: string };
 
-// SSR-safe aliases (avoid global collisions on Next SSR)
+// SSR-safe aliases (don’t declare in global scope to avoid collisions)
 type SSRSafeSpeechRecognition = any;
 type SSRSafeSpeechRecognitionEvent = any;
 
@@ -55,7 +52,7 @@ export default function AIDirectorWidget() {
   const pushLog = (who: "AI" | "You", text: string) =>
     setLog((prev) => [...prev.slice(-18), { who, text }]);
 
-  // Lazy-import loaders & environment (client only)
+  // Lazy-import loaders (client only)
   useEffect(() => {
     (async () => {
       if (typeof window === "undefined") return;
@@ -65,11 +62,6 @@ export default function AIDirectorWidget() {
         DRACOLoaderMod = await import("three/examples/jsm/loaders/DRACOLoader.js");
       } catch {
         DRACOLoaderMod = null;
-      }
-      try {
-        RoomEnvironmentMod = await import("three/examples/jsm/environments/RoomEnvironment.js");
-      } catch {
-        RoomEnvironmentMod = null;
       }
     })();
   }, []);
@@ -84,7 +76,6 @@ export default function AIDirectorWidget() {
     recog.interimResults = false;
     recog.lang = "en-GB";
 
-    // Feed transcripts into the chat
     recog.onresult = (event: SSRSafeSpeechRecognitionEvent) => {
       const transcript = event.results[event.results.length - 1][0].transcript.trim();
       if (transcript) handleUserInput(transcript);
@@ -128,40 +119,34 @@ export default function AIDirectorWidget() {
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    // Color/tone for modern THREE
-    (renderer as any).outputColorSpace =
-      (THREE as any).SRGBColorSpace ?? (THREE as any).sRGBEncoding ?? undefined;
+    (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace ?? THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     rendererRef.current = renderer;
+
+    // Make canvas fill the square box (we control size via setSize)
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+    renderer.domElement.style.display = "block";
     mountRef.current.appendChild(renderer.domElement);
 
-    // Responsive sizing (square canvas that scales)
+    // Responsive sizing: fit to the square wrapper
     const resize = () => {
-      const w = mountRef.current?.clientWidth ?? 440;
-      const size = Math.max(260, Math.min(w, 560)); // cap sizes for mobile/desktop
-      renderer.setSize(size, size);
+      if (!mountRef.current) return;
+      const rect = mountRef.current.getBoundingClientRect();
+      const size = Math.floor(Math.min(rect.width, rect.height));
+      const clamped = Math.max(220, Math.min(size || 440, 640)); // safe min/max
+      renderer.setSize(clamped, clamped, false);
       camera.aspect = 1;
       camera.updateProjectionMatrix();
     };
+    const ro = new ResizeObserver(resize);
+    ro.observe(mountRef.current);
     window.addEventListener("resize", resize);
     resize();
 
-    // --- Environment map (crucial for non-blob PBR look)
-    if (RoomEnvironmentMod?.RoomEnvironment && PMREMGeneratorCtor) {
-      const pmrem = new PMREMGeneratorCtor(renderer);
-      const envScene = new RoomEnvironmentMod.RoomEnvironment(renderer);
-      const envRT = pmrem.fromScene(envScene, 0.04);
-      scene.environment = envRT.texture;
-      // keep dark bg for contrast; environment still lights meshes
-      scene.background = new THREE.Color(0x070a0f);
-      // creators can be disposed (env texture is kept by scene.environment)
-      pmrem.dispose();
-      envScene.dispose?.();
-    }
-
-    // Lights for some directional shaping
+    // Lights
     const key = new THREE.DirectionalLight(0xffffff, 1.0);
     key.position.set(2, 2, 3);
     scene.add(key);
@@ -180,41 +165,29 @@ export default function AIDirectorWidget() {
     // Fallback head (if GLB missing / fails)
     const addFallbackSphere = () => {
       const headGeo = new THREE.SphereGeometry(1, 48, 48);
-      const headMat = new THREE.MeshStandardMaterial({
-        color: 0xd6d9ff, metalness: 0.2, roughness: 0.35,
-      });
+      const headMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.2, roughness: 0.35 });
       const head = new THREE.Mesh(headGeo, headMat);
       head.scale.set(1.0, 1.15, 1.0);
       headGroup.add(head);
     };
 
-    // Camera fitting helper
+    // Camera fitting helper (center & frame the object)
     const fitCameraToObject = (obj: THREE.Object3D) => {
       const box = new THREE.Box3().setFromObject(obj);
-      if (!isFinite(box.max.x)) return; // guard if nothing in group yet
+      if (!isFinite(box.max.x)) return;
       const size = new THREE.Vector3();
       const center = new THREE.Vector3();
       box.getSize(size);
       box.getCenter(center);
 
-      // Recenter about origin (shift group, not camera)
+      // Recenter model about origin
       obj.position.sub(center);
 
-      // Normalize scale so it fits nicely
+      // Frame object
       const maxDim = Math.max(size.x, size.y, size.z);
-      if (maxDim > 0) {
-        const target = 2.0; // desired head height in scene units
-        const s = target / maxDim;
-        obj.scale.setScalar(s);
-      }
-
-      // Recompute fit & position camera
-      const box2 = new THREE.Box3().setFromObject(obj);
-      const size2 = new THREE.Vector3(); box2.getSize(size2);
-      const maxDim2 = Math.max(size2.x, size2.y, size2.z);
       const fov = (camera.fov * Math.PI) / 180;
-      const dist = Math.abs(maxDim2 / (2 * Math.tan(fov / 2))) * 1.35;
-      camera.position.set(0, 0.15 * maxDim2, dist);
+      const dist = Math.abs(maxDim / (2 * Math.tan(fov / 2))) * 1.35;
+      camera.position.set(0, 0.15 * maxDim, dist);
       camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
     };
@@ -235,7 +208,7 @@ export default function AIDirectorWidget() {
         // If your asset is Draco-compressed, wire DRACO
         if (DRACOLoaderMod?.DRACOLoader) {
           const draco = new DRACOLoaderMod.DRACOLoader();
-          draco.setDecoderPath("/draco/"); // ensure decoder files in /public/draco/
+          draco.setDecoderPath("/draco/"); // place decoder files in /public/draco/ if needed
           loader.setDRACOLoader(draco);
         }
 
@@ -243,38 +216,36 @@ export default function AIDirectorWidget() {
           "/models/android_female_head.glb",
           (gltf: any) => {
             const model = gltf.scene || gltf.scenes?.[0];
-            if (!model) { addFallbackSphere(); return; }
+            if (!model) {
+              addFallbackSphere();
+              return;
+            }
 
-            // Normalize materials for visibility + nice speculars
             model.traverse((o: any) => {
               if (o.isMesh) {
-                // Ensure standard mat
+                o.castShadow = false;
+                o.receiveShadow = false;
+                // ensure PBR and predictable color
                 if (!o.material || !("metalness" in o.material)) {
                   o.material = new THREE.MeshStandardMaterial({ color: 0xd6d9ff });
                 }
-                const mat = o.material as THREE.MeshStandardMaterial;
-                mat.metalness = 0.25;
-                mat.roughness = 0.45;
-                mat.color = new THREE.Color(0xd6d9ff);
-                (mat as any).envMapIntensity = 1.0;
-                mat.side = THREE.FrontSide; // helps avoid odd planes disappearing
-
+                o.material.metalness = 0.35;
+                o.material.roughness = 0.45;
+                if (o.material.color) o.material.color = new THREE.Color(0xd6d9ff);
                 o.geometry?.computeVertexNormals?.();
-                o.castShadow = false;
-                o.receiveShadow = false;
               }
             });
 
-            // Add the model first, then center/fit the whole group
+            // Normalize model scale (guard against huge heads = "blob")
+            const box = new THREE.Box3().setFromObject(model);
+            const size = new THREE.Vector3();
+            box.getSize(size);
+            const maxDim = Math.max(size.x, size.y, size.z) || 1;
+            const normScale = 1.2 / maxDim; // target ~1.2 units tall
+            model.scale.setScalar(normScale);
+
             headGroup.add(model);
             fitCameraToObject(headGroup);
-
-            // Optional: debug list of meshes
-            try {
-              console.groupCollapsed("[AIDirector] GLB contents");
-              model.traverse((o: any) => o.isMesh && console.log("mesh:", o.name || "(unnamed)"));
-              console.groupEnd();
-            } catch {}
           },
           undefined,
           (err: any) => {
@@ -289,9 +260,7 @@ export default function AIDirectorWidget() {
 
       // Eyes
       const eyeGeo = new THREE.SphereGeometry(0.08, 24, 24);
-      const eyeMat = new THREE.MeshStandardMaterial({
-        emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2,
-      });
+      const eyeMat = new THREE.MeshStandardMaterial({ emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2 });
       const leftEye = new THREE.Mesh(eyeGeo, eyeMat); leftEye.position.set(-0.32, 0.18, 0.82);
       const rightEye = new THREE.Mesh(eyeGeo, eyeMat); rightEye.position.set(0.32, 0.18, 0.82);
       headGroup.add(leftEye, rightEye);
@@ -353,6 +322,7 @@ export default function AIDirectorWidget() {
 
     return () => {
       window.removeEventListener("resize", resize);
+      try { ro.disconnect(); } catch {}
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       if (renderer.domElement && mountRef.current) mountRef.current.removeChild(renderer.domElement);
       renderer.dispose();
@@ -570,67 +540,70 @@ export default function AIDirectorWidget() {
   }, []);
 
   return (
-    <div className="grid md:grid-cols-[auto,1fr] gap-6 items-center">
-      {/* Visual */}
-      <div className="relative place-self-center w-full max-w-xs sm:max-w-sm md:max-w-md">
-        <div
-          ref={mountRef}
-          className="w-full h-auto rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/50"
-        />
-        {/* Ambient theme */}
-        <audio id="ai-theme-audio" src="/audio/ai-director-theme.mp3" loop preload="auto" />
-        {/* Watermark */}
-        <div className="pointer-events-none select-none absolute top-2 right-2 text-[10px] sm:text-xs opacity-30 tracking-widest">
-          Media Stream AI
-        </div>
-      </div>
-
-      {/* Controls */}
-      <div className="space-y-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={toggleListen}
-            disabled={!recognition}
-            className={`px-4 py-2 rounded-xl text-white ${listening ? "bg-red-600" : "bg-blue-600"}`}
-          >
-            {recognition ? (listening ? "Stop Listening" : "Talk via Microphone") : "Mic not supported — use text"}
-          </button>
-          <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={useHQVoice}
-              onChange={(e) => setUseHQVoice(e.target.checked)}
-            />
-            Use AI Voice (HQ)
-          </label>
-          <span className="text-xs opacity-70">{speaking ? "Speaking…" : ""}</span>
-        </div>
-
-        <div className="flex gap-2">
-          <input
-            value={textInput}
-            onChange={(e) => setTextInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && submitText()}
-            placeholder="Type here if mic isn’t supported…"
-            className="flex-1 border border-slate-700 bg-slate-900/50 rounded-xl px-3 py-2"
-          />
-          <button onClick={submitText} className="px-4 py-2 rounded-xl bg-slate-800 text-white">
-            Send
-          </button>
-        </div>
-
-        <div className="bg-slate-900/60 rounded-xl p-3 text-sm max-h-60 overflow-auto ring-1 ring-slate-700/50">
-          {log.map((l, i) => (
-            <div key={i} className="mb-1">
-              <strong>{l.who}:</strong> {l.text}
+    <section className="section">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="neon-surface card-glow rounded-2xl p-4 sm:p-6 md:p-8">
+          <div className="grid gap-6 md:gap-8 md:grid-cols-[minmax(260px,520px),1fr] items-start">
+            {/* Visual */}
+            <div className="relative w-full aspect-square rounded-2xl ring-1 ring-slate-700/50 overflow-hidden">
+              <div ref={mountRef} className="absolute inset-0" />
+              {/* Ambient theme */}
+              <audio id="ai-theme-audio" src="/audio/ai-director-theme.mp3" loop preload="auto" />
+              {/* Watermark */}
+              <div className="pointer-events-none select-none absolute top-2 right-2 text-[10px] sm:text-xs opacity-30 tracking-widest">
+                Media Stream AI
+              </div>
             </div>
-          ))}
-        </div>
 
-        <p className="text-xs opacity-70">
-          Prototype only — simulates creative collaboration. No actual set generation or hardware control yet.
-        </p>
+            {/* Controls */}
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  onClick={toggleListen}
+                  disabled={!recognition}
+                  className={`px-4 py-2 rounded-xl text-white ${listening ? "bg-red-600" : "bg-blue-600"}`}
+                >
+                  {recognition ? (listening ? "Stop Listening" : "Talk via Microphone") : "Mic not supported — use text"}
+                </button>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={useHQVoice}
+                    onChange={(e) => setUseHQVoice(e.target.checked)}
+                  />
+                  Use AI Voice (HQ)
+                </label>
+                <span className="text-xs opacity-70">{speaking ? "Speaking…" : ""}</span>
+              </div>
+
+              <div className="flex gap-2">
+                <input
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && submitText()}
+                  placeholder="Type here if mic isn’t supported…"
+                  className="flex-1 border border-slate-700 bg-slate-900/50 rounded-xl px-3 py-2"
+                />
+                <button onClick={submitText} className="px-4 py-2 rounded-xl bg-slate-800 text-white">
+                  Send
+                </button>
+              </div>
+
+              <div className="bg-slate-900/60 rounded-xl p-3 text-sm max-h-60 overflow-auto ring-1 ring-slate-700/50">
+                {log.map((l, i) => (
+                  <div key={i} className="mb-1">
+                    <strong>{l.who}:</strong> {l.text}
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-xs opacity-70">
+                Prototype only — simulates creative collaboration. No actual set generation or hardware control yet.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
