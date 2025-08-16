@@ -14,15 +14,12 @@ export const metadata: Metadata = {
   },
 };
 
-// ✅ Fonts must exist (lowercase) at:
-// app/fonts/horizon.woff2
-// app/fonts/horizon_outlined.woff2
+
 const horizon = localFont({
   src: "./fonts/horizon.woff2",
   variable: "--font-horizon",
   display: "swap",
 });
-
 const horizonOutlined = localFont({
   src: "./fonts/horizon_outlined.woff2",
   variable: "--font-horizon-outlined",
@@ -32,9 +29,7 @@ const horizonOutlined = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}
-      >
+      <body className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}>
         <RootClient>{children}</RootClient>
       </body>
     </html>
