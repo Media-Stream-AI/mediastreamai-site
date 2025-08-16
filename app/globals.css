@@ -48,6 +48,23 @@ a:hover {
   color: #22d3ee; /* cyan-400 */
 }
 
+/* Active nav link styling */
+.nav-link-active {
+  position: relative;
+  color: #22d3ee; /* neon cyan */
+}
+.nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: #22d3ee;
+  box-shadow: 0 0 6px #22d3ee, 0 0 12px #0891b2;
+  border-radius: 2px;
+}
+
 /* -----------------------------
    CUSTOM UTILITIES
 -------------------------------- */
