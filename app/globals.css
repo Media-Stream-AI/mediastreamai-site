@@ -1,0 +1,28 @@
+/* app/globals.css */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styles */
+html,
+body {
+  height: 100%;
+  font-family: 'Horizon', sans-serif; /* or your chosen font */
+  background-color: #000; /* black background */
+  color: #fff; /* white text */
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Add scroll smoothing */
+html {
+  scroll-behavior: smooth;
+}
