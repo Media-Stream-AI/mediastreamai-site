@@ -32,7 +32,23 @@
     "glob": "^9.3.5",
     "rimraf": "^5.0.7"
   },
+
+{
+  "name": "mediastreamai-site",
+  "version": "1.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    // …your existing deps stay unchanged…
+  },
+  "devDependencies": {
+    // …your existing devDeps stay unchanged…
+  },
   "engines": {
-    "node": "18.x"
+    "node": ">=20.0.0 <21"
   }
 }
