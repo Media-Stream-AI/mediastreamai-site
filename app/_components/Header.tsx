@@ -18,10 +18,9 @@ export default function Header() {
 
   return (
     <header className="flex justify-between items-center p-4 bg-black/80 backdrop-blur-md sticky top-0 z-50">
-      {/* Logo */}
       <Link href="/" className="flex items-center">
         <Image
-          src="/media/msai-logo.png" // ensure this exists: public/media/msai-logo.png
+          src="/media/msai-logo.png"
           alt="Media Stream AI"
           width={160}
           height={40}
@@ -30,41 +29,34 @@ export default function Header() {
         />
       </Link>
 
-      {/* Desktop nav */}
       <nav className="hidden md:flex space-x-6 text-lg">
         {navItems.map(({ href, label }) => (
           <Link
             key={href}
             href={href}
-            className={`hover:text-cyan-400 transition ${
-              pathname === href ? "nav-link-active" : ""
-            }`}
+            className={`hover:text-cyan-400 transition ${pathname === href ? "nav-link-active" : ""}`}
           >
             {label}
           </Link>
         ))}
       </nav>
 
-      {/* Mobile Hamburger */}
       <button
         className="md:hidden text-white focus:outline-none"
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => setIsOpen(v => !v)}
         aria-label="Toggle navigation"
         aria-expanded={isOpen}
       >
         ☰
       </button>
 
-      {/* Mobile Dropdown */}
       {isOpen && (
         <nav className="absolute top-16 right-6 bg-black border border-cyan-500 rounded-lg shadow-lg flex flex-col space-y-4 p-4 md:hidden z-50">
           {navItems.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className={`hover:text-cyan-400 transition ${
-                pathname === href ? "nav-link-active" : ""
-              }`}
+              className={`hover:text-cyan-400 transition ${pathname === href ? "nav-link-active" : ""}`}
               onClick={() => setIsOpen(false)}
             >
               {label}
