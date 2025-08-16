@@ -79,14 +79,14 @@ export default function HomePage() {
             What we do
           </h2>
 
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card Example */}
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
+            {/* Media Stream AI */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
             >
               <div className="flex items-center gap-3">
                 <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
@@ -98,15 +98,96 @@ export default function HomePage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="text-lg text-balance">Media Stream AI</div>
+                <div className="text-lg">Media Stream AI</div>
               </div>
-              <p className="mt-3 text-white/70 text-sm text-balance break-words">
+              <p className="mt-3 text-white/70 text-sm">
                 AI Powered technology for broadcasters, allowing personalised TV
                 based on viewer Biometric &amp; Behavioral data.
               </p>
             </motion.div>
 
-            {/* Repeat for other cards... */}
+            {/* IntuiTV */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/media/logos/intuitv.png"
+                    alt="IntuiTV"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-lg">IntuiTV</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                Our global direct to viewer, personalised TV Platform.
+              </p>
+            </motion.div>
+
+            {/* Canal Side AI Data Centre */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/media/logos/canal-side.png"
+                    alt="Canal Side AI Data Centre"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-lg">Canal Side AI Data Centre</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                Our Canal Cleaning &amp; GPU Cooling technology, powering canal restoration alongside our AI GPU Cluster data centre.
+              </p>
+            </motion.div>
+
+            {/* AI VP Studio */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/media/logos/ai-director.png"
+                    alt="AI VP Studio"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-lg">AI VP Studio</div>
+              </div>
+              <p className="mt-3 text-white/70 text-sm">
+                Our fully AI-controlled Virtual Production Studio (Prototype).
+              </p>
+              <div className="mt-4">
+                <Link
+                  href="/vp-studio"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white"
+                >
+                  Explore the prototype <span aria-hidden>→</span>
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
