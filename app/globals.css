@@ -3,13 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: load your Horizon font if you have it in /public/fonts */
 @font-face {
-  font-family: 'Horizon';
-  src: url('/fonts/Horizon.woff2') format('woff2');
-  font-weight: 400 800;
+  font-family: "Horizon";
+  src: url("/fonts/Horizon.woff2") format("woff2"),
+       url("/fonts/Horizon.woff") format("woff");
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
+}
+
+/* Apply Horizon everywhere */
+html, body {
+  font-family: "Horizon", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Base theme */
