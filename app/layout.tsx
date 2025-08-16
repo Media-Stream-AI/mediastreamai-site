@@ -12,7 +12,7 @@ const horizon = localFont({
 
 // Load Horizon_Outlined
 const horizonOutlined = localFont({
-  src: "./fonts/horizon_Outlined.woff2",
+  src: "./fonts/horizon_outlined.woff2",
   variable: "--font-horizon-outlined",
   display: "swap",
 });
