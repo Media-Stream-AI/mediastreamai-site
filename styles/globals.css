@@ -2,144 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-/* -------------------------------
+/* -----------------------------
    FONT IMPORTS
 -------------------------------- */
 @font-face {
   font-family: "Horizon";
-  src: url("/fonts/Horizon.woff2") format("woff2"),
-       url("/fonts/Horizon.woff") format("woff");
+  src: url("/fonts/Horizon.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
-@font-face {
-  font-family: "Glacial Indifference";
-  src: url("/fonts/GlacialIndifference-Regular.woff2") format("woff2"),
-       url("/fonts/GlacialIndifference-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-:root {
-  --color-bg: #000000;
-  --color-fg: #ffffff;
-  --color-accent: #3b82f6;
-}
-
-/* -------------------------------
+/* -----------------------------
    BASE STYLES
 -------------------------------- */
-html,
-body {
+html, body {
+  @apply bg-black text-white antialiased;
   margin: 0;
   padding: 0;
-  font-family: "Glacial Indifference", sans-serif;
-  background: var(--color-bg);
-  color: var(--color-fg);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6,
-.font-horizon {
+/* Use system fonts for body */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  line-height: 1.6;
+}
+
+/* Horizon ONLY for headings */
+h1, h2, h3, h4 {
   font-family: "Horizon", sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.font-glacial {
-  font-family: "Glacial Indifference", sans-serif;
-}
-
-/* -------------------------------
-   LAYOUT HELPERS
+/* -----------------------------
+   NAV + LINKS
 -------------------------------- */
-.section {
-  padding: 5rem 0;
+a {
+  @apply transition-colors duration-300;
+}
+a:hover {
+  color: #22d3ee; /* cyan-400 */
 }
 
-@media (max-width: 640px) {
-  .section {
-    padding: 3rem 0;
-  }
-}
-
-/* -------------------------------
-   BUTTONS
+/* -----------------------------
+   CUSTOM UTILITIES
 -------------------------------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
+
+/* Neon glowing text */
+.neon-text {
+  color: #22d3ee;
+  text-shadow: 0 0 8px #22d3ee, 0 0 16px #0891b2;
+}
+
+/* Neon glowing box */
+.neon-box {
+  border: 2px solid #22d3ee;
+  box-shadow: 0 0 10px #22d3ee, 0 0 20px #0891b2 inset;
   border-radius: 0.75rem;
-  padding: 0.6rem 1.5rem;
-  font-size: 0.9rem;
-  transition: all 0.25s ease;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
 }
 
-.btn-primary {
-  background: linear-gradient(90deg, #3b82f6, #06b6d4);
-  color: white;
-  border: none;
+/* Animated gradient background */
+.gradient-bg {
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0e7490, #22d3ee);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.btn-primary:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
+/* Floating animation for futuristic elements */
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
 }
 
-/* -------------------------------
-   CARD EFFECTS
--------------------------------- */
-.card-glow {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.card-glow:hover {
-  box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
-  transform: translateY(-4px);
-}
-
-/* -------------------------------
-   TICKER ANIMATION
--------------------------------- */
-.ticker {
-  animation: ticker-scroll 20s linear infinite;
-}
-
-@keyframes ticker-scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* -------------------------------
-   BACKGROUND GRID EFFECT
--------------------------------- */
-.grid-bg {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.15;
+/* Particle background (paired with NeonParticles component) */
+canvas.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
-/* -------------------------------
-   FAQ STYLE (expand animation)
--------------------------------- */
-details[open] summary ~ * {
-  animation: faq-expand 0.3s ease-in-out;
+/* Grid overlay (paired with NeonGrid component) */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#22d3ee33 1px, transparent 1px),
+    linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+  pointer-events: none;
 }
 
-@keyframes faq-expand {
-  from { opacity: 0; transform: translateY(-5px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* -----------------------------
+   RESPONSIVE FIXES
+-------------------------------- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
