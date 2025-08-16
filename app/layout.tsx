@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Media Stream AI",
@@ -23,13 +24,17 @@ function Header() {
   ];
 
   return (
-    <header className="flex justify-between items-center p-6 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+    <header className="flex justify-between items-center p-4 bg-black/80 backdrop-blur-md sticky top-0 z-50">
       {/* Logo */}
-      <Link
-        href="/"
-        className="text-2xl font-horizon tracking-wide hover:text-cyan-400 transition"
-      >
-        Media Stream AI
+      <Link href="/" className="flex items-center">
+        <Image
+          src="/media/msai-logo.png" // make sure your logo is saved here: public/media/msai-logo.png
+          alt="Media Stream AI"
+          width={160}
+          height={40}
+          className="h-10 w-auto"
+          priority
+        />
       </Link>
 
       {/* Desktop nav */}
