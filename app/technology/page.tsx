@@ -6,43 +6,46 @@ export default function TechnologyPage() {
   return (
     <div className="bg-black text-white">
       {/* Hero */}
-      <section className="relative overflow-hidden text-center px-6 py-24">
+      <section className="relative overflow-hidden text-center px-4 sm:px-6 py-20 sm:py-24">
         <motion.h1
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-6xl"
+          className="font-horizon text-balance break-words leading-tight tracking-tight
+                     text-3xl sm:text-5xl md:text-6xl max-w-[18ch] sm:max-w-none mx-auto"
         >
           Personalisation Technology
         </motion.h1>
-        <p className="mt-5 text-white/70 max-w-2xl mx-auto text-base sm:text-lg">
+        <p className="mt-5 text-white/70 text-balance break-words mx-auto
+                      max-w-[40ch] sm:max-w-2xl text-base sm:text-lg">
           Our Personalisation LLM fuses biometric signals, behaviour, and context to select the right content — privately and transparently.
         </p>
       </section>
 
-      {/* Biometric Signals Mind Map */}
+      {/* Biometric Signals Mind Map + Privacy */}
       <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Mind Map Card */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+            className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6"
           >
-            <h2 className="text-2xl sm:text-3xl">Biometric Signals → Mind Map</h2>
-            <p className="mt-3 text-white/70 text-sm">
+            <h2 className="text-balance break-words text-2xl sm:text-3xl">Biometric Signals → Mind Map</h2>
+            <p className="mt-3 text-white/70 text-sm sm:text-base text-balance">
               Real-time signals like EEG, HRV, GSR and inferred mood blend with behavioural data (session context,
               prior viewing) and live context (weather, time of day). The map below shows how features flow into our Personalisation LLM,
               which selects content aligned to attention, comfort and preference.
             </p>
 
-            <div className="mt-6 rounded-2xl bg-white/[0.02] ring-1 ring-white/10 p-4">
+            <div className="mt-6 rounded-2xl bg-white/[0.02] ring-1 ring-white/10 p-3 sm:p-4">
               <BiometricMindMap />
             </div>
 
-            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-sm text-white/80">
+            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-sm text-white/80">
               <li>• EEG: focus/engagement features (alpha/theta balance)</li>
               <li>• HRV: relaxation / arousal proxy (RMSSD/SDNN)</li>
               <li>• GSR: moment-to-moment excitement</li>
@@ -52,55 +55,36 @@ export default function TechnologyPage() {
             </ul>
           </motion.div>
 
-          {/* Privacy & Opt-In */}
+          {/* Privacy Card */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+            className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6"
           >
-            <h2 className="text-2xl sm:text-3xl">Privacy & Opt-In</h2>
-            <p className="mt-3 text-white/70 text-sm">
+            <h2 className="text-balance break-words text-2xl sm:text-3xl">Privacy & Opt-In</h2>
+            <p className="mt-3 text-white/70 text-sm sm:text-base text-balance">
               Personalised TV is optional, transparent and privacy-first. You stay in control.
             </p>
-            <div className="mt-6 grid sm:grid-cols-2 gap-4">
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {[
-                {
-                  t: "Explicit Opt-In",
-                  d: "Granular consent by signal type, with per-device controls.",
-                },
-                {
-                  t: "On-Device First",
-                  d: "Signal features derived locally where possible; raw data never leaves the device by default.",
-                },
-                {
-                  t: "Edge Anonymisation",
-                  d: "Ephemeral IDs, k-anonymity buckets, and DP noise for cohort metrics.",
-                },
-                {
-                  t: "Transparent Logs",
-                  d: "View and revoke history, export preferences, consent receipts.",
-                },
-                {
-                  t: "Minimal Retention",
-                  d: "Short TTL for session features; long-term only if explicitly enabled.",
-                },
-                {
-                  t: "Compliance-Ready",
-                  d: "GDPR/CCPA aligned; DPIA and DSR processes in place.",
-                },
+                { t: "Explicit Opt-In", d: "Granular consent by signal type, with per-device controls." },
+                { t: "On-Device First", d: "Signal features derived locally where possible; raw data never leaves the device by default." },
+                { t: "Edge Anonymisation", d: "Ephemeral IDs, k-anonymity buckets, and DP noise for cohort metrics." },
+                { t: "Transparent Logs", d: "View and revoke history, export preferences, consent receipts." },
+                { t: "Minimal Retention", d: "Short TTL for session features; long-term only if explicitly enabled." },
+                { t: "Compliance-Ready", d: "GDPR/CCPA aligned; DPIA and DSR processes in place." },
               ].map((c) => (
-                <div
-                  key={c.t}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"
-                >
+                <div key={c.t} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                   <div className="text-base">{c.t}</div>
-                  <p className="mt-1 text-xs text-white/70">{c.d}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-white/70">{c.d}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-5 text-white/60 text-xs">
+
+            <p className="mt-5 text-white/60 text-[11px] sm:text-xs text-balance break-words">
               Note: biometric features are <span className="underline decoration-dotted">derived representations</span> —
               not raw medical signals — and are processed with consent and strict safeguards.
             </p>
@@ -108,30 +92,31 @@ export default function TechnologyPage() {
         </div>
       </section>
 
-      {/* How the LLM Personalises & Schedules */}
+      {/* LLM → Schedule + HLS */}
       <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* LLM → Schedule */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+            className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6"
           >
-            <h2 className="text-2xl sm:text-3xl">Personalisation LLM → Schedule Builder</h2>
-            <p className="mt-3 text-white/70 text-sm">
+            <h2 className="text-balance break-words text-2xl sm:text-3xl">Personalisation LLM → Schedule Builder</h2>
+            <p className="mt-3 text-white/70 text-sm sm:text-base text-balance">
               The LLM turns preferences, context and constraints into a personalised schedule: format variety, pacing,
               ad-load targets, content diversity and safety rules — all tuned for each viewer.
             </p>
 
-            <ul className="mt-6 space-y-2 text-sm text-white/80">
+            <ul className="mt-6 space-y-2 text-sm sm:text-base text-white/80">
               <li>• Multi-objective ranking (engagement, novelty, diversity & fatigue-avoidance)</li>
               <li>• Session pacing (short/long form balance, ad breaks aligned to natural boundaries)</li>
               <li>• Safety / suitability filters (broadcaster policy & parental controls)</li>
               <li>• Exploration vs. comfort trade-off (context-aware discovery)</li>
             </ul>
 
-            <div className="mt-6 rounded-2xl bg-white/[0.02] ring-1 ring-white/10 p-4">
+            <div className="mt-6 rounded-2xl bg-white/[0.02] ring-1 ring-white/10 p-3 sm:p-4">
               <HLSFlow />
             </div>
           </motion.div>
@@ -142,41 +127,41 @@ export default function TechnologyPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+            className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6"
           >
-            <h2 className="text-2xl sm:text-3xl">AI-Optimised HLS Playout</h2>
-            <p className="mt-3 text-white/70 text-sm">
+            <h2 className="text-balance break-words text-2xl sm:text-3xl">AI-Optimised HLS Playout</h2>
+            <p className="mt-3 text-white/70 text-sm sm:text-base text-balance">
               Adaptive bitrate ladders and LL-HLS tuned per viewer, device and network — reducing bandwidth and latency while preserving QoE.
             </p>
 
-            <div className="mt-6 grid sm:grid-cols-2 gap-4 text-sm text-white/80">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm text-white/80">
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="text-base">Adaptive Ladder</div>
-                <p className="mt-1 text-xs text-white/70">
+                <p className="mt-1 text-xs sm:text-sm text-white/70">
                   AI selects per-title/per-device ladders, GOP alignment and keyframe cadence to minimize rebuffering.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="text-base">Predictive Prefetch</div>
-                <p className="mt-1 text-xs text-white/70">
+                <p className="mt-1 text-xs sm:text-sm text-white/70">
                   Prefetch likely next segments at the edge; cut start-up delay and seek cost.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="text-base">Congestion-Aware</div>
-                <p className="mt-1 text-xs text-white/70">
+                <p className="mt-1 text-xs sm:text-sm text-white/70">
                   Live throughput estimation adjusts rendition switches long before stalls occur.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="text-base">Edge Intelligence</div>
-                <p className="mt-1 text-xs text-white/70">
+                <p className="mt-1 text-xs sm:text-sm text-white/70">
                   Edge hints + client telemetry feed back into real-time scheduling and caching.
                 </p>
               </div>
             </div>
 
-            <p className="mt-6 text-xs text-white/60">
+            <p className="mt-6 text-[11px] sm:text-xs text-white/60 text-balance">
               The result: lower average bitrate for the same MOS, faster zapping, fewer rebuffers, and consistent latency in LL-HLS.
             </p>
           </motion.div>
@@ -185,9 +170,11 @@ export default function TechnologyPage() {
 
       {/* CTA */}
       <section className="section border-t border-white/10 text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl">Bring personalisation to your platform</h2>
-          <p className="mt-4 text-white/70">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h2 className="text-balance break-words text-2xl sm:text-3xl md:text-4xl">
+            Bring personalisation to your platform
+          </h2>
+          <p className="mt-4 text-white/70 text-balance break-words mx-auto max-w-[45ch]">
             We integrate with your CMS, encoder and CDN — end to end, privacy-first.
           </p>
           <a href="/contact" className="btn btn-primary mt-6">Talk to our team</a>
@@ -203,8 +190,10 @@ function BiometricMindMap() {
     <div className="relative w-full overflow-hidden rounded-xl">
       <svg
         viewBox="0 0 900 520"
-        className="w-full h-[360px]"
+        className="w-full h-[300px] sm:h-[360px] md:h-[420px]"
         xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Biometric signals mind map feeding the Personalisation LLM"
       >
         {/* Background grid */}
         <defs>
@@ -252,13 +241,7 @@ function BiometricMindMap() {
           <g key={i} transform={`translate(${n.x},${n.y})`}>
             <circle r="26" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
             <circle r="8" fill="url(#neonA)">
-              <animate
-                attributeName="r"
-                values="6;8;6"
-                dur="1.8s"
-                repeatCount="indefinite"
-                begin={`${i * 0.15}s`}
-              />
+              <animate attributeName="r" values="6;8;6" dur="1.8s" repeatCount="indefinite" begin={`${i * 0.15}s`} />
             </circle>
             <text x="0" y="42" fontSize="12" textAnchor="middle" fill="rgba(255,255,255,0.7)">
               {n.label}
@@ -268,20 +251,17 @@ function BiometricMindMap() {
 
         {/* Edges to brain */}
         {[
-          // from left group
-          { d: "M170,80 C260,80 330,140 450,180" },
-          { d: "M120,190 C220,190 320,160 450,180" },
-          { d: "M180,300 C260,300 340,240 450,180" },
-          // from right group
-          { d: "M720,110 C640,120 560,150 450,180" },
-          { d: "M760,220 C640,210 560,190 450,180" },
-          { d: "M710,320 C640,280 560,230 450,180" },
-          // from below (mood)
-          { d: "M450,420 C450,360 450,240 450,180" },
-        ].map((p, idx) => (
+          "M170,80 C260,80 330,140 450,180",
+          "M120,190 C220,190 320,160 450,180",
+          "M180,300 C260,300 340,240 450,180",
+          "M720,110 C640,120 560,150 450,180",
+          "M760,220 C640,210 560,190 450,180",
+          "M710,320 C640,280 560,230 450,180",
+          "M450,420 C450,360 450,240 450,180",
+        ].map((d, idx) => (
           <path
             key={idx}
-            d={p.d}
+            d={d}
             fill="none"
             stroke="rgba(130,180,255,0.35)"
             strokeWidth="2"
@@ -292,18 +272,13 @@ function BiometricMindMap() {
           </path>
         ))}
 
-        {/* Merge node → LLM */}
+        {/* Merge → LLM */}
         <g transform="translate(450,180)">
           <path d="M-8,-92 h16 v-22 h-16 z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" />
           <text x="0" y="-100" fontSize="11" textAnchor="middle" fill="rgba(255,255,255,0.7)">
             Merge
           </text>
-          <path
-            d="M0,-92 C0,-120 0,-150 0,-170"
-            fill="none"
-            stroke="url(#neonB)"
-            strokeWidth="2"
-          >
+          <path d="M0,-92 C0,-120 0,-150 0,-170" fill="none" stroke="url(#neonB)" strokeWidth="2">
             <animate attributeName="stroke-dasharray" values="0 6; 6 6" dur="1.4s" repeatCount="indefinite" />
             <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.4s" repeatCount="indefinite" />
           </path>
@@ -315,19 +290,16 @@ function BiometricMindMap() {
           <text x="0" y="30" fontSize="14" textAnchor="middle" fill="white">Personalisation LLM</text>
         </g>
 
-        {/* Output to content */}
-        <path
-          d="M450,70 C450,100 450,120 450,140"
-          fill="none"
-          stroke="rgba(140,180,255,0.8)"
-          strokeWidth="2.5"
-        >
+        {/* Output */}
+        <path d="M450,70 C450,100 450,120 450,140" fill="none" stroke="rgba(140,180,255,0.8)" strokeWidth="2.5">
           <animate attributeName="stroke-dasharray" values="0 10; 10 10" dur="1.2s" repeatCount="indefinite" />
           <animate attributeName="stroke-dashoffset" values="0; -20" dur="1.2s" repeatCount="indefinite" />
         </path>
         <g transform="translate(450,160)">
           <rect x="-160" y="0" width="320" height="54" rx="12" fill="rgba(120,200,255,0.10)" stroke="rgba(160,210,255,0.35)" />
-          <text x="0" y="32" fontSize="13" textAnchor="middle" fill="white">Selected Content (Format • Genre • Length • Safety)</text>
+          <text x="0" y="32" fontSize="13" textAnchor="middle" fill="white">
+            Selected Content (Format • Genre • Length • Safety)
+          </text>
         </g>
       </svg>
     </div>
@@ -340,8 +312,10 @@ function HLSFlow() {
     <div className="relative w-full overflow-hidden rounded-xl">
       <svg
         viewBox="0 0 980 360"
-        className="w-full h-[260px]"
+        className="w-full h-[220px] sm:h-[260px] md:h-[300px]"
         xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="HLS optimisation flow from LLM to viewer"
       >
         <defs>
           <pattern id="hls-grid" width="22" height="22" patternUnits="userSpaceOnUse">
