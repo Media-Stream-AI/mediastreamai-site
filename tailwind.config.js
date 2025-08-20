@@ -1,15 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}"
   ],
+  // Ensure the radial gradient class used on the hero is never purged
+  safelist: [
+    'bg-[radial-gradient(80%_60%_at_50%_10%,rgba(120,180,255,0.12),transparent_60%)]'
+  ],
   theme: {
     extend: {
+      // Body font = Glacial, Headlines use the horizon utility (font-horizon)
       fontFamily: {
-        sans: ["Horizon", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Glacial Indifference", "ui-sans-serif", "system-ui", "sans-serif"],
+        glacial: ["Glacial Indifference", "ui-sans-serif", "system-ui", "sans-serif"],
         horizon: ["Horizon", "ui-sans-serif", "system-ui", "sans-serif"]
       },
       colors: {
@@ -25,8 +32,14 @@ module.exports = {
       },
       keyframes: {
         pulseGlow: {
-          "0%, 100%": { opacity: 1, textShadow: "0 0 12px #00f0ff, 0 0 20px #ff00ff" },
-          "50%": { opacity: 0.75, textShadow: "0 0 8px #00f0ff, 0 0 14px #ff00ff" }
+          "0%, 100%": {
+            opacity: "1",
+            textShadow: "0 0 12px #00f0ff, 0 0 20px #ff00ff"
+          },
+          "50%": {
+            opacity: "0.75",
+            textShadow: "0 0 8px #00f0ff, 0 0 14px #ff00ff"
+          }
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
