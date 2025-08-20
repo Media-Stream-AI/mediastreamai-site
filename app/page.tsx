@@ -18,6 +18,7 @@ export default function HomePage() {
             priority
             className="object-cover object-center opacity-90"
           />
+          {/* Readability & subtle sci-fi glow */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/80" />
           <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(120,180,255,0.12),transparent_60%)]" />
         </div>
@@ -47,7 +48,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 text-center mx-auto max-w-[35ch] sm:max-w-2xl text-base sm:text-lg text-white/80"
+            className="mt-6 text-center mx-auto max-w-[35ch] sm:max-w-2xl text-base sm:text-lg text-white/80 font-glacial"
           >
             AI-powered TV experiences tailored to every viewer — informed by biometric and behavioral understanding.
           </motion.p>
@@ -62,11 +63,12 @@ export default function HomePage() {
             <Link href="/vp-studio" className="btn btn-primary">
               Explore AI VP Studio
             </Link>
+            {/* Swapped “Talk to us” for Explore IntuiTV per your requirement */}
             <Link
-              href="/contact"
+              href="/intuitv"
               className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
             >
-              Talk to us
+              Explore IntuiTV
             </Link>
           </motion.div>
         </div>
@@ -75,7 +77,7 @@ export default function HomePage() {
       {/* WHAT WE DO */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl text-balance break-words">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl text-balance break-words font-horizon">
             What we do
           </h2>
 
@@ -86,7 +88,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6"
             >
               <div className="flex items-center gap-3">
                 <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
@@ -98,9 +100,9 @@ export default function HomePage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="text-lg">Media Stream AI</div>
+                <div className="text-lg font-horizon">Media Stream AI</div>
               </div>
-              <p className="mt-3 text-white/70 text-sm">
+              <p className="mt-3 text-white/70 text-sm font-glacial">
                 AI Powered technology for broadcasters, allowing personalised TV
                 based on viewer Biometric &amp; Behavioral data.
               </p>
@@ -120,7 +122,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6"
             >
               <div className="flex items-center gap-3">
                 <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
@@ -132,9 +134,9 @@ export default function HomePage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="text-lg">IntuiTV</div>
+                <div className="text-lg font-horizon">IntuiTV</div>
               </div>
-              <p className="mt-3 text-white/70 text-sm">
+              <p className="mt-3 text-white/70 text-sm font-glacial">
                 Our global direct to viewer, personalised TV Platform.
               </p>
               <div className="mt-4">
@@ -155,7 +157,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6"
             >
               <div className="flex items-center gap-3">
                 <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
@@ -167,9 +169,9 @@ export default function HomePage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="text-lg">Canal Side AI Data Centre</div>
+                <div className="text-lg font-horizon">Canal Side AI Data Centre</div>
               </div>
-              <p className="mt-3 text-white/70 text-sm">
+              <p className="mt-3 text-white/70 text-sm font-glacial">
                 Our Canal Cleaning &amp; GPU Cooling technology, powering canal restoration alongside our AI GPU Cluster data centre.
               </p>
               <div className="mt-4">
@@ -188,7 +190,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+              className="relative min-h-[180px] rounded-3xl border border-white/10 bg-white/[0.03] p-6"
             >
               <div className="flex items-center gap-3">
                 <div className="size-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
@@ -200,9 +202,9 @@ export default function HomePage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="text-lg">AI VP Studio</div>
+                <div className="text-lg font-horizon">AI VP Studio</div>
               </div>
-              <p className="mt-3 text-white/70 text-sm">
+              <p className="mt-3 text-white/70 text-sm font-glacial">
                 Our fully AI-controlled Virtual Production Studio (Prototype).
               </p>
               <div className="mt-4">
@@ -221,10 +223,10 @@ export default function HomePage() {
       {/* CTA */}
       <section className="section border-t border-white/10 text-center">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl text-balance">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl text-balance font-horizon">
             Ready to personalise TV?
           </h2>
-          <p className="mt-4 text-white/70 text-balance break-words">
+          <p className="mt-4 text-white/70 text-balance break-words font-glacial">
             We partner with broadcasters and platforms to deliver AI-powered experiences that feel made for every viewer.
           </p>
           <Link href="/contact" className="btn btn-primary mt-6">
