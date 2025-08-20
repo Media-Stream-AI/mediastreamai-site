@@ -1,13 +1,25 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import NextDynamic from "next/dynamic";
 import { motion } from "framer-motion";
 
-const NeonParticles = dynamic(() => import("../../components/NeonParticles"), { ssr: false, loading: () => <div className="absolute inset-0 grid-bg" aria-hidden /> });
-const AIDirectorWidget = dynamic(() => import("../../components/AIDirectorWidget"), { ssr: false, loading: () => <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 text-sm text-white/70">Loading AI Director…</div> });
-
+// Keep this to force dynamic rendering, but avoid clashing with the import above
 export const dynamic = "force-dynamic";
+
+// Lazy components (client-side only)
+const NeonParticles = NextDynamic(() => import("../../components/NeonParticles"), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0 grid-bg" aria-hidden />
+});
+const AIDirectorWidget = NextDynamic(() => import("../../components/AIDirectorWidget"), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 text-sm text-white/70">
+      Loading AI Director…
+    </div>
+  )
+});
 
 export default function VPStudioPage() {
   return (
@@ -16,13 +28,22 @@ export default function VPStudioPage() {
       <section className="relative overflow-hidden text-center px-6 py-20 md:py-28">
         <NeonParticles />
         <div className="relative max-w-7xl mx-auto">
-          <motion.h1 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-4xl md:text-6xl font-horizon">
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-6xl font-horizon"
+          >
             AI-Powered Virtual Production Studios
           </motion.h1>
           <p className="mt-4 text-white/70 max-w-3xl mx-auto font-glacial">
-            Cost-efficient virtual stages with AI Director: automated shot lists, lighting presets, and on-set continuity.
+            Cost-efficient virtual stages with AI Director: automated shot lists, lighting presets,
+            and on-set continuity.
           </p>
-          <div className="mt-8"><Link href="/robotics" className="btn btn-primary">Explore Robotics →</Link></div>
+          <div className="mt-8">
+            <Link href="/robotics" className="btn btn-primary">Explore Robotics →</Link>
+          </div>
         </div>
       </section>
 
@@ -32,7 +53,13 @@ export default function VPStudioPage() {
           <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 overflow-hidden">
             <NeonParticles />
             <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image src="/media/vp-studio-mockup.jpg" alt="VP Studio stage" width={1200} height={675} className="w-full h-full object-cover" />
+              <Image
+                src="/media/vp-studio-mockup.jpg"
+                alt="VP Studio stage"
+                width={1200}
+                height={675}
+                className="w-full h-full object-cover"
+              />
             </div>
             <p className="mt-3 text-white/70 text-sm font-glacial">Stage concept</p>
           </div>
@@ -42,14 +69,19 @@ export default function VPStudioPage() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h3 className="text-2xl sm:text-3xl font-horizon">Speak to our Director</h3>
-                <p className="mt-2 text-white/70 text-sm font-glacial">Turn on your microphone to chat with the Virtual Director. Try: <em>“Let’s create a music video”</em> or <em>“I want a corporate video.”</em></p>
+                <p className="mt-2 text-white/70 text-sm font-glacial">
+                  Turn on your microphone to chat with the Virtual Director. Try: <em>“Let’s create a music video”</em> or{" "}
+                  <em>“I want a corporate video.”</em>
+                </p>
               </div>
               <div className="shrink-0 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs leading-5">
                 <div className="opacity-80">Mic access</div>
                 <div className="opacity-60">Click <strong>Talk via Microphone</strong> → Allow</div>
               </div>
             </div>
-            <div className="mt-6"><AIDirectorWidget /></div>
+            <div className="mt-6">
+              <AIDirectorWidget />
+            </div>
           </div>
         </div>
       </section>
@@ -80,10 +112,14 @@ export default function VPStudioPage() {
       <section className="section border-t border-white/10 text-center">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl font-horizon">See the Studio</h2>
-          <p className="mt-4 text-white/70 font-glacial">Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.</p>
+          <p className="mt-4 text-white/70 font-glacial">
+            Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.
+          </p>
           <div className="mt-6 flex items-center justify-center gap-3">
             <a href="/contact" className="btn btn-primary">Talk to our team</a>
-            <Link href="/robotics" className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition">Explore Robotics</Link>
+            <Link href="/robotics" className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition">
+              Explore Robotics
+            </Link>
           </div>
         </div>
       </section>
