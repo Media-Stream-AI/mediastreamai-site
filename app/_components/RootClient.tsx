@@ -1,13 +1,5 @@
 "use client";
-
-import React from "react";
-import Header from "./Header";
-
-export default function RootClient({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <Header />
-      <main>{children}</main>
-    </>
-  );
+import { ReactNode } from "react";
+export default function RootClient({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 }
