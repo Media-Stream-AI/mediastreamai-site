@@ -3,65 +3,116 @@
 @tailwind utilities;
 
 /* -----------------------------
-   FONT IMPORTS
+   FONTS (WOFF2 + TTF fallback)
 -------------------------------- */
 @font-face {
   font-family: "Horizon";
-  src: url("/fonts/Horizon.ttf") format("truetype");
-  font-weight: normal;
+  src: url("/fonts/Horizon.woff2") format("woff2"),
+       url("/fonts/Horizon.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Glacial Indifference";
+  src: url("/fonts/GlacialIndifference-Regular.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 /* -----------------------------
-   BASE STYLES
+   BASE
 -------------------------------- */
+:root { --bg: #000; --fg: #fff; }
 html, body {
-  @apply bg-black text-white antialiased;
+  background: var(--bg);
+  color: var(--fg);
+  /* Body uses Glacial (falls back to system ui) */
+  font-family: "Glacial Indifference", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Use system fonts for body */
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji";
-  line-height: 1.6;
-}
-
-/* Horizon ONLY for headings */
-h1, h2, h3, h4 {
-  font-family: "Horizon", sans-serif;
-  letter-spacing: 0.05em;
+/* Headings use Horizon only */
+h1, h2, h3, h4, h5, h6,
+.font-horizon {
+  font-family: "Horizon", ui-sans-serif, system-ui;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
 }
 
+.font-glacial { font-family: "Glacial Indifference", ui-sans-serif, system-ui; }
+
 /* -----------------------------
-   NAV + LINKS
+   LINKS / HOVERS
 -------------------------------- */
-a {
-  @apply transition-colors duration-300;
+a { @apply transition-colors duration-300; }
+a:hover { color: #22d3ee; } /* cyan-400 */
+
+/* -----------------------------
+   LAYOUT HELPERS
+-------------------------------- */
+.section { padding: 5rem 0; }
+@media (max-width: 640px) { .section { padding: 3rem 0; } }
+
+/* Buttons */
+.btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm transition; }
+.btn-primary {
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  color: #fff;
 }
-a:hover {
-  color: #22d3ee; /* cyan-400 */
+.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* -----------------------------
+   TICKER
+-------------------------------- */
+.ticker { animation: ticker-scroll 20s linear infinite; }
+@keyframes ticker-scroll {
+  0% { transform: translateX(0) }
+  100% { transform: translateX(-50%) }
 }
 
 /* -----------------------------
-   CUSTOM UTILITIES
+   GRID BACKDROP (subtle)
 -------------------------------- */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: .15;
+  pointer-events: none;
+}
 
-/* Neon glowing text */
+/* Teal-tinted grid overlay option */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#22d3ee33 1px, transparent 1px),
+    linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* -----------------------------
+   FUTURISTIC EFFECTS
+-------------------------------- */
+/* Neon glowing text/box */
 .neon-text {
   color: #22d3ee;
   text-shadow: 0 0 8px #22d3ee, 0 0 16px #0891b2;
 }
-
-/* Neon glowing box */
 .neon-box {
   border: 2px solid #22d3ee;
-  box-shadow: 0 0 10px #22d3ee, 0 0 20px #0891b2 inset;
+  box-shadow: 0 0 10px #22d3ee, inset 0 0 20px #0891b2;
   border-radius: 0.75rem;
 }
 
@@ -72,48 +123,30 @@ a:hover {
   animation: gradientShift 12s ease infinite;
 }
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
 }
 
-/* Floating animation for futuristic elements */
+/* Floating animation */
 @keyframes float {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0%   { transform: translateY(0px) }
+  50%  { transform: translateY(-8px) }
+  100% { transform: translateY(0px) }
 }
-.float {
-  animation: float 6s ease-in-out infinite;
-}
+.float { animation: float 6s ease-in-out infinite; }
 
-/* Particle background (paired with NeonParticles component) */
+/* Particles canvas (used by NeonParticles) */
 canvas.particles {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
 }
 
-/* Grid overlay (paired with NeonGrid component) */
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(#22d3ee33 1px, transparent 1px),
-    linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
-  pointer-events: none;
-}
-
 /* -----------------------------
-   RESPONSIVE FIXES
+   MEDIA ELEMENTS
 -------------------------------- */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+img, svg, video, canvas { display: block; max-width: 100%; height: auto; }
