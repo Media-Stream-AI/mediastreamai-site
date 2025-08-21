@@ -8,10 +8,9 @@ export default function DataCentrePage() {
     <main className="bg-black text-white">
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
-        {/* Background hero (use your real canal / facility photo) */}
         <div className="absolute inset-0">
           <Image
-            src="/media/canal-cooling-hero.jpg" // ← put your hero image here
+            src="/media/canal-cooling-hero.jpg" // hero image (swap if your filename differs)
             alt="Canal-Side AI Data Centre"
             fill
             className="object-cover object-center opacity-40"
@@ -23,7 +22,7 @@ export default function DataCentrePage() {
         <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
           <div className="flex items-center justify-center">
             <Image
-              src="/media/AI DATA CENTRE - WHITE.png" // ← logo you provided earlier
+              src="/media/AI DATA CENTRE - WHITE.png"
               alt="Canal-Side AI Data Centre Logo"
               width={260}
               height={80}
@@ -35,8 +34,7 @@ export default function DataCentrePage() {
             Canal-Cooled AI Data Centre
           </h1>
           <p className="mt-4 text-white/80 max-w-3xl mx-auto font-glacial">
-            Sustainable, high-density GPU compute cooled by canal water—built to
-            power Media Stream AI, IntuiTV personalization, and your cloud workloads.
+            Sustainable, high-density GPU compute cooled by canal water—built to power Media Stream AI, IntuiTV personalisation, and your cloud workloads.
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-3">
@@ -51,77 +49,108 @@ export default function DataCentrePage() {
         </div>
       </section>
 
-      {/* OVERVIEW */}
+      {/* OVERVIEW (Sustainable by design + Process diagram) */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <h2 className="text-3xl font-horizon">Sustainable by Design</h2>
             <p className="mt-4 text-white/70 font-glacial">
-              Our canal-side facilities use closed-loop heat exchange with canal water
-              to remove heat from high-density GPU racks—reducing grid strain and
-              fresh-water usage. Waste heat can be repurposed locally for canal
-              ecology projects and nearby buildings.
+              Our canal-side facilities use closed-loop heat exchange with canal water to remove heat from high-density GPU racks, reducing grid strain and fresh-water usage. Waste heat can be repurposed locally for ecology projects and buildings.
             </p>
             <ul className="mt-6 text-white/80 space-y-2 font-glacial">
               <li>• Canal water heat-exchange with low ecological impact</li>
               <li>• High-density racks for modern GPU clusters</li>
               <li>• Renewable-ready power integration</li>
-              <li>• Designed for AI training, fine-tuning, and real-time inference</li>
+              <li>• Built for AI training, fine-tuning, and real-time inference</li>
             </ul>
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <div className="aspect-video overflow-hidden rounded-xl bg-white/5">
               <Image
-                src="/media/MRF_LitterStream_PID.png" // ← diagram provided earlier
-                alt="Cooling / canal process diagram"
+                src="/media/MRF_LitterStream_PID.png"
+                alt="Cooling process diagram (P&ID)"
                 width={1600}
                 height={900}
                 className="w-full h-full object-contain"
               />
             </div>
             <p className="mt-3 text-white/60 text-sm font-glacial">
-              Process &amp; instrumentation diagram (illustrative)
+              Process &amp; instrumentation diagram (illustrative).
             </p>
           </div>
         </div>
       </section>
 
-      {/* COOLING & WATERWORKS DETAIL */}
+      {/* RESTORED: CANAL COOLING 3D VISUALS */}
       <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-start">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <h3 className="text-2xl font-horizon">Canal Cleaning &amp; Waterworks</h3>
-            <p className="mt-4 text-white/70 font-glacial">
-              Our infrastructure supports canal restoration: filtration skimmers,
-              debris capture, and real-time monitoring help return cleaner water to the canal.
-              The system runs in concert with the heat-exchange loop, ensuring both
-              compute efficiency and canal health.
-            </p>
-            <div className="mt-4 aspect-video overflow-hidden rounded-xl bg-white/5">
-              <Image
-                src="/media/MRF_AddOn_Schematic.png" // ← schematic provided earlier
-                alt="Canal cleaning add-on schematic"
-                width={1600}
-                height={900}
-                className="w-full h-full object-contain"
-              />
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-horizon">Canal Cooling — 3D Visuals</h2>
+          <p className="mt-3 text-white/70 font-glacial">
+            Restored 3D visuals of the canal-cooled loop and facility integration.
+          </p>
+          <div className="mt-8 grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <div className="aspect-[16/10] overflow-hidden rounded-xl bg-black/20">
+                <Image
+                  src="/media/images/canal-cooling-3d.jpg"
+                  alt="3D visual: canal cooling loop"
+                  width={1400}
+                  height={900}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="mt-2 text-white/60 text-sm font-glacial">3D overview of canal cooling loop.</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <div className="aspect-[16/10] overflow-hidden rounded-xl bg-black/20">
+                <Image
+                  src="/media/images/cooling-infrastructure-3d.jpg"
+                  alt="3D visual: cooling infrastructure integration"
+                  width={1400}
+                  height={900}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="mt-2 text-white/60 text-sm font-glacial">Cooling infrastructure integration.</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <h3 className="text-2xl font-horizon">Cloud GPU &amp; AI Services</h3>
-            <p className="mt-4 text-white/70 font-glacial">
-              We provide consumption-based access to GPU instances optimized for
-              training, fine-tuning, and inference—integrated with Media Stream AI and
-              IntuiTV pipelines.
-            </p>
-            <ul className="mt-4 text-white/80 space-y-2 font-glacial">
-              <li>• On-demand &amp; reserved GPU instances</li>
-              <li>• Private clusters for sovereign workloads</li>
-              <li>• Managed model hosting and inference APIs</li>
-              <li>• Burst rendering &amp; media pipelines</li>
-            </ul>
+      {/* RESTORED: WATER-FLOW SVG DIAGRAM */}
+      <section className="section border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-horizon">Water-Flow Diagram</h2>
+          <p className="mt-3 text-white/70 font-glacial">
+            Animated schematic showing filtered intake, heat-exchange, and return safeguards.
+          </p>
+
+          <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+            {/* Use <img> so any <animate> inside the SVG runs natively */}
+            <img
+              src="/media/svg/waterflow-diagram.svg"
+              alt="Water-flow canal cooling diagram"
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* RESTORED: GPU CLUSTERS / TOPOLOGY SVG */}
+      <section className="section border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-horizon">GPU Clusters &amp; Topology</h2>
+          <p className="mt-3 text-white/70 font-glacial">
+            Sovereign cluster topology with high-bandwidth interconnects and inference edges.
+          </p>
+
+          <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+            <img
+              src="/media/svg/gpu-clusters-topology.svg"
+              alt="GPU clusters / topology diagram"
+              className="w-full h-auto"
+            />
           </div>
         </div>
       </section>
@@ -134,7 +163,7 @@ export default function DataCentrePage() {
             {[
               {
                 t: "Inference",
-                d: "Low-latency instances for real-time personalization and stream metadata.",
+                d: "Low-latency instances for real-time personalisation and stream metadata.",
                 s: "NVIDIA L4 / A10G class"
               },
               {
