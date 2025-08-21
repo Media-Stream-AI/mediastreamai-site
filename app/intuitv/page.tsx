@@ -20,7 +20,7 @@ function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
       <div className="absolute inset-0">
-        <Image src="/media/intuitv-hero.jpg" alt="IntuiTV – Smart TV, Made Personal" fill priority className="object-cover object-center opacity-60" />
+        <Image src="/media/intuitv-hero.png" alt="IntuiTV – Smart TV, Made Personal" fill priority className="object-cover object-center opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/80" />
       </div>
       <div className="relative max-w-7xl mx-auto px-6 py-24 sm:py-32 text-center">
@@ -41,11 +41,11 @@ function Hero() {
 
 function Channels() {
   const logos = [
-    "/media/channels/genbtv-placeholder.png",
-    "/media/channels/genbmovies-placeholder.png",
-    "/media/channels/pridetv-placeholder.png",
-    "/media/channels/dstv-placeholder.png",
-    "/media/channels/hispanic-placeholder.png"
+    "/media/channels/genbtv-placeholder.svg",
+    "/media/channels/genbmovies-placeholder.svg",
+    "/media/channels/pridetv-placeholder.svg",
+    "/media/channels/dstv-placeholder.svg",
+    "/media/channels/hispanic-placeholder.svg"
   ];
   return (
     <section id="channels" className="section border-t border-white/10">
@@ -65,7 +65,7 @@ function Channels() {
           {logos.slice(0, 4).map((src, i) => (
             <img key={src} src={src} alt="logo" className="absolute h-10 w-auto left-1/2 top-1/2" style={{ transform: "translate(-50%, -50%)" }} />
           ))}
-          <img src="/media/intuitv-logo-white.svg" alt="IntuiTV" className="absolute h-12 w-auto left-1/2 top-1/2" style={{ transform: "translate(-50%, -50%)" }} />
+          <img src="/media/logos/intuitv.png" alt="IntuiTV" className="absolute h-12 w-auto left-1/2 top-1/2" style={{ transform: "translate(-50%, -50%)" }} />
         </div>
       </div>
     </section>
@@ -74,14 +74,14 @@ function Channels() {
 
 function Platforms() {
   const items = [
-    { name: "Apple TV", src: "/media/platforms/apple-tv-placeholder.svg" },
-    { name: "Amazon Fire TV", src: "/media/platforms/amazon-fire-tv-placeholder.svg" },
-    { name: "Roku", src: "/media/platforms/roku-placeholder.svg" },
-    { name: "Android TV", src: "/media/platforms/android-tv-placeholder.svg" },
-    { name: "Samsung TV", src: "/media/platforms/samsung-tv-placeholder.svg" },
-    { name: "LG webOS", src: "/media/platforms/lg-webos-placeholder.svg" },
-    { name: "iOS", src: "/media/platforms/ios-placeholder.svg" },
-    { name: "Android", src: "/media/platforms/android-placeholder.svg" }
+    { name: "Apple TV", src: "public/media/platforms/apple-tv-placeholder.svg" },
+    { name: "Amazon Fire TV", src: "public/media/platforms/amazon-fire-tv-placeholder.svg" },
+    { name: "Roku", src: "public/media/platforms/roku-placeholder.svg" },
+    { name: "Android TV", src: "public/media/platforms/android-tv-placeholder.svg" },
+    { name: "Samsung TV", src: "public/media/platforms/samsung-tv-placeholder.svg" },
+    { name: "LG webOS", src: "public/media/platforms/lg-webos-placeholder.svg" },
+    { name: "iOS", src: "public/media/platforms/ios-placeholder.svg" },
+    { name: "Android", src: "public/media/platforms/android-placeholder.svg" }
   ];
   return (
     <section id="platforms" className="section border-t border-white/10">
