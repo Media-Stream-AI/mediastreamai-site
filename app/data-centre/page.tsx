@@ -10,7 +10,7 @@ export default function DataCentrePage() {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/media/canal-cooling-hero.jpg" // hero image (swap if your filename differs)
+            src="/media/datacentre-office.png" // hero image (swap if your filename differs)
             alt="Canal-Side AI Data Centre"
             fill
             className="object-cover object-center opacity-40"
@@ -93,7 +93,7 @@ export default function DataCentrePage() {
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
               <div className="aspect-[16/10] overflow-hidden rounded-xl bg-black/20">
                 <Image
-                  src="/media/images/canal-cooling-3d.jpg"
+                  src="/media/images/canal-cooling-3d.png"
                   alt="3D visual: canal cooling loop"
                   width={1400}
                   height={900}
@@ -105,7 +105,7 @@ export default function DataCentrePage() {
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
               <div className="aspect-[16/10] overflow-hidden rounded-xl bg-black/20">
                 <Image
-                  src="/media/images/cooling-infrastructure-3d.jpg"
+                  src="/media/images/cooling-infrastructure-3d.png"
                   alt="3D visual: cooling infrastructure integration"
                   width={1400}
                   height={900}
