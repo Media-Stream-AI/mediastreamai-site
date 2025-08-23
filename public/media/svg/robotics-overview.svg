@@ -1,57 +1,144 @@
-<svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <style>
-    .bg { fill: #090b10; }
-    .metal { fill: #3b485a; }
-    .joint { fill: #94a3b8; }
-    .head { fill: #1E66FF; }
-    .txt { fill: #e5e7eb; font: 14px/1.2 Inter, Arial, sans-serif; }
+    .bg{fill:#0b0d12}
+    .panel{fill:#111827;stroke:#334155;stroke-width:2}
+    .rail{fill:#263241}
+    .car{fill:#3b485a}
+    .arm{fill:#445568}
+    .joint{fill:#94a3b8}
+    .head{fill:#1E66FF}
+    .beam{fill:#7dd3fc;opacity:0.18}
+    .txt{fill:#e5e7eb;font:14px/1.3 Inter,Arial,sans-serif}
+    .badge{fill:#0f172a;stroke:#334155;stroke-width:1}
+    .safety{fill:none;stroke:#22c55e;stroke-width:2;stroke-dasharray:8 8;opacity:0.9}
   </style>
 
-  <!-- Background -->
-  <rect class="bg" width="1000" height="560"/>
+  <!-- BACKGROUND -->
+  <rect class="bg" width="1400" height="800"/>
 
-  <!-- Arm Assembly -->
-  <g id="world" transform="translate(240,420)">
-    <circle cx="0" cy="0" r="30" class="metal"/>
-    <g id="base">
-      <rect x="0" y="-12" width="220" height="24" rx="12" class="metal"/>
-      <g id="shoulder" transform="translate(220,0)">
-        <circle r="12" class="joint"/>
-        <rect x="0" y="-10" width="190" height="20" rx="10" class="metal"/>
-        <g id="elbow" transform="translate(190,0)">
+  <!-- LED VIDEO WALL (Unreal Engine render area) -->
+  <rect x="60" y="60" width="1280" height="180" rx="8" class="panel"/>
+  <text class="txt" x="80" y="88">LED Wall — UE5 Render Feed</text>
+
+  <!-- CEILING TRUSS -->
+  <rect x="60" y="250" width="1280" height="16" rx="8" class="rail"/>
+
+  <!-- 10 EVENLY SPACED SMART LIGHTS WITH PAN/TILT BEAMS -->
+  <g id="lights">
+    <g transform="translate(80,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l1" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.25;0.15" dur="3s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-10;8;-10" dur="6s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(220,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l2" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.26;0.15" dur="3.2s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-7;10;-7" dur="5.6s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(360,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l3" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.23;0.15" dur="3s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-9;6;-9" dur="5.2s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(500,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l4" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.27;0.15" dur="3.4s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-8;12;-8" dur="6s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(640,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l5" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.25;0.15" dur="3.1s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-5;10;-5" dur="5.8s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(780,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l6" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.24;0.15" dur="3s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-6;9;-6" dur="5.6s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(920,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l7" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.26;0.15" dur="3.3s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-7;11;-7" dur="5.8s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(1060,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l8" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.25;0.15" dur="3.2s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-10;6;-10" dur="6.2s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(1200,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l9" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.22;0.15" dur="3s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-8;8;-8" dur="5.2s" repeatCount="indefinite"/></g></g>
+    <g transform="translate(1340,258)"><rect x="-16" y="-16" width="32" height="16" class="car"/><g id="l10" transform="translate(0,0) rotate(0)"><polygon points="0,0  -40,140  40,140" class="beam"><animate attributeName="opacity" values="0.15;0.25;0.15" dur="3.2s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="rotate" values="-6;10;-6" dur="5.6s" repeatCount="indefinite"/></g></g>
+  </g>
+
+  <!-- ACTOR + SAFETY BUBBLE -->
+  <g id="actor" transform="translate(700,500)">
+    <circle r="14" fill="#fbbf24"/>
+    <circle r="120" class="safety">
+      <animate attributeName="opacity" values="0.6;0.9;0.6" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <rect x="-48" y="-64" width="96" height="22" rx="6" class="badge"/>
+    <text class="txt" x="-42" y="-48">Actor safety zone</text>
+  </g>
+
+  <!-- FLOOR RAIL (6 m representation) -->
+  <rect x="60" y="720" width="1280" height="18" rx="9" class="rail"/>
+  <text class="txt" x="60" y="750">6 m floor rail — left / center / right coverage</text>
+
+  <!-- LEFT TROLLEY + ARM -->
+  <g id="left_car" transform="translate(300,710)">
+    <rect x="-42" y="0" width="84" height="26" rx="6" class="car"/>
+    <!-- Forward/Back stage (3 index positions via vertical translate) -->
+    <g id="left_fb" transform="translate(0,0)">
+      <rect x="-10" y="-80" width="20" height="80" class="rail"/>
+      <g id="left_arm" transform="translate(0,-80)">
+        <rect x="0" y="-10" width="160" height="20" rx="10" class="arm"/>
+        <g id="l_shoulder" transform="translate(160,0)">
           <circle r="10" class="joint"/>
-          <rect x="0" y="-8" width="160" height="16" rx="8" class="metal"/>
-          <g id="wrist" transform="translate(160,0)">
+          <rect x="0" y="-8" width="120" height="16" rx="8" class="arm"/>
+          <g id="l_elbow" transform="translate(120,0)">
             <circle r="8" class="joint"/>
-            <!-- Camera head -->
-            <rect x="4" y="-18" width="52" height="36" rx="6" class="head"/>
-            <!-- Optional lens housing -->
-            <rect x="60" y="-16" width="40" height="32" rx="4" fill="#0b1324" stroke="#38bdf8" stroke-width="2"/>
+            <rect x="0" y="-6" width="100" height="12" rx="6" class="arm"/>
+            <g id="l_wrist" transform="translate(100,0)">
+              <circle r="7" class="joint"/>
+              <rect x="4" y="-16" width="40" height="32" rx="6" class="head"/>
+            </g>
           </g>
         </g>
       </g>
     </g>
-    
-    <!-- Animations -->
-    <animateTransform xlink:href="#base" attributeName="transform" type="rotate" values="0;15;-10;0" dur="6s" repeatCount="indefinite"/>
-    <animateTransform xlink:href="#shoulder" attributeName="transform" type="rotate" values="10;-20;15;10" dur="3.6s" repeatCount="indefinite"/>
-    <animateTransform xlink:href="#elbow" attributeName="transform" type="rotate" values="0;28;-18;0" dur="3s" repeatCount="indefinite"/>
-    <animateTransform xlink:href="#wrist" attributeName="transform" type="rotate" values="-8;16;-12;-8" dur="2.4s" repeatCount="indefinite"/>
   </g>
 
-  <!-- Caption -->
-  <text class="txt" x="20" y="40">MSAI Robotic Camera Arm — click to pause/resume</text>
+  <!-- RIGHT TROLLEY + ARM -->
+  <g id="right_car" transform="translate(1160,710)">
+    <rect x="-42" y="0" width="84" height="26" rx="6" class="car"/>
+    <g id="right_fb" transform="translate(0,0)">
+      <rect x="-10" y="-80" width="20" height="80" class="rail"/>
+      <g id="right_arm" transform="translate(0,-80)">
+        <rect x="0" y="-10" width="160" height="20" rx="10" class="arm"/>
+        <g id="r_shoulder" transform="translate(160,0)">
+          <circle r="10" class="joint"/>
+          <rect x="0" y="-8" width="120" height="16" rx="8" class="arm"/>
+          <g id="r_elbow" transform="translate(120,0)">
+            <circle r="8" class="joint"/>
+            <rect x="0" y="-6" width="100" height="12" rx="6" class="arm"/>
+            <g id="r_wrist" transform="translate(100,0)">
+              <circle r="7" class="joint"/>
+              <rect x="4" y="-16" width="40" height="32" rx="6" class="head"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
 
-  <!-- Pause/Resume Script -->
+  <!-- ANIMATIONS -->
+  <!-- Rail L↔R moves -->
+  <animateTransform xlink:href="#left_car" attributeName="transform" type="translate"
+                    values="300,710; 520,710; 400,710; 300,710" dur="12s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#right_car" attributeName="transform" type="translate"
+                    values="1160,710; 940,710; 1060,710; 1160,710" dur="12s" repeatCount="indefinite"/>
+  <!-- Forward/Back 3-index per arm -->
+  <animateTransform xlink:href="#left_fb" attributeName="transform" type="translate"
+                    values="0,0; 0,-40; 0,-20; 0,0" dur="6s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#right_fb" attributeName="transform" type="translate"
+                    values="0,0; 0,-30; 0,-60; 0,0" dur="6s" repeatCount="indefinite"/>
+  <!-- Arm joint motions -->
+  <animateTransform xlink:href="#l_shoulder" attributeName="transform" type="rotate"
+                    values="10; -15; 8; 10" dur="3.6s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#l_elbow" attributeName="transform" type="rotate"
+                    values="0; 20; -12; 0" dur="3s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#l_wrist" attributeName="transform" type="rotate"
+                    values="-6; 12; -8; -6" dur="2.4s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#r_shoulder" attributeName="transform" type="rotate"
+                    values="-8; 14; -10; -8" dur="3.6s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#r_elbow" attributeName="transform" type="rotate"
+                    values="0; -18; 12; 0" dur="3s" repeatCount="indefinite"/>
+  <animateTransform xlink:href="#r_wrist" attributeName="transform" type="rotate"
+                    values="6; -10; 6; 6" dur="2.4s" repeatCount="indefinite"/>
+
+  <!-- LEGEND -->
+  <g transform="translate(60,680)">
+    <rect width="320" height="92" rx="10" class="panel"/>
+    <text class="txt" x="16" y="26">Legend</text>
+    <text class="txt" x="16" y="48">Blue = Camera head • Teal = Light beam • Green ring = Safety bubble</text>
+    <text class="txt" x="16" y="70">Click anywhere to pause/resume</text>
+  </g>
+
+  <!-- CLICK-TO-PAUSE SCRIPT -->
   <script><![CDATA[
-    var paused = false;
-    document.documentElement.addEventListener('click', function() {
-      paused = !paused;
-      var anims = document.getElementsByTagName('animateTransform');
-      for (var i = 0; i < anims.length; i++) {
-        if (paused) anims[i].pauseAnimations();
-        else anims[i].unpauseAnimations();
-      }
+    var paused=false;
+    document.documentElement.addEventListener('click',function(){
+      paused=!paused;
+      var a=document.getElementsByTagName('animateTransform');
+      for(var i=0;i<a.length;i++){ if(paused){try{a[i].pauseAnimations();}catch(e){}} else {try{a[i].unpauseAnimations();}catch(e){}} }
     });
   ]]></script>
 </svg>
