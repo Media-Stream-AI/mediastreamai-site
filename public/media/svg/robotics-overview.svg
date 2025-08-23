@@ -1,5 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
-  <rect width="100%" height="100%" fill="#0b0b0b"/>
-  <rect x="10" y="10" width="1180" height="780" fill="none" stroke="#333" stroke-width="2"/>
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#888" font-size="36" font-family="Arial, sans-serif">Robotics Overview (placeholder)</text>
+<svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bg { fill: #090b10; }
+    .metal { fill: #3b485a; }
+    .joint { fill: #94a3b8; }
+    .head { fill: #1E66FF; }
+    .txt { fill: #e5e7eb; font: 14px/1.2 Inter, Arial, sans-serif; }
+  </style>
+
+  <!-- Background -->
+  <rect class="bg" width="1000" height="560"/>
+
+  <!-- Arm Assembly -->
+  <g id="world" transform="translate(240,420)">
+    <circle cx="0" cy="0" r="30" class="metal"/>
+    <g id="base">
+      <rect x="0" y="-12" width="220" height="24" rx="12" class="metal"/>
+      <g id="shoulder" transform="translate(220,0)">
+        <circle r="12" class="joint"/>
+        <rect x="0" y="-10" width="190" height="20" rx="10" class="metal"/>
+        <g id="elbow" transform="translate(190,0)">
+          <circle r="10" class="joint"/>
+          <rect x="0" y="-8" width="160" height="16" rx="8" class="metal"/>
+          <g id="wrist" transform="translate(160,0)">
+            <circle r="8" class="joint"/>
+            <!-- Camera head -->
+            <rect x="4" y="-18" width="52" height="36" rx="6" class="head"/>
+            <!-- Optional lens housing -->
+            <rect x="60" y="-16" width="40" height="32" rx="4" fill="#0b1324" stroke="#38bdf8" stroke-width="2"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    
+    <!-- Animations -->
+    <animateTransform xlink:href="#base" attributeName="transform" type="rotate" values="0;15;-10;0" dur="6s" repeatCount="indefinite"/>
+    <animateTransform xlink:href="#shoulder" attributeName="transform" type="rotate" values="10;-20;15;10" dur="3.6s" repeatCount="indefinite"/>
+    <animateTransform xlink:href="#elbow" attributeName="transform" type="rotate" values="0;28;-18;0" dur="3s" repeatCount="indefinite"/>
+    <animateTransform xlink:href="#wrist" attributeName="transform" type="rotate" values="-8;16;-12;-8" dur="2.4s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- Caption -->
+  <text class="txt" x="20" y="40">MSAI Robotic Camera Arm — click to pause/resume</text>
+
+  <!-- Pause/Resume Script -->
+  <script><![CDATA[
+    var paused = false;
+    document.documentElement.addEventListener('click', function() {
+      paused = !paused;
+      var anims = document.getElementsByTagName('animateTransform');
+      for (var i = 0; i < anims.length; i++) {
+        if (paused) anims[i].pauseAnimations();
+        else anims[i].unpauseAnimations();
+      }
+    });
+  ]]></script>
 </svg>
