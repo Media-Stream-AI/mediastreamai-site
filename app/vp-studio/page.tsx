@@ -21,7 +21,7 @@ export default function VPStudioPage() {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/media/vp-studio-hero.jpg" /* put your original hero back here */
+            src="/media/vp-studio-hero.jpg"
             alt="AI Virtual Production Studio"
             fill
             priority
@@ -76,7 +76,7 @@ export default function VPStudioPage() {
             </div>
           </div>
 
-          {/* Full AI Director (face + voice + plan) */}
+          {/* Full AI Director */}
           <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 overflow-hidden">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -94,6 +94,32 @@ export default function VPStudioPage() {
             <div className="mt-6">
               <AIDirector />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ROBOTIC ARM OVERVIEW (Animated SVG) */}
+      <section className="section border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-horizon">Robotic Camera Arm — Motion Envelope</h2>
+          <p className="mt-3 text-white/70 font-glacial">
+            Base plate, arm links, joints, camera head and scope of movement.  
+            SMIL animation — CSP safe, no scripts.
+          </p>
+
+          <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+            <object
+              type="image/svg+xml"
+              data="/media/svg/msai_single_arm_scope_csp.svg"
+              className="w-full h-auto"
+              aria-label="MSAI Robotic Camera Arm Animation"
+            >
+              <img
+                src="/media/png/msai_single_arm_scope_csp_fallback.png"
+                alt="Robotic Camera Arm (static fallback)"
+                className="w-full h-auto"
+              />
+            </object>
           </div>
         </div>
       </section>
