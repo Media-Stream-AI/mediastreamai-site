@@ -1,11 +1,13 @@
+// app/vp-studio/page.tsx
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
+import NextDynamic from "next/dynamic";
 
-const AIDirector = dynamic(() => import("./widgets/AIDirector"), {
+// Lazy-load the full AI Director widget (no SSR)
+const AIDirector = NextDynamic(() => import("./widgets/AIDirector"), {
   ssr: false,
   loading: () => (
     <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-sm text-white/70">
@@ -41,7 +43,8 @@ export default function VPStudioPage() {
             AI-Powered Virtual Production Studios
           </motion.h1>
           <p className="mt-4 text-white/80 max-w-3xl mx-auto font-glacial">
-            Real-time AI Director with <b>face & voice</b> interaction — plan shots, set lighting, and control your stage on the fly.
+            Real-time AI Director with <b>face &amp; voice</b> interaction — plan shots, set lighting,
+            and control your stage on the fly.
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-3">
@@ -103,11 +106,11 @@ export default function VPStudioPage() {
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-horizon">Robotic Camera Arm — Motion Envelope</h2>
           <p className="mt-3 text-white/70 font-glacial">
-            Base plate, arm links, joints, camera head and scope of movement.  
-            SMIL animation — CSP safe, no scripts.
+            Base plate, arm links, joints, camera head and scope of movement. SMIL animation — CSP safe, no scripts.
           </p>
 
           <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+            {/* Use <object> so SMIL inside the SVG runs natively; include a PNG fallback */}
             <object
               type="image/svg+xml"
               data="/media/svg/msai_single_arm_scope_csp.svg"
@@ -135,7 +138,7 @@ export default function VPStudioPage() {
               { t: "Virtual Sets", d: "Real-time rendered stages for broadcast and streaming." },
               { t: "On-set Inference", d: "Object/person tracking and safety flags." },
               { t: "Cloud Rendering", d: "Burst rendering on our GPU clusters." },
-              { t: "Editorial Exports", d: "EDL/AAF/OTIO to your NLE." }
+              { t: "Editorial Exports", d: "EDL/AAF/OTIO to your NLE." },
             ].map((f) => (
               <div key={f.t} className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
                 <div className="text-lg font-horizon">{f.t}</div>
