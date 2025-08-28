@@ -33,7 +33,7 @@ export default function HomePage() {
               max-w-[20ch] sm:max-w-5xl mx-auto
             "
           >
-            SMART TV,<br className="sm:hidden" />
+          SMART TV, <br className="sm:hidden" />
             <span className="sm:whitespace-nowrap">MADE PERSONAL</span>
           </motion.h1>
 
