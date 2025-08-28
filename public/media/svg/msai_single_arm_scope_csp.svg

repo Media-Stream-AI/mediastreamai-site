@@ -1,130 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 1300 820" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <style>
-      .bg{fill:#0b0d12}
-      .panel{fill:#111827;stroke:#334155;stroke-width:2}
-      .metal{fill:#3b485a}
-      .metalDark{fill:#2f3946}
-      .joint{fill:#94a3b8;stroke:#cbd5e1;stroke-width:0.5}
-      .head{fill:#1E66FF;stroke:#93c5fd;stroke-width:0.6}
-      .txt{fill:#e5e7eb;font:16px/1.3 Inter,Arial,sans-serif}
-      .sub{fill:#9ca3af;font:13px/1.3 Inter,Arial,sans-serif}
-      .arc{fill:none;stroke:#f59e0b;stroke-width:3;stroke-linecap:round}
-      .dash{stroke-dasharray:8 8}
-      .dimL{stroke:#9ca3af;stroke-width:2}
-      .dimT{fill:#e5e7eb;font:13px Inter,Arial;text-anchor:middle}
-      .hole{fill:#0b1324;stroke:#38bdf8;stroke-width:1.5}
-      .axis{stroke:#10b981;stroke-width:2}
-      .labelBox{fill:#0f172a;stroke:#334155;stroke-width:1}
-    </style>
-  </defs>
+<svg viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">MSAI Robotic Camera Arm — Animated Overview</title>
+  <desc id="desc">Lattice base on rails with gentle dolly motion; shoulder, elbow and wrist sweep; camera and internal cable.</desc>
 
-  <rect class="bg" width="1300" height="820"/>
-  <text class="txt" x="24" y="36">MSAI — Robotic Camera Arm (Single) — CSP-safe (no scripts)</text>
-  <text class="sub" x="24" y="58">Base plate, arm links, joints, camera head, motion arcs + dimensions.</text>
+  <!-- ============ STYLES ============ -->
+  <style>
+    :root { color-scheme: dark; }
+    .bg { fill:#0b0d12; }
+    .railLine { stroke:#12151c; stroke-width:12; stroke-linecap:round; }
+    .plate { fill:#0f172a; stroke:#0a0f1a; stroke-width:2; }
+    .base { fill:#0f172a; stroke:#111827; stroke-width:2; }
+    .cut { fill:#0b0d12; }
+    .joint { fill:#121826; stroke:#0a0f1a; stroke-width:2; }
+    .link  { fill:#121826; stroke:#0a0f1a; stroke-width:2; }
+    .accent { fill:#f97316; }
+    .cameraBody { fill:#151a22; stroke:#0a0f1a; stroke-width:2; }
+    .cameraGrip { fill:#0f141c; }
+    .lens { fill:#141922; }
+    .lensFront { fill:#0d1118; }
+    .cable { fill:none; stroke:#1f2937; stroke-width:6; stroke-linecap:round; }
+    .lbl { fill:#9ca3af; font: 14px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; }
 
-  <!-- BASE PLATE -->
-  <g id="baseplate" transform="translate(180,560)">
-    <rect x="-150" y="-100" width="300" height="200" rx="12" class="panel"/>
-    <rect x="-140" y="-16" width="60" height="32" rx="6" class="metalDark"/>
-    <rect x="80" y="-16" width="60" height="32" rx="6" class="metalDark"/>
-    <circle class="hole" cx="-110" cy="-70" r="8"/><circle class="hole" cx="110" cy="-70" r="8"/>
-    <circle class="hole" cx="-110" cy="70" r="8"/><circle class="hole" cx="110" cy="70" r="8"/>
-    <circle cx="0" cy="0" r="6" fill="#cbd5e1" stroke="#0ea5e9" stroke-width="1.5"/>
-    <g><rect class="labelBox" x="-140" y="-120" width="220" height="22" rx="6"/>
-      <text class="sub" x="-132" y="-104">Base Plate (to rail or pedestal)</text></g>
+    /* Respect accessibility: disable animation if user prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .anim { display:none; } /* SMIL animations hidden -> static scene */
+    }
+  </style>
+
+  <!-- ============ BACKDROP ============ -->
+  <rect class="bg" width="1200" height="680"/>
+  <g transform="translate(0,560)">
+    <line class="railLine" x1="120" y1="30" x2="1080" y2="30"/>
+    <line class="railLine" x1="120" y1="70" x2="1080" y2="70"/>
   </g>
 
-  <!-- WORLD ORIGIN + AXES -->
-  <g transform="translate(320,560)">
-    <line x1="0" y1="0" x2="120" y2="0" class="axis"/><text class="sub" x="124" y="4">+X</text>
-    <line x1="0" y1="0" x2="0" y2="-120" class="axis"/><text class="sub" x="-10" y="-124">+Y</text>
-  </g>
+  <!-- ============ ANIMATED RIG GROUP (whole carriage moves on rails) ============ -->
+  <!-- The whole arm sits in this group which eases ±120px along X -->
+  <g id="rig" transform="translate(380,0)">
+    <animateTransform class="anim" attributeName="transform" attributeType="XML" type="translate"
+      values="380,0; 500,0; 380,0; 260,0; 380,0"
+      keyTimes="0; .25; .50; .75; 1" dur="12s" repeatCount="indefinite" calcMode="spline"
+      keySplines=".25 .1 .25 1; .25 .1 .25 1; .25 .1 .25 1; .25 .1 .25 1" />
 
-  <!-- ARM & JOINTS -->
-  <g id="world" transform="translate(320,560)">
-    <!-- Base link -->
-    <g id="base">
-      <rect x="0" y="-12" width="200" height="24" rx="12" class="metal"/>
-      <!-- Shoulder -->
-      <g id="shoulder" transform="translate(200,0)">
-        <circle r="14" class="joint"/>
-        <rect x="0" y="-10" width="160" height="20" rx="10" class="metal"/>
-        <!-- Elbow -->
-        <g id="elbow" transform="translate(160,0)">
-          <circle r="12" class="joint"/>
-          <rect x="0" y="-8" width="120" height="16" rx="8" class="metal"/>
-          <!-- Wrist -->
-          <g id="wrist" transform="translate(120,0)">
-            <circle r="10" class="joint"/>
-            <!-- Camera head + lens -->
-            <g id="head">
-              <rect x="6" y="-18" width="50" height="36" rx="6" class="head"/>
-              <rect x="52" y="-16" width="46" height="32" rx="6" fill="#0b1324" stroke="#38bdf8" stroke-width="2"/>
-              <circle cx="75" cy="0" r="3" fill="#22d3ee"/>
-              <text class="sub" x="82" y="-8">Lens axis</text>
-            </g>
-          </g>
-        </g>
+    <!-- ===== Carriage tray on rails ===== -->
+    <g transform="translate(0,525)">
+      <rect class="plate" x="-150" y="-18" width="300" height="36" rx="6" />
+    </g>
+
+    <!-- ===== Lattice base (enclosed) ===== -->
+    <g transform="translate(0,515)">
+      <!-- feet -->
+      <rect class="base" x="-210" y="0" width="90" height="42" rx="6"/>
+      <rect class="base" x="120" y="0"  width="90" height="42" rx="6"/>
+      <!-- lower beam -->
+      <rect class="base" x="-210" y="-20" width="420" height="28" rx="6"/>
+      <!-- uprights -->
+      <rect class="base" x="-180" y="-170" width="45" height="160" rx="6"/>
+      <rect class="base" x="135"  y="-170" width="45" height="160" rx="6"/>
+      <!-- top deck -->
+      <rect class="base" x="-150" y="-210" width="300" height="40" rx="6"/>
+
+      <!-- triangular webs -->
+      <path class="base" d="M-200 -20 L-115 -20 L-150 -170 Z" />
+      <path class="base" d="M 200 -20 L 115 -20 L 150 -170 Z" />
+
+      <!-- lattice cutouts -->
+      <g class="cut">
+        <polygon points="-168,-35 -130,-35 -150,-120" />
+        <polygon points="168,-35 130,-35 150,-120" />
+        <polygon points="-60,-170 0,-170 -30,-120" />
+        <polygon points="60,-170 0,-170 30,-120" />
+      </g>
+
+      <!-- MSAI branding -->
+      <g transform="translate(0,-55)">
+        <rect class="plate" x="-115" y="0" width="230" height="56" rx="8" />
+        <text x="0" y="20" text-anchor="middle" font-size="32" font-weight="800" class="accent">MSAI</text>
+        <text x="0" y="42" text-anchor="middle" font-size="14" fill="#f59e0b" letter-spacing="2">ROBOTICS</text>
       </g>
     </g>
 
-    <!-- SMIL animations (no scripts) -->
-    <animateTransform href="#base" attributeName="transform" type="rotate"
-                      values="0;12;-10;0" dur="7s" repeatCount="indefinite"/>
-    <animateTransform href="#shoulder" attributeName="transform" type="rotate"
-                      values="0;60;-30;0" dur="4.8s" repeatCount="indefinite"/>
-    <animateTransform href="#elbow" attributeName="transform" type="rotate"
-                      values="0;70;-70;0" dur="3.8s" repeatCount="indefinite"/>
-    <animateTransform href="#wrist" attributeName="transform" type="rotate"
-                      values="-35;35;-35" dur="3.0s" repeatCount="indefinite"/>
+    <!-- ===== Rotary base joint ===== -->
+    <g id="baseJoint" transform="translate(0,305)">
+      <circle class="joint" r="42"/>
+    </g>
+
+    <!-- ===== Shoulder link (animated small sweep) ===== -->
+    <g id="shoulder" transform="translate(0,305) rotate(-10)">
+      <path class="link" d="M 18 -18 L 200 -70 L 230 -45 L 55 0 Z"/>
+      <animateTransform class="anim" attributeName="transform" additive="sum"
+        type="rotate" values="-6; 2; -6" dur="8s" repeatCount="indefinite"
+        keySplines=".42 0 .58 1; .42 0 .58 1" calcMode="spline" keyTimes="0; .5; 1" />
+    </g>
+
+    <!-- Shoulder hex joint graphic -->
+    <g transform="translate(200,255)">
+      <polygon class="joint" points="-26,-15 0,-30 26,-15 26,15 0,30 -26,15"/>
+    </g>
+
+    <!-- ===== Forearm (animated) ===== -->
+    <g id="forearm" transform="translate(226,255)">
+      <path class="link" d="M 0 -18 C 110 -44 250 -54 330 -50 L 330 -10 C 240 -12 120 -6 0 8 Z"/>
+      <animateTransform class="anim" attributeName="transform" additive="sum"
+        type="rotate" values="-4; 6; -4" dur="6.5s" repeatCount="indefinite"
+        keySplines=".42 0 .58 1; .42 0 .58 1" calcMode="spline" keyTimes="0; .5; 1" />
+    </g>
+
+    <!-- Elbow joint graphic -->
+    <g transform="translate(556,205)">
+      <polygon class="joint" points="-24,-14 0,-28 24,-14 24,14 0,28 -24,14"/>
+    </g>
+
+    <!-- ===== Wrist + yoke + camera (animated) ===== -->
+    <g id="wrist" transform="translate(596,214)">
+      <rect class="joint" x="-18" y="-18" width="36" height="36" rx="6"/>
+      <!-- U-shape yoke -->
+      <path class="cameraGrip" d="M 18 -10 h 48 a14 14 0 0 1 14 14 v 32 a14 14 0 0 1 -14 14 h -48 v -14 h 44 a6 6 0 0 0 6 -6 v -20 a6 6 0 0 0 -6 -6 h -44 Z"/>
+      <!-- Camera body + lens -->
+      <g transform="translate(108,34)">
+        <rect class="cameraBody" x="-78" y="-40" width="88" height="68" rx="8"/>
+        <rect class="lens" x="10" y="-22" width="64" height="44" rx="10"/>
+        <circle class="lensFront" cx="74" cy="0" r="22"/>
+        <!-- subtle status blink -->
+        <circle cx="-56" cy="-22" r="4" fill="#16a34a" opacity="0.15">
+          <animate class="anim" attributeName="opacity" values="0.15;0.8;0.15" dur="3s" repeatCount="indefinite" />
+        </circle>
+      </g>
+      <animateTransform class="anim" attributeName="transform" additive="sum"
+        type="rotate" values="-5; 5; -5" dur="5.5s" repeatCount="indefinite"
+        keySplines=".42 0 .58 1; .42 0 .58 1" calcMode="spline" keyTimes="0; .5; 1" />
+    </g>
+
+    <!-- ===== Internal cable run ===== -->
+    <path class="cable" d="M 240 258 C 300 280, 400 290, 500 264 S 620 240, 650 250">
+      <animate class="anim" attributeName="stroke-width" values="6;5.5;6" dur="8s" repeatCount="indefinite" />
+    </path>
+
+    <!-- Upper arm MSAI label -->
+    <g transform="translate(140,243) rotate(-16)">
+      <text x="0" y="0" font-size="44" font-weight="800" class="accent">MSAI</text>
+    </g>
   </g>
 
-  <!-- SCOPE OF MOVEMENT ARCS -->
-  <!-- Base pan ±160° (center 320,560, r=140) -->
-  <path class="arc dash" d="M 188.4 512.1 A 140 140 0 1 1 188.4 607.9" />
-  <text class="sub" x="150" y="390">Base pan ±160°</text>
-
-  <!-- Shoulder -30°..+90° (center 520,560, r=95) -->
-  <path class="arc" d="M 602.3 512.5 A 95 95 0 0 1 520 655" />
-  <circle cx="520" cy="560" r="3" fill="#f59e0b"/>
-  <text class="sub" x="520" y="430">Shoulder -30°→+90°</text>
-
-  <!-- Elbow ±110° (center 680,560, r=85) -->
-  <path class="arc" d="M 650.9 480.1 A 85 85 0 1 1 650.9 639.9" />
-  <circle cx="680" cy="560" r="3" fill="#f59e0b"/>
-  <text class="sub" x="660" y="420">Elbow ±110°</text>
-
-  <!-- Wrist tilt ±60° (center 800,560, r=75) -->
-  <path class="arc" d="M 837.5 495.1 A 75 75 0 0 1 837.5 624.9" />
-  <circle cx="800" cy="560" r="3" fill="#f59e0b"/>
-  <text class="sub" x="800" y="400">Wrist tilt ±60°</text>
-
-  <!-- Wrist roll 360° ring at camera head (center ~860,560) -->
-  <circle class="arc dash" cx="860" cy="560" r="24"/>
-  <text class="sub" x="888" y="566">Roll 360°</text>
-
-  <!-- DIMENSIONS -->
-  <g class="dim">
-    <line x1="320" y1="670" x2="860" y2="670" class="dimL"/>
-    <line x1="320" y1="660" x2="320" y2="680" class="dimL"/>
-    <line x1="860" y1="660" x2="860" y2="680" class="dimL"/>
-    <text class="dimT" x="590" y="650">Max reach ≈ 540 mm</text>
-  </g>
-  <g class="dim">
-    <line x1="320" y1="480" x2="520" y2="480" class="dimL"/><text class="dimT" x="420" y="462">200 mm</text>
-    <line x1="520" y1="460" x2="680" y2="460" class="dimL"/><text class="dimT" x="600" y="442">160 mm</text>
-    <line x1="680" y1="440" x2="800" y2="440" class="dimL"/><text class="dimT" x="740" y="422">120 mm</text>
-    <line x1="800" y1="420" x2="860" y2="420" class="dimL"/><text class="dimT" x="830" y="402">60 mm</text>
-  </g>
-
-  <!-- Legend -->
-  <g transform="translate(940,40)">
-    <rect class="labelBox" width="320" height="110" rx="10"/>
-    <text class="txt" x="14" y="28">Legend</text>
-    <text class="sub" x="14" y="50">Orange arcs = travel range</text>
-    <text class="sub" x="14" y="68">Green lines = axes/dimensions</text>
-    <text class="sub" x="14" y="86">Blue = camera head + lens center</text>
-  </g>
+  <!-- ============ LEGEND ============ -->
+  <text x="110" y="620" class="lbl">Rails (auto dolly)</text>
+  <text x="250" y="322" class="lbl">Lattice base (enclosed)</text>
+  <text x="640" y="208" class="lbl">Elbow</text>
+  <text x="720" y="198" class="lbl">Wrist + gimbal</text>
 </svg>
