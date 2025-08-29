@@ -11,7 +11,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <Image
             src="/media/home-hero.jpg"
-            alt="Media Stream AI – Smart TV, Made Personal"
+            alt="TECHNOLOGY SHAPED BY HUMAN CREATIVITY"
             fill
             priority
             className="object-cover object-center opacity-90"
@@ -33,8 +33,8 @@ export default function HomePage() {
               max-w-[20ch] sm:max-w-5xl mx-auto
             "
           >
-          SMART TV, <br className="sm:hidden" />
-            <span className="sm:whitespace-nowrap">MADE PERSONAL</span>
+          TECHNOLOGY SHAPED BY, <br className="sm:hidden" />
+            <span className="sm:whitespace-nowrap">HUMAN CREATIVITY</span>
           </motion.h1>
 
           <motion.p
@@ -44,7 +44,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 text-center mx-auto max-w-[35ch] sm:max-w-2xl text-base sm:text-lg text-white/80 font-glacial"
           >
-            AI-powered TV experiences tailored to every viewer — informed by biometric and behavioral understanding.
+          Our technology amplifies human creativity—automating production, personalization, and data intelligence.
           </motion.p>
 
           <motion.div
