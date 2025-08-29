@@ -44,7 +44,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 text-center mx-auto max-w-[35ch] sm:max-w-2xl text-base sm:text-lg text-white/80 font-glacial"
           >
-          Our technology amplifies human creativity—automating production, personalization, and data intelligence.
+          Our technology amplifies human creativity,automating production, personalization, and data intelligence.
           </motion.p>
 
           <motion.div
