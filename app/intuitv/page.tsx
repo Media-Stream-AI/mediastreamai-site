@@ -133,7 +133,7 @@ export default function IntuiTVPage() {
           <p className="mt-3 text-white/70 font-glacial">
             Personalised, real-time TV streaming—across every platform.
           </p>
-          <Link href="/contact" className="btn btn-primary mt-6">
+          <Link href="https://www.intuitv.app" className="btn btn-primary mt-6">
             Get Started
           </Link>
         </div>
