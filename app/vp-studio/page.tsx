@@ -43,7 +43,7 @@ export default function VPStudioPage() {
             AI-Powered Virtual Production Studios
           </motion.h1>
           <p className="mt-4 text-white/80 max-w-3xl mx-auto font-glacial">
-            Real-time AI Director with <b>face &amp; voice</b> interaction — plan shots, set lighting,
+            Real-time AI Director with <b>face &amp; voice</b> interaction : plan shots, set lighting,
             and control your stage on the fly.
           </p>
 
@@ -106,7 +106,7 @@ export default function VPStudioPage() {
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-horizon">Robotic Camera Arm — Motion Envelope</h2>
           <p className="mt-3 text-white/70 font-glacial">
-            Base plate, arm links, joints, camera head and scope of movement. SMIL animation — CSP safe, no scripts.
+            Base plate, arm links, joints, camera head and scope of movement.
           </p>
 
           <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
@@ -119,7 +119,7 @@ export default function VPStudioPage() {
             >
               <img
                 src="/media/png/msai_single_arm_scope_csp_fallback.png"
-                alt="Robotic Camera Arm (static fallback)"
+                alt="Robotic Camera Arm"
                 className="w-full h-auto"
               />
             </object>
