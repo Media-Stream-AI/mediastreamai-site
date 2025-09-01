@@ -1,32 +1,46 @@
 // app/robotics/page.tsx
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 /**
  * Robotics: Robotic Camera Arm + Smart Light System
+ * - HERO uses a full-bleed image with an overlay CTA button
+ * - “Precision Robotic Camera Arm” text moved to the top of the next section
  * - Uses existing animated SVG: /public/media/svg/robotics-overview.svg
  * - Adds two inline animated SVGs (no external libs)
- * - Tailwind + your Horizon/Glacial font classes
  */
 
 export default function RoboticsPage() {
   return (
     <main className="bg-black text-white">
-      {/* HERO */}
+      {/* HERO (image-only with overlay button) */}
       <section className="relative isolate overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
-          <h1 className="text-4xl md:text-6xl font-horizon">AI Studio Robotics</h1>
-          <p className="mt-4 text-white/80 max-w-3xl mx-auto font-glacial">
-            Precision **Robotic Camera Arm** and **Smart Light System**—synchronised by the AI Director
-            for repeatable moves, instant relights, and real-time creative control.
-          </p>
-          <div className="mt-8">
-            <Link href="/vp-studio" className="btn btn-primary">Explore VP Studio →</Link>
+        {/* Background hero image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/media/robotics-hero.jpg" /* <-- put your provided hero here */
+            alt="MSAI Robotics — AI Studio Robotic Camera Arm"
+            fill
+            priority
+            className="object-cover object-center opacity-95"
+          />
+          {/* Subtle gradient for text readability if needed later */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
+        </div>
+
+        {/* Overlay CTA */}
+        <div className="relative max-w-7xl mx-auto px-6 py-32 md:py-44 flex items-end justify-center">
+          <div className="text-center">
+            <Link href="/vp-studio" className="btn btn-primary">
+              Explore VP Studio →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* OVERVIEW SVG (existing asset) */}
+      {/* OVERVIEW / INTRO (moved text here) */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
@@ -44,7 +58,11 @@ export default function RoboticsPage() {
           </div>
 
           <div>
-            <h2 className="text-3xl font-horizon">Designed for Creative Precision</h2>
+            <h1 className="text-4xl md:text-6xl font-horizon">Precision Robotic Camera Arm</h1>
+            <p className="mt-4 text-white/80 max-w-3xl font-glacial">
+              Precision robotic camera arm and Smart Light System — synchronised by the AI Director
+              for repeatable moves, instant relights, and real-time creative control.
+            </p>
             <p className="mt-4 text-white/70 font-glacial">
               Our robotic camera system delivers programmable moves (pan/tilt/roll/track/lift) with
               sub-millimetre repeatability. The Smart Light System responds to the same timeline—DMX/Art-Net cues,
@@ -191,27 +209,18 @@ function SmartLightRigSVG() {
       <style>{`
         .fixture { stroke: rgba(255,255,255,.25); fill: rgba(255,255,255,.06); }
         .beam { opacity: .0; }
-        .beam.fade {
-          animation: beamFade 4s ease-in-out infinite;
-        }
-        @keyframes beamFade {
-          0% { opacity: 0; }
-          20% { opacity: .55; }
-          50% { opacity: .15; }
-          80% { opacity: .7; }
-          100% { opacity: 0; }
-        }
-        /* colour sweep on middle fixture */
+        .beam.fade { animation: beamFade 4s ease-in-out infinite; }
+        @keyframes beamFade { 0%{opacity:0} 20%{opacity:.55} 50%{opacity:.15} 80%{opacity:.7} 100%{opacity:0} }
         .beam.rainbow {
           animation: rainbow 6s linear infinite, beamFade 4.5s ease-in-out infinite;
           mix-blend-mode: screen;
         }
         @keyframes rainbow {
-          0% { fill: rgba(59,130,246,.45); }   /* blue */
-          25%{ fill: rgba(16,185,129,.45); }   /* green */
-          50%{ fill: rgba(234,179,8,.45); }    /* amber */
-          75%{ fill: rgba(244,63,94,.45); }    /* rose */
-          100%{ fill: rgba(139,92,246,.45); }  /* violet */
+          0% { fill: rgba(59,130,246,.45); }
+          25%{ fill: rgba(16,185,129,.45); }
+          50%{ fill: rgba(234,179,8,.45); }
+          75%{ fill: rgba(244,63,94,.45); }
+          100%{ fill: rgba(139,92,246,.45); }
         }
         .stage { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.1); }
       `}</style>
@@ -247,23 +256,14 @@ function CameraTrackSVG() {
       <style>{`
         .track { fill: none; stroke: rgba(255,255,255,.2); stroke-width: 4; }
         .waypoint { fill: rgba(56,189,248,.9); }
-        .pulse {
-          animation: pulse 1.8s ease-in-out infinite;
-        }
-        @keyframes pulse {
-          0%,100% { r: 4 }
-          50% { r: 8 }
-        }
+        .pulse { animation: pulse 1.8s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { r: 4 } 50% { r: 8 } }
         .dolly { fill: rgba(255,255,255,.9); }
         .arm { stroke: rgba(255,255,255,.9); stroke-width: 3; }
       `}</style>
 
       {/* Curved track path */}
-      <path
-        id="curve"
-        d="M60,260 C180,200 460,200 580,260"
-        className="track"
-      />
+      <path id="curve" d="M60,260 C180,200 460,200 580,260" className="track" />
 
       {/* Waypoints along the curve */}
       <circle cx="160" cy="230" r="5" className="waypoint pulse" />
@@ -280,12 +280,7 @@ function CameraTrackSVG() {
         </circle>
         {/* Simple arm atop the dolly that tilts slightly as it moves */}
         <line className="arm" x1="0" y1="0" x2="0" y2="-30">
-          <animate
-            attributeName="x2"
-            values="-6;6;-6"
-            dur="2.4s"
-            repeatCount="indefinite"
-          />
+          <animate attributeName="x2" values="-6;6;-6" dur="2.4s" repeatCount="indefinite" />
         </line>
       </g>
     </svg>
