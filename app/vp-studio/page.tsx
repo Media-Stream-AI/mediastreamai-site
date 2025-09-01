@@ -27,7 +27,7 @@ export default function VPStudioPage() {
             alt="AI Virtual Production Studio"
             fill
             priority
-            className="object-cover object-center opacity-65"
+            className="object-cover object-center opacity-85"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/85" />
         </div>
