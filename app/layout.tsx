@@ -61,12 +61,12 @@ function Header() {
           <Image
             src="/media/logos/msai.png"   /* ensure this file exists */
             alt="Media Stream AI"
-            width={36}
-            height={36}
+            width={66}
+            height={66}
             className="h-9 w-9"
             priority
           />
-          <span className="hidden sm:inline text-lg font-horizon tracking-wide">Media Stream AI</span>
+          <span className="hidden sm:inline text-lg font-horizon tracking-wide"></span>
         </Link>
 
         {/* Desktop nav */}
