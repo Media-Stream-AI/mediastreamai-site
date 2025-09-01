@@ -44,7 +44,7 @@ export default function VPStudioPage() {
           </motion.h1>
           <p className="mt-4 text-white/80 max-w-3xl mx-auto font-glacial">
             Real-time AI Director with <b>face &amp; voice</b> interaction : plan shots, set lighting,
-            and control your stage on the fly.
+            and control your stage.
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-3">
