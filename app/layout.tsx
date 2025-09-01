@@ -58,14 +58,17 @@ function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
         {/* Logo + wordmark */}
         <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/media/logos/msai.png"   /* ensure this file exists */
-            alt="Media Stream AI"
-            width={66}
-            height={66}
-            className="h-9 w-9"
-            priority
-          />
+          
+<Image
+  src="/media/logos/msai.png"
+  alt="Media Stream AI"
+  width={160}   // bigger width
+  height={160}  // bigger height
+  className="h-16 w-auto sm:h-20"  // responsive size
+  priority
+/>
+
+
           <span className="hidden sm:inline text-lg font-horizon tracking-wide"></span>
         </Link>
 
