@@ -31,7 +31,9 @@ const horizonOutlined = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}>
+      <body
+        className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}
+      >
         {/* If ./_components/RootClient does not exist, remove this wrapper and keep children directly */}
         <RootClient>
           <Header />
@@ -51,6 +53,7 @@ function Header() {
     { href: "/models", label: "Models" },
     { href: "/vp-studio", label: "VP Studio" },
     { href: "/data-centre", label: "Data Centre" },
+    { href: "/news", label: "News" }, // ← added
   ] as const;
 
   return (
@@ -58,17 +61,14 @@ function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
         {/* Logo + wordmark */}
         <Link href="/" className="flex items-center gap-2">
-          
-<Image
-  src="/media/logos/msai.png"
-  alt="Media Stream AI"
-  width={160}   // bigger width
-  height={160}  // bigger height
-  className="h-16 w-auto sm:h-20"  // responsive size
-  priority
-/>
-
-
+          <Image
+            src="/media/logos/msai.png" // ensure this file exists
+            alt="Media Stream AI"
+            width={160}              // bigger intrinsic size
+            height={160}
+            className="h-16 w-auto sm:h-20" // responsive rendered size
+            priority
+          />
           <span className="hidden sm:inline text-lg font-horizon tracking-wide"></span>
         </Link>
 
@@ -102,7 +102,6 @@ function MobileMenu({ nav }: { nav: { href: string; label: string }[] }) {
   return (
     <details className="md:hidden relative">
       <summary className="list-none cursor-pointer p-2 rounded-lg hover:bg-white/10 select-none">
-        {/* simple icon glyph so no extra deps */}
         <span aria-hidden>☰</span>
         <span className="sr-only">Open menu</span>
       </summary>
