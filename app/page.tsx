@@ -81,7 +81,7 @@ export default function HomePage() {
                 key: "intuitv",
                 title: "IntuiTV",
                 desc: "Our global direct to viewer, personalised TV Platform.",
-                href: "/intuitv",
+                href: "https://www.intuitv.app",
                 external: true,
                 logo: "/media/logos/intuitv.png"
               },
