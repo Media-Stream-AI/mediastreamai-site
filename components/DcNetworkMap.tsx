@@ -1,4 +1,21 @@
 // components/DcNetworkMap.tsx
+"use client";
+
+export function DcNetworkMap() {
+  return (
+    <div className="flex justify-center">
+      <img
+        src="/images/map-network.svg"
+        alt="Sovereign Data Centre Network Map"
+        className="w-full max-w-4xl rounded-xl border border-white/10 shadow-lg"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+}
+
+
 'use client';
 import React from 'react';
 
