@@ -12,13 +12,40 @@ type Node = {
 };
 
 const NODES: Node[] = [
-  { id: "MCR", name: "Manchester / Salford – MediaCityUK", subtitle: "UK Sovereign • H200 + RDUs • Neptune", x: 380, y: 240, color: "#60A5FA" },
-  { id: "SND", name: "Sunderland", subtitle: "UK Edge/Redundancy • Sovereign Mirror", x: 460, y: 200, color: "#34D399" },
-  { id: "DUS", name: "Düsseldorf", subtitle: "EU Sovereign • GDPR • AIA", x: 540, y: 250, color: "#F59E0B" },
-  { id: "KIN", name: "Kingston (Jamaica)", subtitle: "LATAM/Caribbean Regional Node", x: 180, y: 420, color: "#A78BFA" },
+  {
+    id: "MCR",
+    name: "Manchester / Salford – MediaCityUK",
+    subtitle: "UK Sovereign • H200 + RDUs • Neptune",
+    x: 300,
+    y: 300,
+    color: "#60A5FA",
+  },
+  {
+    id: "SND",
+    name: "Sunderland",
+    subtitle: "UK Edge / Redundancy • Sovereign Mirror",
+    x: 520,
+    y: 180,
+    color: "#34D399",
+  },
+  {
+    id: "DUS",
+    name: "Düsseldorf",
+    subtitle: "EU Sovereign • GDPR • AIA",
+    x: 700,
+    y: 320,
+    color: "#F59E0B",
+  },
+  {
+    id: "KIN",
+    name: "Kingston (Jamaica)",
+    subtitle: "LATAM / Caribbean Regional Node",
+    x: 200,
+    y: 520,
+    color: "#A78BFA",
+  },
 ];
 
-// small 127-dot grid showing NIFE nodes
 function NifeMicroGrid({
   cx,
   cy,
@@ -92,11 +119,11 @@ export function DcNetworkMap() {
   return (
     <div className="flex justify-center">
       <svg
-        viewBox="0 0 800 600"
+        viewBox="0 0 900 650"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full max-w-5xl h-auto border border-white/10 rounded-xl shadow-lg bg-black/30"
+        className="w-full max-w-5xl h-auto border border-white/10 rounded-xl shadow-lg bg-gradient-to-b from-blue-950/60 to-black/80"
       >
-        <rect width="800" height="600" fill="url(#bg)" />
+        {/* Background gradient */}
         <defs>
           <radialGradient id="bg" cx="50%" cy="50%" r="70%">
             <stop offset="0%" stopColor="rgba(30,58,138,0.5)" />
@@ -104,27 +131,35 @@ export function DcNetworkMap() {
           </radialGradient>
         </defs>
 
+        {/* Connecting lines */}
+        <g stroke="rgba(255,255,255,0.15)" strokeWidth="1.2">
+          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[1].x} y2={NODES[1].y} />
+          <line x1={NODES[1].x} y1={NODES[1].y} x2={NODES[2].x} y2={NODES[2].y} />
+          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[3].x} y2={NODES[3].y} />
+        </g>
+
+        {/* Nodes */}
         {NODES.map((n) => (
           <g key={n.id}>
-            <circle cx={n.x} cy={n.y} r={12} fill={n.color} />
+            <circle cx={n.x} cy={n.y} r={14} fill={n.color} />
             <text
-              x={n.x + 18}
+              x={n.x + 20}
               y={n.y + 4}
-              fontSize={12}
+              fontSize={13}
               fill="#fff"
               style={{ fontWeight: 600 }}
             >
               {n.name}
             </text>
             <text
-              x={n.x + 18}
-              y={n.y + 18}
+              x={n.x + 20}
+              y={n.y + 20}
               fontSize={10}
               fill="rgba(255,255,255,0.7)"
             >
               {n.subtitle}
             </text>
-            <NifeMicroGrid cx={n.x} cy={n.y + 80} />
+            <NifeMicroGrid cx={n.x} cy={n.y + 100} />
           </g>
         ))}
       </svg>
