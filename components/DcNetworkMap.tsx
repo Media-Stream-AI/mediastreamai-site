@@ -16,7 +16,7 @@ const NODES: Node[] = [
     id: "MCR",
     name: "Manchester / Salford – MediaCityUK",
     subtitle: "UK Sovereign • H200 + RDUs • Neptune",
-    x: 300,
+    x: 320,
     y: 300,
     color: "#60A5FA",
   },
@@ -24,8 +24,8 @@ const NODES: Node[] = [
     id: "SND",
     name: "Sunderland",
     subtitle: "UK Edge / Redundancy • Sovereign Mirror",
-    x: 520,
-    y: 180,
+    x: 540,
+    y: 140, // lifted higher
     color: "#34D399",
   },
   {
@@ -40,12 +40,13 @@ const NODES: Node[] = [
     id: "KIN",
     name: "Kingston (Jamaica)",
     subtitle: "LATAM / Caribbean Regional Node",
-    x: 200,
+    x: 160,
     y: 520,
     color: "#A78BFA",
   },
 ];
 
+/** Draws the 127 NIFE micro-grid under each DC node */
 function NifeMicroGrid({
   cx,
   cy,
@@ -115,6 +116,7 @@ function NifeMicroGrid({
   );
 }
 
+/** Sovereign DC Network SVG Map */
 export function DcNetworkMap() {
   return (
     <div className="flex justify-center">
@@ -123,22 +125,21 @@ export function DcNetworkMap() {
         xmlns="http://www.w3.org/2000/svg"
         className="w-full max-w-5xl h-auto border border-white/10 rounded-xl shadow-lg bg-gradient-to-b from-blue-950/60 to-black/80"
       >
-        {/* Background gradient */}
         <defs>
           <radialGradient id="bg" cx="50%" cy="50%" r="70%">
-            <stop offset="0%" stopColor="rgba(30,58,138,0.5)" />
+            <stop offset="0%" stopColor="rgba(30,58,138,0.4)" />
             <stop offset="100%" stopColor="rgba(0,0,0,1)" />
           </radialGradient>
         </defs>
 
-        {/* Connecting lines */}
+        {/* connecting lines */}
         <g stroke="rgba(255,255,255,0.15)" strokeWidth="1.2">
           <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[1].x} y2={NODES[1].y} />
           <line x1={NODES[1].x} y1={NODES[1].y} x2={NODES[2].x} y2={NODES[2].y} />
           <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[3].x} y2={NODES[3].y} />
         </g>
 
-        {/* Nodes */}
+        {/* nodes + micro-grids */}
         {NODES.map((n) => (
           <g key={n.id}>
             <circle cx={n.x} cy={n.y} r={14} fill={n.color} />
