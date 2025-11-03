@@ -14,7 +14,7 @@ export function CoolingRibbon() {
         </div>
         <div className="flex justify-center">
           <img
-            src="/images/cooling-system.svg"
+            src="/media/images/canal-cooling-3d.png"
             alt="Water Cooling System Diagram"
             className="max-w-md w-full object-contain"
             loading="lazy"
