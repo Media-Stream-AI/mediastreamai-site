@@ -1,52 +1,42 @@
-// app/mother/page.tsx
-import { Section, Card, Button } from "@/components/ui";
-import Link from "next/link";
+<section className="py-16">
+  <div className="grid md:grid-cols-2 gap-8 items-center">
+    <div>
+      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
+        MOTHER AI – <span className="text-blue-400">Sovereign LLM</span>
+      </h1>
+      <p className="text-white/80 mb-4">
+        The UK’s first sovereign LLM: built, trained, and hosted within British infrastructure,
+        aligned with UK GDPR and EU AI Act obligations.
+      </p>
+      <ul className="text-sm text-white/70 list-disc pl-5 space-y-1">
+        <li>Transformer LLM + tool interface for 30+ production models.</li>
+        <li>Provenance registry and dataset checkpoints; audit-ready.</li>
+        <li>Runs on NVIDIA H200 (training) and RDUs (inference) in our DCs.</li>
+      </ul>
 
-export default function Page() {
-  return (
-    <Section className="py-16">
-      <div className="grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <h1 className="text-3xl font-bold">MOTHER AI — Sovereign LLM</h1>
-          <p className="text-white/70 mt-2">
-            The UK’s first sovereign LLM: built, trained and hosted within British infrastructure, aligned with UK GDPR
-            and EU AI Act obligations. MOTHER orchestrates 30+ production models and media agents for personalisation,
-            scheduling, tagging, summarisation, safety, forecasting and ESG optimisation.
-          </p>
-          <ul className="mt-4 text-sm text-white/80 list-disc pl-4 space-y-2">
-            <li>Transformer LLM + tool interface to specialised sub-models.</li>
-            <li>Provenance registry for datasets and checkpoints; audit-ready.</li>
-            <li>Runs on NVIDIA H200 (training) and RDUs for efficient inference.</li>
-          </ul>
-          <div className="mt-6 flex gap-3">
-            <a href="https://mother.mediastreamai.com" target="_blank" rel="noreferrer">
-              <Button>Open Mother Portal</Button>
-            </a>
-            <Link href="/models"><Button variant="secondary">Explore Models</Button></Link>
-          </div>
-          <p className="text-[11px] text-white/40 mt-4">
-            See sovereign LLM document for mission, architecture, governance and future roadmap. 3
-          </p>
-        </div>
-        <div className="rounded-2xl overflow-hidden border border-white/10">
-          <img src="/images/dc-mother-hero.jpg" alt="MOTHER inside the DC" className="w-full h-full object-cover"/>
-        </div>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <a href="https://mother.mediastreamai.com" target="_blank" rel="noreferrer">
+          <button className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white">
+            Open Mother Portal
+          </button>
+        </a>
+        <a href="/models">
+          <button className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white">
+            Explore Models
+          </button>
+        </a>
       </div>
+    </div>
 
-      <div className="grid md:grid-cols-3 gap-6 mt-10">
-        <Card className="p-6">
-          <h3 className="font-semibold">Compliance</h3>
-          <p className="text-sm text-white/70 mt-2">Dataset & checkpoint versioning, audit logs, bias testing and explainability layer.</p>
-        </Card>
-        <Card className="p-6">
-          <h3 className="font-semibold">Security</h3>
-          <p className="text-sm text-white/70 mt-2">Air-gapped training paths and zero external access to proprietary models by default.</p>
-        </Card>
-        <Card className="p-6">
-          <h3 className="font-semibold">Commercialisation</h3>
-          <p className="text-sm text-white/70 mt-2">SaaS, usage-based APIs and OEM licensing with sovereign residency controls.</p>
-        </Card>
-      </div>
-    </Section>
-  );
-}
+    {/* ✅ Fixed image reference */}
+    <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+      <img
+        src="/dc-mother-hero.jpg"
+        alt="MOTHER AI inside the Data Centre"
+        className="w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>
