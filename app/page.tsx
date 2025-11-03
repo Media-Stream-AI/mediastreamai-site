@@ -98,7 +98,7 @@ export default function Page() {
 
             <div className="relative rounded-2xl overflow-hidden border border-white/10">
               <img
-                src="/media/home-hero.jpg"
+                src="/media/images/dc-mother-hero.jpg"
                 alt="MOTHER AI inside Sovereign Data Centre Network"
                 className="w-full h-full object-cover"
                 loading="lazy"
