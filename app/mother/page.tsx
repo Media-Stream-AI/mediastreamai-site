@@ -31,7 +31,7 @@
     {/* ✅ Fixed image reference */}
     <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-lg">
       <img
-        src="/dc-mother-hero.jpg"
+        src="/media/image/dc-mother-hero.jpg"
         alt="MOTHER AI inside the Data Centre"
         className="w-full h-full object-cover"
         loading="lazy"
