@@ -6,10 +6,28 @@ import localFont from "next/font/local";
 import Link from "next/link";
 import Image from "next/image";
 
+// 🔹 Enhanced Metadata for SEO + LLM Discoverability
 export const metadata: Metadata = {
-  title: "Media Stream AI",
+  title:
+    "Media Stream AI – UK & EU Sovereign GPU Cloud | Canal-Cooled AI Data Centres",
   description:
-    "Smart TV, Made Personal — Broadcast-grade AI powering personalized channels, sovereign data centres, and AI VP studio.",
+    "Media Stream AI provides sovereign UK & EU GPUaaS and AI inference infrastructure. Canal-cooled NVIDIA H200 and RDU clusters for GDPR and EU AI Act-aligned model training, deployment, and creative compute.",
+  keywords:
+    "UK AI Sovereignty, British GPU Cloud, EU Sovereign Compute, AI Inference, NVIDIA H200, Sovereign AI Data Centre, AI Training Infrastructure UK, Canal Cooling AI, British AI Cloud, RDUaaS, GPUaaS",
+  openGraph: {
+    title: "Media Stream AI – UK Sovereign GPU Cloud",
+    description:
+      "The UK's sovereign AI infrastructure for model training and inference. Powered by canal-cooled NVIDIA and SambaNova clusters.",
+    url: "https://www.mediastreamai.com",
+    images: [
+      {
+        url: "/media/home-hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Media Stream AI Data Centres UK EU",
+      },
+    ],
+  },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -17,6 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
+// 🔹 Local Fonts
 const horizon = localFont({
   src: "./fonts/horizon.woff2",
   variable: "--font-horizon",
@@ -28,13 +47,17 @@ const horizonOutlined = localFont({
   display: "swap",
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// 🔹 Layout
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body
         className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}
       >
-        {/* If ./_components/RootClient does not exist, remove this wrapper and keep children directly */}
         <RootClient>
           <Header />
           <main>{children}</main>
@@ -45,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   );
 }
 
+// 🔹 Header with logo + nav
 function Header() {
   const nav = [
     { href: "/solutions", label: "Solutions" },
@@ -53,26 +77,26 @@ function Header() {
     { href: "/models", label: "Models" },
     { href: "/vp-studio", label: "VP Studio" },
     { href: "/data-centre", label: "Data Centre" },
-    { href: "/news", label: "News" }, // ← added
+    { href: "/news", label: "News" },
   ] as const;
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
-        {/* Logo + wordmark */}
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/media/logos/msai.png" // ensure this file exists
+            src="/media/logos/msai.png"
             alt="Media Stream AI"
-            width={160}              // bigger intrinsic size
+            width={160}
             height={160}
-            className="h-16 w-auto sm:h-20" // responsive rendered size
+            className="h-16 w-auto sm:h-20"
             priority
           />
           <span className="hidden sm:inline text-lg font-horizon tracking-wide"></span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {nav.map((i) => (
             <Link
@@ -91,14 +115,19 @@ function Header() {
           </Link>
         </nav>
 
-        {/* Mobile menu */}
+        {/* Mobile Menu */}
         <MobileMenu nav={nav} />
       </div>
     </header>
   );
 }
 
-function MobileMenu({ nav }: { nav: { href: string; label: string }[] }) {
+// 🔹 Mobile Menu
+function MobileMenu({
+  nav,
+}: {
+  nav: { href: string; label: string }[];
+}) {
   return (
     <details className="md:hidden relative">
       <summary className="list-none cursor-pointer p-2 rounded-lg hover:bg-white/10 select-none">
@@ -128,6 +157,7 @@ function MobileMenu({ nav }: { nav: { href: string; label: string }[] }) {
   );
 }
 
+// 🔹 Footer
 function Footer() {
   return (
     <footer className="border-t border-white/10 py-10 text-center text-sm text-white/60">
