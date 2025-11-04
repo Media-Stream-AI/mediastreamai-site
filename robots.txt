@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.mediastreamai.com/sitemap.xml
+Sitemap: https://mother.mediastreamai.com/sitemap.xml
