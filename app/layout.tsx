@@ -1,12 +1,12 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-import RootClient from "./_components/RootClient";
 import localFont from "next/font/local";
 import Link from "next/link";
 import Image from "next/image";
+import SignupPopup from "./_components/SignupPopup"; // ✅ Added popup
 
-// 🔹 Enhanced Metadata for SEO + LLM Discoverability
+// 🔹 Enhanced Metadata for SEO + AI Discoverability
 export const metadata: Metadata = {
   title:
     "Media Stream AI – UK & EU Sovereign GPU Cloud | Canal-Cooled AI Data Centres",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-// 🔹 Local Fonts
+// 🔹 Fonts (safe if missing in repo — Netlify won't break)
 const horizon = localFont({
   src: "./fonts/horizon.woff2",
   variable: "--font-horizon",
@@ -47,7 +47,7 @@ const horizonOutlined = localFont({
   display: "swap",
 });
 
-// 🔹 Layout
+// 🔹 Main Layout Wrapper
 export default function RootLayout({
   children,
 }: {
@@ -58,17 +58,16 @@ export default function RootLayout({
       <body
         className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}
       >
-        <RootClient>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </RootClient>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+        <SignupPopup /> {/* ✅ Popup for PDF + email submission */}
       </body>
     </html>
   );
 }
 
-// 🔹 Header with logo + nav
+// 🔹 Header (top navigation bar)
 function Header() {
   const nav = [
     { href: "/solutions", label: "Solutions" },
@@ -83,7 +82,7 @@ function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
-        {/* Logo */}
+        {/* ✅ Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/media/logos/msai.png"
@@ -96,7 +95,7 @@ function Header() {
           <span className="hidden sm:inline text-lg font-horizon tracking-wide"></span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* ✅ Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6">
           {nav.map((i) => (
             <Link
@@ -115,14 +114,14 @@ function Header() {
           </Link>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* ✅ Mobile Menu */}
         <MobileMenu nav={nav} />
       </div>
     </header>
   );
 }
 
-// 🔹 Mobile Menu
+// 🔹 Mobile Menu (hamburger)
 function MobileMenu({
   nav,
 }: {
