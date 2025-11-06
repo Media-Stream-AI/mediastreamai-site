@@ -3,15 +3,13 @@
 import Link from "next/link";
 import { DataCentreStrip } from "@/components/DataCentreStrip";
 import { CoolingRibbon } from "@/components/CoolingRibbon";
-import { LeadCapture } from "@/components/LeadCapture";
 import { Section, Card, Button } from "@/components/ui";
 import { DcNetworkMap } from "@/components/DcNetworkMap";
 
 export default function Page() {
   return (
     <>
-      <LeadCapture />
-
+     
       <main className="min-h-screen bg-black text-white overflow-hidden">
         {/* ================= HERO SECTION (FULL BACKGROUND) ================= */}
         <section className="relative h-[90vh] flex items-center justify-center text-center lg:text-left">
