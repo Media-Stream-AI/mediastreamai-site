@@ -40,21 +40,26 @@ export default function Page() {
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-3">
+              {/* Primary GPU Cloud CTA */}
               <a
                 href="https://gpu.mediastreamai.com"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block"
               >
-                <Button className="bg-blue-600 hover:bg-blue-500">
-                  🚀 Launch GPU Cloud Platform
+                <Button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-transform hover:scale-[1.03]">
+                  Launch GPU Cloud Platform
                 </Button>
               </a>
 
+              {/* Primary MOTHER AI CTA */}
               <Link href="/mother" className="inline-block">
-                <Button>Meet MOTHER AI (Sovereign LLM)</Button>
+                <Button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-transform hover:scale-[1.03]">
+                  Meet MOTHER AI (Sovereign LLM)
+                </Button>
               </Link>
 
+              {/* Secondary links */}
               <Link href="/sovereign-infrastructure" className="inline-block">
                 <Button variant="secondary">Sovereign DC Network</Button>
               </Link>
@@ -76,7 +81,8 @@ export default function Page() {
           </h2>
           <p className="text-white/70 max-w-3xl mb-10 text-center md:text-left mx-auto md:mx-0">
             Our data centres in Manchester (MediaCity UK), Sunderland, Düsseldorf (Germany), and Kingston (Jamaica)
-            form a unified low-latency mesh ensuring your AI workloads remain within compliant, sovereign boundaries.
+            form a unified low-latency mesh ensuring your AI workloads remain within compliant,
+            sovereign boundaries.
           </p>
           <DcNetworkMap />
         </Section>
@@ -114,7 +120,7 @@ export default function Page() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Button className="bg-blue-600 hover:bg-blue-500">
+                  <Button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-transform hover:scale-[1.03]">
                     Launch GPU Cloud
                   </Button>
                 </a>
@@ -141,7 +147,11 @@ export default function Page() {
                 <li>Runs on NVIDIA H200 and RDU inference clusters in sovereign DCs.</li>
               </ul>
               <div className="mt-6 flex gap-3 flex-wrap">
-                <Link href="/mother"><Button>Explore MOTHER</Button></Link>
+                <Link href="/mother">
+                  <Button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-transform hover:scale-[1.03]">
+                    Explore MOTHER
+                  </Button>
+                </Link>
                 <a
                   href="https://mother.mediastreamai.com"
                   target="_blank"
