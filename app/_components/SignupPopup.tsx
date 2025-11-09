@@ -10,7 +10,6 @@ export default function SignupPopup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Netlify form submission
     const form = new FormData();
     form.append('form-name', 'MotherWhitepaper');
     form.append('name', formData.name);
@@ -29,37 +28,48 @@ export default function SignupPopup() {
     link.download = 'MOTHER_AI_UK_SOVEREIGN_LLM.pdf';
     link.click();
 
-    // Close popup after 3 seconds
+    // Auto-close after 3s
     setTimeout(() => setShow(false), 3000);
   };
 
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6">
-      <div className="bg-gray-900 rounded-2xl p-8 max-w-md w-full border border-white/10 text-center relative">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-3 sm:p-6 overflow-y-auto">
+      <div
+        className="
+          bg-gray-900 rounded-2xl border border-white/10 text-center relative
+          w-full max-w-[90%] sm:max-w-md p-5 sm:p-8 shadow-xl
+        "
+      >
+        {/* Close button */}
         <button
           onClick={() => setShow(false)}
-          className="absolute top-3 right-4 text-white/60 hover:text-white"
+          className="absolute top-3 right-4 text-white/60 hover:text-white text-lg"
+          aria-label="Close"
         >
           ✕
         </button>
 
-        <Image
-          src="/media/mother-download.jpg"
-          alt="MOTHER AI UK Sovereign LLM"
-          width={400}
-          height={300}
-          className="rounded-lg mb-6 mx-auto"
-        />
+        {/* Image */}
+        <div className="w-full mb-4 sm:mb-6">
+          <Image
+            src="/media/mother-download.jpg"
+            alt="MOTHER AI UK Sovereign LLM"
+            width={400}
+            height={250}
+            className="rounded-lg mx-auto object-cover w-full sm:w-[400px]"
+          />
+        </div>
 
+        {/* Form / Message */}
         {!submitted ? (
           <>
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-lg sm:text-xl font-semibold text-white mb-2">
               Download the MOTHER AI Whitepaper
             </h2>
-            <p className="text-white/70 mb-4 text-sm">
-              Enter your details to receive your copy of the UK's first Sovereign LLM.
+            <p className="text-white/70 mb-4 text-sm sm:text-base">
+              Enter your details to receive your copy of the UK’s first Sovereign LLM.
             </p>
 
             <form
@@ -78,7 +88,7 @@ export default function SignupPopup() {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-white/40"
+                className="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="email"
@@ -88,11 +98,11 @@ export default function SignupPopup() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-white/40"
+                className="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-500 rounded-lg py-2 font-semibold"
+                className="w-full bg-blue-600 hover:bg-blue-500 rounded-lg py-2 font-semibold transition"
               >
                 Download PDF
               </button>
