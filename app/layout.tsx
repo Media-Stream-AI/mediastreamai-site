@@ -1,12 +1,11 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Link from "next/link";
 import Image from "next/image";
-import SignupPopup from "./_components/SignupPopup"; // ✅ Added popup
+import SignupPopup from "./_components/SignupPopup";
 
-// 🔹 Enhanced Metadata for SEO + AI Discoverability
+// 🔹 SEO Metadata
 export const metadata: Metadata = {
   title:
     "Media Stream AI – UK & EU Sovereign GPU Cloud | Canal-Cooled AI Data Centres",
@@ -28,14 +27,10 @@ export const metadata: Metadata = {
       },
     ],
   },
-  icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
-  },
+  icons: { icon: "/favicon.png" },
 };
 
-// 🔹 Fonts (safe if missing in repo — Netlify won't break)
+// 🔹 Fonts (local-safe)
 const horizon = localFont({
   src: "./fonts/horizon.woff2",
   variable: "--font-horizon",
@@ -47,7 +42,7 @@ const horizonOutlined = localFont({
   display: "swap",
 });
 
-// 🔹 Main Layout Wrapper
+// 🔹 Root Layout
 export default function RootLayout({
   children,
 }: {
@@ -56,18 +51,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-black text-white antialiased ${horizon.variable} ${horizonOutlined.variable}`}
+        className={`bg-black text-white antialiased overflow-x-hidden ${horizon.variable} ${horizonOutlined.variable}`}
       >
         <Header />
-        <main>{children}</main>
+        {/* ✅ Scroll-safe main wrapper (fixes hero cutoff) */}
+        <main className="min-h-screen w-full overflow-visible pb-20">
+          {children}
+        </main>
         <Footer />
-        <SignupPopup /> {/* ✅ Popup for PDF + email submission */}
+        <SignupPopup />
       </body>
     </html>
   );
 }
 
-// 🔹 Header (top navigation bar)
+// ==========================
+// 🔹 HEADER
+// ==========================
 function Header() {
   const nav = [
     { href: "/solutions", label: "Solutions" },
@@ -80,22 +80,21 @@ function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
-        {/* ✅ Logo */}
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/media/logos/msai.png"
             alt="Media Stream AI"
-            width={160}
-            height={160}
-            className="h-16 w-auto sm:h-20"
+            width={150}
+            height={150}
+            className="h-12 sm:h-14 w-auto"
             priority
           />
-          <span className="hidden sm:inline text-lg font-horizon tracking-wide"></span>
         </Link>
 
-        {/* ✅ Desktop Nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {nav.map((i) => (
             <Link
@@ -114,14 +113,16 @@ function Header() {
           </Link>
         </nav>
 
-        {/* ✅ Mobile Menu */}
+        {/* Mobile Menu */}
         <MobileMenu nav={nav} />
       </div>
     </header>
   );
 }
 
-// 🔹 Mobile Menu (hamburger)
+// ==========================
+// 🔹 MOBILE MENU
+// ==========================
 function MobileMenu({
   nav,
 }: {
@@ -133,7 +134,7 @@ function MobileMenu({
         <span aria-hidden>☰</span>
         <span className="sr-only">Open menu</span>
       </summary>
-      <div className="absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-black p-3 shadow-xl">
+      <div className="absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-black p-3 shadow-xl z-50">
         <div className="flex flex-col gap-2">
           {nav.map((i) => (
             <Link
@@ -156,11 +157,23 @@ function MobileMenu({
   );
 }
 
-// 🔹 Footer
+// ==========================
+// 🔹 FOOTER
+// ==========================
 function Footer() {
   return (
-    <footer className="border-t border-white/10 py-10 text-center text-sm text-white/60">
-      © {new Date().getFullYear()} Media Stream AI — All rights reserved.
+    <footer className="border-t border-white/10 py-10 px-4 sm:px-6 text-center text-xs sm:text-sm text-white/60">
+      <div className="max-w-6xl mx-auto space-y-3">
+        <p>
+          © {new Date().getFullYear()} <strong>Media Stream AI Limited</strong> — All rights reserved.
+        </p>
+        <p>
+          Built sustainably with renewable energy.{" "}
+          <Link href="/esg" className="text-green-400 hover:underline">
+            ESG & Responsible AI
+          </Link>
+        </p>
+      </div>
     </footer>
   );
 }
