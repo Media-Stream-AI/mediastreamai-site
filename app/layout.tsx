@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Link from "next/link";
 import Image from "next/image";
 import SignupPopup from "./_components/SignupPopup";
+import { CookieBanner } from "./_components/CookieBanner"; // ✅ Cookie component added
 
 // 🔹 SEO Metadata
 export const metadata: Metadata = {
@@ -48,8 +49,40 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gdprSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Media Stream AI Limited",
+    url: "https://www.mediastreamai.com",
+    description:
+      "Media Stream AI is fully compliant with GDPR and the EU AI Act. All data processing occurs within UK & EU sovereign jurisdictions, ensuring lawful, transparent, and ethical AI operations.",
+    areaServed: ["GB", "EU"],
+    compliance: ["GDPR", "EU AI Act"],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "Data Protection Officer",
+        email: "privacy@mediastreamai.com",
+        availableLanguage: ["English"],
+      },
+    ],
+    privacyPolicy: "https://www.mediastreamai.com/privacy",
+    sameAs: [
+      "https://www.linkedin.com/company/media-stream-ai",
+      "https://x.com/MediaStreamAI",
+      "https://github.com/Media-Stream-AI",
+    ],
+  };
+
   return (
     <html lang="en">
+      <head>
+        {/* ✅ GDPR + EU AI Act Compliance Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(gdprSchema) }}
+        />
+      </head>
       <body
         className={`bg-black text-white antialiased overflow-x-hidden ${horizon.variable} ${horizonOutlined.variable}`}
       >
@@ -60,6 +93,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <SignupPopup />
+        <CookieBanner /> {/* ✅ Added cookie banner */}
       </body>
     </html>
   );
@@ -173,7 +207,13 @@ function Footer() {
             ESG & Responsible AI
           </Link>
         </p>
+        <p>
+          GDPR & EU AI Act Compliant — Data processed only within UK & EU sovereign infrastructure.{" "}
+          <Link href="/privacy" className="text-blue-400 hover:underline ml-1">
+            Privacy Policy
+          </Link>
+        </p>
       </div>
     </footer>
   );
-} 
+}
