@@ -11,14 +11,14 @@ export default function SolutionsPage() {
       title: "Content Tagging AI Model",
       tagline: "Automated metadata enrichment for faster, smarter media workflows.",
       logo: "/media/logos/solutions/tagging.png", // put your PNG here
-      href: "/contact",
+      href: "/models",
     },
     {
       key: "personalisation",
       title: "Content Personalisation AI Model",
       tagline: "Real-time recommendations that adapt to mood, context, and behavior.",
       logo: "/media/logos/solutions/personalisation.png",
-      href: "/contact",
+      href: "/technology",
     },
     {
       key: "hls",
