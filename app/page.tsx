@@ -14,7 +14,7 @@ export default function Page() {
         <section className="relative min-h-[100vh] bg-black text-white overflow-hidden">
           {/* === BACKGROUND IMAGE === */}
           <img
-            src="/media/home-background.jpg" // ← 1920x1080 background image
+            src="/images/home-background.png" // ← 1920x1080 background image
             alt="MSAI Background"
             className="absolute inset-0 w-full h-full object-cover object-center brightness-75"
             loading="eager"
@@ -27,7 +27,7 @@ export default function Page() {
             {/* GPUaaS Square */}
             <a href="https://gpu.mediastreamai.com" target="_blank" rel="noreferrer" className="relative group">
               <img
-                src="/media/square-gpu.jpg"
+                src="/images/square-gpu.png"
                 alt="GPU Cloud Platform"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
@@ -39,7 +39,7 @@ export default function Page() {
             {/* MSAI Robotics Square */}
             <Link href="/robotics" className="relative group">
               <img
-                src="/media/square-robotics.jpg"
+                src="/images/square-robotics.png"
                 alt="MSAI Robotics"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
@@ -51,7 +51,7 @@ export default function Page() {
             {/* AI Director VP Studio Square */}
             <Link href="/ai-director" className="relative group">
               <img
-                src="/media/square-ai-director.jpg"
+                src="/images/square-ai-director.png"
                 alt="AI Director VP Studio"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
@@ -63,7 +63,7 @@ export default function Page() {
             {/* IntuiTV Square */}
             <a href="https://www.intuitv.app" target="_blank" rel="noreferrer" className="relative group">
               <img
-                src="/media/square-intuitv.jpg"
+                src="/umages/square-intuitv.png"
                 alt="IntuiTV"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
@@ -75,7 +75,7 @@ export default function Page() {
             {/* Canal Cooling Square */}
             <Link href="/canal-cooling" className="relative group">
               <img
-                src="/media/square-canal-cooling.jpg"
+                src="/images/square-canal-cooling.png"
                 alt="Canal Cooling System"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
