@@ -10,60 +10,79 @@ export default function Page() {
   return (
     <>
       <main className="min-h-screen bg-black text-white overflow-visible">
-        {/* ================= HERO SECTION ================= */}
-        <section className="relative flex flex-col items-center justify-center text-center lg:text-left min-h-[100dvh] overflow-visible">
+        {/* ================= NEW HERO SECTION ================= */}
+        <section className="relative min-h-[100vh] bg-black text-white overflow-hidden">
+          {/* === BACKGROUND IMAGE === */}
           <img
-            src="/media/home-hero.jpg"
-            alt="Media Stream AI – Canal-Cooled Sovereign Compute"
-            className="absolute inset-0 w-full h-full object-cover object-center brightness-90"
+            src="/media/home-background.jpg" // ← 1920x1080 background image
+            alt="MSAI Background"
+            className="absolute inset-0 w-full h-full object-cover object-center brightness-75"
             loading="eager"
             decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black pointer-events-none" />
+          <div className="absolute inset-0 bg-black/60" />
 
-          <div className="relative z-10 max-w-5xl mx-auto px-6 py-10 sm:py-16">
-            <p className="uppercase tracking-[0.3em] text-xs sm:text-sm text-white/70">
-              UK / EU SOVEREIGN AI INFRASTRUCTURE
-            </p>
+          {/* === OVERLAY GRID OF SQUARES === */}
+          <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+            {/* GPUaaS Square */}
+            <a href="https://gpu.mediastreamai.com" target="_blank" rel="noreferrer" className="relative group">
+              <img
+                src="/media/square-gpu.jpg"
+                alt="GPU Cloud Platform"
+                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-lg font-semibold text-white">GPUaaS</span>
+              </div>
+            </a>
 
-            <h1 className="mt-3 text-4xl sm:text-6xl font-extrabold leading-tight">
-              Canal-Cooled Sovereign Compute for{" "}
-              <span className="text-blue-400">AI Training</span> &{" "}
-              <span className="text-blue-400">Inference</span>.
-            </h1>
+            {/* MSAI Robotics Square */}
+            <Link href="/robotics" className="relative group">
+              <img
+                src="/media/square-robotics.jpg"
+                alt="MSAI Robotics"
+                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-lg font-semibold text-white">MSAI Robotics</span>
+              </div>
+            </Link>
 
-            <p className="mt-5 text-white/80 max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed">
-              Media Stream AI provides GPUaaS &amp; RDUaaS across UK and EU sovereign data centres —
-              fully aligned with GDPR and the EU AI Act. Train and deploy your models on NVIDIA H200 / B200
-              clusters and SambaNova RDUs within renewable, canal-cooled infrastructure.
-            </p>
+            {/* AI Director VP Studio Square */}
+            <Link href="/ai-director" className="relative group">
+              <img
+                src="/media/square-ai-director.jpg"
+                alt="AI Director VP Studio"
+                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-lg font-semibold text-white">AI Director</span>
+              </div>
+            </Link>
 
-            <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-3">
-              <a
-                href="https://gpu.mediastreamai.com"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block"
-              >
-                <Button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-transform hover:scale-[1.03]">
-                  Launch GPU Cloud Platform
-                </Button>
-              </a>
+            {/* IntuiTV Square */}
+            <a href="https://www.intuitv.app" target="_blank" rel="noreferrer" className="relative group">
+              <img
+                src="/media/square-intuitv.jpg"
+                alt="IntuiTV"
+                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-lg font-semibold text-white">IntuiTV</span>
+              </div>
+            </a>
 
-              <Link href="/mother" className="inline-block">
-                <Button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-transform hover:scale-[1.03]">
-                  Meet MOTHER AI (Sovereign LLM)
-                </Button>
-              </Link>
-
-              <Link href="/sovereign-infrastructure" className="inline-block">
-                <Button variant="secondary">Sovereign DC Network</Button>
-              </Link>
-
-              <Link href="/water-cooling" className="inline-block">
-                <Button variant="ghost">Water Cooling &amp; Heat Exchange</Button>
-              </Link>
-            </div>
+            {/* Canal Cooling Square */}
+            <Link href="/canal-cooling" className="relative group">
+              <img
+                src="/media/square-canal-cooling.jpg"
+                alt="Canal Cooling System"
+                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-lg font-semibold text-white">Canal Cooling</span>
+              </div>
+            </Link>
           </div>
         </section>
 
@@ -155,77 +174,3 @@ export default function Page() {
                   rel="noreferrer"
                 >
                   <Button variant="secondary">Open mother.mediastreamai.com</Button>
-                </a>
-              </div>
-              <p className="text-[11px] text-white/40 mt-4">
-                See “MOTHER AI — United Kingdom’s First Sovereign LLM” overview.
-              </p>
-            </Card>
-
-            <div className="relative rounded-2xl overflow-hidden border border-white/10">
-              <img
-                src="/media/images/dc-mother-hero.jpg"
-                alt="MOTHER AI inside Sovereign Data Centre Network"
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </Section>
-
-        {/* ================= COOLING SYSTEM ================= */}
-        <CoolingRibbon />
-
-        {/* ================= LINKS ================= */}
-        <Section className="py-16 overflow-visible">
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold">GPU Cloud Platform</h3>
-              <p className="text-white/70 text-sm mt-1 leading-relaxed">
-                Hire sovereign 8× GPU clusters and SambaNova RDUs on-demand.
-              </p>
-              <a
-                className="mt-4 inline-block"
-                href="https://gpu.mediastreamai.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button variant="secondary">gpu.mediastreamai.com</Button>
-              </a>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold">MOTHER AI Portal</h3>
-              <p className="text-white/70 text-sm mt-1 leading-relaxed">
-                Access models, manage agents, and monitor sovereign compute usage.
-              </p>
-              <a
-                className="mt-4 inline-block"
-                href="https://mother.mediastreamai.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button variant="secondary">mother.mediastreamai.com</Button>
-              </a>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold">IntuiTV</h3>
-              <p className="text-white/70 text-sm mt-1 leading-relaxed">
-                Personalized Connected TV powered by MOTHER AI.
-              </p>
-              <a
-                className="mt-4 inline-block"
-                href="https://www.intuitv.app"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button variant="secondary">www.intuitv.app</Button>
-              </a>
-            </Card>
-          </div>
-        </Section>
-      </main>
-    </>
-  );
-}
