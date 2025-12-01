@@ -87,7 +87,7 @@ export default function RootLayout({
         className={`bg-black text-white antialiased overflow-x-hidden ${horizon.variable} ${horizonOutlined.variable}`}
       >
         <Header />
-        {/* ✅ Scroll-safe main wrapper (fixes hero cutoff) */}
+        {/* ✅ Scroll-safe main wrapper */}
         <main className="min-h-screen w-full overflow-visible pb-20">
           {children}
         </main>
