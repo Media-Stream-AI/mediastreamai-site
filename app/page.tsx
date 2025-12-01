@@ -14,7 +14,7 @@ export default function Page() {
         <section className="relative min-h-[100vh] bg-black text-white overflow-hidden">
           {/* === BACKGROUND IMAGE === */}
           <img
-            src="/images/home-background.png" // ← 1920x1080 background image
+            src="/images/home-background.png"
             alt="MSAI Background"
             className="absolute inset-0 w-full h-full object-cover object-center brightness-75"
             loading="eager"
@@ -25,7 +25,12 @@ export default function Page() {
           {/* === OVERLAY GRID OF SQUARES === */}
           <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
             {/* GPUaaS Square */}
-            <a href="https://gpu.mediastreamai.com" target="_blank" rel="noreferrer" className="relative group">
+            <a
+              href="https://gpu.mediastreamai.com"
+              target="_blank"
+              rel="noreferrer"
+              className="relative group"
+            >
               <img
                 src="/images/square-gpu.png"
                 alt="GPU Cloud Platform"
@@ -61,9 +66,14 @@ export default function Page() {
             </Link>
 
             {/* IntuiTV Square */}
-            <a href="https://www.intuitv.app" target="_blank" rel="noreferrer" className="relative group">
+            <a
+              href="https://www.intuitv.app"
+              target="_blank"
+              rel="noreferrer"
+              className="relative group"
+            >
               <img
-                src="/umages/square-intuitv.png"
+                src="/images/square-intuitv.png"
                 alt="IntuiTV"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
@@ -174,3 +184,5 @@ export default function Page() {
                   rel="noreferrer"
                 >
                   <Button variant="secondary">Open mother.mediastreamai.com</Button>
+                </a>
+              </
