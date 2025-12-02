@@ -185,7 +185,6 @@ export default function Page() {
                 >
                   <Button variant="secondary">Open mother.mediastreamai.com</Button>
                 </a>
-</a>
               </div>
               <p className="text-[11px] text-white/40 mt-4">
                 See “MOTHER AI — United Kingdom’s First Sovereign LLM” overview.
