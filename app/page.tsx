@@ -185,4 +185,77 @@ export default function Page() {
                 >
                   <Button variant="secondary">Open mother.mediastreamai.com</Button>
                 </a>
-              </
+</a>
+              </div>
+              <p className="text-[11px] text-white/40 mt-4">
+                See “MOTHER AI — United Kingdom’s First Sovereign LLM” overview.
+              </p>
+            </Card>
+
+            <div className="relative rounded-2xl overflow-hidden border border-white/10">
+              <img
+                src="/media/images/dc-mother-hero.jpg"
+                alt="MOTHER AI inside Sovereign Data Centre Network"
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </Section>
+
+        {/* ================= COOLING SYSTEM ================= */}
+        <CoolingRibbon />
+
+        {/* ================= LINKS ================= */}
+        <Section className="py-16 overflow-visible">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="p-6">
+              <h3 className="text-xl font-semibold">GPU Cloud Platform</h3>
+              <p className="text-white/70 text-sm mt-1 leading-relaxed">
+                Hire sovereign 8× GPU clusters and SambaNova RDUs on-demand.
+              </p>
+              <a
+                className="mt-4 inline-block"
+                href="https://gpu.mediastreamai.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button variant="secondary">gpu.mediastreamai.com</Button>
+              </a>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-xl font-semibold">MOTHER AI Portal</h3>
+              <p className="text-white/70 text-sm mt-1 leading-relaxed">
+                Access models, manage agents, and monitor sovereign compute usage.
+              </p>
+              <a
+                className="mt-4 inline-block"
+                href="https://mother.mediastreamai.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button variant="secondary">mother.mediastreamai.com</Button>
+              </a>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-xl font-semibold">IntuiTV</h3>
+              <p className="text-white/70 text-sm mt-1 leading-relaxed">
+                Personalized Connected TV powered by MOTHER AI.
+              </p>
+              <a
+                className="mt-4 inline-block"
+                href="https://www.intuitv.app"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button variant="secondary">www.intuitv.app</Button>
+              </a>
+            </Card>
+          </div>
+        </Section>
+      </main>
+    </>
+  );
+}
