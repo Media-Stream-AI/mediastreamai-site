@@ -74,7 +74,7 @@ export default function Page() {
                 className="relative group flex-shrink-0"
               >
                 <img
-                  src="/images/square-intuitv.png"
+                  src="/images/square.intuitv.png"
                   alt="IntuiTV"
                   className="w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
                 />
