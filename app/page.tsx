@@ -62,7 +62,7 @@ export default function Page() {
               </Link>
 
               {/* AI Director VP Studio Square */}
-              <Link href="/ai-director" className="relative group flex-shrink-0">
+              <Link href="/vp-studio" className="relative group flex-shrink-0">
                 <img
                   src="/images/square-ai-director.png"
                   alt="AI Director VP Studio"
