@@ -24,7 +24,14 @@ export default function Page() {
 
           {/* === HORIZONTAL STRIP OF SQUARES === */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="flex flex-nowrap gap-4 overflow-x-auto pb-4 scrollbar-hide">
+  {/* Scroll hint arrow overlay */}
+  <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/80 to-transparent flex items-center justify-end pr-3">
+    <span className="text-xs text-white/60 mr-1 hidden sm:inline">Scroll</span>
+    <span className="text-xl animate-pulse">➜</span>
+  </div>
+
+  <div className="flex flex-nowrap gap-4 overflow-x-auto pb-4 pr-10 scrollbar-hide">
+
               {/* GPUaaS Square */}
               <a
                 href="https://gpu.mediastreamai.com"
