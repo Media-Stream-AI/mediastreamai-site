@@ -11,10 +11,10 @@ export default function Page() {
     <>
       <main className="min-h-screen bg-black text-white overflow-visible">
         {/* ================= NEW HERO SECTION ================= */}
-        <section className="relative min-h-[100vh] bg-black text-white overflow-hidden">
+        <section className="relative bg-black text-white overflow-hidden py-8">
           {/* === BACKGROUND IMAGE === */}
           <img
-            src="images/home-background.png"
+            src="/images/home-background.png"
             alt="MSAI Background"
             className="absolute inset-0 w-full h-full object-cover object-center brightness-75"
             loading="eager"
@@ -22,77 +22,79 @@ export default function Page() {
           />
           <div className="absolute inset-0 bg-black/60" />
 
-          {/* === OVERLAY GRID OF SQUARES === */}
-          <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-            {/* GPUaaS Square */}
-            <a
-              href="https://gpu.mediastreamai.com"
-              target="_blank"
-              rel="noreferrer"
-              className="relative group"
-            >
-              <img
-                src="images/square-gpu.png"
-                alt="GPU Cloud Platform"
-                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-lg font-semibold text-white">GPUaaS</span>
-              </div>
-            </a>
+          {/* === HORIZONTAL STRIP OF SQUARES === */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-nowrap gap-4 overflow-x-auto pb-4 scrollbar-hide">
+              {/* GPUaaS Square */}
+              <a
+                href="https://gpu.mediastreamai.com"
+                target="_blank"
+                rel="noreferrer"
+                className="relative group flex-shrink-0"
+              >
+                <img
+                  src="/images/square-gpu.png"
+                  alt="GPU Cloud Platform"
+                  className="w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-lg font-semibold text-white">GPUaaS</span>
+                </div>
+              </a>
 
-            {/* MSAI Robotics Square */}
-            <Link href="/robotics" className="relative group">
-              <img
-                src="/images/square-robotics.png"
-                alt="MSAI Robotics"
-                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-lg font-semibold text-white">MSAI Robotics</span>
-              </div>
-            </Link>
+              {/* MSAI Robotics Square */}
+              <Link href="/robotics" className="relative group flex-shrink-0">
+                <img
+                  src="/images/square-robotics.png"
+                  alt="MSAI Robotics"
+                  className="w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-lg font-semibold text-white">MSAI Robotics</span>
+                </div>
+              </Link>
 
-            {/* AI Director VP Studio Square */}
-            <Link href="/ai-director" className="relative group">
-              <img
-                src="/images/square-ai-director.png"
-                alt="AI Director VP Studio"
-                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-lg font-semibold text-white">AI Director</span>
-              </div>
-            </Link>
+              {/* AI Director VP Studio Square */}
+              <Link href="/ai-director" className="relative group flex-shrink-0">
+                <img
+                  src="/images/square-ai-director.png"
+                  alt="AI Director VP Studio"
+                  className="w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-lg font-semibold text-white">AI Director</span>
+                </div>
+              </Link>
 
-            {/* IntuiTV Square */}
-            <a
-              href="https://www.intuitv.app"
-              target="_blank"
-              rel="noreferrer"
-              className="relative group"
-            >
-              <img
-                src="/images/square-intuitv.png"
-                alt="IntuiTV"
-                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-lg font-semibold text-white">IntuiTV</span>
-              </div>
-            </a>
+              {/* IntuiTV Square */}
+              <a
+                href="https://www.intuitv.app"
+                target="_blank"
+                rel="noreferrer"
+                className="relative group flex-shrink-0"
+              >
+                <img
+                  src="/images/square-intuitv.png"
+                  alt="IntuiTV"
+                  className="w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-lg font-semibold text-white">IntuiTV</span>
+                </div>
+              </a>
 
-            {/* Canal Cooling Square */}
-            <Link href="/canal-cooling" className="relative group">
-              <img
-                src="/images/square-canal-cooling.png"
-                alt="Canal Cooling System"
-                className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-lg font-semibold text-white">Canal Cooling</span>
-              </div>
-            </Link>
+              {/* Canal Cooling Square */}
+              <Link href="/canal-cooling" className="relative group flex-shrink-0">
+                <img
+                  src="/images/square-canal-cooling.png"
+                  alt="Canal Cooling System"
+                  className="w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-lg font-semibold text-white">Canal Cooling</span>
+                </div>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -161,7 +163,7 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <Card className="p-6 bg-black/40 border-white/10">
               <h2 className="text-3xl font-bold">
-                MOTHER AI — The UK’s First Sovereign LLM
+                MOTHER AI — The UK's First Sovereign LLM
               </h2>
               <p className="text-white/70 mt-2 leading-relaxed">
                 Built, trained, and hosted on British infrastructure. Designed for orchestration across
@@ -187,7 +189,7 @@ export default function Page() {
                 </a>
               </div>
               <p className="text-[11px] text-white/40 mt-4">
-                See “MOTHER AI — United Kingdom’s First Sovereign LLM” overview.
+                See "MOTHER AI — United Kingdom's First Sovereign LLM" overview.
               </p>
             </Card>
 
@@ -254,6 +256,16 @@ export default function Page() {
             </Card>
           </div>
         </Section>
+
+        <style jsx global>{`
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
       </main>
     </>
   );
