@@ -64,7 +64,7 @@ export default function Page() {
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-lg font-semibold text-white">AI Director</span>
                 </div>
-              </Link>
+              </Link href="/vp-studio" ClassName"relative group flex-shrink-0">
 
               {/* IntuiTV Square */}
               <a
