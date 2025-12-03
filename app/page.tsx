@@ -14,7 +14,7 @@ export default function Page() {
         <section className="relative min-h-[100vh] bg-black text-white overflow-hidden">
           {/* === BACKGROUND IMAGE === */}
           <img
-            src="/images/home-background.png"
+            src="images/home-background.png"
             alt="MSAI Background"
             className="absolute inset-0 w-full h-full object-cover object-center brightness-75"
             loading="eager"
@@ -32,7 +32,7 @@ export default function Page() {
               className="relative group"
             >
               <img
-                src="/images/square-gpu.png"
+                src="images/square-gpu.png"
                 alt="GPU Cloud Platform"
                 className="w-[300px] h-[300px] object-cover rounded-xl transition-transform group-hover:scale-[1.03]"
               />
