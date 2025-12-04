@@ -24,14 +24,13 @@ export default function Page() {
 
           {/* === HORIZONTAL STRIP OF SQUARES === */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-  {/* Scroll hint arrow overlay */}
-  <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/80 to-transparent flex items-center justify-end pr-3">
-    <span className="text-xs text-white/60 mr-1 hidden sm:inline">Scroll</span>
-    <span className="text-xl animate-pulse">➜</span>
-  </div>
+            {/* Scroll hint arrow overlay */}
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/80 to-transparent flex items-center justify-end pr-3">
+              <span className="text-xs text-white/60 mr-1 hidden sm:inline">Scroll</span>
+              <span className="text-xl animate-pulse">➜</span>
+            </div>
 
-  <div className="flex flex-nowrap gap-4 overflow-x-auto pb-4 pr-10 scrollbar-hide">
-
+            <div className="flex flex-nowrap gap-4 overflow-x-auto pb-4 pr-10 scrollbar-hide">
               {/* GPUaaS Square */}
               <a
                 href="https://gpu.mediastreamai.com"
@@ -71,7 +70,7 @@ export default function Page() {
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-lg font-semibold text-white">AI Director</span>
                 </div>
-              </Link href="/vp-studio" ClassName"relative group flex-shrink-0">
+              </Link>
 
               {/* IntuiTV Square */}
               <a
@@ -277,3 +276,4 @@ export default function Page() {
     </>
   );
 }
+
