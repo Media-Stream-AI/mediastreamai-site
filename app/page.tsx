@@ -90,7 +90,7 @@ export default function Page() {
               </a>
 
               {/* Canal Cooling Square */}
-              <Link href="/canal-cooling" className="relative group flex-shrink-0">
+              <Link href="/data-centre" className="relative group flex-shrink-0">
                 <img
                   src="/images/square-canal-cooling.png"
                   alt="Canal Cooling System"
