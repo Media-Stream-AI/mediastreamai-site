@@ -125,7 +125,7 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40">
               <img
-                src="/media/images/h200.png"
+                src="/media/images/H200.png"
                 alt="GPU Cloud – H200 Cluster"
                 className="w-full h-auto object-contain"
                 loading="lazy"
