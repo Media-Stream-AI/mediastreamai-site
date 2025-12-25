@@ -153,7 +153,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <nav className="absolute top-full left-0 right-0 bg-black/98 backdrop-blur-md border-b border-white/10 shadow-lg lg:hidden z-50">
+        <nav className="absolute top-full left-0 right-0 bg-black border-b border-white/10 shadow-lg lg:hidden z-50">
           <div className="p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
             {/* Home */}
             <Link
