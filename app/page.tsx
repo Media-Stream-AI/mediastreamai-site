@@ -1,22 +1,166 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Shield, Zap, Globe, Users, TrendingUp, Award, ExternalLink, ArrowRight, CheckCircle } from "lucide-react";
+
+// Animated particles background for desktop
+function ParticleBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+    }> = [];
+
+    // Create particles
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2 + 1
+      });
+    }
+
+    function animate() {
+      if (!ctx || !canvas) return;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connections
+      ctx.strokeStyle = 'rgba(59, 130, 246, 0.1)';
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw and update particles
+      particles.forEach(particle => {
+        ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 pointer-events-none hidden md:block"
+      style={{ opacity: 0.4 }}
+    />
+  );
+}
+
+// Mobile animated SVG
+function MobileHeroSVG() {
+  return (
+    <div className="md:hidden mb-6 flex justify-center">
+      <svg width="200" height="120" viewBox="0 0 200 120" className="animate-pulse">
+        <defs>
+          <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: '#60a5fa', stopOpacity: 1 }} />
+          </linearGradient>
+        </defs>
+        
+        {/* Central processor */}
+        <rect x="75" y="40" width="50" height="50" rx="8" fill="url(#aiGradient)" opacity="0.8">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+        </rect>
+        
+        {/* Corner nodes */}
+        <circle cx="30" cy="30" r="8" fill="#60a5fa">
+          <animate attributeName="r" values="6;10;6" dur="1.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="170" cy="30" r="8" fill="#60a5fa">
+          <animate attributeName="r" values="6;10;6" dur="1.5s" begin="0.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="30" cy="90" r="8" fill="#60a5fa">
+          <animate attributeName="r" values="6;10;6" dur="1.5s" begin="1s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="170" cy="90" r="8" fill="#60a5fa">
+          <animate attributeName="r" values="6;10;6" dur="1.5s" begin="1.5s" repeatCount="indefinite" />
+        </circle>
+        
+        {/* Connection lines */}
+        <line x1="30" y1="30" x2="75" y2="50" stroke="#3b82f6" strokeWidth="2" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+        </line>
+        <line x1="170" y1="30" x2="125" y2="50" stroke="#3b82f6" strokeWidth="2" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" begin="0.5s" repeatCount="indefinite" />
+        </line>
+        <line x1="30" y1="90" x2="75" y2="80" stroke="#3b82f6" strokeWidth="2" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" begin="1s" repeatCount="indefinite" />
+        </line>
+        <line x1="170" y1="90" x2="125" y2="80" stroke="#3b82f6" strokeWidth="2" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" begin="1.5s" repeatCount="indefinite" />
+        </line>
+      </svg>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const sectors = [
     {
       icon: "📺",
       title: "Media & Broadcasting",
-      description: "Global Broadcaster scale deployments",
+      description: "Global Broadcaster scale",
       stat: "75% faster",
       link: "/sectors#media"
     },
     {
       icon: "🎬",
       title: "Film & TV Production",
-      description: "End-to-end production intelligence",
+      description: "End-to-end production",
       stat: "60% reduction",
       link: "/sectors#film"
     },
@@ -24,21 +168,21 @@ export default function HomePage() {
       icon: "🎨",
       title: "Creative Industries",
       description: "GenAI content at scale",
-      stat: "30% cost savings",
+      stat: "30% savings",
       link: "/sectors#creative"
     },
     {
       icon: "📢",
       title: "Advertising",
-      description: "AI-powered campaigns proven",
+      description: "AI-powered campaigns",
       stat: "Higher ROI",
       link: "/sectors#advertising"
     },
     {
       icon: "🛡️",
       title: "Government & Defence",
-      description: "100% UK sovereign, air-gapped",
-      stat: "Military Veteran founded business",
+      description: "100% UK sovereign",
+      stat: "Air-gapped",
       link: "/government-defence",
       highlight: true
     },
@@ -52,81 +196,71 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { value: "5", label: "UK/EU Data Centers in 2026", icon: <Globe className="w-6 h-6 md:w-8 md:h-8" /> },
-    { value: "405+", label: "Jobs Eco-system", icon: <Users className="w-6 h-6 md:w-8 md:h-8" /> },
-    { value: "24K+", label: "targeted Meals/Month to Food Banks", icon: <CheckCircle className="w-6 h-6 md:w-8 md:h-8" /> },
-    { value: "100%", label: "UK/EU Sovereign", icon: <Shield className="w-6 h-6 md:w-8 md:h-8" /> }
+    { icon: <Globe className="w-6 h-6 md:w-8 md:h-8" />, value: "5", label: "UK/EU Data Centers" },
+    { icon: <Zap className="w-6 h-6 md:w-8 md:h-8" />, value: "40-60%", label: "Cost Savings" },
+    { icon: <Users className="w-6 h-6 md:w-8 md:h-8" />, value: "405+", label: "Jobs Created" },
+    { icon: <TrendingUp className="w-6 h-6 md:w-8 md:h-8" />, value: "100%", label: "UK/EU Sovereign" }
   ];
 
   const solutions = [
     {
-      title: "GPU & Infrastructure as a Service",
-      description: "H200, B200, SambaNova clusters. 40-60% below AWS/Azure pricing.",
-      features: ["Hourly or Monthly Billing", "5 UK/EU Data Centers", "Instant Provisioning", "24/7 Monitoring"],
+      icon: <Shield className="w-8 h-8 md:w-10 md:h-10" />,
+      title: "GPU INFRASTRUCTURE",
+      description: "NVIDIA H200, B200, SambaNova RDU clusters across 5 UK/EU data centers",
+      features: ["H200 at £8.50/hr", "Hourly or Monthly Billing", "5 UK/EU Data Centers", "Instant Provisioning", "24/7 Monitoring"],
       cta: "View GPU Pricing",
       link: "https://gpu.mediastreamai.com",
-      external: true,
-      icon: <Zap className="text-blue-400 w-8 h-8 md:w-10 md:h-10" />
+      external: true
     },
     {
-      title: "MOTHER AI Agent Deployments",
+      icon: <Zap className="w-8 h-8 md:w-10 md:h-10" />,
+      title: "MOTHER AI AGENT DEPLOYMENTS",
       description: "Sovereign AI agents with Autm orchestration. Sector-specific implementations.",
       features: ["Starter from £2,500/mo", "Multi-Agent Workflows", "Custom Training", "GDPR Compliant"],
       cta: "Explore AI Agents",
       link: "https://mother.mediastreamai.com",
-      external: true,
-      icon: <Shield className="text-blue-400 w-8 h-8 md:w-10 md:h-10" />
+      external: true
     }
   ];
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white relative overflow-hidden">
+      {/* Particle Background - Desktop Only */}
+      <ParticleBackground />
+
       {/* ================= HERO SECTION ================= */}
       <section className="relative bg-gradient-to-b from-black via-blue-950/20 to-black py-12 md:py-20 overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.15),transparent_50%)]" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 text-center">
-          {/* Badges Strip */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8"
-          >
-            {/* Military Veteran Run */}
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6">
+          {/* Military Veteran & Ethnic Minority Badges */}
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8">
             <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-blue-600/20 border border-blue-400/40 rounded-full">
               <span className="text-lg md:text-2xl">🎖️</span>
               <span className="text-xs md:text-sm font-semibold text-blue-300">Military Veteran Run</span>
             </div>
-
-            {/* Ethnic Minority Run */}
             <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-green-600/20 border border-green-400/40 rounded-full">
               <span className="text-lg md:text-2xl">🤝</span>
               <span className="text-xs md:text-sm font-semibold text-green-300">Ethnic Minority Led</span>
             </div>
+          </div>
 
-            {/* NVIDIA Inception */}
-            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-green-600/20 border border-green-400/40 rounded-full">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="md:w-5 md:h-5">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#76B900"/>
-                <path d="M2 17L12 22L22 17L12 12L2 17Z" fill="#76B900"/>
-              </svg>
-              <span className="text-xs md:text-sm font-semibold text-green-300">NVIDIA Inception</span>
+          {/* NVIDIA & Lenovo Partner Badges */}
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12">
+            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-green-600/10 border border-green-400/30 rounded-full">
+              <span className="text-sm md:text-base font-semibold text-green-300">NVIDIA Inception Member</span>
             </div>
-
-            {/* Lenovo AI Innovator */}
-            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-red-600/20 border border-red-400/40 rounded-full">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="md:w-5 md:h-5">
-                <circle cx="12" cy="12" r="10" stroke="#E31C23" strokeWidth="2"/>
-                <path d="M8 12H16M12 8V16" stroke="#E31C23" strokeWidth="2"/>
-              </svg>
-              <span className="text-xs md:text-sm font-semibold text-red-300">Lenovo AI Innovator</span>
+            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-red-600/10 border border-red-400/30 rounded-full">
+              <span className="text-sm md:text-base font-semibold text-red-300">Lenovo AI Innovator</span>
             </div>
-          </motion.div>
+          </div>
 
+          {/* Mobile Animated SVG */}
+          <MobileHeroSVG />
+
+          {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -145,7 +279,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 max-w-4xl mx-auto mb-3 md:mb-4 px-4"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 max-w-4xl mx-auto mb-3 md:mb-4 px-4 text-center"
           >
             100% UK/EU data residency. GPU clusters, AI agents & Robotics
             for media, government, and enterprise deployments.
@@ -155,7 +289,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-sm md:text-base text-white/60 max-w-3xl mx-auto mb-6 md:mb-8 px-4"
+            className="text-sm md:text-base text-white/60 max-w-3xl mx-auto mb-6 md:mb-8 px-4 text-center"
           >
             True sovereignty from Company Ownership & Shareholding to European Large Language Model (MOTHER).
           </motion.p>
@@ -169,8 +303,8 @@ export default function HomePage() {
           >
             <Link href="https://gpu.mediastreamai.com" target="_blank" className="w-full sm:w-auto">
               <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
-                <span className="hidden sm:inline">GPU Infrastructure</span>
-                <span className="sm:hidden">GPU Infra</span>
+                <span className="hidden xs:inline">GPU Infrastructure</span>
+                <span className="xs:hidden">GPU Infra</span>
                 <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0" />
               </button>
             </Link>
@@ -200,66 +334,64 @@ export default function HomePage() {
       </section>
 
       {/* ================= SOLUTIONS SECTION ================= */}
-      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10">
+      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-400 mb-3 md:mb-4">
-              Choose Your Solution
-            </h2>
-            <p className="text-base md:text-lg lg:text-xl text-white/70 max-w-3xl mx-auto px-4">
-              Whether you need raw GPU compute or turnkey AI agents, we deliver 
-              sovereign infrastructure at 40-60% below hyperscaler pricing.
-            </p>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 text-white">Choose Your Solution</h2>
+          <p className="text-sm md:text-base text-white/60 text-center mb-8 md:mb-12 max-w-3xl mx-auto">
+            Deploy GPU infrastructure for full control or turnkey AI agents for immediate impact
+          </p>
 
           <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
             {solutions.map((solution, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2 }}
-                className="p-6 md:p-8 bg-gradient-to-br from-black to-blue-950/20 border border-white/10 rounded-2xl hover:border-blue-500/50 transition-all group"
+                className="p-6 md:p-8 bg-black/40 border border-white/10 rounded-2xl hover:border-blue-500/50 transition-all"
               >
-                <div className="mb-4 md:mb-6">{solution.icon}</div>
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-3">{solution.title}</h3>
-                <p className="text-sm md:text-base text-white/70 mb-4 md:mb-6">{solution.description}</p>
-
-                <ul className="space-y-2 mb-6 md:mb-8">
+                <div className="text-blue-400 mb-4">{solution.icon}</div>
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{solution.title}</h3>
+                <p className="text-sm md:text-base text-white/70 mb-6">{solution.description}</p>
+                
+                <ul className="space-y-3 mb-6">
                   {solution.features.map((feature, j) => (
                     <li key={j} className="flex items-center gap-2 text-sm md:text-base text-white/80">
                       <CheckCircle size={16} className="text-green-400 flex-shrink-0" />
-                      <span>{feature}</span>
+                      {feature}
                     </li>
                   ))}
                 </ul>
 
-                <Link href={solution.link} target={solution.external ? "_blank" : undefined}>
-                  <button className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm md:text-base transition-colors flex items-center justify-center gap-2 group-hover:gap-3">
-                    {solution.cta} <ArrowRight size={18} />
-                  </button>
-                </Link>
+                {solution.external ? (
+                  <a href={solution.link} target="_blank" rel="noopener noreferrer" className="block">
+                    <button className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm md:text-base transition-colors flex items-center justify-center gap-2">
+                      {solution.cta} <ExternalLink size={16} />
+                    </button>
+                  </a>
+                ) : (
+                  <Link href={solution.link} className="block">
+                    <button className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm md:text-base transition-colors flex items-center justify-center gap-2">
+                      {solution.cta} <ArrowRight size={16} />
+                    </button>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ================= SECTORS SECTION ================= */}
-      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 bg-gradient-to-b from-black via-blue-950/10 to-black">
+      {/* ================= SECTORS SECTION (SMALLER CARDS) ================= */}
+      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-400 mb-3 md:mb-4">
-              Sector-Specific Deployments
-            </h2>
-            <p className="text-base md:text-lg lg:text-xl text-white/70 max-w-3xl mx-auto px-4">
-              Proven AI implementations across high-performance industries with 
-              measurable ROI and complete UK/EU sovereignty.
-            </p>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 text-white">Sector-Specific Deployments</h2>
+          <p className="text-sm md:text-base text-white/60 text-center mb-8 md:mb-12 max-w-3xl mx-auto">
+            Proven AI solutions deployed across media, government, and enterprise sectors
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-4">
             {sectors.map((sector, i) => (
               <motion.div
                 key={i}
@@ -269,19 +401,19 @@ export default function HomePage() {
                 transition={{ delay: i * 0.1 }}
               >
                 <Link href={sector.link}>
-                  <div className={`p-5 md:p-6 rounded-2xl border transition-all cursor-pointer h-full ${
-                    sector.highlight
-                      ? 'bg-gradient-to-br from-blue-600/30 to-blue-500/20 border-blue-400/50 hover:border-blue-400'
-                      : 'bg-black/40 border-white/10 hover:border-blue-500/50'
-                  }`}>
-                    <div className="text-4xl md:text-5xl mb-3 md:mb-4">{sector.icon}</div>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-2">{sector.title}</h3>
-                    <p className="text-xs md:text-sm text-white/70 mb-3">{sector.description}</p>
+                  <div className="p-4 md:p-5 bg-black/40 border border-white/10 rounded-xl hover:border-blue-500/50 transition-all h-full cursor-pointer group">
+                    <div className="text-3xl md:text-4xl mb-2 md:mb-3">{sector.icon}</div>
+                    <h3 className="text-sm md:text-base font-bold text-white mb-1 md:mb-2 group-hover:text-blue-400 transition-colors">
+                      {sector.title}
+                    </h3>
+                    <p className="text-xs md:text-sm text-white/60 mb-2 md:mb-3 line-clamp-2">
+                      {sector.description}
+                    </p>
                     <div className="inline-block px-2 md:px-3 py-1 bg-green-500/20 border border-green-400/40 rounded-full">
-                      <span className="text-xs md:text-sm font-semibold text-green-300">{sector.stat}</span>
+                      <span className="text-xs font-semibold text-green-300">{sector.stat}</span>
                     </div>
                     {sector.highlight && (
-                      <div className="mt-3 inline-block px-2 md:px-3 py-1 bg-blue-500/20 border border-blue-400/40 rounded-full ml-2">
+                      <div className="mt-2 inline-block px-2 md:px-3 py-1 bg-blue-500/20 border border-blue-400/40 rounded-full ml-2">
                         <span className="text-xs font-semibold text-blue-300">Air-Gapped Available</span>
                       </div>
                     )}
@@ -302,7 +434,7 @@ export default function HomePage() {
       </section>
 
       {/* ================= PARTNERSHIPS SECTION ================= */}
-      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10">
+      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">Trusted Partners</h2>
           <p className="text-sm md:text-base text-white/60 mb-8 md:mb-12">Recognized by industry leaders in AI innovation</p>
@@ -323,7 +455,7 @@ export default function HomePage() {
                   <text x="100" y="110" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">NVIDIA</text>
                   <text x="100" y="128" textAnchor="middle" fill="white" fontSize="12">INCEPTION</text>
                 </svg>
-                <span className="text-xs md:text-sm text-white/60 group-hover:text-white/80">NVIDIA Inception Program</span>
+                <span className="text-xs md:text-sm text-white/60 group-hover:text-green-400 transition-colors">Inception Member</span>
               </div>
             </Link>
 
@@ -336,50 +468,38 @@ export default function HomePage() {
                   <text x="100" y="175" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">LENOVO</text>
                   <text x="100" y="192" textAnchor="middle" fill="white" fontSize="11">AI INNOVATOR</text>
                 </svg>
-                <span className="text-xs md:text-sm text-white/60 group-hover:text-white/80">Lenovo AI Innovator Program</span>
+                <span className="text-xs md:text-sm text-white/60 group-hover:text-red-400 transition-colors">AI Innovator</span>
               </div>
-            </Link>
-          </div>
-
-          <div className="mt-8 md:mt-12">
-            <Link href="/partnerships">
-              <button className="px-5 md:px-6 py-2 border border-white/20 hover:border-blue-400 rounded-lg text-xs md:text-sm font-semibold transition-colors">
-                View All Partnerships
-              </button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ================= SUSTAINABILITY & IMPACT ================= */}
-      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 bg-gradient-to-b from-black via-green-950/10 to-black">
+      {/* ================= SUSTAINABILITY SECTION (SMALLER CARDS) ================= */}
+      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 bg-gradient-to-b from-black via-green-950/10 to-black relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4">
-              Sustainable AI Infrastructure
-            </h2>
-            <p className="text-base md:text-lg lg:text-xl text-white/70 max-w-3xl mx-auto px-4">
-              Canal-cooled data centers creating real economic and social impact
-            </p>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 text-white">Sustainable AI Infrastructure</h2>
+          <p className="text-sm md:text-base text-white/60 text-center mb-8 md:mb-12 max-w-3xl mx-auto">
+            Canal-cooled data centers creating real economic and social impact
+          </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <div className="p-6 md:p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
-              <div className="text-4xl md:text-5xl mb-3 md:mb-4">💼</div>
-              <div className="text-3xl md:text-4xl font-bold text-green-400 mb-2">405+</div>
-              <div className="text-sm md:text-base text-white/70">Regional tech jobs created</div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
+            <div className="p-4 md:p-6 bg-black/40 border border-white/10 rounded-2xl text-center">
+              <div className="text-3xl md:text-4xl mb-2 md:mb-3">💼</div>
+              <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1 md:mb-2">405+</div>
+              <div className="text-xs md:text-sm text-white/70">Regional tech jobs created</div>
             </div>
 
-            <div className="p-6 md:p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
-              <div className="text-4xl md:text-5xl mb-3 md:mb-4">🍽️</div>
-              <div className="text-3xl md:text-4xl font-bold text-green-400 mb-2">24,000+</div>
-              <div className="text-sm md:text-base text-white/70">Meals/month to food banks</div>
+            <div className="p-4 md:p-6 bg-black/40 border border-white/10 rounded-2xl text-center">
+              <div className="text-3xl md:text-4xl mb-2 md:mb-3">🍽️</div>
+              <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1 md:mb-2">24,000+</div>
+              <div className="text-xs md:text-sm text-white/70">Meals/month to food banks</div>
             </div>
 
-            <div className="p-6 md:p-8 bg-black/40 border border-white/10 rounded-2xl text-center sm:col-span-2 lg:col-span-1">
-              <div className="text-4xl md:text-5xl mb-3 md:mb-4">🌱</div>
-              <div className="text-3xl md:text-4xl font-bold text-green-400 mb-2">40%</div>
-              <div className="text-sm md:text-base text-white/70">Energy reduction via canal cooling</div>
+            <div className="p-4 md:p-6 bg-black/40 border border-white/10 rounded-2xl text-center col-span-2 sm:col-span-1">
+              <div className="text-3xl md:text-4xl mb-2 md:mb-3">🌱</div>
+              <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1 md:mb-2">40%</div>
+              <div className="text-xs md:text-sm text-white/70">Energy reduction via canal cooling</div>
             </div>
           </div>
 
@@ -395,7 +515,7 @@ export default function HomePage() {
       </section>
 
       {/* ================= FINAL CTA ================= */}
-      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10">
+      <section className="py-12 md:py-20 px-4 md:px-6 border-t border-white/10 relative">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6">
             Ready to Deploy Sovereign AI?
