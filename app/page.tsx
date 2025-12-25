@@ -235,25 +235,28 @@ export default function HomePage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 md:px-6">
-          {/* Military Veteran & Ethnic Minority Badges */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8">
-            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-blue-600/20 border border-blue-400/40 rounded-full">
-              <span className="text-lg md:text-2xl">🎖️</span>
-              <span className="text-xs md:text-sm font-semibold text-blue-300">Military Veteran Run</span>
+          {/* All Badges in One Line - Same Size */}
+          <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
+            {/* Military Veteran Badge */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600/20 border border-blue-400/40 rounded-full">
+              <span className="text-base">🎖️</span>
+              <span className="text-xs font-semibold text-blue-300 whitespace-nowrap">Military Veteran Run</span>
             </div>
-            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-green-600/20 border border-green-400/40 rounded-full">
-              <span className="text-lg md:text-2xl">🤝</span>
-              <span className="text-xs md:text-sm font-semibold text-green-300">Ethnic Minority Led</span>
+            
+            {/* Ethnic Minority Badge */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600/20 border border-green-400/40 rounded-full">
+              <span className="text-base">🤝</span>
+              <span className="text-xs font-semibold text-green-300 whitespace-nowrap">Ethnic Minority Led</span>
             </div>
-          </div>
-
-          {/* NVIDIA & Lenovo Partner Badges */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12">
-            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-green-600/10 border border-green-400/30 rounded-full">
-              <span className="text-sm md:text-base font-semibold text-green-300">NVIDIA Inception Member</span>
+            
+            {/* NVIDIA Badge */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600/10 border border-green-400/30 rounded-full">
+              <span className="text-xs font-semibold text-green-300 whitespace-nowrap">NVIDIA Inception Member</span>
             </div>
-            <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-red-600/10 border border-red-400/30 rounded-full">
-              <span className="text-sm md:text-base font-semibold text-red-300">Lenovo AI Innovator</span>
+            
+            {/* Lenovo Badge */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600/10 border border-red-400/30 rounded-full">
+              <span className="text-xs font-semibold text-red-300 whitespace-nowrap">Lenovo AI Innovator</span>
             </div>
           </div>
 
