@@ -1,38 +1,69 @@
+// app/vp-studio/page.tsx
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
-import AIDirectorWidget from "@/components/AIDirectorWidget"; // ensure this file exists
+import Link from "next/link";
+import { motion } from "framer-motion";
+import NextDynamic from "next/dynamic";
+
+// Lazy-load the full AI Director widget (no SSR)
+const AIDirector = NextDynamic(() => import("./widgets/AIDirector"), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-sm text-white/70">
+      Loading AI Director…
+    </div>
+  ),
+});
 
 export default function VPStudioPage() {
   return (
-    <div className="bg-black text-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden text-center px-6 py-24">
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-6xl"
-        >
-          AI-Powered Virtual Production Studios
-        </motion.h1>
-        <p className="mt-5 text-white/70 max-w-2xl mx-auto text-base sm:text-lg">
-          Cost-efficient virtual stages with AI Director: automated shot lists, lighting presets, and on-set continuity.
-        </p>
+    <main className="bg-black text-white">
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/media/vp-studio-hero.jpg"
+            alt="AI Virtual Production Studio"
+            fill
+            priority
+            className="object-cover object-center opacity-85"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/85" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-6xl font-horizon"
+          >
+            AI-Powered Virtual Production Studios
+          </motion.h1>
+          <p className="mt-4 text-white/80 max-w-3xl mx-auto font-glacial">
+            Real-time AI Director with <b>face &amp; voice</b> interaction : plan shots, set lighting,
+            and control your stage.
+          </p>
+
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <a href="#director" className="btn btn-primary">Launch AI Director</a>
+            <Link
+              href="/contact"
+              className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+            >
+              Book a demo
+            </Link>
+          </div>
+        </div>
       </section>
 
-      {/* Studio visual + pipeline */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-          >
+      {/* DIRECTOR */}
+      <section id="director" className="section border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-stretch">
+          {/* Stage concept */}
+          <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 overflow-hidden">
             <div className="aspect-video w-full overflow-hidden rounded-xl">
               <Image
                 src="/media/vp-studio-mockup.jpg"
@@ -40,87 +71,102 @@ export default function VPStudioPage() {
                 width={1200}
                 height={675}
                 className="w-full h-full object-cover"
-                priority
               />
             </div>
-            <p className="mt-3 text-white/70 text-sm">Stage concept</p>
-          </motion.div>
+            <p className="mt-3 text-white/70 text-sm font-glacial">Stage concept</p>
+            <div className="mt-6">
+              <Link href="/robotics" className="btn btn-primary">Explore Robotics →</Link>
+            </div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-          >
-            <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src="/media/ai-powered-vp-diagram.png"
-                alt="AI Director pipeline"
-                width={1200}
-                height={675}
-                className="w-full h-full object-cover"
-              />
+          {/* Full AI Director */}
+          <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 overflow-hidden">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-horizon">AI Director</h2>
+                <p className="mt-2 text-white/70 text-sm font-glacial">
+                  Talk or type. The Director replies with voice and an animated avatar, and generates a shot plan.
+                </p>
+              </div>
+              <div className="shrink-0 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs leading-5">
+                <div className="opacity-80">Mic access</div>
+                <div className="opacity-60">Click <strong>Talk</strong> → Allow</div>
+              </div>
             </div>
-            <p className="mt-3 text-white/70 text-sm">AI Director pipeline</p>
-          </motion.div>
+
+            <div className="mt-6">
+              <AIDirector />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Feature grid */}
+      {/* ROBOTIC ARM OVERVIEW (Animated SVG) */}
       <section className="section border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl">What’s inside</h2>
+          <h2 className="text-3xl font-horizon">Robotic Camera Arm — Motion Envelope</h2>
+          <p className="mt-3 text-white/70 font-glacial">
+            Base plate, arm links, joints, camera head and scope of movement.
+          </p>
+
+          <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+            {/* Use <object> so SMIL inside the SVG runs natively; include a PNG fallback */}
+            <object
+              type="image/svg+xml"
+              data="/media/svg/msai_single_arm_scope_csp.svg"
+              className="w-full h-auto"
+              aria-label="MSAI Robotic Camera Arm Animation"
+            >
+              <img
+                src="/media/png/msai_single_arm_scope_csp_fallback.png"
+                alt="Robotic Camera Arm"
+                className="w-full h-auto"
+              />
+            </object>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="section border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <h3 className="text-3xl sm:text-4xl font-horizon">What’s inside</h3>
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { t: "AI Director", d: "Shot planning, continuity checks, take scoring." },
-              { t: "Lighting Presets", d: "Scene-aware LUTs & DMX cue sheets." },
-              { t: "Virtual Scenery", d: "Procedural sets and live parallax." },
+              { t: "Robotic Camera System", d: "Automated tracking and repeatable precision moves." },
+              { t: "Virtual Sets", d: "Real-time rendered stages for broadcast and streaming." },
               { t: "On-set Inference", d: "Object/person tracking and safety flags." },
               { t: "Cloud Rendering", d: "Burst rendering on our GPU clusters." },
-              { t: "Editorial Exports", d: "EDL/AAF/OTIO to your NLE." }
-            ].map((f, i) => (
-              <motion.div
-                key={f.t}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-              >
-                <div className="text-lg">{f.t}</div>
-                <p className="mt-2 text-white/70 text-sm">{f.d}</p>
-              </motion.div>
+              { t: "Editorial Exports", d: "EDL/AAF/OTIO to your NLE." },
+            ].map((f) => (
+              <div key={f.t} className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+                <div className="text-lg font-horizon">{f.t}</div>
+                <p className="mt-2 text-white/70 text-sm font-glacial">{f.d}</p>
+              </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Speak To Our Director */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl sm:text-4xl">Speak To Our Director</h2>
-            {/* optional small brand mark */}
-            {/* <img src="/logo/msai-logo.svg" alt="Media Stream AI" className="h-8 opacity-60" /> */}
-          </div>
-
-          <div className="rounded-2xl bg-slate-900/50 ring-1 ring-slate-700/50 shadow-2xl p-4 md:p-6 relative overflow-hidden">
-            <AIDirectorWidget />
           </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="section border-t border-white/10 text-center">
-        <div className="max-ww-3xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl">See the Studio</h2>
-          <p className="mt-4 text-white/70">
+        <div className="max-w-3xl mx-auto px-6">
+          <h3 className="text-3xl sm:text-4xl font-horizon">See the Studio</h3>
+          <p className="mt-4 text-white/70 font-glacial">
             Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.
           </p>
-          <a href="/contact" className="btn btn-primary mt-6">Talk to our team</a>
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <a href="/contact" className="btn btn-primary">Talk to our team</a>
+            <Link
+              href="/robotics"
+              className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+            >
+              Explore Robotics
+            </Link>
+          </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

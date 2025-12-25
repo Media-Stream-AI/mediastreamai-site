@@ -2,95 +2,151 @@
 @tailwind components;
 @tailwind utilities;
 
-/* -----------------------
-   Fonts
-------------------------*/
-
-/* Horizon (headline) — place Horizon.woff2 at /public/fonts/Horizon.woff2 */
+/* -----------------------------
+   FONTS (WOFF2 + TTF fallback)
+-------------------------------- */
 @font-face {
   font-family: "Horizon";
-  src: url("/fonts/Horizon.woff2") format("woff2");
+  src: url("/fonts/Horizon.woff2") format("woff2"),
+       url("/fonts/Horizon.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Glacial Indifference";
+  src: url("/fonts/GlacialIndifference-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-/* Glacial Indifference (body) */
-@import url("https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700&display=swap");
-
-/* Utilities to apply fonts */
-.font-horizon { font-family: "Horizon", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-.font-glacial { font-family: "Glacial Indifference", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-
-/* Enforce typography everywhere (mobile → desktop) */
-html, body { @apply bg-black text-white antialiased font-glacial; }
-h1, h2, h3, h4, h5, h6 { @apply font-horizon; }
-
-/* -----------------------
-   Futuristic Accents
-------------------------*/
-
-/* Neon nav underline micro-interaction */
-.nav-link{ position:relative; padding-bottom:.2rem; }
-.nav-link::after{
-  content:""; position:absolute; left:0; bottom:-3px; height:2px; width:100%;
-  background: linear-gradient(90deg,#22d3ee,#a855f7,#22d3ee);
-  transform: scaleX(0); transform-origin:left;
-  transition: transform .35s ease;
-  filter: drop-shadow(0 0 6px rgba(34,211,238,.7));
-}
-.nav-link:hover::after, .nav-link:focus-visible::after{ transform: scaleX(1); }
-
-/* Focus ring */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(34,211,238,.4), 0 0 0 6px rgba(168,85,247,.25);
-  border-radius: 12px;
+/* -----------------------------
+   BASE
+-------------------------------- */
+:root { --bg: #000; --fg: #fff; }
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  /* Body uses Glacial (falls back to system ui) */
+  font-family: "Glacial Indifference", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glowing grid background for sections/footers */
-.grid-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-  animation: gridMove 20s linear infinite;
-  z-index: 0;
-}
-@keyframes gridMove { from { background-position: 0 0; } to { background-position: 40px 40px; } }
-
-/* Section headline underline glow */
-h2 {
-  position: relative;
-  display: inline-block;
-  padding-bottom: .6rem;
-}
-h2::after{
-  content:""; position:absolute; left:0; bottom:0; height:3px; width:100%;
-  background: linear-gradient(90deg,#22d3ee,#a855f7);
-  border-radius: 2px;
-  box-shadow: 0 0 12px rgba(34,211,238,.6), 0 0 18px rgba(168,85,247,.4);
+/* Headings use Horizon only */
+h1, h2, h3, h4, h5, h6,
+.font-horizon {
+  font-family: "Horizon", ui-sans-serif, system-ui;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
-/* Card glow */
-.card-glow { transition: box-shadow .35s ease, transform .35s ease; }
-.card-glow:hover { box-shadow: 0 0 20px rgba(34,211,238,.25), 0 0 40px rgba(168,85,247,.15); transform: translateY(-2px); }
+.font-glacial { font-family: "Glacial Indifference", ui-sans-serif, system-ui; }
 
-/* Section padding helper */
-.section { padding-top: 5rem; padding-bottom: 5rem; }
+/* -----------------------------
+   LINKS / HOVERS
+-------------------------------- */
+a { @apply transition-colors duration-300; }
+a:hover { color: #22d3ee; } /* cyan-400 */
+
+/* -----------------------------
+   LAYOUT HELPERS
+-------------------------------- */
+.section { padding: 5rem 0; }
+@media (max-width: 640px) { .section { padding: 3rem 0; } }
 
 /* Buttons */
-.btn {
-  @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-medium;
-}
+.btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm transition; }
 .btn-primary {
-  background: #fff; color: #000;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  color: #fff;
 }
-.btn-ghost {
-  background: rgba(255,255,255,0.08); color: #fff;
+.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* -----------------------------
+   TICKER
+-------------------------------- */
+.ticker { animation: ticker-scroll 20s linear infinite; }
+@keyframes ticker-scroll {
+  0% { transform: translateX(0) }
+  100% { transform: translateX(-50%) }
 }
-.btn:hover { filter: brightness(1.06); }
+
+/* -----------------------------
+   GRID BACKDROP (subtle)
+-------------------------------- */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: .15;
+  pointer-events: none;
+}
+
+/* Teal-tinted grid overlay option */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#22d3ee33 1px, transparent 1px),
+    linear-gradient(90deg, #22d3ee33 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* -----------------------------
+   FUTURISTIC EFFECTS
+-------------------------------- */
+/* Neon glowing text/box */
+.neon-text {
+  color: #22d3ee;
+  text-shadow: 0 0 8px #22d3ee, 0 0 16px #0891b2;
+}
+.neon-box {
+  border: 2px solid #22d3ee;
+  box-shadow: 0 0 10px #22d3ee, inset 0 0 20px #0891b2;
+  border-radius: 0.75rem;
+}
+
+/* Animated gradient background */
+.gradient-bg {
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0e7490, #22d3ee);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%   { transform: translateY(0px) }
+  50%  { transform: translateY(-8px) }
+  100% { transform: translateY(0px) }
+}
+.float { animation: float 6s ease-in-out infinite; }
+
+/* Particles canvas (used by NeonParticles) */
+canvas.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* -----------------------------
+   MEDIA ELEMENTS
+-------------------------------- */
+img, svg, video, canvas { display: block; max-width: 100%; height: auto; }

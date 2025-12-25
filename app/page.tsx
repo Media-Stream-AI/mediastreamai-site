@@ -1,157 +1,433 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { Shield, Zap, Globe, Users, TrendingUp, Award, ExternalLink, ArrowRight, CheckCircle } from "lucide-react";
 
 export default function HomePage() {
-  return (
-    <main className="bg-black text-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden text-center px-6 py-24">
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-6xl"
-        >
-          Media Stream AI
-        </motion.h1>
-        <p className="mt-5 text-white/70 max-w-2xl mx-auto text-base sm:text-lg">
-          Next-generation AI for television and virtual production — personalized channels, AI-powered playout, and immersive VP studios.
-        </p>
+  const sectors = [
+    {
+      icon: "📺",
+      title: "Media & Broadcasting",
+      description: "Global Braodcaster scale deployments",
+      stat: "75% faster",
+      link: "/sectors#media"
+    },
+    {
+      icon: "🎬",
+      title: "Film & TV Production",
+      description: "End-to-end production intelligence",
+      stat: "60% reduction",
+      link: "/sectors#film"
+    },
+    {
+      icon: "🎨",
+      title: "Creative Industries",
+      description: "GenAI content at scale",
+      stat: "30% cost savings",
+      link: "/sectors#creative"
+    },
+    {
+      icon: "📢",
+      title: "Advertising",
+      description: "AI-powered campaigns proven",
+      stat: "Higher ROI",
+      link: "/sectors#advertising"
+    },
+    {
+      icon: "🛡️",
+      title: "Government & Defence",
+      description: "100% UK sovereign, air-gapped",
+      stat: "Military Veteran founded business",
+      link: "/government-defence",
+      highlight: true
+    },
+    {
+      icon: "🔬",
+      title: "Research & Education",
+      description: "Academic AI acceleration",
+      stat: "Data sovereign",
+      link: "/sectors#research"
+    }
+  ];
 
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Link href="/vp-studio" className="btn btn-primary">
-            Explore VP Studio
-          </Link>
-          <Link href="/technology" className="btn border border-white/20 rounded-xl px-4 py-2">
-            Technology
-          </Link>
+  const stats = [
+    { value: "5", label: "UK/EU Data Centers in 2026", icon: <Globe /> },
+    { value: "405+", label: "Jobs Eco-system", icon: <Users /> },
+    { value: "24K+", label: "targeted Meals/Month to Food Banks", icon: <CheckCircle /> },
+    { value: "100%", label: "UK/EU Sovereign", icon: <Shield /> }
+  ];
+
+  const solutions = [
+    {
+      title: "GPU & Infrastructure as a Service",
+      description: "H200, B200, SambaNova clusters. 40-60% below AWS/Azure pricing.",
+      features: ["Hourly or Monthly Billing", "5 UK/EU Data Centers", "Instant Provisioning", "24/7 Monitoring"],
+      cta: "View GPU Pricing",
+      link: "https://gpu.mediastreamai.com",
+      external: true,
+      icon: <Zap className="text-blue-400" size={32} />
+    },
+    {
+      title: "MOTHER AI Agent Deployments",
+      description: "Sovereign AI agents with Autm orchestration. Sector-specific implementations.",
+      features: ["Starter from £2,500/mo", "Multi-Agent Workflows", "Custom Training", "GDPR Compliant"],
+      cta: "Explore AI Agents",
+      link: "https://mother.mediastreamai.com",
+      external: true,
+      icon: <Shield className="text-blue-400" size={32} />
+    }
+  ];
+
+  return (
+    <main className="min-h-screen bg-black text-white">
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative bg-gradient-to-b from-black via-blue-950/20 to-black py-20 overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
         </div>
 
-        {/* Subtle background art */}
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-20">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeOpacity="0.05" strokeWidth="0.4" />
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
-          </svg>
+        <div className="relative max-w-7xl mx-auto px-6 text-center">
+          {/* Badges Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-3 mb-8"
+          >
+            {/* Military Veteran Run */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-blue-600/20 border border-blue-400/40 rounded-full">
+              <span className="text-2xl">🎖️</span>
+              <span className="text-sm font-semibold text-blue-300">Military Veteran Run</span>
+            </div>
+
+            {/* Ethnic Minority Run */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-green-600/20 border border-green-400/40 rounded-full">
+              <span className="text-2xl">🤝</span>
+              <span className="text-sm font-semibold text-green-300">Ethnic Minority Led</span>
+            </div>
+
+            {/* NVIDIA Inception */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-green-600/20 border border-green-400/40 rounded-full">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#76B900"/>
+                <path d="M2 17L12 22L22 17L12 12L2 17Z" fill="#76B900"/>
+              </svg>
+              <span className="text-sm font-semibold text-green-300">NVIDIA Inception</span>
+            </div>
+
+            {/* Lenovo AI Innovator */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-red-600/20 border border-red-400/40 rounded-full">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="#E31C23" strokeWidth="2"/>
+                <path d="M8 12H16M12 8V16" stroke="#E31C23" strokeWidth="2"/>
+              </svg>
+              <span className="text-sm font-semibold text-red-300">Lenovo AI Innovator</span>
+            </div>
+          </motion.div>
+
+<motion.h1
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.2 }}
+  className="font-extrabold mb-6 leading-tight text-center"
+>
+  <span
+    className="
+      block
+      text-white
+      whitespace-nowrap
+      text-[clamp(1.8rem,5vw,4.5rem)]
+    "
+  >
+    A European Leading
+  </span>
+
+  <span
+    className="
+      block
+      text-blue-400
+      whitespace-nowrap
+      text-[clamp(2rem,6vw,5.5rem)]
+    "
+  >
+    Sovereign AI Eco-system
+  </span>
+</motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-xl md:text-2xl text-white/70 max-w-4xl mx-auto mb-4"
+          >
+            100% UK/EU data residency. GPU clusters, AI agents & Robotics
+            for media, government, and enterprise deployments.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-white/60 max-w-3xl mx-auto mb-8"
+          >
+            True sovereignty from Company Ownership & Shareholding  to European Large Language Model (MOTHER).
+          </motion.p>
+
+          {/* Primary CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+          >
+            <Link href="https://gpu.mediastreamai.com" target="_blank">
+              <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-lg transition-colors flex items-center gap-2 justify-center min-w-[280px]">
+                GPU & Infrastructure <ExternalLink size={20} />
+              </button>
+            </Link>
+            <Link href="https://mother.mediastreamai.com" target="_blank">
+              <button className="px-8 py-4 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-lg transition-colors flex items-center gap-2 justify-center min-w-[280px]">
+                AI Agent Deployments <ExternalLink size={20} />
+              </button>
+            </Link>
+          </motion.div>
+
+          {/* Stats Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+          >
+            {stats.map((stat, i) => (
+              <div key={i} className="p-4 bg-black/40 border border-white/10 rounded-lg">
+                <div className="flex justify-center mb-2 text-blue-400">{stat.icon}</div>
+                <div className="text-3xl font-bold text-blue-400 mb-1">{stat.value}</div>
+                <div className="text-sm text-white/70">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Highlights / Features (icon placeholders are inline SVGs, no lucide-react) */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl">What we do</h2>
+      {/* ================= SOLUTIONS SECTION ================= */}
+      <section className="py-20 px-6 border-t border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-blue-400 mb-4">
+              Choose Your Solution
+            </h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto">
+              Whether you need raw GPU compute or turnkey AI agents, we deliver 
+              sovereign infrastructure at 40-60% below hyperscaler pricing.
+            </p>
+          </div>
 
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "AI Director",
-                desc: "On-set creative assistant for VP — questioning, planning, take scoring.",
-              },
-              {
-                title: "Personalized TV",
-                desc: "Live, adaptive channels powered by in-house models and data signals.",
-              },
-              {
-                title: "Virtual Production",
-                desc: "LED volume workflows, Unreal sets, robotic camera choreography.",
-              },
-              {
-                title: "Playout Technology",
-                desc: "Low-latency, data-driven scheduling across CTV platforms.",
-              },
-              {
-                title: "Editorial Tools",
-                desc: "EDL/AAF/OTIO exports, scripted shot lists, continuity checks.",
-              },
-              {
-                title: "Cloud + GPU",
-                desc: "Burst rendering and scalable inference on GPU infrastructure.",
-              },
-            ].map((card, i) => (
+          <div className="grid md:grid-cols-2 gap-8">
+            {solutions.map((solution, i) => (
               <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 16 }}
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
+                transition={{ delay: i * 0.2 }}
+                className="p-8 bg-gradient-to-br from-black to-blue-950/20 border border-white/10 rounded-2xl hover:border-blue-500/50 transition-all group"
               >
-                {/* Icon placeholder (inline SVG). Replace or restyle anytime. */}
-                <div className="mb-4">
-                  <svg width="28" height="28" viewBox="0 0 24 24" className="opacity-70" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10" fill="currentColor" />
-                  </svg>
-                </div>
-                <div className="text-lg">{card.title}</div>
-                <p className="mt-2 text-white/70 text-sm">{card.desc}</p>
+                <div className="mb-6">{solution.icon}</div>
+                <h3 className="text-2xl font-bold text-white mb-3">{solution.title}</h3>
+                <p className="text-white/70 mb-6">{solution.description}</p>
+
+                <ul className="space-y-2 mb-8">
+                  {solution.features.map((feature, j) => (
+                    <li key={j} className="flex items-center gap-2 text-white/80">
+                      <CheckCircle size={16} className="text-green-400 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href={solution.link} target={solution.external ? "_blank" : undefined}>
+                  <button className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 group-hover:gap-3">
+                    {solution.cta} <ArrowRight size={18} />
+                  </button>
+                </Link>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Visual row (update images if paths differ) */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-          >
-            <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src="/media/vp-studio-mockup.jpg"
-                alt="VP Studio stage"
-                width={1200}
-                height={675}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <p className="mt-3 text-white/70 text-sm">AI-Powered VP Studio</p>
-          </motion.div>
+      {/* ================= SECTORS SECTION ================= */}
+      <section className="py-20 px-6 border-t border-white/10 bg-gradient-to-b from-black via-blue-950/10 to-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-blue-400 mb-4">
+              Sector-Specific Deployments
+            </h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto">
+              Proven AI implementations across high-performance industries with 
+              measurable ROI and complete UK/EU sovereignty.
+            </p>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 card-glow"
-          >
-            <div className="aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src="/media/ai-powered-vp-diagram.png"
-                alt="AI Director pipeline"
-                width={1200}
-                height={675}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <p className="mt-3 text-white/70 text-sm">AI Director pipeline</p>
-          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sectors.map((sector, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link href={sector.link}>
+                  <div className={`p-6 rounded-2xl border transition-all cursor-pointer h-full ${
+                    sector.highlight
+                      ? 'bg-gradient-to-br from-blue-600/30 to-blue-500/20 border-blue-400/50 hover:border-blue-400'
+                      : 'bg-black/40 border-white/10 hover:border-blue-500/50'
+                  }`}>
+                    <div className="text-5xl mb-4">{sector.icon}</div>
+                    <h3 className="text-xl font-bold text-white mb-2">{sector.title}</h3>
+                    <p className="text-sm text-white/70 mb-3">{sector.description}</p>
+                    <div className="inline-block px-3 py-1 bg-green-500/20 border border-green-400/40 rounded-full">
+                      <span className="text-sm font-semibold text-green-300">{sector.stat}</span>
+                    </div>
+                    {sector.highlight && (
+                      <div className="mt-3 inline-block px-3 py-1 bg-blue-500/20 border border-blue-400/40 rounded-full ml-2">
+                        <span className="text-xs font-semibold text-blue-300">Air-Gapped Available</span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/sectors">
+              <button className="px-8 py-3 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-lg transition-colors flex items-center gap-2 mx-auto">
+                View All Sectors <ArrowRight size={20} />
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section border-t border-white/10 text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl">See the Studio</h2>
-          <p className="mt-4 text-white/70">
-            Book a walkthrough and discover how AI cuts cost and time from pre-vis to final pixel.
+      {/* ================= PARTNERSHIPS SECTION ================= */}
+      <section className="py-20 px-6 border-t border-white/10">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Trusted Partners</h2>
+          <p className="text-white/60 mb-12">Recognized by industry leaders in AI innovation</p>
+
+          <div className="flex flex-wrap justify-center items-center gap-12">
+            {/* NVIDIA Inception */}
+            <Link href="/partnerships#nvidia" className="group">
+              <div className="flex flex-col items-center gap-3">
+                <svg width="120" height="120" viewBox="0 0 200 200" className="group-hover:scale-105 transition-transform">
+                  <defs>
+                    <linearGradient id="nvidiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{stopColor: '#76B900', stopOpacity: 1}} />
+                      <stop offset="100%" style={{stopColor: '#5A9000', stopOpacity: 1}} />
+                    </linearGradient>
+                  </defs>
+                  <path d="M100 20 L40 60 L100 100 L160 60 Z" fill="url(#nvidiaGrad)"/>
+                  <path d="M40 140 L100 180 L160 140 L100 100 Z" fill="url(#nvidiaGrad)" opacity="0.7"/>
+                  <text x="100" y="110" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">NVIDIA</text>
+                  <text x="100" y="128" textAnchor="middle" fill="white" fontSize="12">INCEPTION</text>
+                </svg>
+                <span className="text-sm text-white/60 group-hover:text-white/80">NVIDIA Inception Program</span>
+              </div>
+            </Link>
+
+            {/* Lenovo AI Innovator */}
+            <Link href="/partnerships#lenovo" className="group">
+              <div className="flex flex-col items-center gap-3">
+                <svg width="120" height="120" viewBox="0 0 200 200" className="group-hover:scale-105 transition-transform">
+                  <circle cx="100" cy="100" r="60" stroke="#E31C23" strokeWidth="4" fill="none"/>
+                  <path d="M70 100 L90 100 M90 70 L90 130 M110 100 L130 100 M120 90 L120 110" stroke="#E31C23" strokeWidth="4"/>
+                  <text x="100" y="175" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">LENOVO</text>
+                  <text x="100" y="192" textAnchor="middle" fill="white" fontSize="11">AI INNOVATOR</text>
+                </svg>
+                <span className="text-sm text-white/60 group-hover:text-white/80">Lenovo AI Innovator Program</span>
+              </div>
+            </Link>
+          </div>
+
+          <div className="mt-12">
+            <Link href="/partnerships">
+              <button className="px-6 py-2 border border-white/20 hover:border-blue-400 rounded-lg text-sm font-semibold transition-colors">
+                View All Partnerships
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SUSTAINABILITY & IMPACT ================= */}
+      <section className="py-20 px-6 border-t border-white/10 bg-gradient-to-b from-black via-green-950/10 to-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Sustainable AI Infrastructure
+            </h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto">
+              Canal-cooled data centers creating real economic and social impact
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
+              <div className="text-5xl mb-4">💼</div>
+              <div className="text-4xl font-bold text-green-400 mb-2">405+</div>
+              <div className="text-white/70">Regional tech jobs created</div>
+            </div>
+
+            <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
+              <div className="text-5xl mb-4">🍽️</div>
+              <div className="text-4xl font-bold text-green-400 mb-2">24,000+</div>
+              <div className="text-white/70">Meals/month to food banks</div>
+            </div>
+
+            <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
+              <div className="text-5xl mb-4">🌱</div>
+              <div className="text-4xl font-bold text-green-400 mb-2">40%</div>
+              <div className="text-white/70">Energy reduction via canal cooling</div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link href="/data-centre">
+              <button className="px-8 py-3 bg-green-600 hover:bg-green-500 rounded-lg font-semibold transition-colors">
+                Learn About Our ESG Impact
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= FINAL CTA ================= */}
+      <section className="py-20 px-6 border-t border-white/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-white mb-6">
+            Ready to Deploy Sovereign AI?
+          </h2>
+          <p className="text-xl text-white/70 mb-8">
+            From GPU infrastructure to turnkey AI agents, we deliver complete UK/EU 
+            sovereignty with proven results.
           </p>
-          <Link href="/contact" className="btn btn-primary mt-6">
-            Talk to our team
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact">
+              <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-lg transition-colors">
+                Contact Sales
+              </button>
+            </Link>
+            <Link href="/about">
+              <button className="px-8 py-4 border-2 border-white/20 hover:border-blue-400 rounded-lg font-semibold text-lg transition-colors">
+                Learn More About Us
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </main>

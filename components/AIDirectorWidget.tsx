@@ -1,401 +1,764 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import React from "react";
 
-type ChatTurn = { who: "AI" | "You"; text: string };
+/** Lightweight types */
+type SceneType =
+  | "Interview"
+  | "Narrative"
+  | "Music Performance"
+  | "Product"
+  | "Promo"
+  | "Sport"
+  | "Corporate"
+  | "News";
+
+type CameraMove = "Static" | "Dolly" | "Crane" | "Orbit" | "Handheld" | "Gimbal";
+type LightPreset = "Neutral Key" | "Moody Blue" | "Warm Sunset" | "High Key" | "Concert Strobe";
+type ChatMsg = { role: "assistant" | "user"; text: string };
+
+type Shot = {
+  id: string;
+  scene: number;
+  type: string;
+  durationSec: number;
+  camMove: CameraMove;
+  lens: string;
+  notes?: string;
+  dmx?: { preset: LightPreset; intensity: number };
+};
+
+type Plan = {
+  title: string;
+  videoType: string;
+  scenes: number;
+  sceneTypes: SceneType[];
+  robotics: { enabled: boolean; moves: CameraMove[]; safeZones: boolean };
+  lighting: { enabled: boolean; preset: LightPreset; intensity: number; artnet: boolean };
+  virtualSet: {
+    enabled: boolean;
+    style: "Studio" | "Modern Loft" | "City Night" | "Concert LED" | "Newsroom";
+    ledTest: "Not started" | "Testing" | "Pass" | "Fail";
+  };
+  shotlist: Shot[];
+  efficiency?: { timeSavedPct: number; energySavedPct: number };
+};
+
+const DEFAULT_SCENES: SceneType[] = ["Interview", "Narrative", "Promo"];
+const uid = () => Math.random().toString(36).slice(2, 9);
+
+declare global {
+  interface Window {
+    webkitSpeechRecognition?: any;
+    SpeechRecognition?: any;
+  }
+}
 
 export default function AIDirectorWidget() {
-  // --- UI State ---
-  const [listening, setListening] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
-  const [log, setLog] = useState<ChatTurn[]>([]);
-  const [textInput, setTextInput] = useState("");
-  const [speaking, setSpeaking] = useState(false);
-  const [useHQVoice, setUseHQVoice] = useState(true);
+  const [chat, setChat] = React.useState<ChatMsg[]>([
+    {
+      role: "assistant",
+      text:
+        "Hi, I’m your AI Director. Tell me what you want to make — e.g. “30s promo”, “music video”, or “2-minute corporate film”. " +
+        "I coordinate Unreal LED worlds, robotic cameras, smart lights, and real-time editing in Elevate.io. " +
+        "I always collaborate with human creativity — I just automate production to save time and power.",
+    },
+  ]);
+  const [input, setInput] = React.useState("");
 
-  // --- 3D Refs ---
-  const mountRef = useRef<HTMLDivElement | null>(null);
-  const jawRef = useRef<THREE.Group | null>(null);
-  const headGroupRef = useRef<THREE.Group | null>(null);
-  const eyelidsRef = useRef<{ upper: THREE.Mesh[]; lower: THREE.Mesh[] } | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const rafRef = useRef<number | null>(null);
+  // Brief / controls
+  const [videoType, setVideoType] = React.useState("30s Promo");
+  const [scenes, setScenes] = React.useState(6);
+  const [sceneTypes, setSceneTypes] = React.useState<SceneType[]>([...DEFAULT_SCENES]);
 
-  // --- Lipsync (Web Audio) ---
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const themeAudioRef = useRef<HTMLAudioElement | null>(null);
-  const voiceAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [roboticsEnabled, setRoboticsEnabled] = React.useState(true);
+  const [robotMoves, setRobotMoves] = React.useState<CameraMove[]>(["Dolly", "Orbit"]);
+  const [safeZones, setSafeZones] = React.useState(true);
 
-  // --- Mouth / Blink Timing ---
-  const talkingRef = useRef(false);
-  const talkTargetOpenRef = useRef(0);
-  const currentOpenRef = useRef(0);
-  const blinkTimerRef = useRef(0);
-  const lastTimeRef = useRef(0);
+  const [lightsEnabled, setLightsEnabled] = React.useState(true);
+  const [lightPreset, setLightPreset] = React.useState<LightPreset>("Neutral Key");
+  const [lightIntensity, setLightIntensity] = React.useState(70);
+  const [artnet, setArtnet] = React.useState(true);
 
-  // --- Conversation history for LLM ---
-  const historyRef = useRef<ChatTurn[]>([]);
+  const [virtualEnabled, setVirtualEnabled] = React.useState(true);
+  const [virtualStyle, setVirtualStyle] =
+    React.useState<Plan["virtualSet"]["style"]>("Studio");
+  const [ledTest, setLedTest] =
+    React.useState<Plan["virtualSet"]["ledTest"]>("Not started");
 
-  const pushLog = (who: "AI" | "You", text: string) =>
-    setLog((prev) => [...prev.slice(-18), { who, text }]);
+  const [plan, setPlan] = React.useState<Plan | null>(null);
+  const [busy, setBusy] = React.useState(false);
 
-  // --- Speech Recognition init ---
-  useEffect(() => {
-    const SR: any = (globalThis as any).SpeechRecognition || (globalThis as any).webkitSpeechRecognition;
-    if (!SR) return;
-    const recog: SpeechRecognition = new SR();
-    recog.continuous = true;
-    recog.interimResults = false;
-    recog.lang = "en-GB";
-    recog.onresult = (event: SpeechRecognitionEvent) => {
-      const transcript = event.results[event.results.length - 1][0].transcript.trim();
-      handleUserInput(transcript);
-    };
-    setRecognition(recog);
-    return () => {
-      try { recog.stop(); } catch {}
-    };
-  }, []);
+  // Voice state
+  const recognitionRef = React.useRef<any>(null);
+  const [isListening, setIsListening] = React.useState(false);
+  const [voiceReplies, setVoiceReplies] = React.useState(true);
 
-  // --- Ambient theme element ref ---
-  useEffect(() => {
-    const el = document.getElementById("ai-theme-audio") as HTMLAudioElement | null;
-    if (el) themeAudioRef.current = el;
-  }, []);
-
-  // --- Three.js scene setup ---
-  useEffect(() => {
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x070a0f);
-
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 0.15, 3.2);
-    cameraRef.current = camera;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setSize(440, 440);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    rendererRef.current = renderer;
-    mountRef.current?.appendChild(renderer.domElement);
-
-    // Lights
-    const key = new THREE.DirectionalLight(0xffffff, 1.0); key.position.set(2, 2, 3); scene.add(key);
-    const rim = new THREE.DirectionalLight(0x99bbff, 0.8); rim.position.set(-2, 1.5, -2); scene.add(rim);
-    const fill = new THREE.AmbientLight(0x334466, 0.6); scene.add(fill);
-
-    // Head group
-    const headGroup = new THREE.Group(); scene.add(headGroup);
-    headGroupRef.current = headGroup;
-
-    // Head (ellipsoid)
-    const headGeo = new THREE.SphereGeometry(1, 48, 48);
-    const headMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.2, roughness: 0.35 });
-    const head = new THREE.Mesh(headGeo, headMat); head.scale.set(1.0, 1.15, 1.0); headGroup.add(head);
-
-    // Eyes
-    const eyeGeo = new THREE.SphereGeometry(0.08, 24, 24);
-    const eyeMat = new THREE.MeshStandardMaterial({ emissive: 0xe6ff66, color: 0x222222, emissiveIntensity: 1.2 });
-    const leftEye = new THREE.Mesh(eyeGeo, eyeMat); leftEye.position.set(-0.32, 0.18, 0.82);
-    const rightEye = new THREE.Mesh(eyeGeo, eyeMat); rightEye.position.set(0.32, 0.18, 0.82);
-    headGroup.add(leftEye, rightEye);
-
-    // Eyelids
-    const lidGeo = new THREE.PlaneGeometry(0.22, 0.12);
-    const lidMat = new THREE.MeshStandardMaterial({ color: 0x070a0f, metalness: 0, roughness: 1 });
-    const UL = new THREE.Mesh(lidGeo, lidMat); UL.position.set(-0.32, 0.24, 0.79);
-    const UR = new THREE.Mesh(lidGeo, lidMat); UR.position.set(0.32, 0.24, 0.79);
-    const LL = new THREE.Mesh(lidGeo, lidMat); LL.position.set(-0.32, 0.12, 0.79);
-    const LR = new THREE.Mesh(lidGeo, lidMat); LR.position.set(0.32, 0.12, 0.79);
-    headGroup.add(UL, UR, LL, LR);
-    eyelidsRef.current = { upper: [UL, UR], lower: [LL, LR] };
-
-    // Jaw
-    const jawGroup = new THREE.Group(); jawGroup.position.set(0, -0.22, 0.76); headGroup.add(jawGroup);
-    const jawGeo = new THREE.BoxGeometry(0.9, 0.4, 0.5);
-    const jawMat = new THREE.MeshStandardMaterial({ color: 0xd6d9ff, metalness: 0.25, roughness: 0.4 });
-    const jaw = new THREE.Mesh(jawGeo, jawMat); jaw.position.set(0, -0.2, 0); jawGroup.add(jaw);
-    jawRef.current = jawGroup;
-
-    headGroup.position.y = 0.1;
-
-    // Animation loop
-    const tick = (t: number) => {
-      const now = t * 0.001;
-      const dt = lastTimeRef.current ? now - lastTimeRef.current : 0.016;
-      lastTimeRef.current = now;
-
-      // Idle motion
-      if (headGroupRef.current) {
-        headGroupRef.current.rotation.y = Math.sin(now * 0.3) * 0.15;
-        headGroupRef.current.position.y = 0.1 + Math.sin(now * 0.8) * 0.03;
-      }
-
-      // Blink
-      blinkTimerRef.current -= dt;
-      if (blinkTimerRef.current <= 0) {
-        blinkTimerRef.current = 3 + Math.random() * 3;
-        triggerBlink();
-      }
-
-      // Mouth (analyser if HQ voice, else ease to target)
-      let openTarget = talkTargetOpenRef.current;
-      const analyser = analyserRef.current;
-      if (analyser && talkingRef.current) {
-        const arr = new Uint8Array(analyser.fftSize);
-        analyser.getByteFrequencyData(arr);
-        const avg = arr.reduce((a, b) => a + b, 0) / arr.length;
-        openTarget = Math.min(1, avg / 160);
-      }
-      const speed = 8.0;
-      currentOpenRef.current += (openTarget - currentOpenRef.current) * Math.min(1, speed * dt);
-      if (jawRef.current) jawRef.current.rotation.x = -currentOpenRef.current * 0.55;
-
-      renderer.render(scene, camera);
-      rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      renderer.dispose();
-      if (renderer.domElement && mountRef.current) mountRef.current.removeChild(renderer.domElement);
-      scene.traverse((obj: any) => {
-        if (obj.isMesh) {
-          obj.geometry?.dispose?.();
-          if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose?.());
-          else obj.material?.dispose?.();
-        }
-      });
-    };
-  }, []);
-
-  function triggerBlink() {
-    const lids = eyelidsRef.current;
-    if (!lids) return;
-    const duration = 0.12;
-    let t = 0;
-    const start = performance.now();
-    const up = () => {
-      t = (performance.now() - start) / (duration * 1000);
-      const k = t < 0.5 ? t * 2 : (1 - (t - 0.5) * 2);
-      const amt = Math.max(0, Math.min(1, k));
-      lids.upper.forEach((m) => (m.scale.y = 1 + amt * 3));
-      lids.lower.forEach((m) => (m.scale.y = 1 + amt * 2.5));
-      if (t < 1) requestAnimationFrame(up);
-      else {
-        lids.upper.forEach((m) => (m.scale.y = 1));
-        lids.lower.forEach((m) => (m.scale.y = 1));
-      }
-    };
-    requestAnimationFrame(up);
+  function addChat(role: ChatMsg["role"], text: string, speak = false) {
+    setChat((c) => [...c, { role, text }]);
+    if (speak && voiceReplies && role === "assistant") trySpeak(text);
   }
 
-  // --- Speaking helpers ---
-  function ensureAudioGraphFor(el: HTMLAudioElement) {
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-    }
-    const ctx = audioCtxRef.current!;
-    // Recreate graph each time to keep it simple and robust
-    const source = ctx.createMediaElementSource(el);
-    const analyser = ctx.createAnalyser();
-    analyser.fftSize = 1024;
-    analyser.smoothingTimeConstant = 0.8;
-    source.connect(analyser);
-    analyser.connect(ctx.destination);
-    analyserRef.current = analyser;
+  function trySpeak(text: string) {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 1; u.pitch = 1; u.lang = "en-US";
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
   }
 
-  function startSpeaking() {
-    talkingRef.current = true;
-    setSpeaking(true);
-    if (themeAudioRef.current) themeAudioRef.current.volume = 0.04; // duck theme
+  function toggleSceneType(s: SceneType) {
+    setSceneTypes((prev) =>
+      prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
+    );
   }
-  function stopSpeaking() {
-    talkingRef.current = false;
-    setSpeaking(false);
-    talkTargetOpenRef.current = 0;
-    if (themeAudioRef.current) themeAudioRef.current.volume = 0.12; // restore theme
-  }
-
-  async function speak(text: string) {
-    pushLog("AI", text);
-
-    if (useHQVoice) {
-      try {
-        const res = await fetch("/api/tts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, voice: "alloy" })
-        });
-        if (!res.ok) throw new Error("TTS failed");
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        if (!voiceAudioRef.current) voiceAudioRef.current = new Audio();
-        const el = voiceAudioRef.current!;
-        el.src = url;
-        el.onended = () => {
-          stopSpeaking();
-          URL.revokeObjectURL(url);
-        };
-        el.onplay = () => {
-          startSpeaking();
-          // Build analyser graph for lipsync
-          ensureAudioGraphFor(el);
-        };
-        await el.play();
-        return;
-      } catch {
-        // Fall through to browser TTS
-      }
-    }
-
-    // Fallback: browser SpeechSynthesis
-    try { (window as any).speechSynthesis.cancel(); } catch {}
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.pitch = 1.05;
-    utter.rate = 1.0;
-    utter.lang = "en-GB";
-    utter.onstart = () => {
-      startSpeaking();
-    };
-    utter.onboundary = () => {
-      // Jitter mouth target open on word boundaries
-      talkTargetOpenRef.current = 0.6 + Math.random() * 0.3;
-    };
-    utter.onend = () => {
-      stopSpeaking();
-    };
-    (window as any).speechSynthesis.speak(utter);
+  function toggleMove(m: CameraMove) {
+    setRobotMoves((prev) =>
+      prev.includes(m) ? prev.filter((x) => x !== m) : [...prev, m]
+    );
   }
 
-  async function handleUserInput(text: string) {
-    if (!text) return;
-    pushLog("You", text);
-
-    // Start ambient on first interaction
-    if (themeAudioRef.current && themeAudioRef.current.paused) {
-      themeAudioRef.current.volume = 0.12;
-      themeAudioRef.current.play().catch(() => {});
-    }
-
-    // Call LLM backend
+  // ---- ChatGPT call (free-flowing conversation, stays on task) ----
+  async function callDirectorAPI(userMsg: string) {
     try {
-      const res = await fetch("/api/director", {
+      setBusy(true);
+      const messages = chat.map((m) => ({
+        role: m.role,
+        content: m.text,
+      }));
+
+      messages.push({ role: "user", content: userMsg });
+
+      const context = {
+        videoType,
+        scenes,
+        sceneTypes,
+        roboticsEnabled,
+        robotMoves,
+        safeZones,
+        lightsEnabled,
+        lightPreset,
+        lightIntensity,
+        artnet,
+        virtualEnabled,
+        virtualStyle,
+        ledTest,
+      };
+
+      const r = await fetch("/api/director", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: historyRef.current })
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ messages, context }),
       });
-      const data = await res.json();
-      const reply = data?.reply || defaultReply(text);
-      historyRef.current.push({ who: "You", text });
-      historyRef.current.push({ who: "AI", text: reply });
-      await speak(reply);
-    } catch {
-      const reply = defaultReply(text);
-      historyRef.current.push({ who: "You", text });
-      historyRef.current.push({ who: "AI", text: reply });
-      await speak(reply);
-    }
-  }
-
-  function defaultReply(text: string) {
-    const lower = text.toLowerCase();
-    if (lower.includes("music")) return "Great—music video it is. Start with LED wall performance, or build a 3D Unreal set first?";
-    if (lower.includes("corporate")) return "Understood. Prefer a sleek office environment or a branded digital stage with motion graphics?";
-    if (lower.includes("commercial") || lower.includes("advert")) return "Nice. What’s the core message in 6–10 words? I’ll shape scenes and robotic camera moves around it.";
-    return "I can help with sets, cameras, lighting, and deliverables. What should we decide first?";
-  }
-
-  const toggleListen = () => {
-    if (!recognition) return;
-    if (listening) {
-      recognition.stop();
-      setListening(false);
-    } else {
-      recognition.start();
-      setListening(true);
-      if (themeAudioRef.current && themeAudioRef.current.paused) {
-        themeAudioRef.current.volume = 0.12;
-        themeAudioRef.current.play().catch(() => {});
+      const data = await r.json();
+      if (data?.reply) {
+        addChat("assistant", data.reply, true);
+      } else {
+        addChat(
+          "assistant",
+          "Describe the idea and I’ll plan shots, robotics, lights, Unreal LED worlds, and real-time editing.",
+          true
+        );
       }
+    } catch (e: any) {
+      addChat(
+        "assistant",
+        "I couldn't reach the Director service. Check connectivity and that OPENAI_API_KEY is set.",
+        true
+      );
+    } finally {
+      setBusy(false);
     }
-  };
+  }
 
-  const submitText = () => {
-    const t = textInput.trim();
-    if (!t) return;
-    setTextInput("");
-    handleUserInput(t);
-  };
+  function submitUserMessage(msgOverride?: string) {
+    const toSend = (msgOverride ?? input).trim();
+    if (!toSend) return;
+    addChat("user", toSend);
+    setInput("");
+    callDirectorAPI(toSend);
+  }
 
-  // Initial welcome
-  useEffect(() => {
-    const opener =
-      "Hello, I’m your Virtual Director. Say: ‘Let’s create a music video’ or ‘I want a corporate video.’";
-    pushLog("AI", opener);
-    speak(opener);
+  // ---- Plan generator (client-side reliable) ----
+  function generatePlan() {
+    setBusy(true);
+    addChat(
+      "assistant",
+      "Creating shot plan, lighting cues, safe robot paths, and Unreal LED scene notes…",
+      true
+    );
+
+    const moveCycle: CameraMove[] = robotMoves.length
+      ? robotMoves
+      : ["Static", "Dolly", "Crane", "Orbit"];
+
+    const shots: Shot[] = [];
+    for (let i = 1; i <= scenes; i++) {
+      const st = sceneTypes[(i - 1) % Math.max(1, sceneTypes.length)];
+      const mv = moveCycle[(i - 1) % moveCycle.length];
+      shots.push(
+        {
+          id: uid(),
+          scene: i,
+          type: `${st} — Wide`,
+          durationSec: 6,
+          camMove: mv,
+          lens: "24mm",
+          notes:
+            "Establishing; safe-speed robot path; Unreal set check on LED wall (parallax).",
+          dmx: lightsEnabled
+            ? { preset: lightPreset, intensity: lightIntensity }
+            : undefined,
+        },
+        {
+          id: uid(),
+          scene: i,
+          type: `${st} — Mid`,
+          durationSec: 5,
+          camMove: mv === "Static" ? "Dolly" : "Static",
+          lens: "35mm",
+          notes: "Dialogue/action beat; monitor moiré vs. lensing.",
+          dmx: lightsEnabled
+            ? { preset: lightPreset, intensity: Math.max(40, lightIntensity - 10) }
+            : undefined,
+        },
+        {
+          id: uid(),
+          scene: i,
+          type: `${st} — Close`,
+          durationSec: 4,
+          camMove: "Static",
+          lens: "50mm",
+          notes:
+            "Emphasis; check facial highlights; consider Elevate.io marker for select.",
+          dmx: lightsEnabled
+            ? { preset: lightPreset, intensity: Math.min(100, lightIntensity + 5) }
+            : undefined,
+        }
+      );
+    }
+
+    // Tailor efficiency estimates
+    const timeSavedBase = (roboticsEnabled ? 20 : 10) + (lightsEnabled ? 10 : 0) + (virtualEnabled ? 10 : 0);
+    const energySavedBase = (lightsEnabled ? 10 : 5) + (virtualEnabled ? 10 : 5);
+    const efficiency = {
+      timeSavedPct: Math.min(60, Math.max(25, timeSavedBase)),
+      energySavedPct: Math.min(40, Math.max(15, energySavedBase)),
+    };
+
+    const nextPlan: Plan = {
+      title: `AI Director: ${videoType}`,
+      videoType,
+      scenes,
+      sceneTypes: [...sceneTypes],
+      robotics: { enabled: roboticsEnabled, moves: [...robotMoves], safeZones },
+      lighting: { enabled: lightsEnabled, preset: lightPreset, intensity: lightIntensity, artnet },
+      virtualSet: { enabled: virtualEnabled, style: virtualStyle, ledTest },
+      shotlist: shots,
+      efficiency,
+    };
+
+    setTimeout(() => {
+      setPlan(nextPlan);
+      addChat(
+        "assistant",
+        `Plan ready. **Efficiency Snapshot:** ~${efficiency.timeSavedPct}% time saved and ~${efficiency.energySavedPct}% energy saved vs. a manual workflow. ` +
+          `We’ll still collaborate closely with the human creative slate — automation handles the repetitive steps.`,
+        true
+      );
+      setBusy(false);
+    }, 700);
+  }
+
+  function runLedTest() {
+    if (!virtualEnabled) {
+      addChat("assistant", "Enable the virtual set to test the LED wall.", true);
+      return;
+    }
+    setLedTest("Testing");
+    addChat(
+      "assistant",
+      "Testing LED wall: color gamut, moiré pattern, exposure & parallax…",
+      true
+    );
+    setBusy(true);
+    setTimeout(() => {
+      setLedTest("Pass");
+      addChat(
+        "assistant",
+        "LED test passed. Parallax within tolerance. Moiré minimal at 35–50mm. Good to roll.",
+        true
+      );
+      setBusy(false);
+    }, 1100);
+  }
+
+  function exportJSON() {
+    if (!plan) return;
+    const blob = new Blob([JSON.stringify(plan, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${plan.title.toLowerCase().replace(/\s+/g, "-")}-shotplan.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function resetAll() {
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    setChat([
+      {
+        role: "assistant",
+        text:
+          "Reset complete. Describe what you want to make and I’ll plan shots, robotics, lights, Unreal LED worlds, and editing.",
+      },
+    ]);
+    setInput("");
+    setVideoType("30s Promo");
+    setScenes(6);
+    setSceneTypes([...DEFAULT_SCENES]);
+    setRoboticsEnabled(true);
+    setRobotMoves(["Dolly", "Orbit"]);
+    setSafeZones(true);
+    setLightsEnabled(true);
+    setLightPreset("Neutral Key");
+    setLightIntensity(70);
+    setArtnet(true);
+    setVirtualEnabled(true);
+    setVirtualStyle("Studio");
+    setLedTest("Not started");
+    setPlan(null);
+  }
+
+  // ---- Voice: auto start on mount; stop on unmount / tab hidden ----
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const SR: any =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      console.warn("SpeechRecognition not supported in this browser.");
+      return;
+    }
+
+    const recognition = new SR();
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+
+    recognition.onresult = (ev: any) => {
+      const res = ev.results[ev.results.length - 1];
+      const transcript = res[0].transcript.trim();
+      if (transcript) submitUserMessage(transcript);
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => {
+      if (!document.hidden) {
+        try {
+          recognition.start();
+          setIsListening(true);
+        } catch {}
+      }
+    };
+
+    try {
+      recognition.start();
+      setIsListening(true);
+    } catch {}
+
+    recognitionRef.current = recognition;
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        try { recognition.stop(); } catch {}
+        setIsListening(false);
+      } else {
+        try { recognition.start(); setIsListening(true); } catch {}
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      try { recognition.stop(); } catch {}
+      setIsListening(false);
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function toggleMic() {
+    const rec = recognitionRef.current;
+    if (!rec) return;
+    try {
+      isListening ? rec.stop() : rec.start();
+      setIsListening(!isListening);
+    } catch {}
+  }
+
   return (
-    <div className="grid md:grid-cols-[auto,1fr] gap-6 items-center">
-      {/* Visual */}
-      <div className="relative place-self-center">
-        <div ref={mountRef} className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/50" />
-        {/* Ambient theme */}
-        <audio id="ai-theme-audio" src="/audio/ai-director-theme.mp3" loop preload="auto" />
-        {/* Watermark */}
-        <div className="pointer-events-none select-none absolute top-2 right-2 text-xs opacity-30 tracking-widest">
-          Media Stream AI
+    <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-4 sm:p-6">
+      {/* Status bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span
+            className={`inline-block size-2 rounded-full ${
+              isListening ? "bg-emerald-400" : "bg-white/30"
+            }`}
+          />
+          <span className="text-sm text-white/70 font-glacial">
+            {isListening ? "Listening…" : "Mic idle"}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-white/70 font-glacial flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={voiceReplies}
+              onChange={(e) => setVoiceReplies(e.target.checked)}
+            />
+            Voice Replies
+          </label>
+          <button
+            onClick={toggleMic}
+            className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs hover:bg-white/15 transition"
+          >
+            {isListening ? "Mute Mic" : "Unmute Mic"}
+          </button>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={toggleListen}
-            disabled={!recognition}
-            className={`px-4 py-2 rounded-xl text-white ${listening ? "bg-red-600" : "bg-blue-600"}`}
-          >
-            {recognition ? (listening ? "Stop Listening" : "Talk via Microphone") : "Mic not supported — use text"}
-          </button>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={useHQVoice} onChange={(e) => setUseHQVoice(e.target.checked)} />
-            Use AI Voice (HQ)
-          </label>
-          <span className="text-xs opacity-70">{speaking ? "Speaking…" : ""}</span>
+      <div className="mt-4 grid lg:grid-cols-3 gap-6">
+        {/* Brief */}
+        <div className="rounded-2xl border border-white/10 p-4 bg-black/30">
+          <h3 className="font-horizon text-lg">Creative Brief</h3>
+          <label className="block mt-3 text-xs text-white/60">Video Type</label>
+          <input
+            className="mt-1 w-full rounded-lg bg-white/10 border border-white/10 px-3 py-2 text-sm"
+            value={videoType}
+            onChange={(e) => setVideoType(e.target.value)}
+            placeholder="30s Promo, Music Video, Corporate, …"
+          />
+
+          <label className="block mt-3 text-xs text-white/60">Scenes</label>
+          <input
+            type="number"
+            min={1}
+            max={20}
+            className="mt-1 w-28 rounded-lg bg-white/10 border border-white/10 px-3 py-2 text-sm"
+            value={scenes}
+            onChange={(e) =>
+              setScenes(Math.max(1, Math.min(20, Number(e.target.value))))
+            }
+          />
+
+          <div className="mt-4">
+            <div className="text-xs text-white/60 mb-1">Scene Types</div>
+            <div className="flex flex-wrap gap-2">
+              {(
+                [
+                  "Interview",
+                  "Narrative",
+                  "Music Performance",
+                  "Product",
+                  "Promo",
+                  "Sport",
+                  "Corporate",
+                  "News",
+                ] as SceneType[]
+              ).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => toggleSceneType(s)}
+                  className={`px-3 py-1.5 rounded-xl text-xs border ${
+                    sceneTypes.includes(s)
+                      ? "bg-white/20 border-white/30"
+                      : "bg-white/5 border-white/10"
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="flex gap-2">
+        {/* Robotics */}
+        <div className="rounded-2xl border border-white/10 p-4 bg-black/30">
+          <h3 className="font-horizon text-lg">Robotics</h3>
+          <div className="mt-2 flex items-center justify-between">
+            <span className="text-sm">Enable Robotic Cameras</span>
+            <input
+              type="checkbox"
+              checked={roboticsEnabled}
+              onChange={(e) => setRoboticsEnabled(e.target.checked)}
+            />
+          </div>
+          <div className="mt-3 text-xs text-white/60">Camera Moves</div>
+          <div className="mt-1 flex flex-wrap gap-2">
+            {(
+              ["Static", "Dolly", "Crane", "Orbit", "Handheld", "Gimbal"] as CameraMove[]
+            ).map((m) => (
+              <button
+                key={m}
+                onClick={() => toggleMove(m)}
+                className={`px-3 py-1.5 rounded-xl text-xs border ${
+                  robotMoves.includes(m)
+                    ? "bg-white/20 border-white/30"
+                    : "bg-white/5 border-white/10"
+                }`}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
+          <div className="mt-3 flex items-center justify-between">
+            <span className="text-sm">Safety Zones</span>
+            <input
+              type="checkbox"
+              checked={safeZones}
+              onChange={(e) => setSafeZones(e.target.checked)}
+            />
+          </div>
+        </div>
+
+        {/* Lighting & Virtual Set */}
+        <div className="rounded-2xl border border-white/10 p-4 bg-black/30">
+          <h3 className="font-horizon text-lg">Lighting & Virtual Set</h3>
+          <div className="mt-2 flex items-center justify-between">
+            <span className="text-sm">Enable Smart Lights (DMX/Art-Net)</span>
+            <input
+              type="checkbox"
+              checked={lightsEnabled}
+              onChange={(e) => setLightsEnabled(e.target.checked)}
+            />
+          </div>
+
+          <label className="block mt-3 text-xs text-white/60">Preset</label>
+          <select
+            className="mt-1 w-full rounded-lg bg-white/10 border border-white/10 px-3 py-2 text-sm"
+            value={lightPreset}
+            onChange={(e) => setLightPreset(e.target.value as LightPreset)}
+            disabled={!lightsEnabled}
+          >
+            {["Neutral Key", "Moody Blue", "Warm Sunset", "High Key", "Concert Strobe"].map(
+              (p) => (
+                <option key={p}>{p}</option>
+              )
+            )}
+          </select>
+
+          <label className="block mt-3 text-xs text-white/60">
+            Intensity ({lightIntensity}%)
+          </label>
           <input
-            value={textInput}
-            onChange={(e) => setTextInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && submitText()}
-            placeholder="Type here if mic isn’t supported…"
-            className="flex-1 border border-slate-700 bg-slate-900/50 rounded-xl px-3 py-2"
+            type="range"
+            min={10}
+            max={100}
+            value={lightIntensity}
+            onChange={(e) => setLightIntensity(Number(e.target.value))}
+            className="w-full"
+            disabled={!lightsEnabled}
           />
-          <button onClick={submitText} className="px-4 py-2 rounded-xl bg-slate-800 text-white">
+
+          <div className="mt-2 flex items-center justify-between">
+            <span className="text-sm">Art-Net Control</span>
+            <input
+              type="checkbox"
+              checked={artnet}
+              onChange={(e) => setArtnet(e.target.checked)}
+            />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <span className="text-sm">Enable Virtual Set (Unreal on LED)</span>
+            <input
+              type="checkbox"
+              checked={virtualEnabled}
+              onChange={(e) => setVirtualEnabled(e.target.checked)}
+            />
+          </div>
+
+          <label className="block mt-3 text-xs text-white/60">Virtual Style</label>
+          <select
+            className="mt-1 w-full rounded-lg bg-white/10 border border-white/10 px-3 py-2 text-sm"
+            value={virtualStyle}
+            onChange={(e) =>
+              setVirtualStyle(e.target.value as Plan["virtualSet"]["style"])
+            }
+            disabled={!virtualEnabled}
+          >
+            {["Studio", "Modern Loft", "City Night", "Concert LED", "Newsroom"].map(
+              (s) => (
+                <option key={s}>{s}</option>
+              )
+            )}
+          </select>
+
+          <div className="mt-2 text-xs text-white/60">
+            LED Test: <span className="text-white/80">{ledTest}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Chat */}
+      <div className="mt-6 rounded-2xl border border-white/10 p-4 bg-black/30">
+        <h3 className="font-horizon text-lg">Director Chat</h3>
+        <div className="mt-3 space-y-2 max-h-56 overflow-auto pr-1">
+          {chat.map((m, i) => (
+            <div
+              key={i}
+              className={`text-sm font-glacial ${
+                m.role === "assistant" ? "text-white/80" : "text-white"
+              }`}
+            >
+              <span className="text-white/50 mr-2">
+                {m.role === "assistant" ? "Director" : "You"}:
+              </span>
+              {m.text}
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 flex gap-2">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && submitUserMessage()}
+            className="flex-1 rounded-xl bg-white/10 border border-white/10 px-3 py-2 text-sm"
+            placeholder='e.g. "I want a 60s promo with energetic cuts"'
+          />
+          <button
+            onClick={() => submitUserMessage()}
+            className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+            disabled={busy}
+          >
             Send
           </button>
         </div>
 
-        <div className="bg-slate-900/60 rounded-xl p-3 text-sm max-h-60 overflow-auto ring-1 ring-slate-700/50">
-          {log.map((l, i) => (
-            <div key={i} className="mb-1">
-              <strong>{l.who}:</strong> {l.text}
-            </div>
+        {/* Quick prompts to keep conversation flowing but on task */}
+        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          {[
+            "Explain how Unreal LED scenes would look for this",
+            "Propose a shot list with robot moves",
+            "Suggest lighting cues & safety notes",
+            "How would Elevate.io speed editing here?",
+            "What’s the export & delivery plan?",
+          ].map((p) => (
+            <button
+              key={p}
+              onClick={() => submitUserMessage(p)}
+              className="rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 hover:bg-white/10"
+            >
+              {p}
+            </button>
           ))}
         </div>
-
-        <p className="text-xs opacity-70">
-          Prototype only — simulates creative collaboration. No actual set generation or hardware control yet.
-        </p>
       </div>
+
+      {/* Actions */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        <button onClick={generatePlan} className="btn btn-primary" disabled={busy}>
+          Generate Plan
+        </button>
+        <button
+          onClick={runLedTest}
+          className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+          disabled={busy}
+        >
+          Run Virtual LED Test
+        </button>
+        <button
+          onClick={exportJSON}
+          className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+          disabled={!plan}
+        >
+          Export JSON
+        </button>
+        <button
+          onClick={resetAll}
+          className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+          disabled={busy}
+        >
+          Reset
+        </button>
+        {busy && <span className="text-xs text-white/60 self-center">Working…</span>}
+      </div>
+
+      {/* Output */}
+      {plan && (
+        <div className="mt-6 rounded-2xl border border-white/10 p-4 bg-black/30">
+          <h3 className="font-horizon text-lg">Shotlist</h3>
+          <div className="mt-3 overflow-x-auto">
+            <table className="min-w-full text-xs font-glacial">
+              <thead className="text-white/60">
+                <tr className="[&_th]:px-3 [&_th]:py-2 text-left">
+                  <th>#</th>
+                  <th>Scene</th>
+                  <th>Shot</th>
+                  <th>Move</th>
+                  <th>Lens</th>
+                  <th>Duration</th>
+                  <th>DMX</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody className="[&_td]:px-3 [&_td]:py-2 border-t border-white/10">
+                {plan.shotlist.map((s, idx) => (
+                  <tr key={s.id} className="border-b border-white/5">
+                    <td>{idx + 1}</td>
+                    <td>{s.scene}</td>
+                    <td>{s.type}</td>
+                    <td>{s.camMove}</td>
+                    <td>{s.lens}</td>
+                    <td>{s.durationSec}s</td>
+                    <td>
+                      {s.dmx ? `${s.dmx.preset} @ ${s.dmx.intensity}%` : "—"}
+                    </td>
+                    <td className="whitespace-pre-wrap">{s.notes || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {plan.efficiency && (
+            <div className="mt-4 grid sm:grid-cols-3 gap-3 text-sm">
+              <div className="rounded-xl border border-white/10 p-3 bg-white/[0.03]">
+                <div className="font-horizon">Robotics</div>
+                <div className="text-white/70">
+                  {plan.robotics.enabled
+                    ? `${plan.robotics.moves.join(", ")}; Safety: ${
+                        plan.robotics.safeZones ? "On" : "Off"
+                      }`
+                    : "Off"}
+                </div>
+              </div>
+              <div className="rounded-xl border border-white/10 p-3 bg-white/[0.03]">
+                <div className="font-horizon">Lighting</div>
+                <div className="text-white/70">
+                  {plan.lighting.enabled
+                    ? `${plan.lighting.preset} @ ${plan.lighting.intensity}% (${
+                        plan.lighting.artnet ? "Art-Net" : "Local"
+                      })`
+                    : "Off"}
+                </div>
+              </div>
+              <div className="rounded-xl border border-white/10 p-3 bg-white/[0.03]">
+                <div className="font-horizon">Efficiency Snapshot</div>
+                <div className="text-white/70">
+                  ~{plan.efficiency.timeSavedPct}% time saved • ~
+                  {plan.efficiency.energySavedPct}% energy saved
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

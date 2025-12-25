@@ -1,39 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "jsx": "preserve",
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-
-    // ---- Path alias ----
+    "jsx": "preserve",
+    "incremental": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    },
-
-    // Next.js types
-    "types": ["node", "next", "next/types", "next/image-types/global"]
+    "paths": { "@/*": ["./*"] }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.mjs",
-    "**/*.cjs"
-  ],
-  "exclude": ["node_modules"],
-  "plugins": [
-    {
-      "name": "next"
-    }
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

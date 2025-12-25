@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------
+   ROOT / RESET
+-------------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-feature-settings: "kern";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------
+   TYPOGRAPHY (DESKTOP FIRST)
+-------------------------------------------------- */
+
+p,
+li,
+span,
+a {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Brand headings */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Horizon", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  max-width: 100%;
+  word-break: normal;
+}
+
+/* Hero emphasis only */
+.hero-heading {
+  letter-spacing: 0.035em;
+}
+
+/* Prevent overflow anywhere */
+h1,
+h2,
+h3,
+h4,
+p {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* --------------------------------------------------
+   LAYOUT SAFETY
+-------------------------------------------------- */
+
+section,
+main,
+header,
+footer,
+div {
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------
+   HERO SYSTEM
+-------------------------------------------------- */
+
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1.25rem;
+}
+
+.hero-inner {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* --------------------------------------------------
+   MOBILE TUNING (THIS IS THE FIX)
+-------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  /* Headings feel premium, not cramped */
+  h1 {
+    font-size: clamp(2rem, 6.5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: 0.015em;
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    letter-spacing: 0.015em;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  /* Paragraph readability */
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Sections breathe */
+  section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  /* Buttons feel tappable */
+  button {
+    min-height: 44px;
+  }
+
+  /* Hero spacing */
+  .hero {
+    min-height: 90vh;
+    padding-inline: 1rem;
+  }
+}
+
+/* --------------------------------------------------
+   ANIMATIONS (UNCHANGED)
+-------------------------------------------------- */
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 300; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+@keyframes waveShift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+/* --------------------------------------------------
+   EXTRA MOBILE POLISH (BADGES, SPACING, ALIGNMENT)
+-------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  /* -----------------------------
+     BADGES / TAGS / PILLS
+  ----------------------------- */
+  .badge,
+  .tag,
+  .pill,
+  [class*="badge"],
+  [class*="pill"],
+  [class*="tag"] {
+    font-size: 0.65rem !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 9999px;
+    line-height: 1.2;
+  }
+
+  /* Best value / highlight labels */
+  .highlight,
+  .featured,
+  [class*="highlight"],
+  [class*="featured"] {
+    font-size: 0.65rem !important;
+    padding: 0.3rem 0.55rem !important;
+  }
+
+  /* -----------------------------
+     TIGHTER VERTICAL RHYTHM
+  ----------------------------- */
+  section {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .hero {
+    min-height: 85vh;
+  }
+
+  /* Reduce excessive gaps */
+  .gap-8 { gap: 1.25rem !important; }
+  .gap-6 { gap: 1rem !important; }
+  .mb-12 { margin-bottom: 2rem !important; }
+  .mb-16 { margin-bottom: 2.5rem !important; }
+  .mt-12 { margin-top: 2rem !important; }
+
+  /* -----------------------------
+     MOBILE CENTERING
+  ----------------------------- */
+  section,
+  main {
+    text-align: center;
+  }
+
+  /* Center cards & content blocks */
+  .grid > *,
+  .flex > * {
+    margin-inline: auto;
+  }
+
+  /* Buttons centered */
+  button,
+  .btn,
+  a.button {
+    margin-inline: auto;
+  }
+
+  /* Lists look cleaner centered */
+  ul {
+    padding-left: 0;
+  }
+
+  ul li {
+    justify-content: center;
+    text-align: center;
+  }
+}
