@@ -131,12 +131,12 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-extrabold mb-4 md:mb-6 leading-tight text-center"
+            className="font-extrabold mb-4 md:mb-6 leading-tight text-center px-4"
           >
-            <span className="block text-white text-[clamp(1.8rem,5vw,4.5rem)]">
+            <span className="block text-white text-[clamp(1.8rem,5vw,4.5rem)] leading-tight">
               A European Leading
             </span>
-            <span className="block text-blue-400 text-[clamp(2rem,6vw,5.5rem)]">
+            <span className="block text-blue-400 text-[clamp(2rem,6vw,5.5rem)] leading-tight">
               Sovereign AI Eco-system
             </span>
           </motion.h1>
@@ -168,13 +168,15 @@ export default function HomePage() {
             className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-8 md:mb-12 px-4"
           >
             <Link href="https://gpu.mediastreamai.com" target="_blank" className="w-full sm:w-auto">
-              <button className="w-full px-6 md:px-8 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-base md:text-lg transition-colors flex items-center justify-center gap-2">
-                GPU Infrastructure <ExternalLink size={18} />
+              <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
+                <span className="hidden sm:inline">GPU Infrastructure</span>
+                <span className="sm:hidden">GPU Infra</span>
+                <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0" />
               </button>
             </Link>
             <Link href="https://mother.mediastreamai.com" target="_blank" className="w-full sm:w-auto">
-              <button className="w-full px-6 md:px-8 py-3 md:py-4 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-base md:text-lg transition-colors flex items-center justify-center gap-2">
-                AI Agents <ExternalLink size={18} />
+              <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
+                AI Agents <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0" />
               </button>
             </Link>
           </motion.div>
@@ -291,8 +293,8 @@ export default function HomePage() {
 
           <div className="text-center mt-8 md:mt-12">
             <Link href="/sectors">
-              <button className="px-6 md:px-8 py-2 md:py-3 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-base md:text-lg transition-colors inline-flex items-center gap-2">
-                View All Sectors <ArrowRight size={18} className="md:w-5 md:h-5" />
+              <button className="px-4 sm:px-6 md:px-8 py-2 md:py-3 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors inline-flex items-center gap-2 whitespace-nowrap">
+                View All Sectors <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] md:w-5 md:h-5" />
               </button>
             </Link>
           </div>
@@ -383,8 +385,9 @@ export default function HomePage() {
 
           <div className="mt-8 md:mt-12 text-center">
             <Link href="/data-centre">
-              <button className="px-6 md:px-8 py-2 md:py-3 bg-green-600 hover:bg-green-500 rounded-lg font-semibold text-sm md:text-base transition-colors">
-                Learn About Our ESG Impact
+              <button className="px-4 sm:px-6 md:px-8 py-2 md:py-3 bg-green-600 hover:bg-green-500 rounded-lg font-semibold text-sm md:text-base transition-colors">
+                <span className="hidden sm:inline">Learn About Our ESG Impact</span>
+                <span className="sm:hidden">Our ESG Impact</span>
               </button>
             </Link>
           </div>
@@ -403,12 +406,12 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
             <Link href="/contact" className="w-full sm:w-auto">
-              <button className="w-full px-6 md:px-8 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-base md:text-lg transition-colors">
+              <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors whitespace-nowrap">
                 Contact Sales
               </button>
             </Link>
             <Link href="/about" className="w-full sm:w-auto">
-              <button className="w-full px-6 md:px-8 py-3 md:py-4 border-2 border-white/20 hover:border-blue-400 rounded-lg font-semibold text-base md:text-lg transition-colors">
+              <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 border-2 border-white/20 hover:border-blue-400 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors whitespace-nowrap">
                 Learn More About Us
               </button>
             </Link>
