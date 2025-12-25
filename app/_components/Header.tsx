@@ -13,7 +13,8 @@ export default function Header() {
     { href: "/solutions", label: "Solutions" },
     { href: "/technology", label: "Technology" },
     { href: "/vp-studio", label: "VP Studio" },
-    { href: "/datacentre", label: "Data Centre" }
+    { href: "/data-centre", label: "Data Centre" }
+    { href: "/contact", label: "Contact" }
   ];
 
   return (
@@ -23,9 +24,9 @@ export default function Header() {
         <Image
           src="/media/msai-logo.png"
           alt="Media Stream AI"
-          width={160}
-          height={40}
-          className="h-10 w-auto"
+          width={320}
+          height={80}
+          className="h-20 w-auto"
           priority
         />
       </Link>
