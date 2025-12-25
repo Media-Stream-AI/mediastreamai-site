@@ -268,10 +268,10 @@ export default function HomePage() {
             className="font-extrabold mb-4 md:mb-6 leading-tight text-center px-4"
           >
             <span className="block text-white text-[clamp(1.8rem,5vw,4.5rem)] leading-tight">
-              A European Leading
+              A European Leading Sovereign AI
             </span>
             <span className="block text-blue-400 text-[clamp(2rem,6vw,5.5rem)] leading-tight">
-              Sovereign AI Eco-system
+              Eco-system
             </span>
           </motion.h1>
 
