@@ -1,11 +1,16 @@
 "use client";
+
 import React from "react";
 
 export default function BiometricSignalsMap() {
   return (
     <div style={box}>
       <h3 style={title}>Biometric Signals Map</h3>
+<<<<<<< Updated upstream
       <p style={muted}>EEG / HRV / GSR / Mood → feature graph (placeholder)</p>
+=======
+      <p style={muted}>EEG / HRV / GSR / Mood → Feature graph (placeholder)</p>
+>>>>>>> Stashed changes
     </div>
   );
 }
