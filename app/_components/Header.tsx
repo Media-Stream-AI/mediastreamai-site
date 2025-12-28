@@ -35,23 +35,23 @@ export default function Header() {
             Solutions
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full left-0 mt-2 w-80 bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
+          <div className="absolute top-full left-0 mt-2 w-96 bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
             <div className="p-4 space-y-2">
               <Link href="/solutions" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-semibold text-sm mb-1">Solutions Overview</div>
-                <div className="text-xs text-white/50">GPU vs AI Agents</div>
+                <div className="font-semibold text-base mb-1">Solutions Overview</div>
+                <div className="text-sm text-white/50">GPU vs AI Agents</div>
               </Link>
               <a href="https://gpu.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-semibold text-sm mb-1 flex items-center gap-2">
-                  GPU-as-a-Service <ExternalLink size={12} />
+                <div className="font-semibold text-base mb-1 flex items-center gap-2">
+                  GPU-as-a-Service <ExternalLink size={14} />
                 </div>
-                <div className="text-xs text-white/50">H200, B200, SambaNova RDU</div>
+                <div className="text-sm text-white/50">H200, B200, SambaNova RDU</div>
               </a>
               <a href="https://mother.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-semibold text-sm mb-1 flex items-center gap-2">
-                  MOTHER AI Agents <ExternalLink size={12} />
+                <div className="font-semibold text-base mb-1 flex items-center gap-2">
+                  MOTHER AI Agents <ExternalLink size={14} />
                 </div>
-                <div className="text-xs text-white/50">Sovereign AI Deployments</div>
+                <div className="text-sm text-white/50">Sovereign AI Deployments</div>
               </a>
             </div>
           </div>
@@ -63,30 +63,30 @@ export default function Header() {
             Sectors
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full left-0 mt-2 w-72 bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
+          <div className="absolute top-full left-0 mt-2 w-80 bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
             <div className="p-4 space-y-2">
               <Link href="/sectors#media" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-sm">Media & Broadcasting</div>
+                <div className="font-medium text-base">Media & Broadcasting</div>
               </Link>
               <Link href="/sectors#film" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-sm">Film & TV Production</div>
+                <div className="font-medium text-base">Film & TV Production</div>
               </Link>
               <Link href="/sectors#creative" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-sm">Creative Industries</div>
+                <div className="font-medium text-base">Creative Industries</div>
               </Link>
               <Link href="/sectors#advertising" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-sm">Advertising</div>
+                <div className="font-medium text-base">Advertising</div>
               </Link>
               <Link href="/government-defence" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-sm">Government & Defence</div>
+                <div className="font-medium text-base">Government & Defence</div>
               </Link>
               <Link href="/sectors#research" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-sm">Research & Education</div>
+                <div className="font-medium text-base">Research & Education</div>
               </Link>
             </div>
             <div className="border-t border-white/10 p-4">
               <Link href="/sectors" className="block px-4 py-3 text-center text-blue-400 hover:text-blue-300 font-semibold transition-colors rounded-lg hover:bg-white/10">
-                <div className="text-sm">View All Sectors →</div>
+                <div className="text-base">View All Sectors →</div>
               </Link>
             </div>
           </div>
