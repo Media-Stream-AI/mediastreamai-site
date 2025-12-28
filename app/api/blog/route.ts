@@ -1,28 +1,24 @@
 // app/api/blog/route.ts
-// Blog API for www.mediastreamai.com
+// MongoDB-based Blog API (works on Netlify/Vercel)
 
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, readFile, mkdir } from 'fs/promises';
-import { existsSync } from 'fs';
-import path from 'path';
+import { MongoClient } from 'mongodb';
 
-// API key from environment
-const VALID_API_KEY = process.env.BLOG_API_KEY || 'blog_api_XHChtYwp3WwmPP0k_unified_2025';
+// MongoDB connection (shared across all 3 sites)
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://salesuser:i1ENUKg2tSLK6O5t@msaisales.r9timmt.mongodb.net/salesDB?retryWrites=true&w=majority&appName=msaiSALES';
+const BLOG_API_KEY = process.env.BLOG_API_KEY || 'blog_api_XHChtYwp3WwmPP0k_unified_2025';
 
-interface BlogPostInput {
-  title: string;
-  content: string;
-  excerpt?: string;
-  sector: string;
-  author?: string;
-  tags?: string[];
-  imageUrl?: string;
-}
+let cachedClient: MongoClient | null = null;
 
-interface BlogPost extends BlogPostInput {
-  id: string;
-  slug: string;
-  publishedAt: string;
+async function connectToDatabase() {
+  if (cachedClient) {
+    return cachedClient;
+  }
+
+  const client = new MongoClient(MONGODB_URI);
+  await client.connect();
+  cachedClient = client;
+  return client;
 }
 
 // Generate URL-friendly slug
@@ -33,24 +29,6 @@ function generateSlug(title: string): string {
     .replace(/(^-|-$)/g, '');
 }
 
-// Update blog index file
-async function updateBlogIndex(blogPost: BlogPost) {
-  try {
-    const indexPath = path.join(process.cwd(), 'content', 'blog', 'index.json');
-    let posts: BlogPost[] = [];
-
-    if (existsSync(indexPath)) {
-      const indexContent = await readFile(indexPath, 'utf-8');
-      posts = JSON.parse(indexContent);
-    }
-
-    posts.unshift(blogPost);
-    await writeFile(indexPath, JSON.stringify(posts, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('Failed to update blog index:', error);
-  }
-}
-
 // POST - Create new blog post
 export async function POST(request: NextRequest) {
   try {
@@ -58,12 +36,10 @@ export async function POST(request: NextRequest) {
 
     // Authentication
     const authHeader = request.headers.get('Authorization');
-    const expectedAuth = `Bearer ${VALID_API_KEY}`;
-    
-    console.log('Auth check:', authHeader ? 'Provided' : 'Missing');
+    const expectedAuth = `Bearer ${BLOG_API_KEY}`;
     
     if (!authHeader || authHeader !== expectedAuth) {
-      console.error('Auth failed:', authHeader?.substring(0, 20));
+      console.error('Auth failed');
       return NextResponse.json(
         { error: 'Unauthorized. Invalid API key.' },
         { status: 401 }
@@ -71,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse request body
-    const body: BlogPostInput = await request.json();
+    const body = await request.json();
     console.log('📄 Creating blog:', body.title);
 
     // Validate required fields
@@ -86,9 +62,13 @@ export async function POST(request: NextRequest) {
     const slug = generateSlug(body.title);
     console.log('📝 Slug:', slug);
 
+    // Connect to MongoDB
+    const client = await connectToDatabase();
+    const db = client.db('salesDB');
+    const collection = db.collection('blog_posts');
+
     // Create blog post object
-    const blogPost: BlogPost = {
-      id: Date.now().toString(),
+    const blogPost = {
       slug,
       title: body.title,
       content: body.content,
@@ -96,43 +76,33 @@ export async function POST(request: NextRequest) {
       sector: body.sector || 'AI Infrastructure',
       author: body.author || 'Media Stream AI Team',
       tags: body.tags || [],
-      imageUrl: body.imageUrl,
-      publishedAt: new Date().toISOString(),
+      imageUrl: body.imageUrl || null,
+      publishedAt: new Date(),
+      createdAt: new Date(),
+      site: request.headers.get('host') || 'unknown' // Track which site
     };
 
-    // Save to file system (in content/blog directory)
-    const contentDir = path.join(process.cwd(), 'content', 'blog');
-    
-    // Create directory if it doesn't exist
-    if (!existsSync(contentDir)) {
-      console.log('📁 Creating blog directory:', contentDir);
-      await mkdir(contentDir, { recursive: true });
+    // Check if slug exists, make unique if needed
+    const existing = await collection.findOne({ slug });
+    if (existing) {
+      blogPost.slug = `${slug}-${Date.now()}`;
+      console.log('⚠️ Slug exists, using:', blogPost.slug);
     }
 
-    const filePath = path.join(contentDir, `${slug}.json`);
+    // Insert into MongoDB
+    const result = await collection.insertOne(blogPost);
+    console.log('💾 Saved to MongoDB:', result.insertedId);
+
+    // Determine blog URL based on site
+    const host = request.headers.get('host') || 'www.mediastreamai.com';
+    const blogUrl = `https://${host}/blog/${blogPost.slug}`;
     
-    // Check if file already exists - if so, add timestamp to make unique
-    let finalPath = filePath;
-    if (existsSync(filePath)) {
-      console.log('⚠️ File exists, creating unique version');
-      const timestamp = Date.now();
-      finalPath = path.join(contentDir, `${slug}-${timestamp}.json`);
-    }
-
-    // Write file
-    console.log('💾 Saving to:', finalPath);
-    await writeFile(finalPath, JSON.stringify(blogPost, null, 2), 'utf-8');
-
-    // Update index file (for listing all posts)
-    await updateBlogIndex(blogPost);
-
-    const blogUrl = `https://www.mediastreamai.com/blog/${slug}`;
     console.log('✅ Blog created:', blogUrl);
 
     return NextResponse.json(
       {
         success: true,
-        slug,
+        slug: blogPost.slug,
         url: blogUrl,
         message: 'Blog post published successfully'
       },
@@ -140,7 +110,7 @@ export async function POST(request: NextRequest) {
         status: 201,
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization'
         }
       }
@@ -164,27 +134,36 @@ export async function OPTIONS() {
     status: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
   });
 }
 
-// GET - List all blog posts
-export async function GET() {
+// GET - List all blog posts for this site
+export async function GET(request: NextRequest) {
   try {
-    const indexPath = path.join(process.cwd(), 'content', 'blog', 'index.json');
+    const client = await connectToDatabase();
+    const db = client.db('salesDB');
+    const collection = db.collection('blog_posts');
     
-    if (!existsSync(indexPath)) {
-      return NextResponse.json({ posts: [] });
-    }
+    const host = request.headers.get('host') || 'www.mediastreamai.com';
+    
+    const posts = await collection
+      .find({ site: host })
+      .sort({ publishedAt: -1 })
+      .limit(50)
+      .toArray();
 
-    const indexContent = await readFile(indexPath, 'utf-8');
-    const posts = JSON.parse(indexContent);
-
-    return NextResponse.json({ posts });
-  } catch (error) {
-    console.error('Error reading blog index:', error);
-    return NextResponse.json({ posts: [] });
+    return NextResponse.json({ 
+      posts,
+      count: posts.length 
+    });
+  } catch (error: any) {
+    console.error('Error reading blogs:', error);
+    return NextResponse.json({ 
+      posts: [],
+      error: error.message 
+    });
   }
 }
