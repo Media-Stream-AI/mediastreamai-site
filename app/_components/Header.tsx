@@ -13,7 +13,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 bg-black backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
+    <header className="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 bg-black/95 backdrop-blur-md sticky top-0 z-[100] border-b border-white/10">
       {/* Logo - Much Larger */}
       <Link href="/" className="flex items-center flex-shrink-0">
         <Image
@@ -35,57 +35,57 @@ export default function Header() {
             Solutions
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full left-0 mt-2 w-80 bg-black border border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-            <div className="p-3">
-              <Link href="/solutions" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors mb-1">
-                <div className="font-semibold text-base">Solutions Overview</div>
-                <div className="text-xs text-white/50 mt-1">GPU vs AI Agents</div>
+          <div className="absolute top-full left-0 mt-2 w-80 bg-black/98 backdrop-blur-sm border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200]">
+            <div className="p-4 space-y-2">
+              <Link href="/solutions" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-semibold text-base mb-1">Solutions Overview</div>
+                <div className="text-sm text-white/50">GPU vs AI Agents</div>
               </Link>
-              <a href="https://gpu.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors mb-1">
-                <div className="font-semibold text-base flex items-center gap-2">
+              <a href="https://gpu.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-semibold text-base mb-1 flex items-center gap-2">
                   GPU-as-a-Service <ExternalLink size={14} />
                 </div>
-                <div className="text-xs text-white/50 mt-1">H200, B200, SambaNova RDU</div>
+                <div className="text-sm text-white/50">H200, B200, SambaNova RDU</div>
               </a>
-              <a href="https://mother.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-semibold text-base flex items-center gap-2">
+              <a href="https://mother.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-semibold text-base mb-1 flex items-center gap-2">
                   MOTHER AI Agents <ExternalLink size={14} />
                 </div>
-                <div className="text-xs text-white/50 mt-1">Sovereign AI Deployments</div>
+                <div className="text-sm text-white/50">Sovereign AI Deployments</div>
               </a>
             </div>
           </div>
         </div>
 
-        {/* Sectors Dropdown */}
+        {/* Sectors Dropdown - Single Column */}
         <div className="relative group">
           <button className="flex items-center gap-1 text-white/80 hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-white/5 whitespace-nowrap">
             Sectors
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full left-0 mt-2 w-96 bg-black border border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-            <div className="p-3 grid grid-cols-2 gap-2">
-              <Link href="/sectors#media" className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-medium">Media & Broadcasting</div>
+          <div className="absolute top-full left-0 mt-2 w-72 bg-black/98 backdrop-blur-sm border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200]">
+            <div className="p-4 space-y-2">
+              <Link href="/sectors#media" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-medium text-base">Media & Broadcasting</div>
               </Link>
-              <Link href="/sectors#film" className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-medium">Film & TV Production</div>
+              <Link href="/sectors#film" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-medium text-base">Film & TV Production</div>
               </Link>
-              <Link href="/sectors#creative" className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-medium">Creative Industries</div>
+              <Link href="/sectors#creative" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-medium text-base">Creative Industries</div>
               </Link>
-              <Link href="/sectors#advertising" className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-medium">Advertising</div>
+              <Link href="/sectors#advertising" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-medium text-base">Advertising</div>
               </Link>
-              <Link href="/government-defence" className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-medium">Government & Defence</div>
+              <Link href="/government-defence" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-medium text-base">Government & Defence</div>
               </Link>
-              <Link href="/sectors#research" className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <div className="font-medium">Research & Education</div>
+              <Link href="/sectors#research" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <div className="font-medium text-base">Research & Education</div>
               </Link>
             </div>
-            <div className="border-t border-white/10 p-3">
-              <Link href="/sectors" className="block px-4 py-2 text-center text-blue-400 hover:text-blue-300 font-semibold transition-colors rounded-lg hover:bg-white/5">
+            <div className="border-t border-white/10 p-4">
+              <Link href="/sectors" className="block px-4 py-3 text-center text-blue-400 hover:text-blue-300 font-semibold transition-colors rounded-lg hover:bg-white/10">
                 View All Sectors →
               </Link>
             </div>
@@ -153,7 +153,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <nav className="absolute top-full left-0 right-0 bg-black border-b border-white/10 shadow-2xl lg:hidden z-50">
+        <nav className="absolute top-full left-0 right-0 bg-black border-b border-white/10 shadow-2xl lg:hidden z-[200]">
           <div className="p-4 space-y-3 max-h-[calc(100vh-80px)] overflow-y-auto">
             {/* Home */}
             <Link
