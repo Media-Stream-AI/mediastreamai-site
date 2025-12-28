@@ -263,18 +263,18 @@ export default function HomePage() {
           {/* Mobile Animated SVG */}
           <MobileHeroSVG />
 
-          {/* Main Heading */}
+          {/* Main Heading - Top Blue, Bottom White */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-extrabold mb-4 md:mb-6 leading-tight text-center px-4"
+            className="font-extrabold mb-4 md:mb-6 leading-[1.15] text-center px-4"
           >
-            <span className="block text-white text-[clamp(1.8rem,5vw,4.5rem)] leading-tight">
-              A European Leading Sovereign AI
+            <span className="block text-blue-400 text-[clamp(1.8rem,5vw,4.5rem)]">
+              A European Sovereign
             </span>
-            <span className="block text-blue-400 text-[clamp(2rem,6vw,5.5rem)] leading-tight">
-              Eco-system
+            <span className="block text-white text-[clamp(2rem,6vw,5.5rem)]">
+              AI Eco-System
             </span>
           </motion.h1>
 
