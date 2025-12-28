@@ -39,29 +39,32 @@ export default function ContactPage() {
     setError("");
 
     try {
-      const response = await fetch("https://sales.mediastreamai.com/api/leads", {
+      const response = await fetch("https://api.mediastreamai.com/api/leads/capture", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer msai_sk_live_XHChtYwp3WwmPP0k_sales_platform_2025",
         },
         body: JSON.stringify({
-          contact: {
+          source: "website_contact_form",
+          page: window.location.href,
+          type: "contact_form",
+          lead: {
             name: `${formData.firstName} ${formData.lastName}`,
             email: formData.email,
             phone: formData.phone,
             company: formData.company,
-            job_title: formData.jobTitle,
-            country: formData.country,
+            role: formData.jobTitle
           },
-          source: "website_contact_form",
-          interest_category: formData.interest,
-          notes: formData.message,
           metadata: {
+            interest_category: formData.interest,
+            notes: formData.message,
+            country: formData.country,
             url: window.location.href,
             timestamp: new Date().toISOString(),
             referrer: document.referrer,
             user_agent: navigator.userAgent,
+            priority: "medium"
           },
         }),
       });
