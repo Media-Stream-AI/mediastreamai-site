@@ -21,7 +21,7 @@ body {
   margin: 0;
   padding: 0;
   max-width: 100%;
-  overflow-x: hidden;
+  /* REMOVED overflow-x: hidden - was cutting off dropdown menus! */
 }
 
 body {
@@ -93,9 +93,7 @@ canvas {
   height: auto;
 }
 
-svg {
-  overflow: hidden;
-}
+/* REMOVED svg overflow:hidden - not needed and can cause issues */
 
 /* --------------------------------------------------
    HERO SYSTEM
