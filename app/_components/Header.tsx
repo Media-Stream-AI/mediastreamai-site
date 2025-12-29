@@ -35,7 +35,7 @@ export default function Header() {
             Solutions
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full left-0 mt-2 w-[48rem] bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
+          <div className="absolute top-full left-0 mt-2 w-[56rem] bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
             <div className="p-4 space-y-2">
               <Link href="/solutions" className="block px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
                 <div className="font-semibold text-base mb-1 whitespace-nowrap">Solutions Overview</div>
@@ -63,7 +63,7 @@ export default function Header() {
             Sectors
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full left-0 mt-2 w-[40rem] bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
+          <div className="absolute top-full left-0 mt-2 w-[48rem] bg-black border-2 border-white/20 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[200] overflow-hidden">
             <div className="p-4 space-y-2">
               <Link href="/sectors#media" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
                 <div className="font-medium text-base whitespace-nowrap">Media & Broadcasting</div>
