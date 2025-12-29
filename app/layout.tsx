@@ -108,15 +108,15 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="bg-black text-white antialiased max-w-full overflow-x-hidden">
+      <body className="bg-black text-white antialiased">
         <Header />
 
         {/* 
           IMPORTANT:
-          ❌ No Tailwind `container` here
-          ✅ Full-width main to prevent hero overflow
+          ❌ Removed overflow-x-hidden from main - was cutting off dropdowns!
+          ✅ Full-width main element
         */}
-        <main className="w-full min-h-screen overflow-x-hidden">
+        <main className="w-full min-h-screen">
           {children}
         </main>
 
