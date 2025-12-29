@@ -29,64 +29,80 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4 text-sm xl:text-base">
-        {/* Solutions Dropdown - EXTRA WIDE */}
+        {/* Solutions Dropdown - FORCED WIDTH */}
         <div className="relative group">
           <button className="flex items-center gap-1 text-white/80 hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-white/5 whitespace-nowrap">
             Solutions
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full right-0 mt-2 w-[32rem] bg-black border-2 border-white/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" style={{ zIndex: 99999 }}>
+          <div 
+            className="absolute top-full right-0 mt-2 bg-black border-2 border-white/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" 
+            style={{ 
+              zIndex: 99999,
+              width: '500px',
+              minWidth: '500px',
+              maxWidth: '500px'
+            }}
+          >
             <div className="p-8 space-y-4">
               <Link href="/solutions" className="block px-6 py-5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-semibold text-xl mb-2">Solutions Overview</div>
-                <div className="text-base text-white/50">GPU vs AI Agents</div>
+                <div className="font-semibold text-xl mb-2 whitespace-normal">Solutions Overview</div>
+                <div className="text-base text-white/50 whitespace-normal">GPU vs AI Agents</div>
               </Link>
               <a href="https://gpu.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-6 py-5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-semibold text-xl mb-2 flex items-center gap-2">
+                <div className="font-semibold text-xl mb-2 flex items-center gap-2 whitespace-normal">
                   GPU-as-a-Service <ExternalLink size={18} />
                 </div>
-                <div className="text-base text-white/50">H200, B200, SambaNova RDU</div>
+                <div className="text-base text-white/50 whitespace-normal">H200, B200, SambaNova RDU</div>
               </a>
               <a href="https://mother.mediastreamai.com" target="_blank" rel="noopener noreferrer" className="block px-6 py-5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-semibold text-xl mb-2 flex items-center gap-2">
+                <div className="font-semibold text-xl mb-2 flex items-center gap-2 whitespace-normal">
                   MOTHER AI Agents <ExternalLink size={18} />
                 </div>
-                <div className="text-base text-white/50">Sovereign AI Deployments</div>
+                <div className="text-base text-white/50 whitespace-normal">Sovereign AI Deployments</div>
               </a>
             </div>
           </div>
         </div>
 
-        {/* Sectors Dropdown - EXTRA WIDE */}
+        {/* Sectors Dropdown - FORCED WIDTH */}
         <div className="relative group">
           <button className="flex items-center gap-1 text-white/80 hover:text-white transition-colors py-2 px-3 rounded-lg hover:bg-white/5 whitespace-nowrap">
             Sectors
             <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
           </button>
-          <div className="absolute top-full right-0 mt-2 w-[30rem] bg-black border-2 border-white/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" style={{ zIndex: 99999 }}>
+          <div 
+            className="absolute top-full right-0 mt-2 bg-black border-2 border-white/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" 
+            style={{ 
+              zIndex: 99999,
+              width: '480px',
+              minWidth: '480px',
+              maxWidth: '480px'
+            }}
+          >
             <div className="p-8 space-y-3">
               <Link href="/sectors#media" className="block px-6 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-lg">Media & Broadcasting</div>
+                <div className="font-medium text-lg whitespace-normal">Media & Broadcasting</div>
               </Link>
               <Link href="/sectors#film" className="block px-6 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-lg">Film & TV Production</div>
+                <div className="font-medium text-lg whitespace-normal">Film & TV Production</div>
               </Link>
               <Link href="/sectors#creative" className="block px-6 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-lg">Creative Industries</div>
+                <div className="font-medium text-lg whitespace-normal">Creative Industries</div>
               </Link>
               <Link href="/sectors#advertising" className="block px-6 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-lg">Advertising</div>
+                <div className="font-medium text-lg whitespace-normal">Advertising</div>
               </Link>
               <Link href="/government-defence" className="block px-6 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-lg">Government & Defence</div>
+                <div className="font-medium text-lg whitespace-normal">Government & Defence</div>
               </Link>
               <Link href="/sectors#research" className="block px-6 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <div className="font-medium text-lg">Research & Education</div>
+                <div className="font-medium text-lg whitespace-normal">Research & Education</div>
               </Link>
             </div>
             <div className="border-t border-white/10 p-6">
               <Link href="/sectors" className="block px-6 py-4 text-center text-blue-400 hover:text-blue-300 font-semibold transition-colors rounded-lg hover:bg-white/10">
-                <div className="text-lg">View All Sectors →</div>
+                <div className="text-lg whitespace-normal">View All Sectors →</div>
               </Link>
             </div>
           </div>
