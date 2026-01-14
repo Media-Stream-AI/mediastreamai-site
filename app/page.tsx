@@ -316,6 +316,18 @@ export default function HomePage() {
     </button>
   </Link>
 
+    {/* MSAI Cloud */}
+  <Link href="https://gpu.mediastreamai.com" target="_blank">
+    <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
+      border-2 border-blue-400 text-blue-400 
+      hover:bg-blue-500/20 rounded-lg font-semibold 
+      text-sm sm:text-base md:text-lg transition-colors 
+      flex items-center justify-center gap-2 whitespace-nowrap">
+      MSAI Cloud
+      <ExternalLink size={16} className="flex-shrink-0" />
+    </button>
+  </Link>
+
   {/* IntuiTV */}
   <Link href="https://www.intuitv.app" target="_blank">
     <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
@@ -340,17 +352,6 @@ export default function HomePage() {
     </button>
   </Link>
 
-  {/* MSAI Cloud */}
-  <Link href="https://gpu.mediastreamai.com" target="_blank">
-    <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
-      border-2 border-blue-400 text-blue-400 
-      hover:bg-blue-500/20 rounded-lg font-semibold 
-      text-sm sm:text-base md:text-lg transition-colors 
-      flex items-center justify-center gap-2 whitespace-nowrap">
-      MSAI Cloud
-      <ExternalLink size={16} className="flex-shrink-0" />
-    </button>
-  </Link>
 </motion.div>
 
 
