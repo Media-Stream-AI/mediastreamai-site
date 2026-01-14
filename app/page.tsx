@@ -297,26 +297,62 @@ export default function HomePage() {
             True sovereignty from Company Ownership & Shareholding to European Large Language Model (MOTHER).
           </motion.p>
 
-          {/* Primary CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-8 md:mb-12 px-4"
-          >
-            <Link href="https://gpu.mediastreamai.com" target="_blank" className="w-full sm:w-auto">
-              <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
-                <span className="hidden xs:inline">GPU Infrastructure</span>
-                <span className="xs:hidden">GPU Infra</span>
-                <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0" />
-              </button>
-            </Link>
-            <Link href="https://mother.mediastreamai.com" target="_blank" className="w-full sm:w-auto">
-              <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 border-2 border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
-                AI Agents <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0" />
-              </button>
-            </Link>
-          </motion.div>
+        {/* Primary CTAs */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.6 }}
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 justify-center mb-8 md:mb-12 px-4"
+>
+  {/* MOTHER AI – Primary / Highlighted */}
+  <Link href="https://mother.mediastreamai.com" target="_blank" className="sm:col-span-2 lg:col-span-1">
+    <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
+      bg-blue-600 hover:bg-blue-500 
+      ring-2 ring-blue-400/60 shadow-lg shadow-blue-500/20
+      rounded-lg font-semibold text-sm sm:text-base md:text-lg 
+      transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+      MOTHER AI
+      <ExternalLink size={16} className="flex-shrink-0" />
+    </button>
+  </Link>
+
+  {/* IntuiTV */}
+  <Link href="https://www.intuitv.app" target="_blank">
+    <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
+      border-2 border-blue-400 text-blue-400 
+      hover:bg-blue-500/20 rounded-lg font-semibold 
+      text-sm sm:text-base md:text-lg transition-colors 
+      flex items-center justify-center gap-2 whitespace-nowrap">
+      IntuiTV
+      <ExternalLink size={16} className="flex-shrink-0" />
+    </button>
+  </Link>
+
+  {/* IntuiTV Studio */}
+  <Link href="https://studio.intuitv.app" target="_blank">
+    <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
+      border-2 border-blue-400 text-blue-400 
+      hover:bg-blue-500/20 rounded-lg font-semibold 
+      text-sm sm:text-base md:text-lg transition-colors 
+      flex items-center justify-center gap-2 whitespace-nowrap">
+      IntuiTV Studio
+      <ExternalLink size={16} className="flex-shrink-0" />
+    </button>
+  </Link>
+
+  {/* MSAI Cloud */}
+  <Link href="https://gpu.mediastreamai.com" target="_blank">
+    <button className="w-full px-4 sm:px-6 md:px-8 py-3 md:py-4 
+      border-2 border-blue-400 text-blue-400 
+      hover:bg-blue-500/20 rounded-lg font-semibold 
+      text-sm sm:text-base md:text-lg transition-colors 
+      flex items-center justify-center gap-2 whitespace-nowrap">
+      MSAI Cloud
+      <ExternalLink size={16} className="flex-shrink-0" />
+    </button>
+  </Link>
+</motion.div>
+
 
           {/* Stats */}
           <motion.div
