@@ -196,7 +196,7 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { icon: <Globe className="w-6 h-6 md:w-8 md:h-8" />, value: "5", label: "UK/EU Data Centers" },
+    { icon: <Globe className="w-6 h-6 md:w-8 md:h-8" />, value: "5", label: "UK/EU Data Centers planned 2026" },
     { icon: <Zap className="w-6 h-6 md:w-8 md:h-8" />, value: "40-60%", label: "Cost Savings" },
     { icon: <Users className="w-6 h-6 md:w-8 md:h-8" />, value: "405+", label: "Jobs Created" },
     { icon: <TrendingUp className="w-6 h-6 md:w-8 md:h-8" />, value: "100%", label: "UK/EU Sovereign" }
@@ -207,7 +207,7 @@ export default function HomePage() {
       icon: <Shield className="w-8 h-8 md:w-10 md:h-10" />,
       title: "GPU INFRASTRUCTURE",
       description: "NVIDIA H200, B200, SambaNova RDU clusters across 5 UK/EU data centers",
-      features: ["H200 at £8.50/hr", "Hourly or Monthly Billing", "5 UK/EU Data Centers", "Instant Provisioning", "24/7 Monitoring"],
+      features: ["H200 at £4.50/hr", "Hourly or Monthly Billing", "5 UK/EU Data Centers", "Instant Provisioning", "24/7 Monitoring"],
       cta: "View GPU Pricing",
       link: "https://gpu.mediastreamai.com",
       external: true
@@ -216,7 +216,7 @@ export default function HomePage() {
       icon: <Zap className="w-8 h-8 md:w-10 md:h-10" />,
       title: "MOTHER AI AGENT DEPLOYMENTS",
       description: "Sovereign AI agents with Autm orchestration. Sector-specific implementations.",
-      features: ["Starter from £2,500/mo", "Multi-Agent Workflows", "Custom Training", "GDPR Compliant"],
+      features: ["Custom£/mo", "Multi-Agent Workflows", "Custom Training", "GDPR Compliant"],
       cta: "Explore AI Agents",
       link: "https://mother.mediastreamai.com",
       external: true
@@ -284,8 +284,8 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 max-w-4xl mx-auto mb-3 md:mb-4 px-4 text-center"
           >
-            100% UK/EU data residency. GPU clusters, AI agents & Robotics
-            for media, government, and enterprise deployments.
+            100% UK/EU data residency. GPU clusters, British Trained LLM & Reasoning Model MOTHER, AI Agents &Third Party Applicationplatform & Robotics
+            for media & production, government & security, finance and enterprise deployments.
           </motion.p>
 
           <motion.p
@@ -294,7 +294,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-sm md:text-base text-white/60 max-w-3xl mx-auto mb-6 md:mb-8 px-4 text-center"
           >
-            True sovereignty from Company Ownership & Shareholding to European Large Language Model (MOTHER).
+            True sovereignty from Company Ownership & Shareholding to European trained Large Language Model (MOTHER).
           </motion.p>
 
         {/* Primary CTAs */}
@@ -378,7 +378,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 text-white">Choose Your Solution</h2>
           <p className="text-sm md:text-base text-white/60 text-center mb-8 md:mb-12 max-w-3xl mx-auto">
-            Deploy GPU infrastructure for full control or turnkey AI agents for immediate impact
+            Deploy GPU infrastructure for full control or turnkey MOTHER LLM + AI agents for immediate impact
           </p>
 
           <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
@@ -533,7 +533,7 @@ export default function HomePage() {
             <div className="p-4 md:p-6 bg-black/40 border border-white/10 rounded-2xl text-center">
               <div className="text-3xl md:text-4xl mb-2 md:mb-3">🍽️</div>
               <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1 md:mb-2">24,000+</div>
-              <div className="text-xs md:text-sm text-white/70">Meals/month to food banks</div>
+              <div className="text-xs md:text-sm text-white/70">Meals/month to food banks at full operation</div>
             </div>
 
             <div className="p-4 md:p-6 bg-black/40 border border-white/10 rounded-2xl text-center col-span-2 sm:col-span-1">
