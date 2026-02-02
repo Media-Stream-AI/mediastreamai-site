@@ -2,8 +2,39 @@
   command = "npm run build"
   publish = ".next"
 
+[build.environment]
+  NODE_VERSION = "18"
+
 [functions]
   node_bundler = "esbuild"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# API redirects
+[[redirects]]
+  from = "/api/contact"
+  to = "/.netlify/functions/___netlify-handler"
+  status = 200
+
+# External service links
+[[redirects]]
+  from = "/mother"
+  to = "https://mother.mediastreamai.com"
+  status = 301
+
+[[redirects]]
+  from = "/gpu"
+  to = "https://gpu.mediastreamai.com"
+  status = 301
+
+[[redirects]]
+  from = "/studio"
+  to = "https://studio.intuitv.app"
+  status = 301
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
