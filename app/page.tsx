@@ -7,10 +7,11 @@ import { Brain, Server, Shield, Tv, Bot, Cpu, ArrowRight, ExternalLink } from "l
 
 // MOTHER Chat typing animation
 const chatMessages = [
-  { role: "mother", text: "Hello, I'm MOTHER — a UK Sovereign AI built for European data independence." },
-  { role: "mother", text: "I run on 8 NVIDIA H200 GPUs across UK data centres. Your data never leaves European jurisdiction." },
-  { role: "mother", text: "I can help with code, legal analysis, scientific research, creative writing, and video generation." },
-  { role: "mother", text: "All training data is British. All weights are proprietary. Zero US cloud dependencies." },
+  { role: "mother", text: "Hello, I'm MOTHER — a UK Sovereign AI built for European AI & data independence." },
+  { role: "mother", text: "Did you know i was built and trainined in the same city the CHILD the first computer was born!." },
+  { role: "mother", text: "I trained on NVIDIA H200 GPU's - I now run on inference chips across MSAI UK & EU data centres. Your data never leaves European jurisdiction." },
+  { role: "mother", text: "I can help with code, legal analysis, scientific research, creative writing, and video generation - and soon I will be walking..." },
+  { role: "mother", text: "All training data is British. All weights are proprietary. Zero dependencies." },
 ];
 
 function MotherChatDemo() {
