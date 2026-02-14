@@ -1,288 +1,306 @@
 // app/robotics/page.tsx
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-/**
- * Robotics: Robotic Camera Arm + Smart Light System
- * - HERO uses a full-bleed image with an overlay CTA button
- * - “Precision Robotic Camera Arm” text moved to the top of the next section
- * - Uses existing animated SVG: /public/media/svg/robotics-overview.svg
- * - Adds two inline animated SVGs (no external libs)
- */
+import { motion } from "framer-motion";
+import { 
+  Brain, Cpu, Shield, ExternalLink, Globe, 
+  Database, Network, Zap, ArrowRight, Play,
+  Terminal, Github 
+} from "lucide-react";
 
 export default function RoboticsPage() {
+  const [activeTab, setActiveTab] = useState("overview");
+
   return (
-    <main className="bg-black text-white">
-      {/* HERO (image-only with overlay button) */}
-      <section className="relative isolate overflow-hidden">
-        {/* Background hero image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/media/robotics-hero.jpg" /* <-- put your provided hero here */
-            alt="MSAI Robotics — AI Studio Robotic Camera Arm"
-            fill
-            priority
-            className="object-cover object-center opacity-95"
-          />
-          {/* Subtle gradient for text readability if needed later */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
-        </div>
-
-        {/* Overlay CTA */}
-        <div className="relative max-w-7xl mx-auto px-6 py-32 md:py-44 flex items-end justify-center">
-          <div className="text-center">
-            <Link href="/vp-studio" className="btn btn-primary">
-              Explore VP Studio →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* OVERVIEW / INTRO (moved text here) */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="aspect-video bg-black/20 rounded-xl overflow-hidden border border-white/10">
-              {/* If your SVG is animated, using <img> preserves its internal <animate> */}
-              <img
-                src="/media/svg/robotics-overview.svg"
-                alt="Robotics Overview — Camera Arm + Smart Lighting"
-                className="w-full h-full object-contain"
-              />
+    <main className="min-h-screen bg-black text-white">
+      {/* Nav */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-600 flex items-center justify-center">
+              <Brain className="w-5 h-5" />
             </div>
-            <p className="mt-3 text-white/60 text-sm font-glacial">
-              System overview: Robotic Arm + Smart Light Rig orchestrated by AI Director (path, focus, intensity, colour).
-            </p>
+            <span className="font-bold text-lg hidden sm:block">MSAI Robotics</span>
+          </Link>
+          <div className="hidden md:flex items-center gap-8 text-sm text-white/60">
+            <Link href="#platform" className="hover:text-purple-400">Platform</Link>
+            <Link href="#convergence" className="hover:text-purple-400">Convergence</Link>
+            <Link href="#specs" className="hover:text-purple-400">Specs</Link>
           </div>
-
-          <div>
-            <h1 className="text-4xl md:text-6xl font-horizon">Precision Robotic Camera Arm</h1>
-            <p className="mt-4 text-white/80 max-w-3xl font-glacial">
-              Precision robotic camera arm and Smart Light System — synchronised by the AI Director
-              for repeatable moves, instant relights, and real-time creative control.
-            </p>
-            <p className="mt-4 text-white/70 font-glacial">
-              Our robotic camera system delivers programmable moves (pan/tilt/roll/track/lift) with
-              sub-millimetre repeatability. The Smart Light System responds to the same timeline—DMX/Art-Net cues,
-              scene presets, and mood-aware relights driven by the AI Director.
-            </p>
-            <ul className="mt-6 space-y-2 text-white/80 font-glacial">
-              <li>• Repeatable keyframe moves and curved motion paths</li>
-              <li>• Live “go-to-mark” for blocking and rapid shot iteration</li>
-              <li>• DMX/Art-Net lighting cues synced to camera moves</li>
-              <li>• Safety zones and soft-limits with live object sensing</li>
-            </ul>
-          </div>
+          <Link href="/contact">
+            <button className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-sm font-medium">
+              Contact
+            </button>
+          </Link>
         </div>
-      </section>
+      </nav>
 
-      {/* SYSTEMS — Two animated inline SVGs */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10">
-          <Card title="Smart Light System (Animated)">
-            <SmartLightRigSVG />
-            <p className="mt-4 text-white/70 text-sm font-glacial">
-              DMX/Art-Net controlled key, fill, and rim fixtures. The AI Director can fade, colour-shift, and chase
-              patterns on time-coded cues—perfect for music, promos, or mood-aware relights.
-            </p>
-          </Card>
-
-          <Card title="Robotic Camera Track Module (Animated)">
-            <CameraTrackSVG />
-            <p className="mt-4 text-white/70 text-sm font-glacial">
-              Visualises a dolly on a curved track with programmable waypoints. The arm can combine track motion with
-              pan/tilt/roll and lens focus/zoom for complex, repeatable moves.
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS WITH AI DIRECTOR */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-3 gap-6">
-          {[
-            {
-              t: "Plan",
-              d: "Describe the shot in natural language. AI Director converts intent into motion + lighting keyframes."
-            },
-            {
-              t: "Rehearse",
-              d: "Preview path speed ramps and relight transitions. Apply soft-limits and safety zones."
-            },
-            {
-              t: "Record",
-              d: "Run the take with perfect repeatability. Export EDL/AAF/OTIO with cue markers."
-            }
-          ].map((x) => (
-            <div key={x.t} className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-              <div className="text-lg font-horizon">{x.t}</div>
-              <p className="mt-2 text-white/70 text-sm font-glacial">{x.d}</p>
+      {/* Hero with embedded platform */}
+      <section className="pt-24 pb-12 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+            <div>
+              <div className="flex gap-2 mb-6">
+                <span className="px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full text-xs text-purple-400">
+                  NVIDIA ISAAC GR00T N1 PARTNER
+                </span>
+                <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs text-cyan-400">
+                  UK SOVEREIGN
+                </span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
+                  British Brain
+                </span>
+                <br />for Global Bodies
+              </h1>
+              <p className="text-lg text-white/50 mb-8 max-w-md">
+                Sovereign cognitive layer for humanoid robots. MOTHER meets NVIDIA GR00T N1.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a href="#platform">
+                  <button className="px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-xl font-semibold flex items-center gap-2">
+                    Launch Platform <Play className="w-4 h-4" />
+                  </button>
+                </a>
+                <a href="https://github.com/Media-Stream-AI/robotics-sdk" target="_blank">
+                  <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold flex items-center gap-2">
+                    <Github className="w-4 h-4" /> SDK
+                  </button>
+                </a>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* BASIC SPECS */}
-      <section className="section border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-3xl font-horizon">Robotics Specifications</h3>
-          <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03]">
-            <table className="min-w-full text-sm font-glacial">
-              <tbody className="[&_tr]:border-b [&_tr]:border-white/10 last:[&_tr]:border-0">
-                <tr>
-                  <td className="px-4 py-3 text-white/60">Axes / DOF</td>
-                  <td className="px-4 py-3">6-axis arm + track (optional) + focus/zoom</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-white/60">Repeatability</td>
-                  <td className="px-4 py-3">≤ 0.2 mm (arm); ≤ 0.5 mm (track module)</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-white/60">Payload</td>
-                  <td className="px-4 py-3">Up to cinema camera + accessories (varies by head)</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-white/60">Lighting Control</td>
-                  <td className="px-4 py-3">DMX/Art-Net (key/fill/rim), RGBW fixtures supported</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-white/60">Safety</td>
-                  <td className="px-4 py-3">Virtual fences, soft-limits, emergency stop, vision sensing</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-white/60">Integration</td>
-                  <td className="px-4 py-3">AI Director timeline, VP set states, LUT/grade cues</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-6 text-sm text-white/60 font-glacial">
-            Specs are indicative for the prototype configuration; production specs may vary by site.
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section border-t border-white/10 text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <h4 className="text-3xl sm:text-4xl font-horizon">See the Robotics in action</h4>
-          <p className="mt-3 text-white/70 font-glacial">
-            Book a VP Studio walkthrough—test the robotic arm, lighting presets, and AI Director timeline.
-          </p>
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <Link href="/vp-studio" className="btn btn-primary">Explore VP Studio</Link>
-            <Link
-              href="/contact"
-              className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+            
+            {/* Live Platform Preview */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative"
             >
-              Talk to our team
-            </Link>
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-2xl blur-xl opacity-50" />
+              <div className="relative bg-black rounded-2xl border border-white/10 overflow-hidden">
+                <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/50" />
+                  </div>
+                  <div className="flex-1 text-center">
+                    <span className="text-xs text-white/40 font-mono">robotics.mediastreamai.com</span>
+                  </div>
+                  <ExternalLink className="w-3 h-3 text-white/40" />
+                </div>
+                
+                {/* Embedded Platform Iframe */}
+                <div className="aspect-video bg-gradient-to-br from-gray-900 to-black relative">
+                  <iframe 
+                    src="https://robotics.mediastreamai.com" 
+                    className="w-full h-full border-0"
+                    title="MOTHER Robotics Platform"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  />
+                  
+                  {/* Overlay for demo - remove this when platform is live */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                    <div className="text-center">
+                      <Globe className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold mb-2">Platform Loading...</h3>
+                      <p className="text-white/50 text-sm">Connecting to sovereign robotics cloud</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Status Bar */}
+                <div className="bg-white/5 px-4 py-2 border-t border-white/10 flex items-center gap-4 text-xs">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    Sovereign Link Active
+                  </span>
+                  <span className="text-white/40">|</span>
+                  <span className="text-white/40">UK West Data Centre</span>
+                  <span className="text-white/40">|</span>
+                  <span className="text-cyan-400">GR00T N1 Connected</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
+
+      {/* Platform Features Grid */}
+      <section id="platform" className="py-20 px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-center">Sovereign Robotics Platform</h2>
+          <p className="text-white/50 text-center mb-12 max-w-2xl mx-auto">
+            Complete development environment for UK sovereign humanoid robotics
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Brain, title: "MOTHER CORE", desc: "70B sovereign reasoning", color: "purple" },
+              { icon: Cpu, title: "GR00T N1 Integration", desc: "NVIDIA physical intelligence", color: "green" },
+              { icon: Database, title: "Vector Memory", desc: "Qdrant semantic search", color: "blue" },
+              { icon: Network, title: "Graph Memory", desc: "Neo4j relationship tracking", color: "cyan" },
+            ].map((feature, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.02 }}
+                className={`p-6 rounded-2xl border bg-${
+                  feature.color === "purple" ? "purple" : 
+                  feature.color === "green" ? "green" :
+                  feature.color === "blue" ? "blue" : "cyan"
+                }-500/5 border-${feature.color}-500/20 hover:border-${feature.color}-500/50 transition-all`}
+              >
+                <feature.icon className={`w-8 h-8 text-${feature.color}-400 mb-4`} />
+                <h3 className="font-bold mb-1">{feature.title}</h3>
+                <p className="text-sm text-white/50">{feature.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Convergence Architecture */}
+      <section id="convergence" className="py-20 px-6 border-t border-white/5 bg-gradient-to-b from-black via-[#0a0f1a] to-black">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-center">Convergence Architecture</h2>
+          <p className="text-white/50 text-center mb-12">MOTHER as sovereign System 2 for GR00T N1</p>
+
+          {/* Dual System Diagram */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+            {/* NVIDIA Stack */}
+            <div className="bg-white/5 rounded-2xl p-8 border border-[#76b900]/30">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 bg-[#76b900] rounded-full" />
+                NVIDIA Isaac GR00T N1
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-white/10 rounded-lg p-4">
+                  <div className="text-sm text-[#76b900] mb-1">System 2 (Slow Thinking)</div>
+                  <div className="font-mono">Vision-Language Model</div>
+                </div>
+                <div className="text-center text-[#76b900]">↓</div>
+                <div className="bg-white/10 rounded-lg p-4">
+                  <div className="text-sm text-[#76b900] mb-1">System 1 (Fast Action)</div>
+                  <div className="font-mono">Diffusion Policy / Transformer</div>
+                </div>
+                <div className="text-center text-[#76b900]">↓</div>
+                <div className="bg-white/10 rounded-lg p-4">
+                  <div className="font-mono">Robot Actuators</div>
+                </div>
+              </div>
+            </div>
+
+            {/* MOTHER Stack */}
+            <div className="bg-white/5 rounded-2xl p-8 border border-purple-500/30">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 bg-purple-500 rounded-full" />
+                MOTHER Sovereign AI
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-purple-500/20 to-transparent rounded-lg p-4">
+                  <span className="text-sm text-purple-400 block mb-1">CORE 7B/70B</span>
+                  <div className="font-mono">Sovereign Reasoning & Planning</div>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="bg-purple-500/20 rounded p-2 text-center">
+                    <div className="text-xs">LEGAL</div>
+                  </div>
+                  <div className="bg-purple-500/20 rounded p-2 text-center">
+                    <div className="text-xs">DEFENCE</div>
+                  </div>
+                  <div className="bg-purple-500/20 rounded p-2 text-center">
+                    <div className="text-xs">ROBOTICS</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-white/10 rounded p-3">
+                    <div className="text-xs text-white/40">Vector</div>
+                    <div className="font-mono text-sm">Qdrant</div>
+                  </div>
+                  <div className="bg-white/10 rounded p-3">
+                    <div className="text-xs text-white/40">Graph</div>
+                    <div className="font-mono text-sm">Neo4j</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Integration Flow Diagram */}
+          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
+            <h3 className="text-lg font-bold mb-6">Data Flow</h3>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+                <span>👤</span>
+                <span>UK Operator</span>
+              </div>
+              <Zap className="w-4 h-4 text-purple-400" />
+              <div className="flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-full">
+                <span>🧠</span>
+                <span>MOTHER CORE</span>
+              </div>
+              <Zap className="w-4 h-4 text-purple-400" />
+              <div className="flex items-center gap-2 bg-[#76b900]/20 px-4 py-2 rounded-full">
+                <span>🤖</span>
+                <span>GR00T N1</span>
+              </div>
+              <Zap className="w-4 h-4 text-purple-400" />
+              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+                <span>⚙️</span>
+                <span>Robot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Terminal / SDK Preview */}
+      <section className="py-20 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-black/50 rounded-2xl border border-purple-500/30 overflow-hidden">
+            <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center gap-2">
+              <Terminal className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-mono">MOTHER Robotics SDK v1.0.0</span>
+            </div>
+            <div className="p-6 font-mono text-sm space-y-2">
+              <p><span className="text-green-400">$</span> mother-robotics init --project=uk-defence --env=air-gapped</p>
+              <p className="text-white/70">✓ Initializing sovereign robotics environment</p>
+              <p className="text-white/70">✓ Loading UK MoD doctrine...</p>
+              <p className="text-white/70">✓ Connecting to GR00T N1...</p>
+              <p className="text-cyan-400">✓ Sovereign cognitive layer active</p>
+              <p className="text-green-400">$</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-600 flex items-center justify-center">
+              <Brain className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="font-semibold">MSAI Robotics</div>
+              <div className="text-xs text-white/40">A Media Stream AI Company</div>
+            </div>
+          </div>
+          <div className="flex gap-6 text-sm text-white/40">
+            <Link href="/privacy" className="hover:text-white">Privacy</Link>
+            <Link href="/terms" className="hover:text-white">Terms</Link>
+            <a href="https://robotics.mediastreamai.com" target="_blank" className="text-purple-400 flex items-center gap-2">
+              <span>Platform</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+      </footer>
     </main>
-  );
-}
-
-/* --------------------------
-   Helpers
---------------------------- */
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-      <div className="text-lg font-horizon">{title}</div>
-      <div className="mt-4">{children}</div>
-    </div>
-  );
-}
-
-/* --------------------------
-   Animated SVGs (inline)
---------------------------- */
-
-/** Smart Light Rig — animated DMX fades + colour sweeps */
-function SmartLightRigSVG() {
-  return (
-    <svg viewBox="0 0 640 360" className="w-full h-auto block" role="img" aria-label="Smart Light Rig animation">
-      <style>{`
-        .fixture { stroke: rgba(255,255,255,.25); fill: rgba(255,255,255,.06); }
-        .beam { opacity: .0; }
-        .beam.fade { animation: beamFade 4s ease-in-out infinite; }
-        @keyframes beamFade { 0%{opacity:0} 20%{opacity:.55} 50%{opacity:.15} 80%{opacity:.7} 100%{opacity:0} }
-        .beam.rainbow {
-          animation: rainbow 6s linear infinite, beamFade 4.5s ease-in-out infinite;
-          mix-blend-mode: screen;
-        }
-        @keyframes rainbow {
-          0% { fill: rgba(59,130,246,.45); }
-          25%{ fill: rgba(16,185,129,.45); }
-          50%{ fill: rgba(234,179,8,.45); }
-          75%{ fill: rgba(244,63,94,.45); }
-          100%{ fill: rgba(139,92,246,.45); }
-        }
-        .stage { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.1); }
-      `}</style>
-
-      {/* Stage */}
-      <rect x="30" y="220" width="580" height="110" rx="12" className="stage" />
-
-      {/* Fixtures */}
-      <g>
-        {/* Left fixture */}
-        <rect x="120" y="60" width="40" height="28" rx="6" className="fixture" />
-        <polygon points="140,88 145,100 135,100" fill="rgba(255,255,255,.2)" />
-        <polygon points="100,220 140,88 180,220" className="beam fade" fill="rgba(59,130,246,.35)" />
-
-        {/* Middle fixture */}
-        <rect x="300" y="40" width="40" height="28" rx="6" className="fixture" />
-        <polygon points="320,68 325,80 315,80" fill="rgba(255,255,255,.2)" />
-        <polygon points="282,220 320,68 358,220" className="beam rainbow" />
-
-        {/* Right fixture */}
-        <rect x="480" y="60" width="40" height="28" rx="6" className="fixture" />
-        <polygon points="500,88 505,100 495,100" fill="rgba(255,255,255,.2)" />
-        <polygon points="460,220 500,88 540,220" className="beam fade" fill="rgba(139,92,246,.35)" />
-      </g>
-    </svg>
-  );
-}
-
-/** Camera Track Module — moving dolly + waypoint pulses */
-function CameraTrackSVG() {
-  return (
-    <svg viewBox="0 0 640 360" className="w-full h-auto block" role="img" aria-label="Robotic camera track animation">
-      <style>{`
-        .track { fill: none; stroke: rgba(255,255,255,.2); stroke-width: 4; }
-        .waypoint { fill: rgba(56,189,248,.9); }
-        .pulse { animation: pulse 1.8s ease-in-out infinite; }
-        @keyframes pulse { 0%,100% { r: 4 } 50% { r: 8 } }
-        .dolly { fill: rgba(255,255,255,.9); }
-        .arm { stroke: rgba(255,255,255,.9); stroke-width: 3; }
-      `}</style>
-
-      {/* Curved track path */}
-      <path id="curve" d="M60,260 C180,200 460,200 580,260" className="track" />
-
-      {/* Waypoints along the curve */}
-      <circle cx="160" cy="230" r="5" className="waypoint pulse" />
-      <circle cx="320" cy="210" r="5" className="waypoint pulse" />
-      <circle cx="480" cy="230" r="5" className="waypoint pulse" />
-
-      {/* Dolly that follows the path */}
-      <g>
-        <circle className="dolly">
-          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#curve" />
-          </animateMotion>
-          <animate attributeName="r" values="10;12;10" dur="1.2s" repeatCount="indefinite" />
-        </circle>
-        {/* Simple arm atop the dolly that tilts slightly as it moves */}
-        <line className="arm" x1="0" y1="0" x2="0" y2="-30">
-          <animate attributeName="x2" values="-6;6;-6" dur="2.4s" repeatCount="indefinite" />
-        </line>
-      </g>
-    </svg>
   );
 }
