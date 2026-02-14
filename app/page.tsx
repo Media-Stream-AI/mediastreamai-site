@@ -203,6 +203,129 @@ export default function HomePage() {
         </div>
       </section>
 
+
+{/* ===== ROBOTICS CONVERGENCE SECTION ===== */}
+<section className="py-20 px-6 border-t border-white/5 bg-gradient-to-b from-black via-[#0a0f1a] to-black">
+  <div className="max-w-6xl mx-auto">
+    <div className="text-center mb-12">
+      <span className="px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full text-xs text-purple-400 mb-4 inline-block">
+        PHYSICAL INTELLIGENCE
+      </span>
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        MOTHER <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">ROBOTICS</span>
+      </h2>
+      <p className="text-white/50 max-w-2xl mx-auto">
+        Sovereign AI for humanoid robots. British brain. Global body.
+      </p>
+    </div>
+
+    {/* Convergence Diagram */}
+    <div className="grid lg:grid-cols-2 gap-6 mb-8">
+      {/* NVIDIA Stack */}
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-[#76b900]/30 hover:border-[#76b900] transition-all"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <span className="px-3 py-1 bg-[#76b900]/20 text-[#76b900] rounded-full text-xs font-mono">
+            NVIDIA ISAAC GR00T N1
+          </span>
+          <h3 className="font-semibold">Physical Intelligence</h3>
+        </div>
+        <div className="space-y-4">
+          <div className="bg-white/10 rounded-lg p-4 border-l-4 border-[#76b900]">
+            <div className="text-xs text-white/40 mb-1">System 2 (Slow Thinking)</div>
+            <div className="font-mono text-sm">Vision-Language Model</div>
+          </div>
+          <div className="text-center text-[#76b900]">↓</div>
+          <div className="bg-white/10 rounded-lg p-4 border-l-4 border-[#76b900]">
+            <div className="text-xs text-white/40 mb-1">System 1 (Fast Action)</div>
+            <div className="font-mono text-sm">Diffusion Policy</div>
+          </div>
+          <div className="text-center text-[#76b900]">↓</div>
+          <div className="bg-white/10 rounded-lg p-4">
+            <div className="font-mono text-sm">Robot Actuators</div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* MOTHER Stack */}
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-purple-500/30 hover:border-purple-500 transition-all"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-mono">
+            MOTHER SOVEREIGN AI
+          </span>
+          <h3 className="font-semibold">Cognitive Intelligence</h3>
+        </div>
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-purple-500/20 to-transparent rounded-lg p-4">
+            <span className="px-2 py-1 bg-purple-500 text-white rounded text-xs mr-2">CORE</span>
+            <span className="font-mono text-sm">7B/70B Sovereign Reasoning</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <span className="px-2 py-1 bg-purple-500/30 rounded-full text-xs">LEGAL</span>
+            <span className="px-2 py-1 bg-purple-500/30 rounded-full text-xs">DEFENCE</span>
+            <span className="px-2 py-1 bg-purple-500/30 rounded-full text-xs">ROBOTICS</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white/10 rounded p-2 text-center">
+              <div className="text-xs text-white/40">Vector</div>
+              <div className="font-mono text-xs">Qdrant</div>
+            </div>
+            <div className="bg-white/10 rounded p-2 text-center">
+              <div className="text-xs text-white/40">Graph</div>
+              <div className="font-mono text-xs">Neo4j</div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+
+    {/* Integration Flow */}
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      className="bg-white/5 rounded-2xl p-6 border border-white/10 mb-8"
+    >
+      <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">👤</span>
+          <span>UK Operator</span>
+        </div>
+        <span className="text-purple-400 text-xl">→</span>
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">🧠</span>
+          <span>MOTHER CORE</span>
+        </div>
+        <span className="text-purple-400 text-xl">→</span>
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">🤖</span>
+          <span>GR00T N1</span>
+        </div>
+      </div>
+    </motion.div>
+
+    {/* CTA */}
+    <div className="text-center">
+      <Link href="/robotics">
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          className="px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl font-semibold text-lg flex items-center gap-2 mx-auto"
+        >
+          Explore Robotics Platform <ExternalLink className="w-4 h-4" />
+        </motion.button>
+      </Link>
+    </div>
+  </div>
+</section>
+
+
+      
       {/* Stats */}
       <section className="py-20 px-6 border-t border-white/5">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
