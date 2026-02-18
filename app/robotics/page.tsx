@@ -61,12 +61,12 @@ export default function RoboticsPage() {
                 Sovereign cognitive layer for humanoid robots. MOTHER meets NVIDIA GR00T N1.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a href="#platform">
+                <a href="robotics.mediastreamai.com">
                   <button className="px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-xl font-semibold flex items-center gap-2">
                     Launch Platform <Play className="w-4 h-4" />
                   </button>
                 </a>
-                <a href="https://github.com/Media-Stream-AI/robotics-sdk" target="_blank">
+                <a href="robotics.mediastreamai.com" target="_blank">
                   <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold flex items-center gap-2">
                     <Github className="w-4 h-4" /> SDK
                   </button>
