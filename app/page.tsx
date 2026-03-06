@@ -79,7 +79,7 @@ const services = [
     icon: Brain,
     title: "MOTHER AI",
     desc: "70B UK Sovereign LLM",
-    url: "https://mother.mediastreamai.com",
+    url: "https://motherai.uk",
     color: "cyan",
     features: ["Chat Interface", "Code Generation", "Legal Analysis"]
   },
@@ -122,7 +122,7 @@ export default function HomePage() {
             <span className="font-bold text-lg hidden sm:block">Media Stream AI</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm text-white/60">
-            <Link href="https://mother.mediastreamai.com" className="hover:text-cyan-400">MOTHER AI</Link>
+            <Link href="https://motherai.uk" className="hover:text-cyan-400">MOTHER AI</Link>
             <Link href="https://studio.intuitv.app" className="hover:text-cyan-400">Studio</Link>
             <Link href="/government-defence" className="hover:text-cyan-400">Defence</Link>
           </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
               From GPU infrastructure to production AI. Zero US dependencies. Zero CLOUD Act exposure.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="https://mother.mediastreamai.com">
+              <Link href="https://motherai.uk">
                 <button className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-semibold flex items-center gap-2">
                   Try MOTHER AI <ArrowRight className="w-4 h-4" />
                 </button>
