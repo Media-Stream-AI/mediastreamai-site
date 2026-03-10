@@ -117,6 +117,11 @@ export default function NavBar() {
               About
             </Link>
 
+            <Link href="/open-api" className="flex items-center gap-1.5 px-4 py-1.5 bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-500/60 rounded-lg text-cyan-400 transition-all text-sm font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              Open API
+            </Link>
+
             <Link href="/contact">
               <button className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition-colors">
                 Contact
@@ -242,6 +247,15 @@ export default function NavBar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About
+              </Link>
+
+              <Link
+                href="/open-api"
+                className="flex items-center gap-2 px-4 py-3 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/5 rounded transition-colors font-semibold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                Open API
               </Link>
 
               <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
