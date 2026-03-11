@@ -3,7 +3,10 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Brain, Server, Shield, Tv, Bot, Cpu, ArrowRight, ExternalLink } from "lucide-react";
+import { Brain, Server, Shield, Tv, Bot, Cpu, ArrowRight, ExternalLink, Zap, Globe, Code2, Lock, ChevronRight } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const QuantumBrainVisualizer = dynamic(() => import("../components/QuantumBrainVisualizer"), { ssr: false });
 
 // MOTHER Chat typing animation
 const chatMessages = [
@@ -395,7 +398,243 @@ export default function HomePage() {
       </section>
 
 
-{/* ===== ROBOTICS CONVERGENCE SECTION ===== */}
+{/* ===== QUANTUM BRAIN SECTION ===== */}
+      <section className="py-20 px-6 border-t border-white/5 bg-gradient-to-b from-black via-[#000d1a] to-black relative overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-3xl" />
+          <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-purple-500/4 blur-3xl" />
+          <div className="absolute bottom-1/4 left-1/3 w-[250px] h-[250px] rounded-full bg-green-500/4 blur-3xl" />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-sm text-cyan-400 mb-6"
+            >
+              <Zap className="w-4 h-4" />
+              WORLD FIRST — UK Sovereign Quantum-AI
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-5xl font-bold mb-4 leading-tight"
+            >
+              A British Class of LLM — <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-green-400 to-purple-400">
+                Fused with Quantum Intelligence
+              </span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-white/50 max-w-3xl mx-auto text-lg"
+            >
+              MOTHER doesn&apos;t just use quantum computing — it&apos;s the only production-grade national-scale LLM
+              with quantum-enhanced RAG retrieval, letting it search, verify and reason faster than any other LLM on Earth.
+            </motion.p>
+          </div>
+
+          {/* Brain Visualizer */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="bg-black/60 border border-white/5 rounded-3xl p-6 mb-10 backdrop-blur"
+          >
+            <div className="text-center mb-4">
+              <span className="text-xs text-white/30 font-mono uppercase tracking-widest">
+                Live Neural Architecture — Hover to explore nodes
+              </span>
+            </div>
+            <QuantumBrainVisualizer />
+          </motion.div>
+
+          {/* Quantum RAG Pipeline */}
+          <div className="mb-10">
+            <h3 className="text-center text-sm font-mono text-white/30 uppercase tracking-widest mb-6">
+              Quantum RAG Pipeline — How MOTHER searches faster than any classical LLM
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {[
+                { step: "01", icon: "⌨", label: "Query Enters", sub: "TRM classifies intent", color: "cyan" },
+                { step: "02", icon: "⚛", label: "Quantum Circuit", sub: "PennyLane superposition", color: "green" },
+                { step: "03", icon: "🔍", label: "Swap-Test RAG", sub: "1.67M chunks retrieved", color: "green" },
+                { step: "04", icon: "🧠", label: "CORE Reasons", sub: "T=0 deterministic", color: "cyan" },
+                { step: "05", icon: "✓", label: "Verified Answer", sub: "Auditable · Air-gapped", color: "purple" },
+              ].map((s, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className={`relative p-4 rounded-2xl border text-center ${
+                    s.color === "cyan" ? "bg-cyan-500/5 border-cyan-500/20" :
+                    s.color === "green" ? "bg-green-500/5 border-green-500/20" :
+                    "bg-purple-500/5 border-purple-500/20"
+                  }`}
+                >
+                  <div className="text-2xl mb-2">{s.icon}</div>
+                  <div className={`text-xs font-mono mb-1 ${
+                    s.color === "cyan" ? "text-cyan-500/50" :
+                    s.color === "green" ? "text-green-500/50" :
+                    "text-purple-500/50"
+                  }`}>{s.step}</div>
+                  <div className="font-semibold text-sm text-white mb-1">{s.label}</div>
+                  <div className="text-xs text-white/40">{s.sub}</div>
+                  {i < 4 && (
+                    <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+                      <ChevronRight className="w-5 h-5 text-white/20" />
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Why it matters — competitive benchmark strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-cyan-500/5 via-green-500/5 to-purple-500/5 border border-white/10 rounded-2xl p-6"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Globe className="w-5 h-5 text-cyan-400" />
+              <h3 className="font-bold text-lg">Global Quantum-AI Benchmark — March 2026</h3>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[640px]">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="text-left py-2 text-white/40 font-normal text-xs uppercase tracking-wider">Organisation</th>
+                    <th className="text-left py-2 text-white/40 font-normal text-xs uppercase tracking-wider">Approach</th>
+                    <th className="text-center py-2 text-white/40 font-normal text-xs uppercase tracking-wider">Sovereign?</th>
+                    <th className="text-center py-2 text-white/40 font-normal text-xs uppercase tracking-wider">Air-Gapped?</th>
+                    <th className="text-center py-2 text-white/40 font-normal text-xs uppercase tracking-wider">Production LLM?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { org: "IonQ", approach: "Quantum fine-tuning only", sovereign: false, airgapped: false, production: false, note: "Research" },
+                    { org: "IBM Research", approach: "QAOA/QFT — small scale", sovereign: false, airgapped: false, production: false, note: "Research" },
+                    { org: "D-Wave", approach: "Pharma domain only", sovereign: false, airgapped: false, production: false, note: "PoC" },
+                    { org: "Origin Quantum", approach: "Quantum OS — no LLM", sovereign: true, airgapped: true, production: false, note: "No LLM" },
+                    { org: "MOTHER AI ✦", approach: "PilotOS + MOTHER 7B/70B", sovereign: true, airgapped: true, production: true, highlight: true, note: "LIVE" },
+                  ].map((row, i) => (
+                    <tr key={i} className={`border-b border-white/5 ${row.highlight ? "bg-cyan-500/5" : ""}`}>
+                      <td className={`py-3 font-medium ${row.highlight ? "text-cyan-400" : "text-white/70"}`}>{row.org}</td>
+                      <td className="py-3 text-white/50 text-xs">{row.approach}</td>
+                      <td className="py-3 text-center">{row.sovereign ? <span className="text-green-400">✓</span> : <span className="text-red-400/60">✗</span>}</td>
+                      <td className="py-3 text-center">{row.airgapped ? <span className="text-green-400">✓</span> : <span className="text-red-400/60">✗</span>}</td>
+                      <td className="py-3 text-center">
+                        {row.production
+                          ? <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full text-xs">LIVE</span>
+                          : <span className="text-white/30 text-xs">{row.note}</span>
+                        }
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-white/25 mt-4 italic">
+              Sources: IonQ (NYSE: IONQ), arXiv 2512.12710, D-Wave, IBM Research, Origin Quantum PilotOS — benchmarked March 2026.
+            </p>
+          </motion.div>
+
+          {/* System Status */}
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { label: "MOTHER CORE 7B", status: "PRODUCTION", color: "cyan", detail: "Step 262,000+" },
+              { label: "MOTHER LLM 7B", status: "RUNNING", color: "green", detail: "Step 302,000+" },
+              { label: "Quantum RAG", status: "LIVE", color: "green", detail: "Port 8004 · PennyLane" },
+              { label: "MOTHER CORE 70B", status: "PLANNED", color: "amber", detail: "4× H200 tensor-parallel" },
+            ].map((s, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07 }}
+                className={`p-4 rounded-xl border ${
+                  s.color === "cyan" ? "bg-cyan-500/5 border-cyan-500/20" :
+                  s.color === "green" ? "bg-green-500/5 border-green-500/20" :
+                  "bg-amber-500/5 border-amber-500/20"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`w-2 h-2 rounded-full animate-pulse ${
+                    s.color === "cyan" ? "bg-cyan-500" :
+                    s.color === "green" ? "bg-green-500" :
+                    "bg-amber-500"
+                  }`} />
+                  <span className={`text-xs font-mono font-bold ${
+                    s.color === "cyan" ? "text-cyan-400" :
+                    s.color === "green" ? "text-green-400" :
+                    "text-amber-400"
+                  }`}>{s.status}</span>
+                </div>
+                <div className="font-semibold text-sm text-white">{s.label}</div>
+                <div className="text-xs text-white/40 mt-1">{s.detail}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== OPEN API TEASER ===== */}
+      <section className="py-16 px-6 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-r from-[#000d22] to-[#0a001a] border border-cyan-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/5 rounded-full blur-3xl" />
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-3">
+                  <Code2 className="w-5 h-5 text-cyan-400" />
+                  <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs text-cyan-400">OPEN API</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                  Build on MOTHER AI
+                </h2>
+                <p className="text-white/50 mb-4 max-w-xl">
+                  Access MOTHER CORE, LLM 7B, Quantum RAG, and T2V via our REST API.
+                  Individual developers and enterprise teams — all plans available.
+                </p>
+                <div className="flex flex-wrap gap-3 text-xs font-mono">
+                  {["MOTHER CORE · Chat", "MOTHER LLM · Generate", "Quantum RAG · Search", "T2V · Video Gen"].map(e => (
+                    <span key={e} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-white/50">{e}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="shrink-0">
+                <Link href="/open-api">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-xl font-semibold text-lg flex items-center gap-2 shadow-lg shadow-cyan-500/20"
+                  >
+                    Get API Access <ArrowRight className="w-5 h-5" />
+                  </motion.button>
+                </Link>
+                <p className="text-xs text-white/30 text-center mt-3">Free tier available · Enterprise pricing on request</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== ROBOTICS CONVERGENCE SECTION ===== */}
 <section className="py-20 px-6 border-t border-white/5 bg-gradient-to-b from-black via-[#0a0f1a] to-black">
   <div className="max-w-6xl mx-auto">
     <div className="text-center mb-12">
