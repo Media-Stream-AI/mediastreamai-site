@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./_components/Header";
 import CookieBanner from "./_components/CookieBanner";
+import CountdownTimer from "./_components/CountdownTimer";
 
 /* -----------------------------------------------------
    SEO / METADATA
@@ -126,6 +127,7 @@ export default function RootLayout({
         </footer>
 
         <CookieBanner />
+        <CountdownTimer />
       </body>
     </html>
   );
