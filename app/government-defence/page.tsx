@@ -2,30 +2,192 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Shield, Lock, Award, Users, CheckCircle, AlertTriangle } from "lucide-react";
+import {
+  Shield, Lock, Award, Users, CheckCircle, AlertTriangle,
+  Cpu, Globe, Satellite, Radio, Monitor, Database,
+  Eye, Map, Layers, Wifi, Search, Video
+} from "lucide-react";
+
+/* ─── Image Placeholder ──────────────────────────────────────────────────── */
+function ImagePlaceholder({
+  filename, label, aspect = "aspect-video"
+}: {
+  filename: string; label: string; aspect?: string;
+}) {
+  return (
+    <div
+      className={`${aspect} bg-gradient-to-br from-blue-900/10 to-black/60 border border-blue-400/20 rounded-xl flex flex-col items-center justify-center gap-3 relative overflow-hidden`}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent" />
+      <Monitor size={28} className="text-blue-400/30 relative z-10" />
+      <div className="relative z-10 text-center px-4">
+        <p className="text-[10px] font-mono text-blue-400/40 tracking-wider">{label}</p>
+        <p className="text-[9px] font-mono text-white/20 mt-1">{filename}</p>
+        <p className="text-[8px] font-mono text-white/15 mt-0.5">1920 × 1080 px · 16:9</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Capability Panel Card ──────────────────────────────────────────────── */
+function CapabilityCard({
+  icon, title, description, filename, delay = 0
+}: {
+  icon: React.ReactNode; title: string; description: string;
+  filename: string; delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay }}
+      className="bg-black/40 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all"
+    >
+      <ImagePlaceholder filename={filename} label={title} />
+      <div className="p-5">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="text-blue-400">{icon}</div>
+          <h3 className="font-bold text-white text-base">{title}</h3>
+        </div>
+        <p className="text-white/60 text-sm leading-relaxed">{description}</p>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function GovernmentDefencePage() {
+
+  /* ─── MOTHER Defence panels ─────────────────────────────────────────── */
+  const motherDefencePanels = [
+    {
+      icon: <Map size={18} />,
+      title: "Common Operating Picture",
+      description:
+        "Interactive Leaflet map overlaying real-time ADS-B aircraft, AIS vessel tracks, USGS seismic events, and NATO symbol overlays with classified geofence alerting.",
+      filename: "mother-defence-cop-map.jpg",
+    },
+    {
+      icon: <Eye size={18} />,
+      title: "Sovereign Watch",
+      description:
+        "Aviation & maritime threat intelligence: live ADS-B/Mode-S tracks, MLAT-correlated positions, anomaly detection including spoofing, altitude deviations, and EMCON breaks.",
+      filename: "mother-defence-sovereign-watch.jpg",
+    },
+    {
+      icon: <Shield size={18} />,
+      title: "Cyber Threat Intelligence",
+      description:
+        "CISA Known Exploited Vulnerabilities feed, SANS InfoCon level, URLhaus IOCs, Shodan exposure scoring, and Kaspersky CyberThreat Map correlated with live CVE/CVSS data.",
+      filename: "mother-defence-cyber-threat.jpg",
+    },
+    {
+      icon: <Cpu size={18} />,
+      title: "Intel Terminal",
+      description:
+        "Sovereign AI command interface running the sandboxed 7-billion-parameter MOTHER Defence LLM. Natural-language queries against live feeds; structured intelligence reports on demand.",
+      filename: "mother-defence-intel-terminal.jpg",
+    },
+    {
+      icon: <Database size={18} />,
+      title: "Data Fusion Engine",
+      description:
+        "Kafka-brokered multi-source ingest pipeline with 25+ real-time streams. Data normalisation, deduplication, cross-source correlation, and source confidence scoring.",
+      filename: "mother-defence-fusion-engine.jpg",
+    },
+    {
+      icon: <Layers size={18} />,
+      title: "Decision Support (HITL)",
+      description:
+        "Human-in-the-Loop action queue with AI-generated recommendations and confidence scores. Escalation chains, four-eyes verification, and full audit trail for critical actions.",
+      filename: "mother-defence-decision-support.jpg",
+    },
+    {
+      icon: <Globe size={18} />,
+      title: "Global Intel",
+      description:
+        "USGS seismic network (M2.5+), GDELT geopolitical event correlation, NOAA NWS weather warnings, FIRMS active fire data, and international disaster event tracking.",
+      filename: "mother-defence-global-intel.jpg",
+    },
+    {
+      icon: <Satellite size={18} />,
+      title: "Satellite Tracker",
+      description:
+        "CelesTrak TLE feeds for ISS, Starlink, NOAA, and classified orbital objects. Real-time polar plot, pass prediction, conjunction analysis, and orbital decay monitoring.",
+      filename: "mother-defence-satellite-tracker.jpg",
+    },
+    {
+      icon: <Monitor size={18} />,
+      title: "Live Feed",
+      description:
+        "GOES-16/18 full-disc satellite imagery, ISS HD stream, NOAA weather radar loops, and real-time GFS/ECMWF numerical weather model overlays.",
+      filename: "mother-defence-live-feed.jpg",
+    },
+    {
+      icon: <Video size={18} />,
+      title: "Global Video Wall",
+      description:
+        "49-channel HLS global news monitoring wall — BBC World, Sky News, CNN International, Al Jazeera, RT, CGTN, France 24, NHK World — with AI transcript tagging and entity extraction.",
+      filename: "mother-defence-video-wall.jpg",
+    },
+    {
+      icon: <Radio size={18} />,
+      title: "HF/VHF/UHF Radio Scanner",
+      description:
+        "WebSDR-backed global radio monitoring: aviation guard (121.5 MHz), marine distress (156.8 MHz), military comms bands, weather VOLMET, and emergency services frequencies.",
+      filename: "mother-defence-radio-scanner.jpg",
+    },
+    {
+      icon: <Search size={18} />,
+      title: "OSINT & Personnel Search",
+      description:
+        "Open-source intelligence engine: Shodan/Censys/ZoomEye asset discovery, Wayback Machine archive correlation, breach data integration, and social graph mapping.",
+      filename: "mother-defence-osint.jpg",
+    },
+    {
+      icon: <Wifi size={18} />,
+      title: "Urban ISR / JamCam",
+      description:
+        "921 TfL road camera feeds with AI vehicle and crowd density counting, anomaly detection, and event correlation. Extensible to broader CCTV network integrations.",
+      filename: "mother-defence-jamcam-isr.jpg",
+    },
+  ];
+
+  const fusionStats = [
+    { value: "25+",   label: "Live Data Sources" },
+    { value: "7B",    label: "Parameter Sovereign LLM" },
+    { value: "13",    label: "Capability Panels" },
+    { value: "49",    label: "Global News Streams" },
+    { value: "921",   label: "Urban ISR Feeds" },
+    { value: "100%",  label: "UK Sovereign Infrastructure" },
+  ];
+
+  /* ─── Existing content ──────────────────────────────────────────────── */
   const capabilities = [
     {
       title: "Air-Gapped Infrastructure",
       icon: <Lock size={32} className="text-blue-400" />,
-      description: "Completely isolated deployment at Durham facility with zero internet connectivity. Your classified workloads remain physically and logically separated from all other systems."
+      description:
+        "Completely isolated deployment at Durham facility with zero internet connectivity. Your classified workloads remain physically and logically separated from all other systems.",
     },
     {
       title: "UK Security Cleared Personnel",
       icon: <Shield size={32} className="text-blue-400" />,
-      description: "All personnel with access to government and defence infrastructure hold appropriate UK security clearances. No foreign nationals. No offshore support."
+      description:
+        "All personnel with access to government and defence infrastructure hold appropriate UK security clearances. No foreign nationals. No offshore support.",
     },
     {
       title: "MOD Engagement",
       icon: <Award size={32} className="text-blue-400" />,
-      description: "Active engagement with Ministry of Defence for classified AI workloads. We understand the unique requirements of defence and intelligence operations."
+      description:
+        "Active engagement with Ministry of Defence for classified AI workloads. We understand the unique requirements of defence and intelligence operations.",
     },
     {
       title: "Military Veteran Leadership",
       icon: <Users size={32} className="text-green-400" />,
-      description: "Founded and run by military veterans who understand operational security, chain of command, and the importance of mission success."
-    }
+      description:
+        "Founded and run by military veterans who understand operational security, chain of command, and the importance of mission success.",
+    },
   ];
 
   const useCases = [
@@ -36,8 +198,8 @@ export default function GovernmentDefencePage() {
         "Multi-source intelligence correlation",
         "Pattern recognition in signals intelligence",
         "Automated threat assessment",
-        "Real-time situation awareness"
-      ]
+        "Real-time situation awareness",
+      ],
     },
     {
       category: "Defence Operations",
@@ -46,8 +208,8 @@ export default function GovernmentDefencePage() {
         "Autonomous systems coordination",
         "Logistics optimization",
         "Supply chain security",
-        "Mission rehearsal and simulation"
-      ]
+        "Mission rehearsal and simulation",
+      ],
     },
     {
       category: "Cybersecurity",
@@ -56,8 +218,8 @@ export default function GovernmentDefencePage() {
         "Incident response automation",
         "Vulnerability assessment",
         "Security operations center (SOC) automation",
-        "Threat intelligence analysis"
-      ]
+        "Threat intelligence analysis",
+      ],
     },
     {
       category: "Government Services",
@@ -66,9 +228,9 @@ export default function GovernmentDefencePage() {
         "Policy document analysis",
         "Cross-department coordination",
         "Fraud detection and prevention",
-        "Emergency response coordination"
-      ]
-    }
+        "Emergency response coordination",
+      ],
+    },
   ];
 
   const securityFeatures = [
@@ -81,38 +243,42 @@ export default function GovernmentDefencePage() {
     "Compliance with UK Official Secrets Act",
     "STRAP classified workload capability",
     "Government Cloud certification",
-    "Cyber Essentials Plus certified"
+    "Cyber Essentials Plus certified",
   ];
 
   const differentiators = [
     {
       title: "Zero Foreign Dependencies",
-      description: "Unlike US hyperscalers, we have no US parent company and no CLOUD Act exposure. Your data never touches foreign legal jurisdictions."
+      description:
+        "Unlike US hyperscalers, we have no US parent company and no CLOUD Act exposure. Your data never touches foreign legal jurisdictions.",
     },
     {
       title: "100% UK Ownership",
-      description: "Media Stream AI is British-owned and operated. No foreign investors. No offshore subsidiaries. Complete UK control."
+      description:
+        "Media Stream AI is British-owned and operated. No foreign investors. No offshore subsidiaries. Complete UK control.",
     },
     {
       title: "Military Veteran Run",
-      description: "Our leadership team includes veterans who understand operational security, mission-critical systems, and the unique requirements of defence operations."
+      description:
+        "Our leadership team includes veterans who understand operational security, mission-critical systems, and the unique requirements of defence operations.",
     },
     {
       title: "Purpose-Built for Sovereignty",
-      description: "We didn't add sovereignty as an afterthought. Our entire infrastructure was designed from day one for UK/EU data residency and operational independence."
-    }
+      description:
+        "We didn't add sovereignty as an afterthought. Our entire infrastructure was designed from day one for UK/EU data residency and operational independence.",
+    },
   ];
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white py-12 md:py-16 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Hero */}
+
+        {/* ── Hero ─────────────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12 md:mb-16"
         >
-          {/* Badges */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12">
             <div className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-blue-600/20 border border-blue-400/40 rounded-full">
               <span className="text-sm font-semibold text-blue-300">Military Veteran Run</span>
@@ -125,14 +291,13 @@ export default function GovernmentDefencePage() {
             </div>
           </div>
 
-          {/* Large Two-Line Title - Fills Screen */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold leading-[1.1] mb-6 md:mb-8 px-4">
             <span className="block text-white">Government &</span>
             <span className="block text-blue-400">Defence AI</span>
           </h1>
 
           <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-4 px-4">
-            100% UK sovereign AI infrastructure for national security operations. 
+            100% UK sovereign AI infrastructure for national security operations.
             Air-gapped deployment with military veteran leadership.
           </p>
           <p className="text-sm sm:text-base md:text-lg text-white/60 max-w-2xl mx-auto px-4">
@@ -140,7 +305,101 @@ export default function GovernmentDefencePage() {
           </p>
         </motion.div>
 
-        {/* Core Capabilities */}
+        {/* ── MOTHER Defence Platform ───────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 md:mb-24"
+        >
+          {/* Section header */}
+          <div className="text-center mb-10 md:mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-600/15 border border-red-400/30 rounded-full mb-6">
+              <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+              <span className="text-sm font-mono font-semibold text-red-300 tracking-widest uppercase">
+                Live Platform
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">MOTHER Defence</h2>
+            <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
+              A fully sovereign, real-time multi-source intelligence platform running on UK
+              infrastructure. 13 integrated capability panels fused through a Kafka data pipeline
+              and commanded via a sandboxed 7-billion-parameter on-premises LLM.
+            </p>
+          </div>
+
+          {/* Overview dashboard image placeholder */}
+          <div className="mb-10">
+            <ImagePlaceholder
+              filename="mother-defence-overview.jpg"
+              label="MOTHER Defence — Full Dashboard Overview"
+            />
+            <p className="text-center text-xs text-white/30 font-mono mt-3">
+              Full MOTHER Defence multi-panel command interface · 1920 × 1080 px
+            </p>
+          </div>
+
+          {/* Fusion stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+            {fusionStats.map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-black/40 border border-white/10 rounded-xl p-4 text-center"
+              >
+                <div className="text-2xl md:text-3xl font-extrabold text-blue-400 mb-1">{stat.value}</div>
+                <div className="text-xs text-white/50 leading-tight">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 13 capability panels */}
+          <div className="mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 text-center">
+              13 Integrated Capability Panels
+            </h3>
+            <p className="text-white/50 text-center text-sm mb-8">
+              Each panel streams live data and feeds the sovereign AI decision layer
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {motherDefencePanels.map((panel, i) => (
+                <CapabilityCard
+                  key={i}
+                  icon={panel.icon}
+                  title={panel.title}
+                  description={panel.description}
+                  filename={panel.filename}
+                  delay={i * 0.04}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Sovereign LLM note */}
+          <div className="bg-gradient-to-br from-blue-600/10 to-blue-900/10 border border-blue-400/20 rounded-2xl p-6 md:p-8">
+            <div className="flex items-start gap-4">
+              <Cpu size={28} className="text-blue-400 flex-shrink-0 mt-1" />
+              <div>
+                <h4 className="text-lg font-bold text-white mb-2">
+                  Sandboxed Sovereign LLM — 7 Billion Parameters
+                </h4>
+                <p className="text-white/60 text-sm md:text-base leading-relaxed">
+                  The MOTHER Defence Intel Terminal runs a fully sandboxed, on-premises
+                  7-billion-parameter large language model with no internet connectivity.
+                  All inference occurs on UK sovereign hardware within our Durham air-gapped
+                  facility. The model is fine-tuned for structured threat assessment, SIGINT
+                  triage, and mission-brief generation. No prompt data leaves the facility
+                  perimeter.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Core Capabilities ─────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -150,7 +409,6 @@ export default function GovernmentDefencePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-8 md:mb-12 text-center">
             Core Capabilities
           </h2>
-
           <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
             {capabilities.map((capability, i) => (
               <motion.div
@@ -169,7 +427,7 @@ export default function GovernmentDefencePage() {
           </div>
         </motion.div>
 
-        {/* Use Cases */}
+        {/* ── Use Cases ──────────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -179,7 +437,6 @@ export default function GovernmentDefencePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-8 md:mb-12 text-center">
             Government & Defence Use Cases
           </h2>
-
           <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
             {useCases.map((useCase, i) => (
               <div key={i} className="p-6 md:p-8 bg-black/40 border border-white/10 rounded-2xl">
@@ -197,7 +454,7 @@ export default function GovernmentDefencePage() {
           </div>
         </motion.div>
 
-        {/* Security Features */}
+        {/* ── Security Features ──────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -207,7 +464,6 @@ export default function GovernmentDefencePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-8 md:mb-12 text-center">
             Security Features & Certifications
           </h2>
-
           <div className="bg-gradient-to-br from-blue-600/20 to-blue-900/20 border border-blue-400/30 rounded-2xl p-6 md:p-8">
             <div className="grid sm:grid-cols-2 gap-4">
               {securityFeatures.map((feature, i) => (
@@ -220,7 +476,7 @@ export default function GovernmentDefencePage() {
           </div>
         </motion.div>
 
-        {/* Why We're Different */}
+        {/* ── Why We're Different ────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -230,7 +486,6 @@ export default function GovernmentDefencePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-8 md:mb-12 text-center">
             Why Government & Defence Choose Us
           </h2>
-
           <div className="space-y-6 md:space-y-8">
             {differentiators.map((diff, i) => (
               <div key={i} className="p-6 md:p-8 bg-black/40 border border-white/10 rounded-2xl">
@@ -241,7 +496,7 @@ export default function GovernmentDefencePage() {
           </div>
         </motion.div>
 
-        {/* Warning Box */}
+        {/* ── CLOUD Act Warning ──────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -256,20 +511,22 @@ export default function GovernmentDefencePage() {
                   CLOUD Act Exposure: A Critical Risk
                 </h3>
                 <p className="text-sm md:text-base text-white/80 mb-4">
-                  US hyperscalers (AWS, Azure, Google Cloud) are all subject to the 
-                  CLOUD Act, which compels them to provide US government agencies with access 
-                  to data stored anywhere in the world, including UK and EU data centers.
+                  US hyperscalers (AWS, Azure, Google Cloud) are all subject to the CLOUD Act,
+                  which compels them to provide US government agencies with access to data stored
+                  anywhere in the world, including UK and EU data centers.
                 </p>
                 <p className="text-sm md:text-base text-white/80">
-                  <strong className="text-white">Media Stream AI is UK-owned with zero US parent exposure.</strong> Your 
-                  classified data remains under UK jurisdiction and UK law exclusively.
+                  <strong className="text-white">
+                    Media Stream AI is UK-owned with zero US parent exposure.
+                  </strong>{" "}
+                  Your classified data remains under UK jurisdiction and UK law exclusively.
                 </p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Durham Facility */}
+        {/* ── Durham Facility ────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -284,30 +541,19 @@ export default function GovernmentDefencePage() {
               <div>
                 <h3 className="text-xl md:text-2xl font-bold text-white mb-4">Location: Durham, UK</h3>
                 <ul className="space-y-3 text-sm md:text-base text-white/80">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span>Completely isolated from public internet</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span>NVIDIA B200 supercomputing clusters</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span>UK security-cleared personnel only</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span>Physical access controls with biometrics</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span>Faraday cage EMI/RF shielding</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span>Dedicated power with military-grade UPS</span>
-                  </li>
+                  {[
+                    "Completely isolated from public internet",
+                    "NVIDIA B200 supercomputing clusters",
+                    "UK security-cleared personnel only",
+                    "Physical access controls with biometrics",
+                    "Faraday cage EMI/RF shielding",
+                    "Dedicated power with military-grade UPS",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <CheckCircle size={16} className="text-green-400 flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="bg-gradient-to-br from-blue-600/20 to-blue-900/20 rounded-lg p-8 flex items-center justify-center border border-blue-400/30">
@@ -321,7 +567,7 @@ export default function GovernmentDefencePage() {
           </div>
         </motion.div>
 
-        {/* CTA */}
+        {/* ── CTA ──────────────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -330,7 +576,8 @@ export default function GovernmentDefencePage() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Request Classified Briefing</h2>
           <p className="text-lg md:text-xl text-white/80 mb-4 max-w-2xl mx-auto px-4">
-            Discuss your sovereign AI requirements with our military veteran leadership team.
+            Discuss MOTHER Defence and your sovereign AI requirements with our military veteran
+            leadership team.
           </p>
           <p className="text-sm md:text-base text-white/60 mb-8 max-w-xl mx-auto px-4">
             All briefings conducted on UK sovereign territory with appropriate security protocols.
@@ -348,6 +595,7 @@ export default function GovernmentDefencePage() {
             </Link>
           </div>
         </motion.div>
+
       </div>
     </main>
   );
