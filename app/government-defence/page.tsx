@@ -8,12 +8,38 @@ import {
   Eye, Map, Layers, Wifi, Search, Video
 } from "lucide-react";
 
+/* ─── Available defence images ───────────────────────────────────────────── */
+const DEFENCE_IMAGES = new Set([
+  "mother-defence-decision-support.jpg",
+  "mother-defence-fusion-engine.jpg",
+  "mother-defence-global-intel.jpg",
+  "mother-defence-intel-terminal.jpg",
+  "mother-defence-osint.jpg",
+  "mother-defence-overview.jpg",
+  "mother-defence-radio-scanner.jpg",
+  "mother-defence-satellite-tracker.jpg",
+  "mother-defence-sovereign-watch.jpg",
+  "mother-defence-video-wall.jpg",
+]);
+
 /* ─── Image Placeholder ──────────────────────────────────────────────────── */
 function ImagePlaceholder({
   filename, label, aspect = "aspect-video"
 }: {
   filename: string; label: string; aspect?: string;
 }) {
+  if (DEFENCE_IMAGES.has(filename)) {
+    return (
+      <div className={`${aspect} relative overflow-hidden rounded-xl`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/images/${filename}`}
+          alt={label}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
   return (
     <div
       className={`${aspect} bg-gradient-to-br from-blue-900/10 to-black/60 border border-blue-400/20 rounded-xl flex flex-col items-center justify-center gap-3 relative overflow-hidden`}
