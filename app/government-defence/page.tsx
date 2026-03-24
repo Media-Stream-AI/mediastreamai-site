@@ -180,10 +180,10 @@ export default function GovernmentDefencePage() {
   ];
 
   const fusionStats = [
-    { value: "25+",   label: "Live Data Sources" },
+    { value: "25k+",   label: "Live Data Sources" },
     { value: "7B",    label: "Parameter Sovereign LLM" },
-    { value: "13",    label: "Capability Panels" },
-    { value: "49",    label: "Global News Streams" },
+    { value: "13+",    label: "Capability Panels" },
+    { value: "490",    label: "Global News Streams" },
     { value: "921",   label: "Urban ISR Feeds" },
     { value: "100%",  label: "UK Sovereign Infrastructure" },
   ];
@@ -200,13 +200,13 @@ export default function GovernmentDefencePage() {
       title: "UK Security Cleared Personnel",
       icon: <Shield size={32} className="text-blue-400" />,
       description:
-        "All personnel with access to government and defence infrastructure hold appropriate UK security clearances. No foreign nationals. No offshore support.",
+        "All personnel with access to government and defence infrastructure hold appropriate UK SC security clearances.",
     },
     {
-      title: "MOD Engagement",
+      title: "Security Engagement",
       icon: <Award size={32} className="text-blue-400" />,
       description:
-        "Active engagement with Ministry of Defence for classified AI workloads. We understand the unique requirements of defence and intelligence operations.",
+        "Active engagement with Security providers for classified & unclassified AI workloads. We understand the unique requirements of defence and intelligence operations.",
     },
     {
       title: "Military Veteran Leadership",
@@ -263,21 +263,15 @@ export default function GovernmentDefencePage() {
     "Physical access controls with biometric authentication",
     "Faraday cage EMI/RF shielding",
     "Dedicated power supply with UPS backup",
-    "UK security-cleared operations team only",
-    "No remote access - on-premises only",
+    "UK security-cleared operations team",
+    "No unvetted remote access - on-premises only",
     "Complete audit trail and logging",
-    "Compliance with UK Official Secrets Act",
+    "Compliance with all security & ISO Requirements",
     "STRAP classified workload capability",
-    "Government Cloud certification",
     "Cyber Essentials Plus certified",
   ];
 
   const differentiators = [
-    {
-      title: "Zero Foreign Dependencies",
-      description:
-        "Unlike US hyperscalers, we have no US parent company and no CLOUD Act exposure. Your data never touches foreign legal jurisdictions.",
-    },
     {
       title: "100% UK Ownership",
       description:
