@@ -88,7 +88,7 @@ export default function DataCentrePage() {
         'Regional tech ecosystem growth',
         'German AI industry collaboration'
       ],
-      highlight: 'EU Sovereign'
+      highlight: 'Coming 2027'
     },
     {
       id: 'marseille',
@@ -116,7 +116,7 @@ export default function DataCentrePage() {
         'French tech ecosystem collaboration',
         'Regional AI advancement'
       ],
-      highlight: 'DORA Compliant'
+      highlight: 'Coming 2027'
     }
   ];
 
