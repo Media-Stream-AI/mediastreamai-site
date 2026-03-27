@@ -239,7 +239,7 @@ export default function PartnershipsPage() {
           className="mb-20"
         >
           <h2 className="text-4xl font-bold text-blue-400 mb-12 text-center">
-            Partnership Impact
+            Target Partnership Impacts by 2027
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
