@@ -47,17 +47,17 @@ export default function PartnershipsPage() {
           <text x="100" y="192" textAnchor="middle" fill="white" fontSize="11">AI INNOVATOR</text>
         </svg>
       ),
-      description: "Partner in Lenovo's AI Innovator Program, leveraging Lenovo Neptune liquid cooling technology for sustainable AI infrastructure.",
+      description: "A Lenovo AI Innovator partner, collaborating to co-develop, validate, and bring AI solutions to market through a global ecosystem.",
       benefits: [
-        "Lenovo Neptune liquid cooling integration",
-        "Sustainable infrastructure design expertise",
-        "Access to Lenovo's data center innovation",
-        "Joint development of canal cooling technology",
-        "Hardware optimization for AI workloads",
-        "Global best practices in thermal management"
+        "End-to-end technical collaboration with Lenovo AI experts",
+        "Direct access to Lenovo AI Discover Lab and cutting-edge AI infrastructure",
+        "Leverage expert support for testing, benchmarking, and full-stack validation",
+        "Accelerated time-to-market through pre-validated architectures",
+        "Joint go-to-market opportunities via Lenovo's global channel ecosystem",
+        "Greater scale and reach through access to Lenovo's worldwide customer base"
       ],
-      significance: "Lenovo's Neptune cooling technology is central to our canal-cooled infrastructure innovation. This partnership enables the 40% energy reduction and waste heat recovery powering our vertical farms.",
-      website: "https://www.lenovo.com/",
+      significance: "This partnership enables MediaStreamAI to bring its AI solutions and data centre infrastructure online faster and more efficiently, accelerating deployment while optimising performance at scale.",
+      website: "https://www.lenovo.com/gb/en/servers-storage/alliance/ai-innovators/",
       color: 'red'
     }
   ];
