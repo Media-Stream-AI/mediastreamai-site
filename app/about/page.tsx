@@ -19,7 +19,7 @@ export default function AboutPage() {
     {
       year: "2024",
       title: "Multi-DC Expansion Complete",
-      description: "Operational across 5 data centers (Manchester, Liverpool, Durham, Düsseldorf, Marseille) with 100% UK/EU sovereignty."
+      description: "Operational across sovereign data centers (Manchester, Dundee, Düsseldorf, Marseille) with 100% UK/EU sovereignty."
     },
     {
       year: "2023",
@@ -47,7 +47,7 @@ export default function AboutPage() {
     {
       icon: <Heart size={32} className="text-red-400" />,
       title: "Social Impact",
-      description: "405+ jobs created, 24K meals/month to food banks, vertical farms powered by waste heat. AI that serves communities."
+      description: "Growing jobs ecosystem, targeting 24K+ meals/month to food banks by 2027, vertical farms powered by waste heat. AI that serves communities."
     },
     {
       icon: <Target size={32} className="text-blue-400" />,
@@ -71,7 +71,7 @@ export default function AboutPage() {
     },
     {
       title: "Canal Cooling Innovation",
-      description: "Proprietary sustainable cooling reduces energy by 40%, powers vertical farms, and feeds 24,000 meals/month to food banks. No other provider matches this ESG impact."
+      description: "Proprietary sustainable cooling reduces energy consumption, powers vertical farms, and targets 24,000 meals/month to food banks by 2027. A genuine ESG-first infrastructure model."
     },
     {
       title: "40-60% Cost Savings",
@@ -121,8 +121,8 @@ export default function AboutPage() {
               <span className="text-white">Who We Are</span>
             </h1>
             <p className="text-xl md:text-2xl text-white/70 max-w-4xl mx-auto">
-              The UK's first military veteran-run, ethnic minority-led sovereign AI infrastructure company. 
-              Delivering proven results for BBC, ITV, and Channel 4 while creating 405+ regional jobs.
+              The UK's first military veteran-run, ethnic minority-led sovereign AI infrastructure company.
+              Delivering proven results for BBC, ITV, and Channel 4 while building a growing jobs ecosystem.
             </p>
           </motion.div>
         </div>
@@ -160,9 +160,9 @@ export default function AboutPage() {
 
               <p>
                 From day one, we've prioritized <strong className="text-white">measurable social impact</strong>. 
-                Our canal-cooled data centers don't just reduce energy—they power vertical farms growing fresh 
-                produce for food banks. We've created 405+ regional tech jobs. We feed 24,000 meals/month to 
-                communities. <strong className="text-green-300">This is AI infrastructure with purpose.</strong>
+                Our canal-cooled data centers don't just reduce energy—they power vertical farms growing fresh
+                produce for food banks. We're building a growing jobs ecosystem across our regions and targeting
+                24,000 meals/month to communities by 2027. <strong className="text-green-300">This is AI infrastructure with purpose.</strong>
               </p>
 
               <p>
@@ -365,18 +365,18 @@ export default function AboutPage() {
             <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
               <Users size={48} className="text-blue-400 mx-auto mb-4" />
               <div className="text-5xl font-bold text-blue-400 mb-2">405+</div>
-              <div className="text-xl text-white/70 mb-2">Regional Jobs Created</div>
+              <div className="text-xl text-white/70 mb-2">Jobs Ecosystem</div>
               <p className="text-sm text-white/60">
-                Manchester, Liverpool, Durham, Düsseldorf, Marseille tech positions
+                Manchester, Dundee, Düsseldorf, Marseille tech positions
               </p>
             </div>
 
             <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
               <Heart size={48} className="text-green-400 mx-auto mb-4" />
               <div className="text-5xl font-bold text-green-400 mb-2">24,000+</div>
-              <div className="text-xl text-white/70 mb-2">Meals Per Month</div>
+              <div className="text-xl text-white/70 mb-2">Target Meals Per Month</div>
               <p className="text-sm text-white/60">
-                Fresh produce from waste heat-powered vertical farms to food banks
+                2027 target — fresh produce from waste heat-powered vertical farms to food banks
               </p>
             </div>
 

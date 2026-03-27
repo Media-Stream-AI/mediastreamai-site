@@ -47,17 +47,17 @@ export default function PartnershipsPage() {
           <text x="100" y="192" textAnchor="middle" fill="white" fontSize="11">AI INNOVATOR</text>
         </svg>
       ),
-      description: "Partner in Lenovo's AI Innovator Program, leveraging Lenovo Neptune liquid cooling technology for sustainable AI infrastructure.",
+      description: "A Lenovo AI Innovator partner, collaborating to co-develop, validate, and bring AI solutions to market through a global ecosystem.",
       benefits: [
-        "Lenovo Neptune liquid cooling integration",
-        "Sustainable infrastructure design expertise",
-        "Access to Lenovo's data center innovation",
-        "Joint development of canal cooling technology",
-        "Hardware optimization for AI workloads",
-        "Global best practices in thermal management"
+        "End-to-end technical collaboration with Lenovo AI experts",
+        "Direct access to Lenovo AI Discover Lab and cutting-edge AI infrastructure",
+        "Leverage expert support for testing, benchmarking, and full-stack validation",
+        "Accelerated time-to-market through pre-validated architectures",
+        "Joint go-to-market opportunities via Lenovo's global channel ecosystem",
+        "Greater scale and reach through access to Lenovo's worldwide customer base"
       ],
-      significance: "Lenovo's Neptune cooling technology is central to our canal-cooled infrastructure innovation. This partnership enables the 40% energy reduction and waste heat recovery powering our vertical farms.",
-      website: "https://www.lenovo.com/",
+      significance: "This partnership enables MediaStreamAI to bring its AI solutions and data centre infrastructure online faster and more efficiently, accelerating deployment while optimising performance at scale.",
+      website: "https://www.lenovo.com/gb/en/servers-storage/alliance/ai-innovators/",
       color: 'red'
     }
   ];
@@ -66,15 +66,15 @@ export default function PartnershipsPage() {
     {
       category: "Sustainability Partners",
       partners: [
-        { name: "Local Food Banks", description: "3 food bank partnerships receiving 24,000+ meals/month from vertical farm produce" },
-        { name: "Vertical Farm Operators", description: "Waste heat powers commercial vertical farms across all 5 data centers" },
-        { name: "Community Heating Programs", description: "ORC heat recovery provides heating for 200+ homes in Liverpool" }
+        { name: "Local Food Banks", description: "Food bank partnerships targeting 24,000+ meals/month from vertical farm produce by 2027" },
+        { name: "Vertical Farm Operators", description: "Waste heat powers commercial vertical farms across UK/EU data centres" },
+        { name: "Community Heating Programs", description: "ORC heat recovery targeting heat distribution for local communities" }
       ]
     },
     {
       category: "Academic Partners",
       partners: [
-        { name: "Durham University", description: "Research collaboration on AI and sustainable computing" },
+        { name: "University of Dundee", description: "Research collaboration on AI and sustainable computing" },
         { name: "UK Research Institutions", description: "Providing sovereign compute for academic AI research" }
       ]
     },
@@ -239,20 +239,20 @@ export default function PartnershipsPage() {
           className="mb-20"
         >
           <h2 className="text-4xl font-bold text-blue-400 mb-12 text-center">
-            Partnership Impact
+            Target Partnership Impacts by 2027
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-black/40 border border-white/10 p-8 rounded-2xl text-center">
               <div className="text-5xl font-bold text-green-400 mb-2">405+</div>
-              <div className="text-xl text-white/70 mb-2">Regional Jobs Created</div>
-              <p className="text-sm text-white/60">Across 5 UK/EU data centers</p>
+              <div className="text-xl text-white/70 mb-2">Jobs Ecosystem</div>
+              <p className="text-sm text-white/60">Across UK/EU data centres</p>
             </div>
 
             <div className="bg-black/40 border border-white/10 p-8 rounded-2xl text-center">
               <div className="text-5xl font-bold text-green-400 mb-2">24,000+</div>
-              <div className="text-xl text-white/70 mb-2">Meals Per Month</div>
-              <p className="text-sm text-white/60">From waste heat vertical farms</p>
+              <div className="text-xl text-white/70 mb-2">Target Meals Per Month</div>
+              <p className="text-sm text-white/60">2027 target — from waste heat vertical farms</p>
             </div>
 
             <div className="bg-black/40 border border-white/10 p-8 rounded-2xl text-center">

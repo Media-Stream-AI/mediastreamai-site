@@ -309,7 +309,7 @@ export default function OpenApiPage() {
             {[
               { icon: Zap, label: "Sub-100ms TTFT", sub: "Quantum-accelerated retrieval" },
               { icon: Shield, label: "Zero CLOUD Act", sub: "UK & EU data residency" },
-              { icon: Globe, label: "5 Data Centres", sub: "Manchester · Liverpool · Durham · EU" },
+              { icon: Globe, label: "UK/EU Data Centres", sub: "Manchester · Dundee · Düsseldorf · Marseille" },
               { icon: Lock, label: "Air-Gap Option", sub: "On-premise enterprise deploy" },
             ].map((s, i) => (
               <motion.div

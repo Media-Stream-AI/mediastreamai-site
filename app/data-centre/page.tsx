@@ -12,6 +12,7 @@ export default function DataCentrePage() {
       city: 'Manchester',
       country: 'United Kingdom',
       type: 'Primary UK AI Hub',
+      highlight: 'Opening May 2026',
       specs: [
         'NVIDIA H200 8x GPU Nodes',
         'NVIDIA B200 High-Performance Clusters',
@@ -23,7 +24,7 @@ export default function DataCentrePage() {
       ],
       sustainability: [
         'Waste heat powers vertical farms',
-        '10,000+ meals/month to local food banks',
+        'Targeting 10,000+ meals/month to local food banks by 2027',
         'Canal cooling reduces energy by 40%',
         'Carbon neutral operations'
       ],
@@ -34,37 +35,10 @@ export default function DataCentrePage() {
       ]
     },
     {
-      id: 'liverpool',
+      id: 'dundee',
       flag: '🇬🇧',
-      city: 'Liverpool',
-      country: 'United Kingdom',
-      type: 'Secondary UK Operations',
-      specs: [
-        'NVIDIA B200 Supercomputing',
-        'SambaNova Inference Acceleration',
-        'Disaster Recovery & Failover',
-        'ISO 27001 Certified',
-        'Geographic redundancy with Manchester',
-        '<45ms response latency',
-        '99.99% uptime SLA'
-      ],
-      sustainability: [
-        'Waste heat to community heating',
-        '8,000+ meals/month to food banks',
-        'Renewable energy powered',
-        'Water recycling system'
-      ],
-      impact: [
-        '85+ tech jobs created',
-        'Community heating for 200 homes',
-        'Local supplier partnerships'
-      ]
-    },
-    {
-      id: 'durham',
-      flag: '🇬🇧',
-      city: 'Durham',
-      country: 'United Kingdom',
+      city: 'Dundee',
+      country: 'Scotland',
       type: 'Government & Research Hub',
       specs: [
         'Air-gapped deployment options',
@@ -77,8 +51,8 @@ export default function DataCentrePage() {
       ],
       sustainability: [
         'Vertical farm partnership',
-        '6,000+ meals/month to food banks',
-        'Research collaboration with Durham University',
+        'Targeting 6,000+ meals/month to food banks by 2027',
+        'Research collaboration with University of Dundee',
         'Zero carbon footprint'
       ],
       impact: [
@@ -114,7 +88,7 @@ export default function DataCentrePage() {
         'Regional tech ecosystem growth',
         'German AI industry collaboration'
       ],
-      highlight: 'EU Sovereign'
+      highlight: 'Coming 2027'
     },
     {
       id: 'marseille',
@@ -142,15 +116,15 @@ export default function DataCentrePage() {
         'French tech ecosystem collaboration',
         'Regional AI advancement'
       ],
-      highlight: 'DORA Compliant'
+      highlight: 'Coming 2027'
     }
   ];
 
   const globalStats = [
-    { label: 'Data Centers', value: '5', icon: <MapPin className="w-6 h-6" /> },
-    { label: 'GPU Nodes', value: '200+', icon: <Server className="w-6 h-6" /> },
-    { label: 'Jobs Created', value: '405+', icon: <Users className="w-6 h-6" /> },
-    { label: 'Meals to Food Banks', value: '24K+/month', icon: <Leaf className="w-6 h-6" /> },
+    { label: 'Sq Ft of Compute', value: '200,000+', icon: <MapPin className="w-6 h-6" /> },
+    { label: 'GPU Nodes', value: '1,300+', icon: <Server className="w-6 h-6" /> },
+    { label: 'Jobs Ecosystem', value: '405+', icon: <Users className="w-6 h-6" /> },
+    { label: 'Target Meals to Food Banks', value: '24K+/Month', icon: <Leaf className="w-6 h-6" /> },
   ];
 
   const certifications = [
@@ -194,7 +168,7 @@ export default function DataCentrePage() {
             UK & EU Sovereign Infrastructure
           </h1>
           <p className="text-center text-white/70 text-base sm:text-lg md:text-xl mb-8 md:mb-12 max-w-3xl mx-auto px-4">
-            Five data centers delivering complete data residency, GDPR compliance, and sustainable regional impact
+            UK &amp; EU sovereign data centres delivering complete data residency, GDPR compliance, and sustainable regional impact
           </p>
 
           {/* Stats */}

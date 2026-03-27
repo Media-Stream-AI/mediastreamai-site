@@ -101,7 +101,7 @@ export default function SectorsPage() {
         'Fraud detection and compliance monitoring',
         'Data-driven resource allocation'
       ],
-      gpuOption: 'Air-gapped B200 clusters at Durham facility',
+      gpuOption: 'Air-gapped B200 clusters at Dundee, Scotland facility',
       agentOption: 'MOTHER AI agents with full audit trails and cross-department coordination',
       clients: 'Government departments',
       implementationTime: '12-16 weeks (security clearance)',

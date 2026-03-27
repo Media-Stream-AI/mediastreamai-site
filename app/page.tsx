@@ -761,7 +761,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
             { stat: "8×", label: "H200 GPUs" },
-            { stat: "5", label: "EU Data Centres" },
+            { stat: "4+", label: "UK/EU Data Centres" },
             { stat: "70B", label: "Parameters" },
             { stat: "0", label: "US Dependencies" },
           ].map((s, i) => (
