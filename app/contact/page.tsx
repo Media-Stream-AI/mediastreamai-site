@@ -355,12 +355,8 @@ export default function ContactPage() {
                   <p className="text-sm">United Kingdom</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-white">Liverpool</p>
-                  <p className="text-sm">United Kingdom</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">Durham</p>
-                  <p className="text-sm">United Kingdom</p>
+                  <p className="font-semibold text-white">Dundee</p>
+                  <p className="text-sm">Scotland, United Kingdom</p>
                 </div>
                 <div>
                   <p className="font-semibold text-white">Düsseldorf</p>

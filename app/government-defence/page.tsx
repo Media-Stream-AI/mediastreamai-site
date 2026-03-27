@@ -194,7 +194,7 @@ export default function GovernmentDefencePage() {
       title: "Air-Gapped Infrastructure",
       icon: <Lock size={32} className="text-blue-400" />,
       description:
-        "Completely isolated deployment at Durham facility with zero internet connectivity. Your classified workloads remain physically and logically separated from all other systems.",
+        "Completely isolated deployment at Dundee, Scotland facility with zero internet connectivity. Your classified workloads remain physically and logically separated from all other systems.",
     },
     {
       title: "UK Security Cleared Personnel",
@@ -409,7 +409,7 @@ export default function GovernmentDefencePage() {
                 <p className="text-white/60 text-sm md:text-base leading-relaxed">
                   The MOTHER Defence Intel Terminal runs a fully sandboxed, on-premises
                   7-billion-parameter large language model with no internet connectivity.
-                  All inference occurs on UK sovereign hardware within our Durham air-gapped
+                  All inference occurs on UK sovereign hardware within our Dundee, Scotland air-gapped
                   facility. The model is fine-tuned for structured threat assessment, SIGINT
                   triage, and mission-brief generation. No prompt data leaves the facility
                   perimeter.
@@ -546,7 +546,7 @@ export default function GovernmentDefencePage() {
           </div>
         </motion.div>
 
-        {/* ── Durham Facility ────────────────────────────────────────────── */}
+        {/* ── Dundee Air-Gapped Facility ─────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -554,12 +554,12 @@ export default function GovernmentDefencePage() {
           className="mb-16 md:mb-20"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-8 text-center">
-            Durham Air-Gapped Facility
+            Dundee, Scotland Air-Gapped Facility
           </h2>
           <div className="bg-black/40 border border-white/10 rounded-2xl p-6 md:p-8">
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               <div>
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-4">Location: Durham, UK</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-4">Location: Dundee, Scotland</h3>
                 <ul className="space-y-3 text-sm md:text-base text-white/80">
                   {[
                     "Completely isolated from public internet",
@@ -579,7 +579,7 @@ export default function GovernmentDefencePage() {
               <div className="bg-gradient-to-br from-blue-600/20 to-blue-900/20 rounded-lg p-8 flex items-center justify-center border border-blue-400/30">
                 <div className="text-center">
                   <Shield size={80} className="text-blue-400 mx-auto mb-4" />
-                  <p className="text-white/60 text-sm">Durham Air-Gapped Facility</p>
+                  <p className="text-white/60 text-sm">Dundee, Scotland Air-Gapped Facility</p>
                   <p className="text-white/40 text-xs mt-2">100% Isolated Infrastructure</p>
                 </div>
               </div>
@@ -608,9 +608,9 @@ export default function GovernmentDefencePage() {
                 Contact Government Sales
               </button>
             </Link>
-            <Link href="/data-centre#durham" className="w-full sm:w-auto">
+            <Link href="/data-centre#dundee" className="w-full sm:w-auto">
               <button className="w-full px-6 md:px-8 py-3 md:py-4 border border-blue-400 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold text-base md:text-lg transition-colors">
-                View Durham Facility
+                View Dundee Facility
               </button>
             </Link>
           </div>

@@ -24,7 +24,7 @@ export default function DataCentrePage() {
       ],
       sustainability: [
         'Waste heat powers vertical farms',
-        '10,000+ meals/month to local food banks',
+        'Targeting 10,000+ meals/month to local food banks by 2027',
         'Canal cooling reduces energy by 40%',
         'Carbon neutral operations'
       ],
@@ -51,7 +51,7 @@ export default function DataCentrePage() {
       ],
       sustainability: [
         'Vertical farm partnership',
-        '6,000+ meals/month to food banks',
+        'Targeting 6,000+ meals/month to food banks by 2027',
         'Research collaboration with University of Dundee',
         'Zero carbon footprint'
       ],
@@ -168,7 +168,7 @@ export default function DataCentrePage() {
             UK & EU Sovereign Infrastructure
           </h1>
           <p className="text-center text-white/70 text-base sm:text-lg md:text-xl mb-8 md:mb-12 max-w-3xl mx-auto px-4">
-            Five data centers delivering complete data residency, GDPR compliance, and sustainable regional impact
+            UK &amp; EU sovereign data centres delivering complete data residency, GDPR compliance, and sustainable regional impact
           </p>
 
           {/* Stats */}
