@@ -1,38 +1,13 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Media Stream AI  —  MOTHER AI Launch Countdown + Beta Signup
-   Target: 9 AM GMT, 1st April 2026
+   MOTHER AI  —  MOTHER CORE V.2 Released + Beta Signup
 ────────────────────────────────────────────────────────────────────────── */
 
-const LAUNCH_DATE = new Date("2026-04-01T09:00:00Z");
-
-interface TimeLeft {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
-
-function calcTimeLeft(): TimeLeft | null {
-  const diff = LAUNCH_DATE.getTime() - Date.now();
-  if (diff <= 0) return null;
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
-  };
-}
-
-function pad(n: number) {
-  return String(n).padStart(2, "0");
-}
-
 export default function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
   const [minimised, setMinimised] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
@@ -44,10 +19,7 @@ export default function CountdownTimer() {
   const [signupError, setSignupError] = useState("");
 
   useEffect(() => {
-    setTimeLeft(calcTimeLeft());
     setMounted(true);
-    const id = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
-    return () => clearInterval(id);
   }, []);
 
   const toggle = useCallback(() => setMinimised((v) => !v), []);
@@ -79,22 +51,21 @@ export default function CountdownTimer() {
     }
   };
 
-  // Don't render on server or after launch
-  if (!mounted || !timeLeft) return null;
+  if (!mounted) return null;
 
   /* ── Minimised pill ── */
   if (minimised) {
     return (
       <button
         onClick={toggle}
-        className="fixed bottom-4 right-4 z-[999] flex items-center gap-2
+        className="countdown-pill fixed bottom-4 right-4 z-[999] flex items-center gap-2
                    rounded-full border border-cyan-400/30 bg-black/70 px-4 py-2.5 sm:px-4 sm:py-2
                    text-xs font-mono text-cyan-300 backdrop-blur-xl
                    shadow-[0_0_24px_rgba(0,174,255,0.2)] hover:bg-black/90 hover:shadow-[0_0_32px_rgba(0,174,255,0.3)]
                    transition-all duration-300 active:scale-95"
       >
-        <span className="inline-block h-2 w-2 rounded-full bg-cyan-400" />
-        <span>{pad(timeLeft.days)}d {pad(timeLeft.hours)}h {pad(timeLeft.minutes)}m</span>
+        <span className="countdown-dot inline-block h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+        <span>MOTHER CORE V.2 — Released!</span>
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="ml-1 opacity-50">
           <path d="M1 4 L5 8 L9 4" />
         </svg>
@@ -104,9 +75,9 @@ export default function CountdownTimer() {
 
   /* ── Full overlay ── */
   return (
-    <div className="pointer-events-none fixed inset-0 z-[998] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div className="countdown-overlay pointer-events-none fixed inset-0 z-[998] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       <div
-        className="pointer-events-auto relative flex flex-col items-center
+        className="pointer-events-auto countdown-card relative flex flex-col items-center
                     rounded-3xl border border-cyan-400/20 bg-black/60 backdrop-blur-2xl
                     px-6 py-8 sm:px-14 sm:py-12 mx-auto w-full max-w-[92vw] sm:max-w-lg
                     shadow-[0_0_80px_rgba(0,174,255,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]
@@ -115,7 +86,7 @@ export default function CountdownTimer() {
         {/* Minimise button */}
         <button
           onClick={toggle}
-          aria-label="Minimise countdown"
+          aria-label="Minimise overlay"
           className="absolute right-3 top-3 sm:right-4 sm:top-4 flex items-center gap-1.5
                      rounded-full px-3 py-1.5 sm:px-2.5 sm:py-1.5
                      bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/10
@@ -127,39 +98,51 @@ export default function CountdownTimer() {
           <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wider">Hide</span>
         </button>
 
-        {/* Orbital ring decorations */}
-        <div className="absolute -inset-6 sm:-inset-8 rounded-full border border-cyan-500/10 pointer-events-none" />
-        <div className="absolute -inset-3 sm:-inset-4 rounded-full border border-cyan-400/5 pointer-events-none" />
+        {/* Orbital ring decoration */}
+        <div className="countdown-ring absolute -inset-6 sm:-inset-8 rounded-full border border-cyan-500/10 pointer-events-none" />
+        <div className="countdown-ring-inner absolute -inset-3 sm:-inset-4 rounded-full border border-cyan-400/5 pointer-events-none" />
 
         {/* Title */}
         <div className="flex flex-col items-center gap-1.5 mb-6 sm:mb-8">
-          <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10
-                           px-4 py-1 text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-cyan-300">
-            Official Launch
+          <span className="countdown-badge inline-block rounded-full border border-green-500/30 bg-green-500/10
+                           px-4 py-1 text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-green-300">
+            Now Released!
           </span>
-          <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            MOTHER <span className="text-cyan-400">AI</span>
+          <h2 className="countdown-title mt-2 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+            MOTHER CORE <span className="text-cyan-400">V.2</span>
           </h2>
-          <p className="text-[11px] sm:text-xs text-white/40 tracking-wider">
-            1st April 2026 &bull; 09:00 GMT
+        </div>
+
+        {/* MOTHER CORE V.2 Image — replaces countdown digits */}
+        <div className="relative w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,174,255,0.15)]">
+          <Image
+            src="/mother-core-v2.png"
+            alt="MOTHER CORE Reasoning V.2 3B — Sovereign AI Built for Thinking"
+            width={500}
+            height={350}
+            className="w-full h-auto rounded-2xl"
+            priority
+          />
+        </div>
+
+        {/* Release announcement */}
+        <div className="mt-6 sm:mt-8 text-center space-y-3 max-w-sm">
+          <p className="text-sm sm:text-base text-white/80 font-semibold leading-relaxed">
+            MOTHER CORE V.2 is released &mdash; please go to our{" "}
+            <a
+              href="[HUGGINGFACE_LINK]"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors"
+            >
+              HuggingFace
+            </a>{" "}
+            and follow instructions.
+          </p>
+          <p className="text-xs sm:text-sm text-white/40 leading-relaxed">
+            We will open for full public use after our BETA Testing phase&hellip;
           </p>
         </div>
-
-        {/* Digits */}
-        <div className="flex items-center gap-3 sm:gap-5">
-          <Digit value={timeLeft.days} label="Days" />
-          <Separator />
-          <Digit value={timeLeft.hours} label="Hours" />
-          <Separator />
-          <Digit value={timeLeft.minutes} label="Minutes" />
-          <Separator />
-          <Digit value={timeLeft.seconds} label="Seconds" />
-        </div>
-
-        {/* Tagline */}
-        <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-sm text-white/30 max-w-xs leading-relaxed">
-          European Sovereign AI &mdash; explore freely while we prepare for launch
-        </p>
 
         {/* ── BETA SIGNUP SECTION ── */}
         <div className="mt-6 sm:mt-8 w-full max-w-sm">
@@ -184,7 +167,7 @@ export default function CountdownTimer() {
                 </svg>
               </div>
               <p className="text-sm text-white/70 text-center">
-                You&apos;re on the list! We&apos;ll be in touch before launch.
+                You&apos;re on the list! We&apos;ll be in touch shortly.
               </p>
             </div>
           ) : (
@@ -295,7 +278,7 @@ export default function CountdownTimer() {
           )}
         </div>
 
-        {/* Mobile dismiss hint */}
+        {/* Tap to dismiss hint on mobile */}
         <button
           onClick={toggle}
           className="mt-5 sm:hidden text-[10px] text-white/20 uppercase tracking-widest animate-pulse"
@@ -303,39 +286,6 @@ export default function CountdownTimer() {
           Tap to dismiss
         </button>
       </div>
-    </div>
-  );
-}
-
-/* ── Digit block ── */
-function Digit({ value, label }: { value: number; label: string }) {
-  return (
-    <div className="flex flex-col items-center gap-1.5">
-      <div
-        className="relative flex items-center justify-center
-                    rounded-xl border border-white/[0.06] bg-white/[0.03]
-                    w-16 h-20 sm:w-20 sm:h-24 md:w-24 md:h-28
-                    shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
-                    overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] via-transparent to-white/[0.01] pointer-events-none" />
-        <span className="relative font-mono text-2xl sm:text-4xl md:text-5xl font-bold tabular-nums text-white drop-shadow-[0_0_12px_rgba(0,220,255,0.3)]">
-          {pad(value)}
-        </span>
-      </div>
-      <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/30 font-medium">
-        {label}
-      </span>
-    </div>
-  );
-}
-
-/* ── Colon separator ── */
-function Separator() {
-  return (
-    <div className="flex flex-col gap-1.5 pb-5">
-      <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/60" />
-      <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/60" />
     </div>
   );
 }
