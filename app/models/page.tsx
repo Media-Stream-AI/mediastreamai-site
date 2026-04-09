@@ -71,7 +71,7 @@ export default function ModelsPage() {
         {
           name: "IntuiCase",
           desc:
-            "Case-study simulation: national-level savings, energy reduction and infra impact (e.g., BBC, Channel 4, M6)."
+            "Case-study simulation: national-level savings, energy reduction and infra impact across media and broadcasting sectors."
         },
         {
           name: "IntuiMonetize",

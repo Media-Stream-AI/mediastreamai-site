@@ -42,15 +42,6 @@ const ARTICLES: Article[] = [
   },
   {
     title:
-      "Media Stream AI joins NVIDIA Inception program to accelerate innovation in AI-driven streaming",
-    href: "https://genbmag.com/media-stream-ai-joins-nvidia-inception-program-to-accelerate-innovation-in-ai-driven-streaming/",
-    source: "GenB Magazine",
-    date: "2025",
-    image: "/media/news/genb-inception.jpg",
-    tag: "Milestone",
-  },
-  {
-    title:
       "Media Stream AI & Charismatic AI to revolutionise TV with hyper-personalised story generation",
     href: "https://genbmag.com/media-stream-ai-charismatic-ai-partner-to-revolutionise-tv-with-hyper-personalised-story-generation/",
     source: "GenB Magazine",

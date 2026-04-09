@@ -7,36 +7,6 @@ import { Award, CheckCircle, ExternalLink } from "lucide-react";
 export default function PartnershipsPage() {
   const partnerships = [
     {
-      id: 'nvidia',
-      name: 'NVIDIA Inception Program',
-      logo: (
-        <svg width="150" height="150" viewBox="0 0 200 200">
-          <defs>
-            <linearGradient id="nvidiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{stopColor: '#76B900', stopOpacity: 1}} />
-              <stop offset="100%" style={{stopColor: '#5A9000', stopOpacity: 1}} />
-            </linearGradient>
-          </defs>
-          <path d="M100 20 L40 60 L100 100 L160 60 Z" fill="url(#nvidiaGrad)"/>
-          <path d="M40 140 L100 180 L160 140 L100 100 Z" fill="url(#nvidiaGrad)" opacity="0.7"/>
-          <text x="100" y="110" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">NVIDIA</text>
-          <text x="100" y="128" textAnchor="middle" fill="white" fontSize="12">INCEPTION</text>
-        </svg>
-      ),
-      description: "Selected for NVIDIA's exclusive Inception program for cutting-edge AI startups building transformative AI applications.",
-      benefits: [
-        "Access to NVIDIA's latest GPU technologies (H200, B200)",
-        "Technical support from NVIDIA AI experts",
-        "Co-marketing opportunities with NVIDIA",
-        "Early access to NVIDIA software and tools",
-        "NVIDIA ecosystem integration",
-        "Technical validation of our sovereign AI architecture"
-      ],
-      significance: "NVIDIA Inception validates our technical excellence and commitment to building world-class AI infrastructure. As one of the few UK companies in the program, we represent British innovation in sovereign AI.",
-      website: "https://www.nvidia.com/en-us/startups/",
-      color: 'green'
-    },
-    {
       id: 'lenovo',
       name: 'Lenovo AI Innovator Program',
       logo: (
@@ -62,30 +32,6 @@ export default function PartnershipsPage() {
     }
   ];
 
-  const otherPartners = [
-    {
-      category: "Sustainability Partners",
-      partners: [
-        { name: "Local Food Banks", description: "Food bank partnerships targeting 24,000+ meals/month from vertical farm produce by 2027" },
-        { name: "Vertical Farm Operators", description: "Waste heat powers commercial vertical farms across UK/EU data centres" },
-        { name: "Community Heating Programs", description: "ORC heat recovery targeting heat distribution for local communities" }
-      ]
-    },
-    {
-      category: "Academic Partners",
-      partners: [
-        { name: "University of Dundee", description: "Research collaboration on AI and sustainable computing" },
-        { name: "UK Research Institutions", description: "Providing sovereign compute for academic AI research" }
-      ]
-    },
-    {
-      category: "Government Engagement",
-      partners: [
-        { name: "Ministry of Defence", description: "Active engagement for classified AI workloads" },
-        { name: "Government Digital Service", description: "Government Cloud certification and compliance" }
-      ]
-    }
-  ];
 
   const certifications = [
     { name: 'ISO 27001', desc: 'Information Security Management' },
@@ -113,8 +59,7 @@ export default function PartnershipsPage() {
             deliver real social and economic impact.
           </p>
           <p className="text-white/60 max-w-2xl mx-auto">
-            From NVIDIA's AI innovation to Lenovo's sustainable cooling, our partnerships 
-            enable world-class sovereign AI infrastructure.
+            Lenovo's sustainable cooling technology enables our world-class sovereign AI infrastructure.
           </p>
         </motion.div>
 
@@ -177,37 +122,6 @@ export default function PartnershipsPage() {
             </motion.div>
           ))}
         </div>
-
-        {/* Other Partners */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <h2 className="text-4xl font-bold text-blue-400 mb-12 text-center">
-            Additional Partnerships
-          </h2>
-
-          <div className="space-y-8">
-            {otherPartners.map((category, i) => (
-              <div key={i} className="bg-black/40 border border-white/10 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">{category.category}</h3>
-                <div className="space-y-4">
-                  {category.partners.map((partner, idx) => (
-                    <div key={idx} className="flex items-start gap-4">
-                      <Award size={20} className="text-blue-400 flex-shrink-0 mt-1" />
-                      <div>
-                        <h4 className="text-lg font-semibold text-white">{partner.name}</h4>
-                        <p className="text-white/70">{partner.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Certifications */}
         <motion.div

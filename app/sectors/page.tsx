@@ -10,9 +10,9 @@ export default function SectorsPage() {
       id: 'media',
       icon: '📺',
       title: 'Media & Broadcasting',
-      subtitle: 'AI-powered production workflows proven by BBC, ITV, and Channel 4',
+      subtitle: 'AI-powered production workflows for media & broadcasting',
       stat: '75% faster',
-      statDetail: 'content discovery (BBC-proven)',
+      statDetail: 'content discovery improvement',
       useCases: [
         'Automated speech-to-text for live broadcasts',
         'Real-time video quality enhancement',
@@ -23,7 +23,7 @@ export default function SectorsPage() {
       ],
       gpuOption: 'H200 clusters for video processing and live transcription',
       agentOption: 'MOTHER AI agents for content tagging, metadata, compliance',
-      clients: 'BBC, ITV, Channel 4',
+      clients: 'Media & broadcasting organisations',
       implementationTime: '6-8 weeks'
     },
     {
@@ -70,7 +70,7 @@ export default function SectorsPage() {
       id: 'advertising',
       icon: '📢',
       title: 'Advertising & Marketing',
-      subtitle: 'ITV and Channel 4 scaling AI-created adverts',
+      subtitle: 'AI-created adverts and campaigns at scale',
       stat: 'Higher ROI',
       statDetail: 'campaigns proven',
       useCases: [
@@ -83,7 +83,7 @@ export default function SectorsPage() {
       ],
       gpuOption: 'SambaNova RDU for real-time bidding and inference',
       agentOption: 'MOTHER AI agents for campaign management, A/B testing, audience insights',
-      clients: 'ITV, Channel 4',
+      clients: 'Broadcasters & advertising agencies',
       implementationTime: '4-6 weeks'
     },
     {
@@ -248,7 +248,6 @@ export default function SectorsPage() {
 
                 {/* Meta Info */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm text-white/60 mb-4">
-                  <span><strong>Clients:</strong> {sector.clients}</span>
                   <span><strong>Timeline:</strong> {sector.implementationTime}</span>
                 </div>
 
