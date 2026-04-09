@@ -145,7 +145,7 @@ export default function HomePage() {
           <div>
             <div className="flex gap-2 mb-6">
               <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs text-cyan-400">UK Sovereign</span>
-              <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-white/60">NVIDIA Inception</span>
+              <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-white/60">Lenovo AI Innovator</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">European</span>

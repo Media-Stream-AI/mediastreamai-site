@@ -38,7 +38,7 @@ export default function SolutionsPage() {
     {
       title: "MOTHER AI Agent Deployments",
       icon: <Shield size={64} className="text-blue-400" />,
-      description: "Turnkey AI agents with Autm orchestration. Sector-specific implementations proven by BBC, ITV, and Channel 4.",
+      description: "Turnkey AI agents with Autm orchestration. Sector-specific implementations across media, government, and enterprise.",
       pricing: "From £2,500/month",
       savingsTag: "Complete managed service",
       features: [
@@ -116,7 +116,7 @@ export default function SolutionsPage() {
             sovereign infrastructure at prices that matter.
           </p>
           <p className="text-sm md:text-base text-white/60 max-w-2xl mx-auto px-4">
-            100% UK/EU data residency. Zero foreign dependencies. Proven by BBC, ITV, Channel 4.
+            100% UK/EU data residency. Zero foreign dependencies. Production-proven at enterprise scale.
           </p>
         </motion.div>
 

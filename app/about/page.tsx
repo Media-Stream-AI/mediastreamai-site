@@ -8,13 +8,13 @@ export default function AboutPage() {
   const timeline = [
     {
       year: "2024",
-      title: "NVIDIA Inception & Lenovo AI Innovator",
-      description: "Joined NVIDIA Inception Program and Lenovo AI Innovator Program, validating our sovereign AI approach."
+      title: "Lenovo AI Innovator",
+      description: "Joined Lenovo AI Innovator Program, validating our sovereign AI approach and accelerating deployment."
     },
     {
       year: "2024",
       title: "MOTHER AI & Autm Platform Launch",
-      description: "Launched UK's first fully sovereign LLM platform with proven deployments at BBC, ITV, and Channel 4."
+      description: "Launched UK's first fully sovereign LLM platform with production deployments across media and enterprise sectors."
     },
     {
       year: "2024",
@@ -52,7 +52,7 @@ export default function AboutPage() {
     {
       icon: <Target size={32} className="text-blue-400" />,
       title: "Proven Results",
-      description: "BBC 75% faster content discovery. ITV scaling AI campaigns. Channel 4 automation. Results, not promises."
+      description: "75% faster content discovery. AI-powered campaign scaling. Broadcast automation. Results, not promises."
     }
   ];
 
@@ -90,7 +90,6 @@ export default function AboutPage() {
     "DORA Ready",
     "BSI C5 Certified",
     "MOD Engagement",
-    "NVIDIA Inception Member",
     "Lenovo AI Innovator"
   ];
 
@@ -122,7 +121,7 @@ export default function AboutPage() {
             </h1>
             <p className="text-xl md:text-2xl text-white/70 max-w-4xl mx-auto">
               The UK's first military veteran-run, ethnic minority-led sovereign AI infrastructure company.
-              Delivering proven results for BBC, ITV, and Channel 4 while building a growing jobs ecosystem.
+              Delivering proven results across media, enterprise, and government while building a growing jobs ecosystem.
             </p>
           </motion.div>
         </div>
@@ -166,9 +165,9 @@ export default function AboutPage() {
               </p>
 
               <p>
-                Today, we're proud to be recognized by <strong className="text-white">NVIDIA Inception</strong> and 
-                <strong className="text-white"> Lenovo AI Innovator</strong> programs while delivering proven 
-                results for the UK's leading broadcasters and enterprises.
+                Today, we're proud to be recognized by the
+                <strong className="text-white"> Lenovo AI Innovator</strong> program while delivering proven
+                results across the UK's leading industries.
               </p>
             </div>
           </motion.div>
@@ -260,45 +259,13 @@ export default function AboutPage() {
             Industry Recognition
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            {/* NVIDIA Inception */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="p-8 bg-gradient-to-br from-green-900/20 to-black border border-green-400/30 rounded-2xl text-center"
-            >
-              <svg width="120" height="120" viewBox="0 0 200 200" className="mx-auto mb-6">
-                <defs>
-                  <linearGradient id="nvidiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{stopColor: '#76B900', stopOpacity: 1}} />
-                    <stop offset="100%" style={{stopColor: '#5A9000', stopOpacity: 1}} />
-                  </linearGradient>
-                </defs>
-                <path d="M100 20 L40 60 L100 100 L160 60 Z" fill="url(#nvidiaGrad)"/>
-                <path d="M40 140 L100 180 L160 140 L100 100 Z" fill="url(#nvidiaGrad)" opacity="0.7"/>
-                <text x="100" y="110" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">NVIDIA</text>
-                <text x="100" y="128" textAnchor="middle" fill="white" fontSize="12">INCEPTION</text>
-              </svg>
-              <h3 className="text-2xl font-bold text-white mb-3">NVIDIA Inception Program</h3>
-              <p className="text-white/70 mb-4">
-                Selected for NVIDIA's exclusive Inception program for cutting-edge AI startups, 
-                validating our sovereign AI architecture and technical excellence.
-              </p>
-              <Link href="/partnerships#nvidia">
-                <button className="px-6 py-2 border border-green-400 text-green-400 hover:bg-green-500/20 rounded-lg transition-colors">
-                  Learn More
-                </button>
-              </Link>
-            </motion.div>
-
+          <div className="flex justify-center mb-16">
             {/* Lenovo AI Innovator */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="p-8 bg-gradient-to-br from-red-900/20 to-black border border-red-400/30 rounded-2xl text-center"
+              className="p-8 bg-gradient-to-br from-red-900/20 to-black border border-red-400/30 rounded-2xl text-center max-w-md w-full"
             >
               <svg width="120" height="120" viewBox="0 0 200 200" className="mx-auto mb-6">
                 <circle cx="100" cy="100" r="60" stroke="#E31C23" strokeWidth="4" fill="none"/>
@@ -308,7 +275,7 @@ export default function AboutPage() {
               </svg>
               <h3 className="text-2xl font-bold text-white mb-3">Lenovo AI Innovator Program</h3>
               <p className="text-white/70 mb-4">
-                Partner in Lenovo's AI Innovator Program, leveraging Lenovo Neptune liquid cooling 
+                Partner in Lenovo's AI Innovator Program, leveraging Lenovo Neptune liquid cooling
                 technology for sustainable AI infrastructure.
               </p>
               <Link href="/partnerships#lenovo">
