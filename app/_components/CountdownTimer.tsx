@@ -220,7 +220,7 @@ export default function CountdownTimer() {
 
             <p>
               We are also looking for approximately{" "}
-              <span className="text-white font-semibold">1,000 Enterprise level clients</span> (10+ employees)
+              <span className="text-white font-semibold">1,000 Enterprise level organisations</span> (10+ employees)
               to test using our{" "}
               <span className="text-white font-semibold">Open API Integration</span> — see integration details:{" "}
               <a

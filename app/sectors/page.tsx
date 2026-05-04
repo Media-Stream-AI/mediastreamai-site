@@ -23,7 +23,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'H200 clusters for video processing and live transcription',
       agentOption: 'MOTHER AI agents for content tagging, metadata, compliance',
-      clients: 'Media & broadcasting organisations',
       implementationTime: '6-8 weeks'
     },
     {
@@ -43,7 +42,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'B200 clusters for VFX rendering and color grading',
       agentOption: 'MOTHER AI agents for script analysis, shot planning, dailies processing',
-      clients: 'Production studios, post-houses',
       implementationTime: '4-6 weeks'
     },
     {
@@ -63,7 +61,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'H200 for generative AI and image/video synthesis',
       agentOption: 'MOTHER AI agents for concept generation, campaign optimization',
-      clients: 'Creative agencies, brand teams',
       implementationTime: '3-4 weeks'
     },
     {
@@ -83,7 +80,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'SambaNova RDU for real-time bidding and inference',
       agentOption: 'MOTHER AI agents for campaign management, A/B testing, audience insights',
-      clients: 'Broadcasters & advertising agencies',
       implementationTime: '4-6 weeks'
     },
     {
@@ -103,7 +99,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'Air-gapped B200 clusters at Dundee, Scotland facility',
       agentOption: 'MOTHER AI agents with full audit trails and cross-department coordination',
-      clients: 'Government departments',
       implementationTime: '12-16 weeks (security clearance)',
       highlight: true
     },
@@ -124,7 +119,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'Isolated B200 clusters with UK security-cleared access only',
       agentOption: 'MOTHER AI agents in fully isolated environment with MOD certification',
-      clients: 'MOD, intelligence services',
       implementationTime: '12-16 weeks (security clearance)',
       highlight: true
     },
@@ -145,7 +139,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'H200 clusters for molecular modeling and simulation',
       agentOption: 'MOTHER AI agents for research synthesis, collaboration coordination',
-      clients: 'Universities, research institutions',
       implementationTime: '8-12 weeks'
     },
     {
@@ -165,7 +158,6 @@ export default function SectorsPage() {
       ],
       gpuOption: 'H200 for personalized learning models and content generation',
       agentOption: 'MOTHER AI agents for curriculum delivery, student services coordination',
-      clients: 'Universities, schools, EdTech companies',
       implementationTime: '6-10 weeks'
     }
   ];
