@@ -41,7 +41,7 @@ export default function TermsPage() {
           <div>
             <h2 className="text-2xl sm:text-3xl">Intellectual Property</h2>
             <p className="mt-3">
-              Media Stream AI retains rights in its software, models, and branding. Client content and data remain the client’s property.
+              Media Stream AI retains rights in its software, models, and branding. Your content and data remain your property.
             </p>
           </div>
 
