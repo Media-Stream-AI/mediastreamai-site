@@ -19,7 +19,7 @@ export default function AboutPage() {
     {
       year: "2024",
       title: "Multi-DC Expansion Complete",
-      description: "Operational across sovereign data centers (Manchester, Dundee, Düsseldorf, Marseille) with 100% UK/EU sovereignty."
+      description: "UK Sovereign network operational in Manchester and Dundee, with Phase Two international expansion across Düsseldorf, Jamaica, and Marseille — 100% UK/EU sovereignty."
     },
     {
       year: "2023",
@@ -334,7 +334,7 @@ export default function AboutPage() {
               <div className="text-5xl font-bold text-blue-400 mb-2">405+</div>
               <div className="text-xl text-white/70 mb-2">Jobs Ecosystem</div>
               <p className="text-sm text-white/60">
-                Manchester, Dundee, Düsseldorf, Marseille tech positions
+                Manchester, Dundee, Düsseldorf, Jamaica, Marseille tech positions
               </p>
             </div>
 
