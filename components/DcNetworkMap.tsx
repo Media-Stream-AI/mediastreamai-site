@@ -3,9 +3,10 @@
 import React from "react";
 
 type Node = {
-  id: "MCR" | "SND" | "DUS" | "KIN";
+  id: "MCR" | "DUN" | "DUS" | "KIN" | "MAR";
   name: string;
   subtitle: string;
+  phase: "UK Sovereign" | "Phase Two";
   x: number;
   y: number;
   color: string;
@@ -16,30 +17,43 @@ const NODES: Node[] = [
     id: "MCR",
     name: "Manchester / Salford – MediaCityUK",
     subtitle: "UK Sovereign • H200 + RDUs • Neptune",
+    phase: "UK Sovereign",
     x: 320,
     y: 300,
     color: "#60A5FA",
   },
   {
-    id: "SND",
-    name: "Sunderland",
-    subtitle: "UK Edge / Redundancy • Sovereign Mirror",
-    x: 540,
-    y: 140, // lifted higher
+    id: "DUN",
+    name: "Dundee, Scotland",
+    subtitle: "UK Sovereign • Air-Gapped • Government Hub",
+    phase: "UK Sovereign",
+    x: 280,
+    y: 140,
     color: "#34D399",
   },
   {
     id: "DUS",
     name: "Düsseldorf",
     subtitle: "EU Sovereign • GDPR • AIA",
+    phase: "Phase Two",
     x: 700,
-    y: 320,
+    y: 280,
     color: "#F59E0B",
+  },
+  {
+    id: "MAR",
+    name: "Marseille",
+    subtitle: "Southern EU • Mediterranean Node",
+    phase: "Phase Two",
+    x: 640,
+    y: 460,
+    color: "#F472B6",
   },
   {
     id: "KIN",
     name: "Kingston (Jamaica)",
     subtitle: "LATAM / Caribbean Regional Node",
+    phase: "Phase Two",
     x: 160,
     y: 520,
     color: "#A78BFA",
@@ -121,7 +135,7 @@ export function DcNetworkMap() {
   return (
     <div className="flex justify-center">
       <svg
-        viewBox="0 0 900 650"
+        viewBox="0 0 900 720"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full max-w-5xl h-auto border border-white/10 rounded-xl shadow-lg bg-gradient-to-b from-blue-950/60 to-black/80"
       >
@@ -132,11 +146,12 @@ export function DcNetworkMap() {
           </radialGradient>
         </defs>
 
-        {/* connecting lines */}
+        {/* connecting lines from Manchester hub */}
         <g stroke="rgba(255,255,255,0.15)" strokeWidth="1.2">
           <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[1].x} y2={NODES[1].y} />
-          <line x1={NODES[1].x} y1={NODES[1].y} x2={NODES[2].x} y2={NODES[2].y} />
+          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[2].x} y2={NODES[2].y} />
           <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[3].x} y2={NODES[3].y} />
+          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[4].x} y2={NODES[4].y} />
         </g>
 
         {/* nodes + micro-grids */}
@@ -160,7 +175,16 @@ export function DcNetworkMap() {
             >
               {n.subtitle}
             </text>
-            <NifeMicroGrid cx={n.x} cy={n.y + 100} />
+            <text
+              x={n.x + 20}
+              y={n.y + 34}
+              fontSize={9}
+              fill={n.phase === "UK Sovereign" ? "#60A5FA" : "#F59E0B"}
+              style={{ fontWeight: 600, letterSpacing: 0.5 }}
+            >
+              {n.phase.toUpperCase()}
+            </text>
+            <NifeMicroGrid cx={n.x} cy={n.y + 110} />
           </g>
         ))}
       </svg>

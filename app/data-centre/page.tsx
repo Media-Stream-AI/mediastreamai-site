@@ -12,6 +12,7 @@ export default function DataCentrePage() {
       city: 'Manchester',
       country: 'United Kingdom',
       type: 'Primary UK AI Hub',
+      phase: 'UK Sovereign',
       highlight: 'Opening May 2026',
       specs: [
         'NVIDIA H200 8x GPU Nodes',
@@ -40,6 +41,7 @@ export default function DataCentrePage() {
       city: 'Dundee',
       country: 'Scotland',
       type: 'Government & Research Hub',
+      phase: 'UK Sovereign',
       specs: [
         'Air-gapped deployment options',
         'NVIDIA B200 Supercomputing',
@@ -68,6 +70,7 @@ export default function DataCentrePage() {
       city: 'Düsseldorf',
       country: 'Germany',
       type: 'Primary EU Infrastructure',
+      phase: 'Phase Two',
       specs: [
         'NVIDIA B200 EU Sovereign Deployment',
         'GDPR-native architecture',
@@ -91,11 +94,41 @@ export default function DataCentrePage() {
       highlight: 'Coming 2027'
     },
     {
+      id: 'jamaica',
+      flag: '🇯🇲',
+      city: 'Kingston',
+      country: 'Jamaica',
+      type: 'LATAM & Caribbean Hub',
+      phase: 'Phase Two',
+      specs: [
+        'NVIDIA B200 Caribbean deployment',
+        'British Commonwealth jurisdiction',
+        'ISO 27001 Certified',
+        'LATAM regional inference & distribution',
+        'Local-resident operations team',
+        '<60ms latency to North & South America',
+        'Caribbean disaster-resilient design'
+      ],
+      sustainability: [
+        'Tropical climate cooling efficiency',
+        'Regional renewable energy integration',
+        'Coastal partnership programs',
+        'Community STEM education initiatives'
+      ],
+      impact: [
+        '40+ tech jobs with local partners',
+        'Caribbean AI ecosystem development',
+        'Regional research collaborations'
+      ],
+      highlight: 'Coming 2027'
+    },
+    {
       id: 'marseille',
       flag: '🇫🇷',
       city: 'Marseille',
       country: 'France',
       type: 'Southern EU Operations',
+      phase: 'Phase Two',
       specs: [
         'NVIDIA B200 French Deployment',
         'GDPR + French data sovereignty',
@@ -123,7 +156,7 @@ export default function DataCentrePage() {
   const globalStats = [
     { label: 'Sq Ft of Compute', value: '200,000+', icon: <MapPin className="w-6 h-6" /> },
     { label: 'GPU Nodes', value: '1,300+', icon: <Server className="w-6 h-6" /> },
-    { label: 'Jobs Ecosystem', value: '405+', icon: <Users className="w-6 h-6" /> },
+    { label: 'Jobs Ecosystem', value: '445+', icon: <Users className="w-6 h-6" /> },
     { label: 'Target Meals to Food Banks', value: '24K+/Month', icon: <Leaf className="w-6 h-6" /> },
   ];
 
@@ -231,7 +264,18 @@ export default function DataCentrePage() {
                         <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">{dc.city}</h3>
                         <p className="text-sm md:text-base text-white/70">{dc.country}</p>
                         <div className="flex flex-wrap gap-2 mt-2">
-                          <span className="inline-block px-2 md:px-3 py-1 bg-blue-500/20 border border-blue-400/40 rounded-full text-xs font-semibold text-blue-300">
+                          {dc.phase && (
+                            <span
+                              className={`inline-block px-2 md:px-3 py-1 rounded-full text-xs font-semibold border ${
+                                dc.phase === 'UK Sovereign'
+                                  ? 'bg-blue-500/20 border-blue-400/40 text-blue-300'
+                                  : 'bg-amber-500/20 border-amber-400/40 text-amber-300'
+                              }`}
+                            >
+                              {dc.phase}
+                            </span>
+                          )}
+                          <span className="inline-block px-2 md:px-3 py-1 bg-white/5 border border-white/20 rounded-full text-xs font-semibold text-white/80">
                             {dc.type}
                           </span>
                           {dc.highlight && (

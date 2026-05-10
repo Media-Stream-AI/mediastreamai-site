@@ -9,7 +9,8 @@ export function CoolingRibbon() {
           <p className="text-white/70 mt-3 text-sm">
             Our AI data centres reuse thermal energy via canal water exchange. This unique cooling
             architecture powers Lenovo Neptune racks, reduces energy costs, and recycles heat for
-            district applications across Manchester, Sunderland, Düsseldorf, and Kingston.
+            district applications across Manchester and Dundee, with Phase Two expansion to
+            Düsseldorf, Kingston (Jamaica), and Marseille.
           </p>
         </div>
         <div className="flex justify-center">

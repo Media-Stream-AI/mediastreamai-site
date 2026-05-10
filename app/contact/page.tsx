@@ -350,21 +350,35 @@ export default function ContactPage() {
                 Office Locations
               </h2>
               <div className="space-y-4 text-white/80">
-                <div>
-                  <p className="font-semibold text-white">Manchester HQ</p>
-                  <p className="text-sm">United Kingdom</p>
+                <div className="pb-2 mb-2 border-b border-white/10">
+                  <p className="text-[10px] uppercase tracking-wider text-blue-300 font-semibold mb-2">UK Sovereign</p>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="font-semibold text-white">Manchester HQ</p>
+                      <p className="text-sm">United Kingdom</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Dundee</p>
+                      <p className="text-sm">Scotland, United Kingdom</p>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <p className="font-semibold text-white">Dundee</p>
-                  <p className="text-sm">Scotland, United Kingdom</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">Düsseldorf</p>
-                  <p className="text-sm">Germany</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">Marseille</p>
-                  <p className="text-sm">France</p>
+                  <p className="text-[10px] uppercase tracking-wider text-amber-300 font-semibold mb-2">Phase Two — International</p>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="font-semibold text-white">Düsseldorf</p>
+                      <p className="text-sm">Germany</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Kingston</p>
+                      <p className="text-sm">Jamaica</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Marseille</p>
+                      <p className="text-sm">France</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
