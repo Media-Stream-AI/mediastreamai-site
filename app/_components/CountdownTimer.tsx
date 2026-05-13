@@ -120,7 +120,7 @@ export default function CountdownTimer() {
         <p className="text-xs text-white/70 leading-snug mb-1">
           MOTHER CORE V.2 is released — head to our{" "}
           <a
-            href="[HUGGINGFACE_LINK]"
+            href="https://huggingface.co/MediaStreamAI/MOTHER_CORE_V2"
             target="_blank"
             rel="noopener noreferrer"
             className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
