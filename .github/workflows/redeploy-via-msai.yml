@@ -1,0 +1,81 @@
+name: Redeploy via MSAI Cloud Portal
+
+# Every push notifies the MSAI Cloud Portal so the portal becomes the
+# single source of truth for who deployed what, when, with what result.
+# The portal forwards to the actual provider (Netlify / Vercel / GB10)
+# based on the deployment row registered for this repo.
+#
+# Required repo secrets:
+#   MSAI_PORTAL_URL            e.g. https://api.cloud.mediastreamai.com
+#   MSAI_DEPLOY_WEBHOOK_TOKEN  shared secret (matches portal env var)
+#
+# Required repo variables (or hardcode if you prefer):
+#   MSAI_DEPLOYMENT_SLUG       deployment slug registered on the portal
+#                              (e.g. "intuitv-studio")
+#   MSAI_DEPLOYMENT_ENV        "production" or "staging" (default: production)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - "claude/**"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment slug
+        required: false
+        default: production
+
+permissions:
+  contents: read
+
+concurrency:
+  group: msai-redeploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    name: Notify MSAI Cloud
+    runs-on: ubuntu-latest
+    if: ${{ vars.MSAI_DEPLOYMENT_SLUG != '' }}
+    steps:
+      - name: Resolve deployment metadata
+        id: meta
+        run: |
+          echo "slug=${{ vars.MSAI_DEPLOYMENT_SLUG }}" >> "$GITHUB_OUTPUT"
+          echo "env=${{ github.event.inputs.environment || vars.MSAI_DEPLOYMENT_ENV || 'production' }}" >> "$GITHUB_OUTPUT"
+      - name: POST redeploy
+        env:
+          PORTAL_URL: ${{ secrets.MSAI_PORTAL_URL }}
+          WEBHOOK_TOKEN: ${{ secrets.MSAI_DEPLOY_WEBHOOK_TOKEN }}
+          DEP_SLUG: ${{ steps.meta.outputs.slug }}
+          DEP_ENV: ${{ steps.meta.outputs.env }}
+          GH_REF: ${{ github.ref }}
+          GH_SHA: ${{ github.sha }}
+          GH_ACTOR: ${{ github.actor }}
+          GH_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          if [ -z "${PORTAL_URL:-}" ] || [ -z "${WEBHOOK_TOKEN:-}" ]; then
+            echo "::warning::MSAI_PORTAL_URL or MSAI_DEPLOY_WEBHOOK_TOKEN is missing — skipping notify."
+            exit 0
+          fi
+          payload=$(cat <<JSON
+          {
+            "commit_sha": "${GH_SHA}",
+            "trigger": "push",
+            "detail": {
+              "ref": "${GH_REF}",
+              "actor": "${GH_ACTOR}",
+              "workflow_url": "${GH_WORKFLOW_URL}"
+            }
+          }
+          JSON
+          )
+          curl --fail-with-body --show-error --retry 3 --retry-delay 4 \
+            -X POST \
+            -H "content-type: application/json" \
+            -H "X-MSAI-Webhook-Token: ${WEBHOOK_TOKEN}" \
+            "${PORTAL_URL%/}/admin/deployments/${DEP_SLUG}/redeploy?environment=${DEP_ENV}" \
+            --data "${payload}"
