@@ -2,13 +2,206 @@
 @tailwind components;
 @tailwind utilities;
 
+/* MSAI brand tokens — dark theme matching mediastreamai.com.
+   Deep navy background, charcoal surfaces, cyan/indigo accent gradient,
+   subtle glow on live elements. */
+:root {
+  --msai-bg:           #0a0e27;
+  --msai-bg-elevated:  #0f1538;
+  --msai-surface:      #131a3a;
+  --msai-surface-hi:   #1a2350;
+  --msai-border:       rgba(148, 163, 184, 0.14);
+  --msai-border-hi:    rgba(148, 163, 184, 0.22);
+  --msai-fg:           #e2e8f0;
+  --msai-fg-strong:    #f8fafc;
+  --msai-fg-muted:     #94a3b8;
+  --msai-fg-subtle:    #64748b;
+  --msai-accent-from:  #6366f1; /* indigo-500 */
+  --msai-accent-via:   #8b5cf6; /* violet-500 */
+  --msai-accent-to:    #d946ef; /* fuchsia-500 */
+  --msai-cyan:         #22d3ee;
+  --msai-cyan-glow:    rgba(34, 211, 238, 0.35);
+  --msai-warn:         #f59e0b;
+  --msai-danger:       #f87171;
+  --msai-ok:           #34d399;
+}
+
+* { box-sizing: border-box; }
+
+html, body { background: var(--msai-bg); }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  color: var(--msai-fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(circle at 12% -10%, rgba(99, 102, 241, 0.18), transparent 55%),
+    radial-gradient(circle at 88% 10%, rgba(34, 211, 238, 0.12), transparent 55%),
+    radial-gradient(circle at 50% 110%, rgba(217, 70, 239, 0.10), transparent 55%);
+  background-attachment: fixed;
+}
+
+@layer components {
+  .msai-gradient { background: linear-gradient(135deg, var(--msai-accent-from), var(--msai-accent-via), var(--msai-accent-to)); }
+  .msai-gradient-text {
+    background: linear-gradient(135deg, var(--msai-cyan), var(--msai-accent-via), var(--msai-accent-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .card { background: var(--msai-surface); border: 1px solid var(--msai-border); border-radius: 0.75rem; box-shadow: 0 4px 24px rgba(2, 6, 23, 0.35); }
+  .card-hover { transition: border-color 200ms, box-shadow 200ms; }
+  .card-hover:hover { border-color: var(--msai-border-hi); box-shadow: 0 10px 30px rgba(34, 211, 238, 0.10); }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--msai-accent-from), var(--msai-accent-via), var(--msai-accent-to));
+    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.35);
+    transition: opacity 150ms, transform 150ms;
+  }
+  .btn-primary:hover { opacity: 0.95; }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1rem; border-radius: 0.5rem;
+    font-size: 0.875rem; font-weight: 500;
+    color: var(--msai-fg);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--msai-border);
+    transition: background 150ms, border-color 150ms;
+  }
+  .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--msai-border-hi); }
+
+  .btn-danger { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; color: #fff; background: #b91c1c; }
+  .btn-danger:hover { background: #991b1b; }
+
+  .form-label { display: block; font-size: 0.75rem; font-weight: 500; color: var(--msai-fg-muted); margin-bottom: 0.25rem; }
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--msai-border);
+    color: var(--msai-fg);
+    font-size: 0.875rem;
+    transition: border-color 150ms, box-shadow 150ms, background 150ms;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--msai-fg-subtle); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--msai-cyan);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px var(--msai-cyan-glow);
+  }
+
+  .badge { display: inline-flex; align-items: center; padding: 0.125rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; }
+  .badge-live   { background: rgba(34, 211, 238, 0.18); color: #67e8f9; box-shadow: 0 0 12px var(--msai-cyan-glow); }
+  .badge-ok     { background: rgba(52, 211, 153, 0.16); color: #6ee7b7; }
+  .badge-warn   { background: rgba(245, 158, 11, 0.18); color: #fcd34d; }
+  .badge-danger { background: rgba(248, 113, 113, 0.18); color: #fca5a5; }
+  .badge-info   { background: rgba(129, 140, 248, 0.20); color: #a5b4fc; }
+
+  .sidebar-link {
+    display: flex; align-items: center; gap: 0.625rem;
+    padding: 0.375rem 0.75rem; border-radius: 0.375rem;
+    font-size: 0.875rem; color: var(--msai-fg-muted);
+    transition: background 120ms, color 120ms;
+  }
+  .sidebar-link:hover { background: rgba(255, 255, 255, 0.04); color: var(--msai-fg-strong); }
+  .sidebar-link-active {
+    display: flex; align-items: center; gap: 0.625rem;
+    padding: 0.375rem 0.75rem; border-radius: 0.375rem;
+    font-size: 0.875rem; font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.32), rgba(139, 92, 246, 0.18));
+    border: 1px solid rgba(99, 102, 241, 0.35);
+  }
+
+  .modal-overlay { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.65); backdrop-filter: blur(6px); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-content { width: 100%; max-width: 32rem; max-height: 90vh; overflow: auto; border-radius: 0.75rem; background: var(--msai-surface); border: 1px solid var(--msai-border); box-shadow: 0 24px 60px rgba(2, 6, 23, 0.6); }
+}
+
+/* Map the existing light Tailwind utility classes used across the dashboard
+   onto dark surfaces. This re-skins all pages without touching their JSX.
+   Hover/focus variants intentionally fall through to the new tokens. */
+@layer utilities {
+  .bg-white          { background-color: var(--msai-surface) !important; }
+  .bg-slate-50       { background-color: var(--msai-bg) !important; }
+  .bg-slate-100      { background-color: var(--msai-bg-elevated) !important; }
+  .hover\:bg-slate-50:hover  { background-color: var(--msai-bg-elevated) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--msai-surface-hi) !important; }
+  .bg-slate-950      { background-color: var(--msai-bg) !important; }
+  .bg-slate-900\/40, .bg-slate-950\/40, .bg-slate-950\/50, .bg-slate-950\/60 {
+    background-color: rgba(15, 21, 56, 0.6) !important;
+  }
+
+  .text-slate-900    { color: var(--msai-fg-strong) !important; }
+  .text-slate-800    { color: var(--msai-fg-strong) !important; }
+  .text-slate-700    { color: var(--msai-fg) !important; }
+  .text-slate-600    { color: var(--msai-fg-muted) !important; }
+  .text-slate-500    { color: var(--msai-fg-muted) !important; }
+  .text-slate-400    { color: var(--msai-fg-subtle) !important; }
+
+  .border-slate-100  { border-color: rgba(148, 163, 184, 0.08) !important; }
+  .border-slate-200  { border-color: var(--msai-border) !important; }
+  .border-slate-300  { border-color: var(--msai-border-hi) !important; }
+  .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(148, 163, 184, 0.08) !important; }
+  .divide-slate-200 > :not([hidden]) ~ :not([hidden]) { border-color: var(--msai-border) !important; }
+
+  /* Brighter text on tinted badge backgrounds for legibility on dark. */
+  .bg-emerald-100    { background-color: rgba(52, 211, 153, 0.16) !important; } .text-emerald-700 { color: #6ee7b7 !important; } .text-emerald-800 { color: #a7f3d0 !important; }
+  .bg-blue-100       { background-color: rgba(96, 165, 250, 0.16) !important; } .text-blue-700    { color: #93c5fd !important; }
+  .bg-indigo-100     { background-color: rgba(99, 102, 241, 0.18) !important; } .text-indigo-700  { color: #a5b4fc !important; } .text-indigo-600 { color: #a5b4fc !important; } .text-indigo-300 { color: #c7d2fe !important; }
+  .bg-violet-100     { background-color: rgba(139, 92, 246, 0.20) !important; } .text-violet-700  { color: #c4b5fd !important; }
+  .bg-fuchsia-100    { background-color: rgba(217, 70, 239, 0.20) !important; } .text-fuchsia-700 { color: #f0abfc !important; }
+  .bg-cyan-100       { background-color: rgba(34, 211, 238, 0.20) !important; } .text-cyan-800    { color: #67e8f9 !important; } .text-cyan-700 { color: #67e8f9 !important; }
+  .bg-amber-50       { background-color: rgba(245, 158, 11, 0.10) !important; } .border-amber-200 { border-color: rgba(245, 158, 11, 0.35) !important; } .text-amber-700 { color: #fcd34d !important; } .text-amber-800 { color: #fde68a !important; }
+  .bg-amber-100      { background-color: rgba(245, 158, 11, 0.18) !important; }
+  .bg-orange-100     { background-color: rgba(249, 115, 22, 0.18) !important; } .text-orange-700  { color: #fdba74 !important; }
+  .bg-pink-100       { background-color: rgba(236, 72, 153, 0.18) !important; } .text-pink-700    { color: #f9a8d4 !important; }
+  .bg-red-50         { background-color: rgba(248, 113, 113, 0.10) !important; } .border-red-200  { border-color: rgba(248, 113, 113, 0.35) !important; } .text-red-700 { color: #fca5a5 !important; } .text-red-600 { color: #fda4af !important; }
+  .bg-red-100        { background-color: rgba(248, 113, 113, 0.18) !important; }
+  .bg-emerald-50     { background-color: rgba(52, 211, 153, 0.10) !important; } .border-emerald-200 { border-color: rgba(52, 211, 153, 0.30) !important; }
+
+  /* Indigo button colour used inline by leads/customers/deals create CTAs. */
+  .bg-indigo-600     { background: linear-gradient(135deg, var(--msai-accent-from), var(--msai-accent-to)) !important; color: #fff !important; }
+  .hover\:bg-indigo-700:hover { opacity: 0.95; }
+
+  /* Inputs that the leads/customers create-form uses without our .form-input class. */
+  .focus\:border-indigo-500:focus { border-color: var(--msai-cyan) !important; }
+  .focus\:ring-indigo-200:focus   { box-shadow: 0 0 0 3px var(--msai-cyan-glow) !important; }
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.2s ease-out; }
+
+@keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.pulse-dot { animation: pulseDot 1.5s ease-in-out infinite; }
+
+::selection { background: var(--msai-cyan-glow); color: var(--msai-fg-strong); }
+
+/* === repo-specific overrides below === */
+
 /* --------------------------------------------------
    ROOT / RESET
 -------------------------------------------------- */
 
-:root {
-  color-scheme: dark;
-}
+
 
 *,
 *::before,
