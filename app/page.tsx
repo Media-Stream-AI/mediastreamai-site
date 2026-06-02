@@ -7,6 +7,8 @@ import { Brain, Server, Shield, Tv, Bot, Cpu, ArrowRight, ExternalLink, Zap, Glo
 import dynamic from "next/dynamic";
 
 const QuantumBrainVisualizer = dynamic(() => import("../components/QuantumBrainVisualizer"), { ssr: false });
+const DataCenter3D = dynamic(() => import("../components/DataCenter3D"), { ssr: false });
+const CognitiveBrain3D = dynamic(() => import("../components/CognitiveBrain3D"), { ssr: false });
 
 // MOTHER Chat typing animation
 const chatMessages = [
@@ -140,8 +142,13 @@ export default function HomePage() {
       </nav>
 
       {/* Hero with MOTHER Chat */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+        {/* 3D AI data-centre corridor — walking through the racks */}
+        <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
+          <DataCenter3D />
+        </div>
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/40 via-transparent to-black pointer-events-none" />
+        <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="flex gap-2 mb-6">
               <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs text-cyan-400">UK Sovereign</span>
@@ -160,9 +167,9 @@ export default function HomePage() {
                   Try MOTHER AI <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
-              <Link href="/contact">
-                <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold">
-                  Contact Sales
+              <Link href="https://robotics.mediastreamai.com">
+                <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold flex items-center gap-2">
+                  <Bot className="w-4 h-4" /> MOTHER EXO <ExternalLink className="w-3.5 h-3.5" />
                 </button>
               </Link>
             </div>
@@ -193,6 +200,17 @@ export default function HomePage() {
               Cognition separated into specialized, independently upgradeable domains
             </p>
           </div>
+
+          {/* Volumetric cognitive brain — fly through MOTHER's specialised modules */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="mb-6 border border-white/5 rounded-2xl overflow-hidden"
+          >
+            <CognitiveBrain3D />
+          </motion.div>
 
           {/* Architecture Flow Panel */}
           <div className="bg-[#000022]/80 backdrop-blur border border-white/5 rounded-2xl p-5 relative overflow-hidden">
@@ -787,9 +805,9 @@ export default function HomePage() {
                 Government & Defence
               </button>
             </Link>
-            <Link href="/contact">
-              <button className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-semibold">
-                Contact Sales
+            <Link href="https://robotics.mediastreamai.com">
+              <button className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-semibold flex items-center gap-2">
+                <Bot className="w-4 h-4" /> MOTHER EXO <ExternalLink className="w-3.5 h-3.5" />
               </button>
             </Link>
           </div>
