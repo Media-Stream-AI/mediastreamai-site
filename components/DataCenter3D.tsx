@@ -9,13 +9,13 @@
 ----------------------------------------------------------------------- */
 
 const GAP = 420; // depth between successive racks (px)
-const ROWS = 14; // racks per side
+const ROWS = 9; // racks per side
 const SIDE = 360; // horizontal offset of each rack wall from centre
 const RACK_W = 150;
 const RACK_H = 300;
 
 // Rack units (horizontal divider lines) inside each rack.
-const UNITS = Array.from({ length: 9 });
+const UNITS = Array.from({ length: 6 });
 
 function Rack({ z, side }: { z: number; side: 1 | -1 }) {
   return (
@@ -74,7 +74,7 @@ const DC_CSS = `
   animation:dcFly 9s linear infinite;will-change:transform;}
 @keyframes dcFly{from{transform:translateZ(0)}to{transform:translateZ(${GAP}px)}}
 .dc-rack{position:absolute;transform-style:preserve-3d;
-  border:1px solid rgba(0,200,255,.55);box-shadow:0 0 12px rgba(0,200,255,.12),inset 0 0 18px rgba(0,200,255,.06);
+  border:1px solid rgba(0,200,255,.55);
   background:linear-gradient(180deg,rgba(0,40,70,.10),rgba(0,10,25,.10));}
 .dc-u{position:absolute;left:0;right:0;height:1px;background:rgba(0,200,255,.22);}
 .dc-led{position:absolute;left:14%;width:5px;height:5px;border-radius:50%;background:#34d399;

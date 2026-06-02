@@ -77,7 +77,7 @@ function buildCloud(): Pt[] {
     return s / 233280;
   };
   // Structural shell — points inside a brain-ish ellipsoid.
-  for (let i = 0; i < 130; i++) {
+  for (let i = 0; i < 80; i++) {
     let x = 0,
       y = 0,
       z = 0,
@@ -99,7 +99,7 @@ function buildCloud(): Pt[] {
   }
   // Module clusters — denser, coloured, at each module location.
   MODULES.forEach((rg, ri) => {
-    for (let i = 0; i < 26; i++) {
+    for (let i = 0; i < 16; i++) {
       out.push({
         x: rg.x + (rnd() * 2 - 1) * 70,
         y: rg.y + (rnd() * 2 - 1) * 60,
@@ -272,7 +272,7 @@ const CB_CSS = `
   border-radius:1rem;overflow:hidden;background:radial-gradient(60% 60% at 50% 42%,#06122a,#01040c 78%);}
 .cb-world{position:absolute;top:50%;left:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform;}
 .cb-pt{position:absolute;border-radius:50%;background:#3b82f6;margin:-3px;backface-visibility:hidden;}
-.cb-pt-struct{opacity:.30;box-shadow:0 0 5px #3b82f655;}
+.cb-pt-struct{opacity:.28;}
 .cb-rgroup{position:absolute;top:0;left:0;transform-style:preserve-3d;transition:opacity .6s ease,filter .6s ease;will-change:opacity,filter;}
 .cb-rgroup .cb-pt{animation:cbPulse 2.6s ease-in-out infinite;animation-delay:calc(var(--k) * 45ms);}
 .cb-vein{position:absolute;top:0;left:0;width:440px;height:2px;margin:-1px 0 0 -220px;border-radius:3px;opacity:.5;
