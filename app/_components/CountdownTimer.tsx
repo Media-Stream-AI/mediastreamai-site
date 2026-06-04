@@ -4,8 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 /* ───────────────────────────────────────────────────────────────
-   MOTHER AI  —  MOTHER CORE V.2 Released + Beta Signup
+   MOTHER EXO  —  'World Model' & Humanoid Training Simulator
+   Direct link to robotics.mediastreamai.com + HUMANOID Teacher signup
 ─────────────────────────────────────────────────────────────── */
+
+const PLATFORM_URL = "https://robotics.mediastreamai.com";
 
 export default function CountdownTimer() {
   const [minimised, setMinimised] = useState(false);
@@ -35,7 +38,7 @@ export default function CountdownTimer() {
         body: JSON.stringify({
           name: signupName,
           email: signupEmail,
-          source: "msai-site-countdown-overlay",
+          source: "msai-site-mother-exo-humanoid-teacher",
         }),
       });
       if (res.ok) {
@@ -65,7 +68,7 @@ export default function CountdownTimer() {
                    transition-all duration-300 active:scale-95"
       >
         <span className="countdown-dot inline-block h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-        <span>MOTHER CORE V.2 — Released!</span>
+        <span>MOTHER EXO — World Model &amp; Humanoid Sim</span>
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="ml-1 opacity-50">
           <path d="M1 4 L5 8 L9 4" />
         </svg>
@@ -80,18 +83,21 @@ export default function CountdownTimer() {
       onClick={toggle}
     >
       <div
-        className="countdown-card w-full max-w-md rounded-xl border border-cyan-400/20 bg-[#0A1525] p-6 text-white"
+        className="countdown-card w-full max-w-md rounded-xl border border-cyan-400/20 bg-[#05080F] p-6 text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header row with title + minimise button */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex flex-col gap-1">
-            <span className="countdown-badge inline-block self-start rounded-full border border-green-500/30 bg-green-500/10 px-2 py-0.5 text-[9px] uppercase tracking-[0.2em] font-semibold text-green-300">
-              Now Released
+            <span className="countdown-badge inline-block self-start rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-0.5 text-[9px] uppercase tracking-[0.2em] font-semibold text-cyan-200">
+              British Sovereign AI
             </span>
-            <h2 className="countdown-title text-lg sm:text-xl font-bold tracking-tight text-white">
-              MOTHER CORE <span className="text-cyan-400">V.2</span>
+            <h2 className="countdown-title text-xl sm:text-2xl font-black tracking-tight bg-gradient-to-r from-white via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent">
+              MOTHER&nbsp;EXO
             </h2>
+            <p className="text-[11px] text-white/60 leading-snug">
+              &lsquo;World Model&rsquo; &amp; Humanoid Training Simulator
+            </p>
           </div>
           <button
             onClick={toggle}
@@ -104,46 +110,52 @@ export default function CountdownTimer() {
           </button>
         </div>
 
-        {/* MOTHER CORE V.2 Image */}
-        <div className="relative w-full rounded-lg overflow-hidden mb-3">
+        {/* MOTHER EXO creative — direct link to the platform */}
+        <a
+          href={PLATFORM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative block w-full rounded-lg overflow-hidden mb-3 border border-cyan-400/15 hover:border-cyan-400/40 transition-colors"
+        >
           <Image
-            src="/mother-core-v2.png"
-            alt="MOTHER CORE Reasoning V.2 3B — Sovereign AI Built for Thinking"
-            width={500}
+            src="/mother-exo-world-model.png"
+            alt="MOTHER EXO — British sovereign Humanoid World Model & Training Simulator"
+            width={620}
             height={350}
             className="w-full h-auto"
             priority
           />
-        </div>
+          <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="mb-3 rounded-full bg-cyan-500/90 px-4 py-1.5 text-xs font-semibold text-black">
+              Check out the Simulator →
+            </span>
+          </span>
+        </a>
 
-        {/* Release announcement */}
-        <p className="text-xs text-white/70 leading-snug mb-1">
-          MOTHER CORE V.2 is released — head to our{" "}
-          <a
-            href="https://huggingface.co/MediaStreamAI/MOTHER_CORE_V2"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
-          >
-            HuggingFace
-          </a>{" "}
-          and follow instructions.
-        </p>
-        <p className="text-[11px] text-white/40 mb-4">
-          Full public access opens after BETA Testing.
+        {/* Direct CTA to robotics.mediastreamai.com */}
+        <a
+          href={PLATFORM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full text-center rounded-md bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-black py-2 text-sm font-bold hover:opacity-90 transition-opacity mb-1"
+        >
+          Enter the World Model &amp; Humanoid Sim →
+        </a>
+        <p className="text-center text-[10px] text-white/40 mb-4">
+          robotics.mediastreamai.com
         </p>
 
-        {/* ── BETA SIGNUP SECTION ── */}
+        {/* ── HUMANOID TEACHER SIGNUP SECTION ── */}
         <div className="flex items-center gap-2 mb-2">
           <div className="flex-1 h-px bg-cyan-400/15" />
           <span className="text-[9px] uppercase tracking-[0.2em] text-cyan-400/60 font-semibold">
-            Beta Testing
+            Become a Humanoid Teacher
           </span>
           <div className="flex-1 h-px bg-cyan-400/15" />
         </div>
 
-        <p className="text-[11px] text-cyan-300 mb-3 text-center">
-          Sign up with your name &amp; work email.
+        <p className="text-[11px] text-cyan-300 mb-3 text-center leading-snug">
+          Want to teach MOTHER EXO? Sign up for access to our online teaching SIM.
         </p>
 
         {signupState === "success" ? (
@@ -154,7 +166,7 @@ export default function CountdownTimer() {
               </svg>
             </div>
             <p className="text-xs text-white/70 text-center">
-              You&apos;re on the list! We&apos;ll be in touch shortly.
+              You&apos;re on the list! We&apos;ll be in touch with your teaching SIM access shortly.
             </p>
           </div>
         ) : (
@@ -169,7 +181,7 @@ export default function CountdownTimer() {
             />
             <input
               type="email"
-              placeholder="Work Email"
+              placeholder="Email"
               required
               value={signupEmail}
               onChange={(e) => setSignupEmail(e.target.value)}
@@ -185,7 +197,7 @@ export default function CountdownTimer() {
               disabled={signupState === "loading"}
               className="w-full rounded-md bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 py-1.5 text-xs font-semibold hover:bg-cyan-500/30 hover:text-white disabled:opacity-50 transition-colors"
             >
-              {signupState === "loading" ? "Signing up…" : "Sign Up for Beta Access"}
+              {signupState === "loading" ? "Signing up…" : "Sign Up as a Humanoid Teacher"}
             </button>
 
             <p className="text-center text-[10px] text-white/30">
@@ -212,37 +224,31 @@ export default function CountdownTimer() {
         {detailsOpen && (
           <div className="mt-2 rounded-md border border-white/10 bg-white/[0.02] p-3 text-[11px] text-white/60 leading-relaxed space-y-2">
             <p>
-              <span className="text-cyan-300 font-semibold">MSAI</span> is looking for approximately{" "}
-              <span className="text-white font-semibold">100,000 users</span> to fully test our system —
-              each user will be given a{" "}
-              <span className="text-cyan-300 font-semibold">Full Year Premium Account</span> as a Thank You.
+              <span className="text-cyan-300 font-semibold">MOTHER EXO</span> is a British sovereign
+              humanoid <span className="text-white font-semibold">World Model</span> &mdash; designed,
+              owned and trained in the UK.
             </p>
 
             <p>
-              We are also looking for approximately{" "}
-              <span className="text-white font-semibold">1,000 Enterprise level organisations</span> (10+ employees)
-              to test using our{" "}
-              <span className="text-white font-semibold">Open API Integration</span> — see integration details:{" "}
+              Approved <span className="text-white font-semibold">Humanoid Teachers</span> get a login to
+              our online teaching SIM, where you help train MOTHER EXO inside the live{" "}
+              <span className="text-white font-semibold">Humanoid Training Simulator</span>.
+            </p>
+
+            <p>
+              Explore the full platform &mdash; simulator, vision stack and capture&rarr;train studio &mdash; at{" "}
               <a
-                href="https://www.mediastreamai.com/open-api"
+                href={PLATFORM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
               >
-                Media Stream AI | Sovereign AI Infrastructure &amp; Platforms
+                robotics.mediastreamai.com
               </a>
             </p>
 
-            <p>
-              We are also keen for users to explore{" "}
-              <span className="text-white font-semibold">MOTHER Text 2 Video</span> and{" "}
-              <span className="text-white font-semibold">MOTHER Code</span> — again,{" "}
-              <span className="text-cyan-300 font-semibold">1 year full access</span> will be granted
-              to all Beta Test Users.
-            </p>
-
             <p className="text-white/80 font-semibold text-center pt-1">
-              Please sign up above!
+              Sign up above to teach MOTHER EXO!
             </p>
           </div>
         )}
