@@ -287,7 +287,11 @@ export default function RoboticsPage() {
 
 /* ════════════════════════ STYLES ════════════════════════ */
 const CSS = `
-.mx-root{position:relative;overflow-x:hidden;background:#04060d;color:#eaf2ff;
+/* NB: do NOT put overflow-x here — it implicitly makes overflow-y:auto, which
+   turns .mx-root into a scroll container and breaks the sticky brain stage
+   (leaving a tall band of empty scroll). Horizontal overflow from the oversized
+   hero title is contained on .mx-hero instead, and the bg glows by .mx-bg. */
+.mx-root{position:relative;background:#04060d;color:#eaf2ff;
   font-family:'Inter',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
 .mx-root *{box-sizing:border-box;}
 .mx-cta-ico{width:16px;height:16px;display:inline-block;vertical-align:-2px;}
@@ -304,7 +308,7 @@ const CSS = `
 .mx-scan{position:absolute;left:0;right:0;height:160px;top:0;background:linear-gradient(180deg,transparent,rgba(43,217,255,.08),transparent);animation:mxScan 7s linear infinite;}
 @keyframes mxScan{0%{top:-160px}100%{top:100%}}
 
-.mx-hero{position:relative;z-index:5;min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:40px clamp(10px,2vw,32px) 40px;width:100%;}
+.mx-hero{position:relative;z-index:5;overflow-x:clip;min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:48px clamp(10px,2vw,32px) 32px;width:100%;}
 .mx-hero-copy{max-width:100%;width:100%;animation:mxRise 1s cubic-bezier(.2,.7,.2,1) both;display:flex;flex-direction:column;align-items:center;}
 .mx-badge{display:inline-block;font-size:11px;letter-spacing:.22em;color:#9fe9ff;border:1px solid #2bd9ff44;padding:6px 12px;border-radius:999px;margin-bottom:22px;background:#2bd9ff0d;}
 .mx-title{font-size:clamp(34px,15vw,260px);line-height:.86;margin:0 auto;font-weight:900;letter-spacing:-.03em;
