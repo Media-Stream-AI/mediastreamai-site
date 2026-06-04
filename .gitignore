@@ -5,6 +5,9 @@ node_modules/
 .next/
 out/
 
+# typescript
+*.tsbuildinfo
+
 # misc
 .DS_Store
 *.pem
