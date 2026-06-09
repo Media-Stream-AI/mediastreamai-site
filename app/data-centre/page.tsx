@@ -11,22 +11,21 @@ export default function DataCentrePage() {
       flag: '🇬🇧',
       city: 'Manchester',
       country: 'United Kingdom',
-      type: 'Primary UK AI Hub',
+      type: 'MOTHER EXO - Robotics AI Hub',
       phase: 'UK Sovereign',
       highlight: 'Opening august 2026',
       specs: [
-        'NVIDIA H200 8x GPU Nodes',
+        'NVIDIA H200 Nodes',
         'ISO 27001 Certified',
-        'RDX  ',
+        'RDX - internal heat reuse  ',
         '<40ms response latency',
         '99.99% uptime SLA'
       ],
       sustainability: [
-        'Carbon neutral operations'
+        'Carbon neutral operations',
       ],
       impact: [
         '60+ tech jobs created',
-      ]
     },
     {
       id: 'dundee',
@@ -42,12 +41,12 @@ export default function DataCentrePage() {
         'Government Cloud certification',
         'ISO 27001 + Cyber Essentials Plus',
         'MOD and intelligence service ready',
-        'Physical access controls',
+        'Physical access controls'
       ],
       sustainability: [
         'Vertical farm partnership',
         'Targeting 6,000+ meals/month to food banks by 2027',
-        'Research collaborations across UK',
+        'Research collaborations across UK'
       ],
       impact: [
         '95+ tech & research jobs',
