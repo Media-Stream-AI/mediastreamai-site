@@ -10,7 +10,7 @@ const PLATFORM_URL = "https://robotics.mediastreamai.com";
 
 const SOVEREIGN = [
   { icon: "🇬🇧", title: "British sovereign", body: "Designed, owned and trained in the UK — no foreign dependency in the loop." },
-  { icon: "🔒", title: "On-prem by default", body: "Runs on a sovereign GB10 / DGX node; weights and data never leave your control." },
+  { icon: "🔒", title: "On-prem by default", body: "Runs on a sovereign DC Cluster; weights and data never leave your control." },
   { icon: "🧠", title: "A true world model", body: "Perceives, reasons and predicts — vision, language and action in one model." },
   { icon: "🛡️", title: "Humanity & Defence", body: "Built for safety-critical, dual-use deployment with auditable decisions." },
 ];
@@ -220,7 +220,7 @@ export default function RoboticsPage() {
       <section className="mx-section mx-reveal">
         <div className="mx-head">
           <div className="mx-kicker">Sovereign by design</div>
-          <h2 className="mx-h2">Owned, hosted and trained in Britain</h2>
+          <h2 className="mx-h2">Owned, hosted and trained in United Kingdom</h2>
         </div>
         <div className="mx-cards">
           {SOVEREIGN.map((c) => (
