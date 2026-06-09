@@ -13,26 +13,19 @@ export default function DataCentrePage() {
       country: 'United Kingdom',
       type: 'Primary UK AI Hub',
       phase: 'UK Sovereign',
-      highlight: 'Opening May 2026',
+      highlight: 'Opening august 2026',
       specs: [
         'NVIDIA H200 8x GPU Nodes',
-        'NVIDIA B200 High-Performance Clusters',
-        'SambaNova RDU SN40L Systems',
         'ISO 27001 Certified',
-        'Liquid cooling with canal water reuse',
+        'RDX  ',
         '<40ms response latency',
         '99.99% uptime SLA'
       ],
       sustainability: [
-        'Waste heat powers vertical farms',
-        'Targeting 10,000+ meals/month to local food banks by 2027',
-        'Canal cooling reduces energy by 40%',
         'Carbon neutral operations'
       ],
       impact: [
-        '120+ tech jobs created',
-        'Partnership with 3 food banks',
-        '2.5 tons fresh produce/month'
+        '60+ tech jobs created',
       ]
     },
     {
@@ -40,22 +33,21 @@ export default function DataCentrePage() {
       flag: '🇬🇧',
       city: 'Dundee',
       country: 'Scotland',
-      type: 'Government & Research Hub',
+      type: 'Multi Hall Data Center - MSAI Scotland Campus',
       phase: 'UK Sovereign',
       specs: [
         'Air-gapped deployment options',
-        'NVIDIA B200 Supercomputing',
+        'NVIDIA B300 Supercomputing',
+        'NVIDIA H200 Supercomputing',
         'Government Cloud certification',
         'ISO 27001 + Cyber Essentials Plus',
         'MOD and intelligence service ready',
         'Physical access controls',
-        'UK security-cleared personnel only'
       ],
       sustainability: [
         'Vertical farm partnership',
         'Targeting 6,000+ meals/month to food banks by 2027',
-        'Research collaboration with University of Dundee',
-        'Zero carbon footprint'
+        'Research collaborations across UK',
       ],
       impact: [
         '95+ tech & research jobs',
@@ -72,7 +64,7 @@ export default function DataCentrePage() {
       type: 'Primary EU Infrastructure',
       phase: 'Phase Two',
       specs: [
-        'NVIDIA B200 EU Sovereign Deployment',
+        'NVIDIA B300 EU Sovereign Deployment',
         'GDPR-native architecture',
         'German data protection compliance (BDSG)',
         'ISO 27001 + BSI C5 Certified',
@@ -101,7 +93,7 @@ export default function DataCentrePage() {
       type: 'LATAM & Caribbean Hub',
       phase: 'Phase Two',
       specs: [
-        'NVIDIA B200 Caribbean deployment',
+        'NVIDIA B300 Caribbean deployment',
         'British Commonwealth jurisdiction',
         'ISO 27001 Certified',
         'LATAM regional inference & distribution',
@@ -130,7 +122,7 @@ export default function DataCentrePage() {
       type: 'Southern EU Operations',
       phase: 'Phase Two',
       specs: [
-        'NVIDIA B200 French Deployment',
+        'NVIDIA B300 French Deployment',
         'GDPR + French data sovereignty',
         'EU Digital Operational Resilience (DORA)',
         'ISO 27001 Certified',
@@ -154,10 +146,10 @@ export default function DataCentrePage() {
   ];
 
   const globalStats = [
-    { label: 'Sq Ft of Compute', value: '200,000+', icon: <MapPin className="w-6 h-6" /> },
+    { label: 'Sq Ft of Compute', value: '66,000+', icon: <MapPin className="w-6 h-6" /> },
     { label: 'GPU Nodes', value: '1,300+', icon: <Server className="w-6 h-6" /> },
-    { label: 'Jobs Ecosystem', value: '445+', icon: <Users className="w-6 h-6" /> },
-    { label: 'Target Meals to Food Banks', value: '24K+/Month', icon: <Leaf className="w-6 h-6" /> },
+    { label: 'Jobs Ecosystem', value: '205+', icon: <Users className="w-6 h-6" /> },
+    { label: 'Target Meals to Food Banks', value: '5K+/Month', icon: <Leaf className="w-6 h-6" /> },
   ];
 
   const certifications = [
@@ -183,12 +175,12 @@ export default function DataCentrePage() {
     {
       icon: <Cpu className="w-8 h-8" />,
       title: 'Latest GPU Technology',
-      description: 'NVIDIA H200, B200, and SambaNova RDU systems providing cutting-edge AI compute power.'
+      description: 'NVIDIA H200, B300 + Inferece Chip systems providing cutting-edge AI compute power.'
     },
     {
       icon: <Leaf className="w-8 h-8" />,
       title: 'Sustainable Operations',
-      description: 'Canal cooling, waste heat reuse, and renewable energy powering vertical farms and community heating.'
+      description: 'Horizon Water Cooling, waste heat reuse, and renewable energy power creation.'
     }
   ];
 
