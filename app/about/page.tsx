@@ -18,13 +18,13 @@ export default function AboutPage() {
     },
     {
       year: "2024",
-      title: "Multi-DC Expansion Complete",
-      description: "UK Sovereign network operational in Manchester and Dundee, with Phase Two international expansion across Düsseldorf, Jamaica, and Marseille — 100% UK/EU sovereignty."
+      title: "UK Sovereign Network Operational",
+      description: "MSAI Scotland (Dundee) GPU clusters and MSAI Manchester MOTHER EXO robotics lab established — 100% UK sovereignty."
     },
     {
       year: "2023",
-      title: "Canal Cooling Innovation",
-      description: "Pioneered sustainable AI infrastructure with canal-cooled data centers, achieving 40% energy reduction."
+      title: "Horizon Scotland Cooling",
+      description: "Deployed the Horizon Scotland based cooling system with PHE 1.1 for sustainable, high-density sovereign GPU compute."
     },
     {
       year: "2023",
@@ -47,7 +47,7 @@ export default function AboutPage() {
     {
       icon: <Heart size={32} className="text-red-400" />,
       title: "Social Impact",
-      description: "Growing jobs ecosystem, targeting 24K+ meals/month to food banks by 2027, vertical farms powered by waste heat. AI that serves communities."
+      description: "A growing UK jobs ecosystem across our Dundee GPU site and Manchester MOTHER EXO robotics lab — sovereign compute and advanced manufacturing that serves communities."
     },
     {
       icon: <Target size={32} className="text-blue-400" />,
@@ -58,8 +58,8 @@ export default function AboutPage() {
 
   const uniqueFactors = [
     {
-      title: "UK-Owned Multi-DC AI Provider",
-      description: "MSAI is proudly a UK company operating 5+ sovereign data centers with complete AI infrastructure. AWS, Azure, Google are all US-owned with CLOUD Act exposure."
+      title: "UK-Owned Sovereign AI Provider",
+      description: "MSAI is proudly a UK company operating two sovereign sites — Dundee GPU clusters and Manchester MOTHER EXO robotics — with complete AI infrastructure. AWS, Azure, Google are all US-owned with CLOUD Act exposure."
     },
     {
       title: "Military Veteran Leadership",
@@ -70,8 +70,8 @@ export default function AboutPage() {
       description: "As an ethnic minority-led organization, we bring diverse perspectives to AI development and understand the importance of representative technology leadership."
     },
     {
-      title: "Canal Cooling Innovation",
-      description: "Proprietary sustainable cooling reduces energy consumption, powers vertical farms, and targets 24,000 meals/month to food banks by 2027. A genuine ESG-first infrastructure model."
+      title: "Horizon Scotland Cooling (PHE 1.1)",
+      description: "The Horizon Scotland based cooling system with PHE 1.1 delivers sustainable, high-density GPU compute with reduced energy consumption. A genuine ESG-first infrastructure model."
     },
     {
       title: "40-60% Cost Savings",
@@ -158,10 +158,10 @@ export default function AboutPage() {
               </p>
 
               <p>
-                From day one, we've prioritized <strong className="text-white">measurable social impact</strong>. 
-                Our canal-cooled data centers don't just reduce energy—they power vertical farms growing fresh
-                produce for food banks. We're building a growing jobs ecosystem across our regions and targeting
-                24,000 meals/month to communities by 2027. <strong className="text-green-300">This is AI infrastructure with purpose.</strong>
+                From day one, we've prioritized <strong className="text-white">measurable social impact</strong>.
+                Our Horizon Scotland cooled GPU clusters in Dundee and our MOTHER EXO robotics lab in Manchester
+                build a growing UK jobs ecosystem in sovereign compute and advanced manufacturing.
+                <strong className="text-green-300"> This is AI infrastructure with purpose.</strong>
               </p>
 
               <p>
@@ -334,25 +334,25 @@ export default function AboutPage() {
               <div className="text-5xl font-bold text-blue-400 mb-2">405+</div>
               <div className="text-xl text-white/70 mb-2">Jobs Ecosystem</div>
               <p className="text-sm text-white/60">
-                Manchester, Dundee, Düsseldorf, Jamaica, Marseille tech positions
+                Dundee GPU site &amp; Manchester MOTHER EXO robotics lab — UK tech positions
               </p>
             </div>
 
             <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
               <Heart size={48} className="text-green-400 mx-auto mb-4" />
-              <div className="text-5xl font-bold text-green-400 mb-2">24,000+</div>
-              <div className="text-xl text-white/70 mb-2">Target Meals Per Month</div>
+              <div className="text-5xl font-bold text-green-400 mb-2">1,000</div>
+              <div className="text-xl text-white/70 mb-2">MOTHER EXO Units / Year</div>
               <p className="text-sm text-white/60">
-                2027 target — fresh produce from waste heat-powered vertical farms to food banks
+                2027 target — MOTHER EXO Humanoid robotics lab and assembly, Manchester
               </p>
             </div>
 
             <div className="p-8 bg-black/40 border border-white/10 rounded-2xl text-center">
               <Zap size={48} className="text-yellow-400 mx-auto mb-4" />
               <div className="text-5xl font-bold text-yellow-400 mb-2">40%</div>
-              <div className="text-xl text-white/70 mb-2">Energy Reduction</div>
+              <div className="text-xl text-white/70 mb-2">Energy Efficiency</div>
               <p className="text-sm text-white/60">
-                Canal-cooled infrastructure with ORC heat recovery
+                Horizon Scotland based cooling system with PHE 1.1
               </p>
             </div>
           </div>

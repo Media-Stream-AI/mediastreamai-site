@@ -2,11 +2,8 @@
 
 export function DataCentreStrip() {
   const sites = [
-    { name: "Manchester / Salford – MediaCityUK", flag: "🇬🇧", phase: "UK Sovereign" },
-    { name: "Dundee, Scotland", flag: "🇬🇧", phase: "UK Sovereign" },
-    { name: "Düsseldorf", flag: "🇩🇪", phase: "Phase Two" },
-    { name: "Kingston, Jamaica", flag: "🇯🇲", phase: "Phase Two" },
-    { name: "Marseille", flag: "🇫🇷", phase: "Phase Two" },
+    { name: "MSAI Scotland, Dundee — GPU Clusters (B300 & H200)", flag: "🇬🇧", phase: "UK Sovereign" },
+    { name: "MSAI Manchester — MOTHER EXO Robotics Lab & Assembly", flag: "🇬🇧", phase: "UK Sovereign" },
   ];
 
   return (

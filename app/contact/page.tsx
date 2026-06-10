@@ -354,29 +354,12 @@ export default function ContactPage() {
                   <p className="text-[10px] uppercase tracking-wider text-blue-300 font-semibold mb-2">UK Sovereign</p>
                   <div className="space-y-3">
                     <div>
-                      <p className="font-semibold text-white">Manchester HQ</p>
-                      <p className="text-sm">United Kingdom</p>
+                      <p className="font-semibold text-white">MSAI Manchester</p>
+                      <p className="text-sm">MOTHER EXO Robotics Lab &amp; Assembly — United Kingdom</p>
                     </div>
                     <div>
-                      <p className="font-semibold text-white">Dundee</p>
-                      <p className="text-sm">Scotland, United Kingdom</p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-amber-300 font-semibold mb-2">Phase Two — International</p>
-                  <div className="space-y-3">
-                    <div>
-                      <p className="font-semibold text-white">Düsseldorf</p>
-                      <p className="text-sm">Germany</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white">Kingston</p>
-                      <p className="text-sm">Jamaica</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white">Marseille</p>
-                      <p className="text-sm">France</p>
+                      <p className="font-semibold text-white">MSAI Scotland — Dundee</p>
+                      <p className="text-sm">GPU Clusters (B300 &amp; H200) — Scotland, United Kingdom</p>
                     </div>
                   </div>
                 </div>

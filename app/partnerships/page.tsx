@@ -160,19 +160,19 @@ export default function PartnershipsPage() {
             <div className="bg-black/40 border border-white/10 p-8 rounded-2xl text-center">
               <div className="text-5xl font-bold text-green-400 mb-2">405+</div>
               <div className="text-xl text-white/70 mb-2">Jobs Ecosystem</div>
-              <p className="text-sm text-white/60">Across UK/EU data centres</p>
+              <p className="text-sm text-white/60">Across our UK sovereign sites</p>
             </div>
 
             <div className="bg-black/40 border border-white/10 p-8 rounded-2xl text-center">
-              <div className="text-5xl font-bold text-green-400 mb-2">24,000+</div>
-              <div className="text-xl text-white/70 mb-2">Target Meals Per Month</div>
-              <p className="text-sm text-white/60">2027 target — from waste heat vertical farms</p>
+              <div className="text-5xl font-bold text-green-400 mb-2">1,000</div>
+              <div className="text-xl text-white/70 mb-2">MOTHER EXO Units / Year</div>
+              <p className="text-sm text-white/60">2027 target — Manchester robotics lab and assembly</p>
             </div>
 
             <div className="bg-black/40 border border-white/10 p-8 rounded-2xl text-center">
-              <div className="text-5xl font-bold text-green-400 mb-2">40%</div>
-              <div className="text-xl text-white/70 mb-2">Energy Reduction</div>
-              <p className="text-sm text-white/60">Via Lenovo Neptune canal cooling</p>
+              <div className="text-5xl font-bold text-green-400 mb-2">PHE 1.1</div>
+              <div className="text-xl text-white/70 mb-2">Horizon Scotland Cooling</div>
+              <p className="text-sm text-white/60">Sustainable cooling for Dundee GPU clusters</p>
             </div>
           </div>
         </motion.div>

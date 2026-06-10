@@ -106,10 +106,11 @@ export default function SectorsPage() {
       id: 'defence',
       icon: '🛡️',
       title: 'Defence & Security',
-      subtitle: 'Air-gapped deployment with zero foreign dependencies',
+      subtitle: 'MOTHER DeepVision model powering MOTHER DEFENCE and OverWatch systems for Security & Defence — air-gapped, zero foreign dependencies',
       stat: 'Air-gapped',
       statDetail: 'secure deployment',
       useCases: [
+        'MOTHER DeepVision & OverWatch real-time ISR',
         'Classified information analysis',
         'Real-time threat detection',
         'Secure multi-agency coordination',
@@ -117,7 +118,7 @@ export default function SectorsPage() {
         'Autonomous systems coordination',
         'Cybersecurity monitoring'
       ],
-      gpuOption: 'Isolated B200 clusters with UK security-cleared access only',
+      gpuOption: 'Isolated B300 & H200 GPU clusters with UK security-cleared access only',
       agentOption: 'MOTHER AI agents in fully isolated environment with MOD certification',
       implementationTime: '12-16 weeks (security clearance)',
       highlight: true
