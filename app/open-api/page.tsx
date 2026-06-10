@@ -308,8 +308,8 @@ export default function OpenApiPage() {
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             {[
               { icon: Zap, label: "Sub-100ms TTFT", sub: "Quantum-accelerated retrieval" },
-              { icon: Shield, label: "Zero CLOUD Act", sub: "UK & EU data residency" },
-              { icon: Globe, label: "Sovereign Data Centres", sub: "Manchester · Dundee · Düsseldorf · Jamaica · Marseille" },
+              { icon: Shield, label: "Zero CLOUD Act", sub: "UK data residency" },
+              { icon: Globe, label: "Sovereign UK Sites", sub: "MSAI Scotland, Dundee · MSAI Manchester" },
               { icon: Lock, label: "Air-Gap Option", sub: "On-premise enterprise deploy" },
             ].map((s, i) => (
               <motion.div
@@ -719,8 +719,8 @@ export default function OpenApiPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-4 gap-4">
             {[
-              { icon: Shield, label: "UK Data Sovereignty", desc: "All inference in UK / EU. No CLOUD Act exposure." },
-              { icon: Zap, label: "728× H200 GPUs", desc: "5 data centres. 65% energy saving via canal cooling." },
+              { icon: Shield, label: "UK Data Sovereignty", desc: "All inference in the UK. No CLOUD Act exposure." },
+              { icon: Zap, label: "B300 & H200 GPU Clusters", desc: "MSAI Scotland, Dundee. Horizon Scotland cooling with PHE 1.1." },
               { icon: Lock, label: "Tier 3 Governance", desc: "Temperature=0, deterministic, fully auditable." },
               { icon: Server, label: "99.9% Uptime SLA", desc: "Enterprise: dedicated cluster + failover." },
             ].map((s, i) => (

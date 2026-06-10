@@ -3,10 +3,10 @@
 import React from "react";
 
 type Node = {
-  id: "MCR" | "DUN" | "DUS" | "KIN" | "MAR";
+  id: "DUN" | "MCR";
   name: string;
   subtitle: string;
-  phase: "UK Sovereign" | "Phase Two";
+  phase: "UK Sovereign";
   x: number;
   y: number;
   color: string;
@@ -14,49 +14,22 @@ type Node = {
 
 const NODES: Node[] = [
   {
-    id: "MCR",
-    name: "Manchester / Salford – MediaCityUK",
-    subtitle: "UK Sovereign • H200 + RDUs • Neptune",
+    id: "DUN",
+    name: "MSAI Scotland, Dundee",
+    subtitle: "UK Sovereign • GPU Clusters B300s & H200s • live across 2026",
     phase: "UK Sovereign",
     x: 320,
-    y: 300,
-    color: "#60A5FA",
-  },
-  {
-    id: "DUN",
-    name: "Dundee, Scotland",
-    subtitle: "UK Sovereign • Air-Gapped • Government Hub",
-    phase: "UK Sovereign",
-    x: 280,
-    y: 140,
+    y: 160,
     color: "#34D399",
   },
   {
-    id: "DUS",
-    name: "Düsseldorf",
-    subtitle: "EU Sovereign • GDPR • AIA",
-    phase: "Phase Two",
-    x: 700,
-    y: 280,
-    color: "#F59E0B",
-  },
-  {
-    id: "MAR",
-    name: "Marseille",
-    subtitle: "Southern EU • Mediterranean Node",
-    phase: "Phase Two",
-    x: 640,
-    y: 460,
-    color: "#F472B6",
-  },
-  {
-    id: "KIN",
-    name: "Kingston (Jamaica)",
-    subtitle: "LATAM / Caribbean Regional Node",
-    phase: "Phase Two",
-    x: 160,
-    y: 520,
-    color: "#A78BFA",
+    id: "MCR",
+    name: "MSAI Manchester",
+    subtitle: "UK Sovereign • MOTHER EXO Robotics Lab & Assembly • 1,000 units/yr by 2027",
+    phase: "UK Sovereign",
+    x: 360,
+    y: 420,
+    color: "#60A5FA",
   },
 ];
 
@@ -146,12 +119,9 @@ export function DcNetworkMap() {
           </radialGradient>
         </defs>
 
-        {/* connecting lines from Manchester hub */}
+        {/* connecting line between the two UK sovereign sites */}
         <g stroke="rgba(255,255,255,0.15)" strokeWidth="1.2">
           <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[1].x} y2={NODES[1].y} />
-          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[2].x} y2={NODES[2].y} />
-          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[3].x} y2={NODES[3].y} />
-          <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[4].x} y2={NODES[4].y} />
         </g>
 
         {/* nodes + micro-grids */}

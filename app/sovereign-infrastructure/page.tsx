@@ -10,34 +10,16 @@ type Site = {
 
 const SITES: Site[] = [
   {
-    city: "Manchester / Salford – MediaCityUK (UK)",
-    role: "Flagship Sovereign DC",
-    spec: "NVIDIA H200 training + SambaNova SN40L inference; Lenovo Neptune warm-water liquid cooling; Canal heat-exchange; 400G wave connectivity.",
+    city: "MSAI Scotland — Dundee (UK)",
+    role: "Sovereign GPU Hub",
+    spec: "GPU Clusters B300s & H200s live across 2026; Horizon Scotland based cooling system with PHE 1.1; UK security-cleared personnel; ISO 27001 + Cyber Essentials Plus.",
     phase: "UK Sovereign",
   },
   {
-    city: "Dundee, Scotland (UK)",
-    role: "UK Sovereign Government & Research Hub",
-    spec: "Air-gapped deployment options; NVIDIA B200 supercomputing; UK security-cleared personnel; MOD/intelligence ready; ISO 27001 + Cyber Essentials Plus.",
+    city: "MSAI Manchester (UK)",
+    role: "MOTHER EXO Robotics Lab & Assembly",
+    spec: "MOTHER EXO Humanoid robotics lab and assembly — 1,000 units per year by 2027; MOTHER EXO World Model V.2 integration; ISO 27001 certified.",
     phase: "UK Sovereign",
-  },
-  {
-    city: "Düsseldorf (Germany)",
-    role: "EU Sovereign Node (GDPR / EU AI Act)",
-    spec: "Data residency in DE; unified orchestration; EU enterprise access.",
-    phase: "Phase Two",
-  },
-  {
-    city: "Kingston (Jamaica)",
-    role: "LATAM/Caribbean Regional Node",
-    spec: "Regional inference & distribution; British Commonwealth jurisdiction.",
-    phase: "Phase Two",
-  },
-  {
-    city: "Marseille (France)",
-    role: "Southern EU Operations",
-    spec: "GDPR + French data sovereignty; Mediterranean coverage; solar integration; DORA compliance.",
-    phase: "Phase Two",
   },
 ];
 
@@ -46,9 +28,9 @@ export default function Page() {
     <Section className="py-16">
       <h1 className="text-3xl font-bold">Sovereign Infrastructure</h1>
       <p className="text-white/70 mt-2 max-w-3xl">
-        A UK/EU sovereign network architected for privacy, compliance, and efficiency. Training runs on NVIDIA H200;
-        inference on SambaNova RDUs for best $/token. Liquid cooling (Lenovo Neptune) keeps PUE/WUE low and enables
-        heat-reuse loops.
+        A UK sovereign network architected for privacy, compliance, and efficiency. GPU clusters (B300s & H200s) run
+        from MSAI Scotland, Dundee; MOTHER EXO humanoid robotics are built at MSAI Manchester. The Horizon Scotland
+        based cooling system with PHE 1.1 keeps PUE/WUE low.
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -73,7 +55,7 @@ export default function Page() {
       </div>
 
       <div className="mt-10 rounded-2xl overflow-hidden border border-white/10">
-        <img src="/images/map-uk-eu-jm.png" alt="MSAI data centre locations map" className="w-full" />
+        <img src="/images/map-uk-eu-jm.png" alt="MSAI UK sovereign sites map — Dundee & Manchester" className="w-full" />
       </div>
 
       <p className="text-[11px] text-white/40 mt-4">

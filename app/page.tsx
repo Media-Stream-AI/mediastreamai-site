@@ -16,7 +16,7 @@ const chatMessages = [
   { role: "mother", text: "I am built as a new British Class of LLM called MODULAR COGNITIVE ARCHITECTURE" },
   { role: "mother", text: "Did you know i was built and trainined in the same city as BABY the first computer - and every BABY needs a MOTHER!." },
     { role: "mother", text: "Come check me out at MOTHERAI.UK" },
-  { role: "mother", text: "I trained on NVIDIA H200 GPU's - I now run on inference chips across MSAI UK & EU data centres. Your data never leaves European jurisdiction." },
+  { role: "mother", text: "I trained on NVIDIA H200 GPU's - I now run on inference chips across MSAI UK sovereign infrastructure. Your data never leaves UK jurisdiction." },
   { role: "mother", text: "I can help with code, legal analysis, scientific research, creative writing, and video generation - and soon I will be walking..." },
   { role: "mother", text: "All training data is British. All weights are proprietary. Zero dependencies." },
   { role: "mother", text: "Come check me out at MOTHERAI.UK" },
@@ -96,7 +96,7 @@ const services = [
     desc: "GPU Infrastructure",
     url: "/solutions",
     color: "green",
-    features: ["H200 • B200 • SambaNova", "73% vs AWS", "Canal-Cooled"]
+    features: ["B300 • H200 • SambaNova", "73% vs AWS", "PHE 1.1 Cooling"]
   },
   {
     icon: Tv,
@@ -112,7 +112,7 @@ const services = [
     desc: "Embodied AI",
     url: "https://robotics.mediastreamai.com",
     color: "purple",
-    features: ["Isaac Lab", "Humanoid Control", "Vision AI"]
+    features: ["MOTHER EXO World Model V.2", "Humanoid Control", "MOTHER DeepVision"]
   },
 ];
 
@@ -677,7 +677,7 @@ export default function HomePage() {
       >
         <div className="flex items-center gap-3 mb-6">
           <span className="px-3 py-1 bg-[#76b900]/20 text-[#76b900] rounded-full text-xs font-mono">
-         MOTHER EXO World Model V.3
+            MOTHER EXO WORLD MODEL V.2
           </span>
           <h3 className="font-semibold">Physical Intelligence</h3>
         </div>
@@ -753,7 +753,7 @@ export default function HomePage() {
         <span className="text-purple-400 text-xl">→</span>
         <div className="flex items-center gap-2">
           <span className="text-2xl">🤖</span>
-          <span>MOTHER EXO World Model V.3</span>
+          <span>MOTHER EXO World Model V.2</span>
         </div>
       </div>
     </motion.div>
@@ -778,10 +778,10 @@ export default function HomePage() {
       <section className="py-20 px-6 border-t border-white/5">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { stat: "8×", label: "H200 GPUs" },
-            { stat: "2", label: "UK Data Centres with EU Expansion 2027" },
-            { stat: "3 x 7B", label: "Parameters" },
-            { stat: "0", label: "Dependencies" },
+            { stat: "B300", label: "& H200 GPU Clusters" },
+            { stat: "2", label: "UK Sovereign Sites" },
+            { stat: "70B", label: "Parameters" },
+            { stat: "0", label: "US Dependencies" },
           ].map((s, i) => (
             <div key={i}>
               <div className="text-3xl font-bold text-cyan-400">{s.stat}</div>
@@ -796,8 +796,11 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <Shield className="w-12 h-12 text-cyan-400 mx-auto mb-6" />
           <h2 className="text-2xl font-bold mb-4">Built for Trust</h2>
-          <p className="text-white/50 mb-8 max-w-2xl mx-auto">
+          <p className="text-white/50 mb-4 max-w-2xl mx-auto">
             Military veteran leadership. UK data sovereignty. GDPR compliant. No external base models. Full audit trail.
+          </p>
+          <p className="text-cyan-300 font-semibold mb-8 max-w-2xl mx-auto">
+            MOTHER DeepVision model powering MOTHER DEFENCE and OverWatch systems for Security &amp; Defence.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/government-defence">

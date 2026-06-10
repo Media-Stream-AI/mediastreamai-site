@@ -323,6 +323,9 @@ export default function GovernmentDefencePage() {
           <p className="text-sm sm:text-base md:text-lg text-white/60 max-w-2xl mx-auto px-4">
             Zero foreign dependencies. Zero CLOUD Act exposure. Complete operational independence.
           </p>
+          <p className="mt-6 inline-block text-base sm:text-lg md:text-xl font-semibold text-red-300 border border-red-400/30 bg-red-600/10 rounded-full px-5 py-2 max-w-3xl mx-auto">
+            MOTHER DeepVision model powering MOTHER DEFENCE and OverWatch systems for Security &amp; Defence.
+          </p>
         </motion.div>
 
         {/* ── MOTHER Defence Platform ───────────────────────────────────── */}
@@ -563,7 +566,8 @@ export default function GovernmentDefencePage() {
                 <ul className="space-y-3 text-sm md:text-base text-white/80">
                   {[
                     "Completely isolated from public internet",
-                    "NVIDIA B200 supercomputing clusters",
+                    "NVIDIA B300 & H200 GPU clusters (live across 2026)",
+                    "Horizon Scotland based cooling system with PHE 1.1",
                     "UK security-cleared personnel only",
                     "Physical access controls with biometrics",
                     "Faraday cage EMI/RF shielding",
