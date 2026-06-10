@@ -435,7 +435,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-sm text-cyan-400 mb-6"
             >
               <Zap className="w-4 h-4" />
-              WORLD FIRST — UK Sovereign Quantum-AI
+              Developing — UK Sovereign Quantum-AI
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -456,8 +456,8 @@ export default function HomePage() {
               transition={{ delay: 0.2 }}
               className="text-white/50 max-w-3xl mx-auto text-lg"
             >
-              MOTHER doesn&apos;t just use quantum computing — it&apos;s the only production-grade national-scale LLM
-              with quantum-enhanced RAG retrieval, letting it search, verify and reason faster than any other LLM on Earth.
+              MOTHER doesn&apos;t just use quantum computing — it&apos;s developing a production-grade national-scale Reasoning Model
+              with quantum-enhanced RAG retrieval, letting it search, verify and reason X30 faster than the average RAG connected model.
             </motion.p>
           </div>
 
@@ -627,7 +627,7 @@ export default function HomePage() {
                   Build on MOTHER AI
                 </h2>
                 <p className="text-white/50 mb-4 max-w-xl">
-                  Access MOTHER CORE, LLM 7B, Quantum RAG, and T2V via our REST API.
+                  Access MOTHER CORE V2, LLM 7B, Quantum RAG, and MOTHER EXO World Model via our REST API.
                   Individual developers and enterprise teams — all plans available.
                 </p>
                 <div className="flex flex-wrap gap-3 text-xs font-mono">
@@ -713,7 +713,7 @@ export default function HomePage() {
         <div className="space-y-4">
           <div className="bg-gradient-to-r from-purple-500/20 to-transparent rounded-lg p-4">
             <span className="px-2 py-1 bg-purple-500 text-white rounded text-xs mr-2">CORE</span>
-            <span className="font-mono text-sm">7B/70B Sovereign Reasoning</span>
+            <span className="font-mono text-sm">7B Sovereign Reasoning</span>
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="px-2 py-1 bg-purple-500/30 rounded-full text-xs">LEGAL</span>
