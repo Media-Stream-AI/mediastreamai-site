@@ -8,11 +8,6 @@ export default function AboutPage() {
   const timeline = [
     {
       year: "2024",
-      title: "Lenovo AI Innovator",
-      description: "Joined Lenovo AI Innovator Program, validating our sovereign AI approach and accelerating deployment."
-    },
-    {
-      year: "2024",
       title: "MOTHER AI & Autm Platform Launch",
       description: "Launched UK's first fully sovereign LLM platform with production deployments across media and enterprise sectors."
     },
@@ -89,8 +84,7 @@ export default function AboutPage() {
     "GDPR Compliant",
     "DORA Ready",
     "BSI C5 Certified",
-    "MOD Engagement",
-    "Lenovo AI Innovator"
+    "MOD Engagement"
   ];
 
   return (
@@ -165,9 +159,8 @@ export default function AboutPage() {
               </p>
 
               <p>
-                Today, we're proud to be recognized by the
-                <strong className="text-white"> Lenovo AI Innovator</strong> program while delivering proven
-                results across the UK's leading industries.
+                Today, we're proud to deliver <strong className="text-white">proven results</strong> across
+                the UK's leading industries.
               </p>
             </div>
           </motion.div>
@@ -248,50 +241,6 @@ export default function AboutPage() {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= PARTNERSHIPS ================= */}
-      <section className="py-20 px-6 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-blue-400 mb-12 text-center">
-            Industry Recognition
-          </h2>
-
-          <div className="flex justify-center mb-16">
-            {/* Lenovo AI Innovator */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="p-8 bg-gradient-to-br from-red-900/20 to-black border border-red-400/30 rounded-2xl text-center max-w-md w-full"
-            >
-              <svg width="120" height="120" viewBox="0 0 200 200" className="mx-auto mb-6">
-                <circle cx="100" cy="100" r="60" stroke="#E31C23" strokeWidth="4" fill="none"/>
-                <path d="M70 100 L90 100 M90 70 L90 130 M110 100 L130 100 M120 90 L120 110" stroke="#E31C23" strokeWidth="4"/>
-                <text x="100" y="175" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">LENOVO</text>
-                <text x="100" y="192" textAnchor="middle" fill="white" fontSize="11">AI INNOVATOR</text>
-              </svg>
-              <h3 className="text-2xl font-bold text-white mb-3">Lenovo AI Innovator Program</h3>
-              <p className="text-white/70 mb-4">
-                Partner in Lenovo's AI Innovator Program, leveraging Lenovo Neptune liquid cooling
-                technology for sustainable AI infrastructure.
-              </p>
-              <Link href="/partnerships#lenovo">
-                <button className="px-6 py-2 border border-red-400 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors">
-                  Learn More
-                </button>
-              </Link>
-            </motion.div>
-          </div>
-
-          <div className="text-center">
-            <Link href="/partnerships">
-              <button className="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition-colors">
-                View All Partnerships
-              </button>
-            </Link>
           </div>
         </div>
       </section>
