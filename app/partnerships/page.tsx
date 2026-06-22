@@ -5,32 +5,16 @@ import Link from "next/link";
 import { Award, CheckCircle, ExternalLink } from "lucide-react";
 
 export default function PartnershipsPage() {
-  const partnerships = [
-    {
-      id: 'lenovo',
-      name: 'Lenovo AI Innovator Program',
-      logo: (
-        <svg width="150" height="150" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="60" stroke="#E31C23" strokeWidth="4" fill="none"/>
-          <path d="M70 100 L90 100 M90 70 L90 130 M110 100 L130 100 M120 90 L120 110" stroke="#E31C23" strokeWidth="4"/>
-          <text x="100" y="175" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">LENOVO</text>
-          <text x="100" y="192" textAnchor="middle" fill="white" fontSize="11">AI INNOVATOR</text>
-        </svg>
-      ),
-      description: "A Lenovo AI Innovator partner, collaborating to co-develop, validate, and bring AI solutions to market through a global ecosystem.",
-      benefits: [
-        "End-to-end technical collaboration with Lenovo AI experts",
-        "Direct access to Lenovo AI Discover Lab and cutting-edge AI infrastructure",
-        "Leverage expert support for testing, benchmarking, and full-stack validation",
-        "Accelerated time-to-market through pre-validated architectures",
-        "Joint go-to-market opportunities via Lenovo's global channel ecosystem",
-        "Greater scale and reach through access to Lenovo's worldwide customer base"
-      ],
-      significance: "This partnership enables MediaStreamAI to bring its AI solutions and data centre infrastructure online faster and more efficiently, accelerating deployment while optimising performance at scale.",
-      website: "https://www.lenovo.com/gb/en/servers-storage/alliance/ai-innovators/",
-      color: 'red'
-    }
-  ];
+  const partnerships: {
+    id: string;
+    name: string;
+    logo: JSX.Element;
+    description: string;
+    benefits: string[];
+    significance: string;
+    website: string;
+    color: string;
+  }[] = [];
 
 
   const certifications = [
@@ -59,12 +43,12 @@ export default function PartnershipsPage() {
             deliver real social and economic impact.
           </p>
           <p className="text-white/60 max-w-2xl mx-auto">
-            Lenovo's sustainable cooling technology enables our world-class sovereign AI infrastructure.
+            Sustainable, high-density cooling technology enables our world-class sovereign AI infrastructure.
           </p>
         </motion.div>
 
         {/* Main Partnerships */}
-        <div className="space-y-16 mb-20">
+        <div className={partnerships.length ? "space-y-16 mb-20" : ""}>
           {partnerships.map((partnership, i) => (
             <motion.div
               key={partnership.id}
