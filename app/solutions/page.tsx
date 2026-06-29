@@ -10,7 +10,7 @@ export default function SolutionsPage() {
       title: "GPU & Infrastructure as a Service",
       icon: <Zap size={64} className="text-blue-400" />,
       description: "Raw compute power for your AI workloads. H200, B200, and SambaNova clusters with complete UK/EU sovereignty.",
-      pricing: "From £5.80/hour",
+      pricing: "From $2.30/GPU hour",
       savingsTag: "40-60% below AWS/Azure",
       features: [
         "NVIDIA H200 at £8.50/hour",
