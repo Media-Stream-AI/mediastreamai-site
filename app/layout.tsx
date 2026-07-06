@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./_components/Header";
 import CookieBanner from "./_components/CookieBanner";
-import CountdownTimer from "./_components/CountdownTimer";
 import AccessOverlay from "@/components/AccessOverlay";
 
 /* -----------------------------------------------------
@@ -128,7 +127,6 @@ export default function RootLayout({
         </footer>
 
         <CookieBanner />
-        <CountdownTimer />
         <AccessOverlay />
       </body>
     </html>
