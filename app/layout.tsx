@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./_components/Header";
 import CookieBanner from "./_components/CookieBanner";
 import CountdownTimer from "./_components/CountdownTimer";
+import AccessOverlay from "@/components/AccessOverlay";
 
 /* -----------------------------------------------------
    SEO / METADATA
@@ -128,6 +129,7 @@ export default function RootLayout({
 
         <CookieBanner />
         <CountdownTimer />
+        <AccessOverlay />
       </body>
     </html>
   );
