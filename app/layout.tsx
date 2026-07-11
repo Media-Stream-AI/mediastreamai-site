@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./_components/Header";
 import CookieBanner from "./_components/CookieBanner";
 import AccessOverlay from "@/components/AccessOverlay";
+import InvestorDeck from "./_components/InvestorDeck";
 
 /* -----------------------------------------------------
    SEO / METADATA
@@ -123,6 +124,7 @@ export default function RootLayout({
 
         {/* Safe minimal footer (prevents build breakage) */}
         <footer className="border-t border-white/10 py-6 text-center text-sm text-white/50">
+          <div className="mb-2"><InvestorDeck /></div>
           © {new Date().getFullYear()} Media Stream AI Limited. All rights reserved.
         </footer>
 

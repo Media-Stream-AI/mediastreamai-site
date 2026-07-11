@@ -1,3 +1,5 @@
+import InvestorDeck from "./InvestorDeck";
+
 export default function Footer() {
   return (
     <footer className="bg-black border-t border-gray-800 text-gray-400">
@@ -30,6 +32,7 @@ export default function Footer() {
             <ul className="space-y-1">
               <li><a href="/privacy" className="hover:text-white">Privacy Policy</a></li>
               <li><a href="/terms" className="hover:text-white">Terms</a></li>
+              <li><InvestorDeck /></li>
               <li>
                 <a href="mailto:contact@mediastreamai.com" className="hover:text-white">
                   contact@mediastreamai.com

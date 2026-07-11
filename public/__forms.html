@@ -11,5 +11,15 @@
       <textarea name="message"></textarea>
       <input name="bot-field" type="text" />
     </form>
+
+    <!-- Investor Deck requests. Set the email notification for this form to
+         chris@mediastreamai.com in the Netlify dashboard. -->
+    <form name="investor-deck" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="investor-deck" />
+      <input name="name" type="text" />
+      <input name="email" type="email" />
+      <input name="company" type="text" />
+      <input name="bot-field" type="text" />
+    </form>
   </body>
 </html>
