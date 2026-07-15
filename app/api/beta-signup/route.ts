@@ -179,25 +179,32 @@ export async function POST(req: NextRequest) {
     const modelInterest = cap(body.model, 80); if (modelInterest) extra.model = modelInterest;
     if (typeof body.ownershipAck === "boolean") extra.ownershipAck = body.ownershipAck;
 
-    const col = await getCollection();
-    // Upsert by email so repeated submissions don't pile up duplicate PII rows.
-    await col.updateOne(
-      { email },
-      {
-        $set: { name, source, ...extra, updatedAt: new Date() },
-        $setOnInsert: { email, createdAt: new Date() },
-      },
-      { upsert: true }
-    );
+    // Persist best-effort: a Mongo outage must not error the visitor. Fails
+    // open like the sibling lead routes — the lead still reaches the team via
+    // notifyTeam below, and the user gets a clean confirmation instead of a 500.
+    try {
+      const col = await getCollection();
+      // Upsert by email so repeated submissions don't pile up duplicate PII rows.
+      await col.updateOne(
+        { email },
+        {
+          $set: { name, source, ...extra, updatedAt: new Date() },
+          $setOnInsert: { email, createdAt: new Date() },
+        },
+        { upsert: true }
+      );
+    } catch (dbErr) {
+      console.error("[beta-signup] store error (continuing):", dbErr);
+    }
 
     // Email the team (best-effort; never blocks or fails the signup).
     await notifyTeam({ name, email, source, ...extra });
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
-    // Log server-side detail; never return it to the client.
+    // Unexpected error — still confirm to the visitor (capture is best-effort).
     console.error("[beta-signup] POST error:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ success: true });
   }
 }
 
