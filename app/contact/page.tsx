@@ -33,6 +33,62 @@ export default function ContactPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
+  const onSuccess = () => {
+    setSuccess(true);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      company: "",
+      jobTitle: "",
+      country: "United Kingdom",
+      interest: "",
+      message: "",
+    });
+
+    // Track conversion in Google Analytics
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-CONVERSION_ID/CONVERSION_LABEL",
+        value: 1.0,
+        currency: "GBP",
+      });
+    }
+
+    setTimeout(() => setSuccess(false), 5000);
+  };
+
+  // Fallback capture: submit to the Netlify "contact" form (registered via the
+  // hidden detection form in public/__forms.html) so a lead is never lost when
+  // the primary CRM endpoint is unreachable or rejects the request.
+  const submitToNetlify = async (): Promise<boolean> => {
+    try {
+      const data: Record<string, string> = {
+        "form-name": "contact",
+        "bot-field": "",
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        jobTitle: formData.jobTitle,
+        country: formData.country,
+        interest: formData.interest,
+        message: formData.message,
+      };
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: Object.keys(data)
+          .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+          .join("&"),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -70,34 +126,19 @@ export default function ContactPage() {
       });
 
       if (response.ok) {
-        setSuccess(true);
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          company: "",
-          jobTitle: "",
-          country: "United Kingdom",
-          interest: "",
-          message: "",
-        });
-
-        // Track conversion in Google Analytics
-        if (typeof window !== "undefined" && (window as any).gtag) {
-          (window as any).gtag("event", "conversion", {
-            send_to: "AW-CONVERSION_ID/CONVERSION_LABEL",
-            value: 1.0,
-            currency: "GBP",
-          });
-        }
-
-        setTimeout(() => setSuccess(false), 5000);
+        onSuccess();
+      } else if (await submitToNetlify()) {
+        onSuccess();
       } else {
         setError("Failed to submit. Please try again or email us directly.");
       }
     } catch (err) {
-      setError("Network error. Please try again or email us directly.");
+      // Primary CRM unreachable — fall back to Netlify Forms before giving up.
+      if (await submitToNetlify()) {
+        onSuccess();
+      } else {
+        setError("Network error. Please try again or email us directly.");
+      }
     } finally {
       setLoading(false);
     }
