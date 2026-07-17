@@ -13,6 +13,7 @@ import { X, ArrowRight, ExternalLink, ShieldCheck, Loader2, CheckCircle2 } from 
 
 const SEEN_KEY = 'msai.access.overlay.v1';
 const HF_URL = 'https://huggingface.co/MediaStreamAI/MOTHER_CORE_V3';
+const HF_EXO_URL = 'https://huggingface.co/MediaStreamAI/MOTHER_EXO';
 
 const MODELS = [
   'MOTHER EXO — World Model',
@@ -100,6 +101,9 @@ export default function AccessOverlay() {
               <button onClick={dismiss} className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-2.5 text-sm font-semibold text-white">
                 Enter the platform <ArrowRight size={16} />
               </button>
+              <a href={HF_EXO_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 hover:text-cyan-200">
+                Explore MOTHER EXO on Hugging Face <ExternalLink size={13} />
+              </a>
             </div>
           ) : (
             <>
@@ -116,6 +120,18 @@ export default function AccessOverlay() {
                   <span className="flex items-center gap-1.5 text-sm font-semibold text-amber-200">Try the early test model on Hugging Face <ExternalLink size={13} /></span>
                   <span className="mt-1 block text-xs leading-relaxed text-white/55">
                     MOTHER CORE V3 is an <b className="text-white/75">early test release</b> — much earlier than our finished full-corpus model (<b className="text-white/75">8.5M</b>) with code, reasoning and the full agent fleet.
+                  </span>
+                </span>
+              </a>
+
+              {/* MOTHER EXO — World Model on Hugging Face */}
+              <a href={HF_EXO_URL} target="_blank" rel="noopener noreferrer"
+                className="mt-3 flex items-start gap-3 rounded-xl border border-cyan-500/30 bg-cyan-500/[0.06] p-3.5 hover:border-cyan-500/50">
+                <span className="mt-0.5 grid h-8 w-8 flex-none place-items-center rounded-lg bg-cyan-500/15 text-cyan-200 text-lg">🤗</span>
+                <span>
+                  <span className="flex items-center gap-1.5 text-sm font-semibold text-cyan-200">MOTHER EXO — World Model on Hugging Face <ExternalLink size={13} /></span>
+                  <span className="mt-1 block text-xs leading-relaxed text-white/55">
+                    Explore the <b className="text-white/75">MOTHER EXO</b> embodied world model — one mind for land, sea and air.
                   </span>
                 </span>
               </a>
