@@ -147,7 +147,7 @@ export default function AccessOverlay() {
                   <Field label="Country"><input value={form.country} onChange={set('country')} className={inputCls} placeholder="United Kingdom" /></Field>
                   <Field label="Model of interest">
                     <select value={form.model} onChange={set('model')} className={inputCls}>
-                      {MODELS.map((m) => <option key={m} value={m}>{m}</option>)}
+                      {MODELS.map((m) => <option key={m} value={m} className="bg-[#0d0d0d] text-white">{m}</option>)}
                     </select>
                   </Field>
                 </div>
@@ -172,7 +172,7 @@ export default function AccessOverlay() {
   );
 }
 
-const inputCls = 'w-full rounded-lg border border-white/12 bg-black/30 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:outline-none';
+const inputCls = 'w-full rounded-lg border border-white/12 bg-black/30 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-cyan-500/50 focus:outline-none';
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="block">
