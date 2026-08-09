@@ -1,17 +1,26 @@
 # gitleaks configuration — Cyber Essentials secret hygiene.
-# Extends the upstream default ruleset; add project-specific allowlist
-# entries ONLY for verified false positives, with a comment explaining why.
+# Extends the upstream default ruleset. The blocking CI gate scans the current
+# working tree (--no-git); historical secrets are handled by the remediation
+# runbook, not by blocking every pull request.
 title = "MSAI gitleaks config"
 
 [extend]
 useDefault = true
 
-# KNOWN pre-existing exposure — tracked for remediation, NOT a licence to
-# keep secrets in the repo. Each path below must be rotated and purged from
-# git history (see docs/security/secret-remediation-runbook.md), after which
-# its entry here MUST be removed so the gate protects the file again.
+# Allowlist: documentation placeholders and known-pending secret files.
+# Add project-specific entries ONLY for verified false positives.
 [allowlist]
-description = "Known committed secret files pending rotation + history purge"
+description = "Doc placeholders + known committed secret files pending rotation/purge"
+regexTarget = "match"
+regexes = [
+  '''(?i)(your[_-]?(msai[_-]?)?(api[_-]?)?(key|token|secret))''',
+  '''(?i)(example|placeholder|dummy|sample|changeme|redacted|test[_-]?key|fake[_-]?)''',
+  '''(?i)bearer\s+your[_-]''',
+  '''(?i)<[a-z0-9_.-]+>''',
+  '''(?i)(xxx+|\*\*\*+)''',
+]
+# Known committed secret files (pending rotation + git-history purge — see
+# docs/security/secret-remediation-runbook.md). Remove each entry once purged.
 paths = [
-    ".env.local"
+    '''\.env\.local$'''
 ]
