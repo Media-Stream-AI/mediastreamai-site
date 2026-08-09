@@ -20,3 +20,14 @@ npm-debug.log*
 
 # vercel
 .vercel
+
+# --- Cyber Essentials: never commit secrets (added by cyber-essentials-compliance) ---
+# Rotate every credential in any previously committed file and purge it from git
+# history. See docs/security/secret-remediation-runbook.md.
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.template
+!.env.*.template

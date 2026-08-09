@@ -1,0 +1,17 @@
+# gitleaks configuration — Cyber Essentials secret hygiene.
+# Extends the upstream default ruleset; add project-specific allowlist
+# entries ONLY for verified false positives, with a comment explaining why.
+title = "MSAI gitleaks config"
+
+[extend]
+useDefault = true
+
+# KNOWN pre-existing exposure — tracked for remediation, NOT a licence to
+# keep secrets in the repo. Each path below must be rotated and purged from
+# git history (see docs/security/secret-remediation-runbook.md), after which
+# its entry here MUST be removed so the gate protects the file again.
+[allowlist]
+description = "Known committed secret files pending rotation + history purge"
+paths = [
+    ".env.local"
+]
