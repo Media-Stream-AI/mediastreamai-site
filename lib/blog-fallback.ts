@@ -51,6 +51,182 @@ export const FALLBACK_POSTS: BlogPost[] = [
         "url": "https://huggingface.co/MediaStreamAI/MOTHER_CORE_V3"
       }
     ]
+  },
+  {
+    "id": "fallback-thirty-days-of-building",
+    "brand": "msai",
+    "slug": "thirty-days-of-building",
+    "title": "Thirty Days of Building",
+    "excerpt": "What we secured at Media Stream AI in the last month, in plain terms. Grid capacity, sovereign generation, a published UK model and new partners.",
+    "body": `There is a particular kind of frustration that comes with building infrastructure. The work that matters most is the work nobody can see. Planning applications. Connection offers. Gas nominations. Switchgear ratings. Thermal efficiency curves. None of it photographs well and none of it makes a headline.
+
+So every so often it is worth stopping and writing down what actually got done.
+
+Here is our last thirty days.
+
+## We secured a firm grid connection offer
+
+We now hold a formal connection offer for 25 MVA at 33 kV into our Dundee campus, from a named grid supply point, with an engineered route.
+
+That sentence takes two seconds to read and it took months to earn. Grid capacity in the UK is the single hardest constraint on AI infrastructure right now. Queues are long, offers are conditional, and plenty of announced projects quietly never get one. We have ours in writing.
+
+## Our gas is live, and we tripled the roadmap
+
+Our sovereign gas service is live at the site boundary at 25 MWth. This month we locked the staged plan that takes it to 50 MWth at month six and 75 MWth at month twelve.
+
+Gas primary generation is a deliberate choice, not a compromise. It means we are not waiting in a queue to serve our first customers, and it means our capacity ramp is something we control rather than something we are granted.
+
+## We finished the cooling engineering
+
+We completed the free cooling design and a full waste heat recovery study, landing on a design PUE of 1.08.
+
+We also studied a heat driven cooling system and decided against it, because the numbers did not justify it against the free cooling scheme we already have. Publishing the things you decided not to build is a reasonable test of whether anyone is actually doing the engineering.
+
+## Our model is public, and the next one is training
+
+MOTHER CORE V3 is published and openly available on Hugging Face. Anyone can download the weights and test them.
+
+We say this plainly because it matters: MOTHER CORE is trained from scratch. It is not a fine tune of somebody else's model with a British name on the front. That is a slower, harder and more expensive road, and it is the only road that produces something genuinely sovereign.
+
+V4 is in training now on a substantially expanded corpus.
+
+## We released MOTHER EXO v5
+
+MOTHER EXO is our embodied model. One shared vision, reasoning and memory core feeding specialised output heads for aerial systems, ground vehicles and humanoid units.
+
+The scenario we designed it around is disaster response. Drones searching from the air, autonomous ground vehicles carrying supplies and crew, and humanoid units doing the physical work that people cannot safely do. One coherent intelligence coordinating across all of it, with a human in the loop at every decision that matters.
+
+v5 went live this month. You can read the release at motherai.uk/exo.
+
+## We added partners
+
+We executed a new strategic partnership and signed an engagement covering a two thousand GPU deployment for the campus. We also brought in written statements from partners across flooring, generation, hardware, white space fit out and professional services, so that anyone assessing this project can hear it from them rather than from us.
+
+That last point is deliberate. The most useful thing we can do for anyone evaluating Media Stream AI is put them in front of the people we work with.
+
+## What comes next
+
+The next thirty days have one objective: first tenants in the hall.
+
+Everything above is input. The output is a customer taking delivery of powered, cooled, secured white space in Dundee and putting compute into it. That is the only measure that counts, and it is what we are pointed at.
+
+We will keep writing these. Some months the list will be shorter. We will publish it anyway.
+
+Built in the UK. Owned in the UK. Run in the UK.`,
+    "image_url": null,
+    "image_alt": null,
+    "primary_link": "https://www.mediastreamai.com/blog/thirty-days-of-building",
+    "topic": "UK sovereign AI infrastructure",
+    "published_at": "2026-08-09T08:00:00.000Z",
+    "links": [
+      { "label": "MOTHER EXO", "url": "https://www.motherai.uk/exo" },
+      { "label": "MOTHER CORE V3 on Hugging Face", "url": "https://huggingface.co/MediaStreamAI/MOTHER_CORE_V3" }
+    ]
+  }
+];
+
+/**
+ * HELD — do NOT publish. `nine-million-records` has open publication blockers
+ * (unconfirmed news-sample licence, a crawler-policy contradiction, placeholder
+ * fields, EU-counsel sign-off, and the Article 53 filing must be live and
+ * linkable first). It is intentionally NOT part of FALLBACK_POSTS, so it never
+ * renders. To publish once every blocker is closed, move this entry into
+ * FALLBACK_POSTS above — a one-line change.
+ */
+export const HELD_POSTS: BlogPost[] = [
+  {
+    "id": "held-nine-million-records",
+    "brand": "msai",
+    "slug": "nine-million-records",
+    "title": "Nine Million Records",
+    "excerpt": "We published what we trained MOTHER CORE on. Here is the whole corpus, and the three numbers that matter most.",
+    "body": `On 2 August the EU AI Act's transparency obligations came into force and the European AI Office gained the power to demand information, inspect models and levy fines.
+
+In June the legislators deferred the heaviest part of the regime. The high risk obligations everyone had been planning around moved to December 2027 for standalone systems and August 2028 for systems embedded in regulated products.
+
+A lot of companies read the word deferred and stood down. That is wrong on the facts, because the transparency duties were not deferred and the general purpose model obligations have been in force since last August. It is also wrong on the strategy, because the delay extended the deadline on the one task most organisations have not finished.
+
+We built for the original dates. We have not stood down.
+
+## The obligation most people have missed
+
+Publish an open weight general purpose model and you are a provider under the Act.
+
+The open source exemption is real and it is narrower than people assume. It removes the technical documentation package and the downstream information pack. It does not remove the requirement for a written policy on complying with Union copyright law, and it does not remove the requirement to publish a sufficiently detailed summary of your training content to the AI Office template.
+
+Both survive. Publishing weights satisfies neither. Since 2 August, the AI Office can ask.
+
+## What is in the published models
+
+MOTHER CORE V2 and V3 are the same architecture at successive checkpoints of one continued training run. Roughly 6.9 billion parameters, 48 layers, grouped query attention, 4096 token context, open weights.
+
+They were trained on 1,662,215 unique records, balanced sampled into a 2,400,092 record curriculum.
+
+**51.30 per cent, publicly available datasets.** Openly available datasets from Hugging Face and equivalent repositories: instruction and chat, question answering and knowledge, mathematics and reasoning, code, summarisation, safety and alignment, and multilingual material including Welsh, Irish and Scottish Gaelic parallel corpora.
+
+**27.78 per cent, synthetic data generated by us.** Agentic tool use and retrieval scenarios, tool routing and orchestration, error recovery, grounding and citation, and generated arithmetic and reasoning curricula.
+
+**20.63 per cent, internally created or curated.** Hand authored UK core facts and model identity data, Gaelic and Welsh curation, defensive security material, an assembled mathematics set, and observe and advise operator scenarios that are non kinetic and human in the loop by design.
+
+**0.30 per cent, a small news derived question answering sample.**
+
+## The three numbers I am proudest of
+
+Measured across those published models:
+
+**0.00 per cent licensed third party private data.**
+
+**0.00 per cent first party web crawling or scraping.**
+
+**0.00 per cent user or platform data.**
+
+We did not crawl the open web to build them. Web origin content reached the corpus only inside published third party datasets, used under the terms on which those datasets are published. And we have never trained on our users, because we do not treat the people who use our products as a data source.
+
+That combination is a direct consequence of training from scratch rather than fine tuning somebody else's weights. It is slower and considerably more expensive. It also means the provenance question has an answer instead of an inheritance.
+
+## The full corpus
+
+MOTHER CORE V4 is training now, on approximately 9.14 million records.
+
+**71.13 per cent, publicly available datasets.**
+
+**19.98 per cent, synthetic and MSAI generated.**
+
+**8.10 per cent, internally created.**
+
+**0.79 per cent, other, classification still open.**
+
+The interesting number is the third one. Our internally authored share falls from 20.63 per cent to 8.10 per cent as a proportion of the whole, while more than doubling in absolute terms, from roughly 343,000 records to roughly 740,000. As the corpus scaled by a factor of five and a half, we kept writing our own data rather than diluting into bulk. The composition shifts because the public dataset layer grew fastest, which is exactly what you would expect and exactly what should be visible rather than smoothed over.
+
+V4 is not released, so its filing is not yet due. The summary is drafted and waiting. We would rather hold a completed filing for a model that has not shipped than assemble one against a deadline for a model that has.
+
+There is one honest loose end. That 0.79 per cent other category is not yet fully classified, and it will be before V4 is released. We are telling you that now rather than letting you find it later.
+
+## Measured, not estimated
+
+Every figure above comes from an analyser that streams the corpus, aggregates each record's source label, and classifies it against a reviewed source map of 306 labels. For the published models, 99.7 per cent of records are attributed to a named category.
+
+We can reproduce the numbers on request and we retain the underlying manifest as an evidence record.
+
+That distinction matters more than it sounds. A training data summary assembled from memory and rounded to comfortable figures is not a disclosure. It is a press release with percentages in it.
+
+## The rest of the stack
+
+The filing is one layer of seven. Sovereign infrastructure, owned and operated in the UK. Data provenance, the above. Model scope control, with separate models under separate controls and MOTHER DEFENCE forked, sandboxed and isolated. Transparency, through open weights and disclosed benchmarks. Human oversight, with an observe and advise posture and the override held by the operator. Corporate governance, through an Advisory Board with unrestricted access to our primary documents. And assurance, with security and resilience practice aligned to recognised standards including ISO 27001, Cyber Essentials Plus and the operational resilience expectations under DORA.
+
+Aligned to is not the same as certified. We do not say certified until we are.
+
+## Go and check
+
+The training content summary and the copyright policy are published. The weights are downloadable. The benchmark is disclosed.
+
+If you read the filing and something does not hold up, we would rather hear it from you than read it somewhere else.`,
+    "image_url": null,
+    "image_alt": null,
+    "primary_link": "https://www.motherai.uk",
+    "topic": "AI governance & the EU AI Act",
+    "published_at": "2026-08-09T08:00:00.000Z",
+    "links": []
   }
 ];
 
