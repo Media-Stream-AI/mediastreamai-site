@@ -1,4 +1,5 @@
 import InvestorDeck from "./InvestorDeck";
+import EuAiActFooter from "./EuAiActFooter";
 
 export default function Footer() {
   return (
@@ -42,6 +43,9 @@ export default function Footer() {
           </div>
 
         </div>
+
+        {/* EU AI Act — Model Transparency (Article 53 document downloads) */}
+        <EuAiActFooter />
 
         <div className="mt-8 pt-4 border-t border-gray-800 text-xs text-center text-gray-500">
           © {new Date().getFullYear()} Media Stream AI Limited. All rights reserved.
