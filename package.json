@@ -19,7 +19,7 @@
     "mongodb": "^6.3.0"
   },
   "devDependencies": {
-    "@types/node": "20.11.28",
+    "@types/node": "26.1.2",
     "@types/react": "18.2.66",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.41",
