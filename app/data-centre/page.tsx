@@ -18,7 +18,7 @@ export default function DataCentrePage() {
         'NVIDIA B300 GPU Clusters',
         'NVIDIA H200 GPU Clusters',
         'GPU Clusters B300s & H200s live across 2026',
-        'ISO 27001 + Cyber Essentials Plus',
+        'aligned to ISO 27001 & Cyber Essentials Plus',
         'UK security-cleared personnel only',
         '99.99% uptime SLA'
       ],
@@ -46,7 +46,7 @@ export default function DataCentrePage() {
         'Humanoid assembly line — 1,000 units per year by 2027',
         'MOTHER EXO World Model V.2 integration',
         'MOTHER DeepVision validation & testing',
-        'ISO 27001 Certified'
+        'ISO 27001 (aligned to)'
       ],
       sustainability: [
         'Sovereign UK robotics manufacturing',
@@ -247,7 +247,7 @@ export default function DataCentrePage() {
           {/* Certifications */}
           <div className="mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-400 mb-8 md:mb-12">
-              Certifications & Compliance
+              Standards & Alignment
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {certifications.map((cert, i) => (

@@ -268,7 +268,7 @@ export default function GovernmentDefencePage() {
     "Complete audit trail and logging",
     "Compliance with all security & ISO Requirements",
     "STRAP classified workload capability",
-    "Cyber Essentials Plus certified",
+    "Cyber Essentials Plus (aligned to)",
   ];
 
   const differentiators = [

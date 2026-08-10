@@ -115,7 +115,7 @@ export default function PartnershipsPage() {
           className="mb-20"
         >
           <h2 className="text-4xl font-bold text-blue-400 mb-12 text-center">
-            Certifications & Compliance
+            Standards & Alignment
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">

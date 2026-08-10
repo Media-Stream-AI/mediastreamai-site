@@ -233,11 +233,10 @@ export default function OpenApiPage() {
 
     // Primary: CRM API
     try {
-      const res = await fetch("https://api.mediastreamai.com/api/leads/capture", {
+      const res = await fetch("/api/leads/capture", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer msai_sk_live_XHChtYwp3WwmPP0k_sales_platform_2025",
         },
         body: JSON.stringify(payload),
       });
