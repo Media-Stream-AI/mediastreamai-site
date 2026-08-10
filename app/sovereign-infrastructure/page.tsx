@@ -12,13 +12,13 @@ const SITES: Site[] = [
   {
     city: "MSAI Scotland — Dundee (UK)",
     role: "Sovereign GPU Hub",
-    spec: "GPU Clusters B300s & H200s live across 2026; Horizon Scotland based cooling system with PHE 1.1; UK security-cleared personnel; ISO 27001 + Cyber Essentials Plus.",
+    spec: "GPU Clusters B300s & H200s live across 2026; Horizon Scotland based cooling system with PHE 1.1; UK security-cleared personnel; aligned to ISO 27001 & Cyber Essentials Plus.",
     phase: "UK Sovereign",
   },
   {
     city: "MSAI Manchester (UK)",
     role: "MOTHER EXO Robotics Lab & Assembly",
-    spec: "MOTHER EXO Humanoid robotics lab and assembly — 1,000 units per year by 2027; MOTHER EXO World Model V.2 integration; ISO 27001 certified.",
+    spec: "MOTHER EXO Humanoid robotics lab and assembly — 1,000 units per year by 2027; MOTHER EXO World Model V.2 integration; ISO 27001 (aligned to).",
     phase: "UK Sovereign",
   },
 ];

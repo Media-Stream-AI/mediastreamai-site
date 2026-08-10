@@ -79,11 +79,11 @@ export default function AboutPage() {
   ];
 
   const certifications = [
-    "ISO 27001 Certified",
-    "Cyber Essentials Plus",
+    "ISO 27001 (aligned to)",
+    "Cyber Essentials Plus (working towards)",
     "GDPR Compliant",
     "DORA Ready",
-    "BSI C5 Certified",
+    "BSI C5 (aligned to)",
     "MOD Engagement"
   ];
 
@@ -249,7 +249,7 @@ export default function AboutPage() {
       <section className="py-20 px-6 border-t border-white/10 bg-gradient-to-b from-black via-blue-950/10 to-black">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-blue-400 mb-12 text-center">
-            Certifications & Compliance
+            Standards & Alignment
           </h2>
 
           <div className="grid md:grid-cols-4 gap-6">

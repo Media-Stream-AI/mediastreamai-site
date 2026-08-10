@@ -119,7 +119,7 @@ export default function SectorsPage() {
         'Cybersecurity monitoring'
       ],
       gpuOption: 'Isolated B300 & H200 GPU clusters with UK security-cleared access only',
-      agentOption: 'MOTHER AI agents in fully isolated environment with MOD certification',
+      agentOption: 'MOTHER AI agents in fully isolated environment with MOD engagement',
       implementationTime: '12-16 weeks (security clearance)',
       highlight: true
     },
