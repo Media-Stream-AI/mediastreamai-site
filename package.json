@@ -16,7 +16,7 @@
     "react-dom": "^18",
     "lucide-react": "^0.468.0",
     "framer-motion": "^13.1.0",
-    "mongodb": "^6.3.0"
+    "mongodb": "^7.5.0"
   },
   "devDependencies": {
     "@types/node": "20.11.28",
