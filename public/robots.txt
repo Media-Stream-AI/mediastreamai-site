@@ -1,4 +1,4 @@
-// public/robots.txt - ALREADY CREATED BUT ENHANCED
+# robots.txt — Media Stream AI group site
 User-agent: *
 Allow: /
 
@@ -41,8 +41,6 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://www.mediastreamai.com/sitemap.xml
-Sitemap: https://www.mediastreamai.com/sitemap-blog.xml
-Sitemap: https://www.mediastreamai.com/sitemap-images.xml
 
 # Crawl Delay
 Crawl-delay: 0

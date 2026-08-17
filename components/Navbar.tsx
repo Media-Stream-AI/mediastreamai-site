@@ -55,7 +55,7 @@ export default function Navbar() {
                 Platform <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[340px] opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
-                <div className="glass-night p-2 shadow-panel">
+                <div className="rounded-2xl border border-hair bg-night-800 p-2 shadow-panel">
                   {[...PILLARS, ...EXTRAS].map((p, i) => (
                     <div key={p.href}>
                       {i === PILLARS.length && <div className="my-1 mx-3 border-t border-hair" />}
@@ -108,7 +108,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-night/95 backdrop-blur-xl border-t border-hair overflow-hidden"
+            className="lg:hidden bg-night-800 border-t border-hair overflow-hidden"
           >
             <div className="container-custom py-6 space-y-1">
               {PILLARS.map((p) => (

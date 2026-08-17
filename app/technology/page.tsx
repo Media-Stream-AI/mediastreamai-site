@@ -67,7 +67,7 @@ export default function TechnologyPage() {
             {
               title: "Sovereign by Design",
               description:
-                "MediaStream AI is a UK sovereign AI company that owns its full stack: data centres, power, foundational models and products. Designed, owned and operated in Britain.",
+                "Media Stream AI is a UK sovereign AI company: sovereignty is ownership across every layer - data centres, power, foundational models and products. Designed, owned and operated in Britain.",
             },
             {
               title: "Trained In-House",

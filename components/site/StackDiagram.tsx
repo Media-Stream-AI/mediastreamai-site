@@ -1,6 +1,6 @@
 'use client';
 
-// "We own every layer" - the vertically-integrated sovereign AI stack, from the
+// "Sovereignty is ownership across every layer" - the vertically-integrated sovereign AI stack, from the
 // land and power at the foundation up to applications, robotics and defence.
 // Applications sit on top; the physical estate is the base. A gradient spine ties
 // the layers together. Animated in with a staggered reveal.
@@ -45,7 +45,7 @@ const LAYERS: Layer[] = [
     accent: 'text-cyan', bar: 'linear-gradient(180deg,#0EA5C4,#F59E0B)',
   },
   {
-    icon: Zap, name: 'Land & Power', blurb: 'UK freehold sites with gas-CHP island power and well-water free cooling - Phase Two power confirmed, scaling to 100 MWth. The foundation we own.',
+    icon: Zap, name: 'Land & Power', blurb: 'UK freehold sites with gas-CHP island power and well-water free cooling - Phase Two power confirmed, scaling to 100 MWth. The foundation of the stack.',
     chips: ['10 MW colo now', 'Phase Two ✓', 'Gas-CHP island', '100 MWth'],
     accent: 'text-ember', bar: 'linear-gradient(180deg,#F59E0B,#EA580C)',
   },

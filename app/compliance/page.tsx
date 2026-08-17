@@ -166,9 +166,9 @@ export default function Page() {
           </Section>
 
           <Section id="sovereignty" icon={Globe} title="Data sovereignty & residency">
-            <p>MSAI owns the full stack - land, power, data centres, compute and models - in Britain. Weights and customer data
-              never leave your control: default UK residency, sovereign GB10 / DGX serving, and on-prem or air-gapped deployment
-              for regulated and defence customers. Everything runs on UK sovereign infrastructure that we own and operate.</p>
+            <p>Sovereignty is ownership across every layer - land, power, data centres, compute and models, in Britain. Weights and
+              customer data never leave your control: default UK residency, sovereign GB10 / DGX serving, and on-prem or
+              air-gapped deployment for regulated and defence customers, all on UK sovereign infrastructure.</p>
           </Section>
 
           <Section id="ai-content" icon={Eye} title="AI-content transparency">

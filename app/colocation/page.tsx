@@ -147,7 +147,7 @@ export default function Page() {
           </Reveal>
           <p className="mt-6 text-xs text-muted/70 max-w-3xl">
             Forward-looking: capacity, hardware and 2026 / 2027 deployment dates are indicative plans, not commitments,
-            and may change. NVIDIA, HGX, Blackwell and GB10 are trademarks of their respective owners. See our{' '}
+            and may change. NVIDIA, HGX, Blackwell, GB10, AMD and Instinct are trademarks of their respective owners. See our{' '}
             <a href="/compliance" className="underline hover:text-cyan">Compliance &amp; Transparency</a> page.
           </p>
         </div>
@@ -218,13 +218,13 @@ export default function Page() {
                     GPU-as-a-Service,<br /><span className="text-gradient-ember">sovereign &amp; affordable.</span>
                   </h2>
                   <p className="mt-5 text-muted text-lg max-w-xl">
-                    Don’t want to own hardware? Reserve NVIDIA B300 / H200 and SambaNova RDU capacity on the MSAI
+                    Don’t want to own hardware? Reserve NVIDIA B300 / H200 and AMD Instinct capacity on the MSAI
                     estate - billed by the hour or committed term, on UK-sovereign, free-cooled infrastructure.
                   </p>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { k: 'PUE 1.1', v: 'Cooling' }, { k: 'B300 · H200', v: 'NVIDIA' }, { k: 'SambaNova', v: 'RDU' },
+                    { k: 'PUE ~1.15', v: 'Cooling' }, { k: 'B300 · H200', v: 'NVIDIA' }, { k: 'Instinct', v: 'AMD' },
                     { k: 'Titanium', v: 'WRAS PHE' }, { k: 'N+1', v: 'Resilient' }, { k: 'Hourly', v: 'or committed' },
                   ].map((s) => (
                     <div key={s.v} className="card-night p-4 text-center">

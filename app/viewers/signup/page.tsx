@@ -6,7 +6,16 @@ import { motion } from 'framer-motion';
 import { loadStripe } from '@stripe/stripe-js';
 import { Check, Loader2 } from 'lucide-react';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+// Loaded lazily: a module-level loadStripe() runs as soon as this route's chunk
+// is prefetched (the nav links here from every page), which injects Stripe.js
+// site-wide and throws when no publishable key is configured.
+let stripePromise: ReturnType<typeof loadStripe> | null = null;
+function getStripe() {
+  const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  if (!key) return null;
+  if (!stripePromise) stripePromise = loadStripe(key);
+  return stripePromise;
+}
 
 function SignupContent() {
   const searchParams = useSearchParams();
@@ -77,7 +86,7 @@ function SignupContent() {
         });
 
         const { sessionId } = await response.json();
-        const stripe = await stripePromise;
+        const stripe = await getStripe();
 
         if (stripe) {
           await stripe.redirectToCheckout({ sessionId });

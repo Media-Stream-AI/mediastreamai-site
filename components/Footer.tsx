@@ -131,7 +131,7 @@ export default function Footer() {
             or investment advice.
           </p>
           <p>
-            <span className="text-muted">Trademarks.</span> NVIDIA, HGX, Blackwell, GB10 and other names are
+            <span className="text-muted">Trademarks.</span> NVIDIA, HGX, Blackwell, GB10, AMD, Instinct and other names are
             trademarks of their respective owners; use here is descriptive only and implies no affiliation or endorsement.
           </p>
           <p>

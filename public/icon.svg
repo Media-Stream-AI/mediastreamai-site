@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Media Stream AI">
+  <defs>
+    <linearGradient id="msai" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5EEAFF"/>
+      <stop offset="0.22" stop-color="#22D3EE"/>
+      <stop offset="0.52" stop-color="#6366F1"/>
+      <stop offset="0.78" stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#05060A"/>
+  <rect x="8" y="8" width="496" height="496" rx="106" fill="none" stroke="url(#msai)" stroke-opacity="0.35" stroke-width="8"/>
+  <!-- M mark: the four pillars of the stack -->
+  <path d="M104 372V140h58l52 108 52-108h58v232h-56V236l-42 88h-24l-42-88v136z" fill="url(#msai)"/>
+  <circle cx="404" cy="150" r="22" fill="#22D3EE"/>
+</svg>

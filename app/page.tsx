@@ -96,7 +96,7 @@ const SECTORS = [
 ];
 
 const MORE = [
-  { title: "MOTHER Compute", blurb: "GPU-as-a-Service on NVIDIA B300, H200 and SambaNova RDU. PUE 1.1 free cooling.", href: "/colocation", accent: "text-ember" },
+  { title: "MOTHER Compute", blurb: "GPU-as-a-Service on NVIDIA B300 and H200, with AMD Instinct. PUE ~1.15 free cooling.", href: "/colocation", accent: "text-ember" },
   { title: "Quantum-AI", blurb: "Quantum-enhanced RAG for fast, verifiable search and reasoning. Sovereign, air-gapped, live.", href: "/quantum", accent: "text-violet" },
   { title: "Build on MOTHER", blurb: "MOTHER CORE, LLM 7B, Quantum RAG and T2V via a sovereign REST API. Free tier and enterprise.", href: "/contact", accent: "text-cyan" },
 ];
@@ -142,9 +142,9 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="mx-auto mt-7 max-w-2xl text-lg md:text-xl text-muted leading-relaxed"
           >
-            MSAI is a full-stack UK and European sovereign AI company. We own the land, power and data centres,
-            the sovereign compute, the MOTHER models, and the products, robotics and defence built on top.
-            Designed, owned and trained in Britain.
+            MSAI is a full-stack UK and European sovereign AI company. Sovereignty is ownership across every layer -
+            the land, power and data centres, the sovereign compute, the MOTHER models, and the products,
+            robotics and defence built on top. Designed, owned and trained in Britain.
           </motion.p>
 
           <motion.div
@@ -200,12 +200,12 @@ export default function HomePage() {
           <Reveal className="max-w-2xl mb-12">
             <span className="chip mb-5">Vertically integrated</span>
             <h2 className="font-display text-4xl md:text-5xl leading-tight">
-              We own <span className="text-gradient">every layer.</span>
+              Sovereignty is ownership <span className="text-gradient">across every layer.</span>
             </h2>
             <p className="mt-4 text-muted text-lg">
-              Most AI companies rent a slice of the stack. We own it end to end - from the UK freehold,
-              power and cooling at the foundation, up through sovereign compute, the MOTHER models,
-              and the products, robotics and defence built on top.
+              Most AI companies rent a slice of the stack. Sovereignty is ownership across every layer - from the
+              UK freehold, power and cooling at the foundation, up through sovereign compute, the MOTHER
+              models, and the products, robotics and defence built on top.
             </p>
           </Reveal>
           <Reveal>
