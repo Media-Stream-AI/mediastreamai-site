@@ -1,463 +1,103 @@
-// ===================================
-// WEBSITE: www.mediastreamai.com
-// 
-// WHERE TO PLACE THIS FILE:
-// /mediastreamai-site/app/contact/page.tsx
-// 
-// INSTRUCTIONS:
-// 1. Navigate to: mediastreamai-site/app/contact/
-// 2. REPLACE the existing page.tsx with this file
-// 3. This integrates contact form → Sales Platform CRM
-// ===================================
+'use client';
 
-"use client";
+import { useEffect, useState } from 'react';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, Check } from "lucide-react";
+const INTERESTS = ['Request a Demo', 'Talk to Sales', 'General enquiry'];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    jobTitle: "",
-    country: "United Kingdom",
-    interest: "",
-    message: "",
-  });
+  const [interest, setInterest] = useState('Request a Demo');
+  const [form, setForm] = useState({ name: '', email: '', company: '', phone: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
+  const [message, setMessage] = useState('');
 
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-
-  const onSuccess = () => {
-    setSuccess(true);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      jobTitle: "",
-      country: "United Kingdom",
-      interest: "",
-      message: "",
-    });
-
-    // Track conversion in Google Analytics
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "conversion", {
-        send_to: "AW-CONVERSION_ID/CONVERSION_LABEL",
-        value: 1.0,
-        currency: "GBP",
-      });
-    }
-
-    setTimeout(() => setSuccess(false), 5000);
-  };
-
-  // Fallback capture: submit to the Netlify "contact" form (registered via the
-  // hidden detection form in public/__forms.html) so a lead is never lost when
-  // the primary CRM endpoint is unreachable or rejects the request.
-  const submitToNetlify = async (): Promise<boolean> => {
+  useEffect(() => {
     try {
-      const data: Record<string, string> = {
-        "form-name": "contact",
-        "bot-field": "",
-        name: `${formData.firstName} ${formData.lastName}`.trim(),
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        jobTitle: formData.jobTitle,
-        country: formData.country,
-        interest: formData.interest,
-        message: formData.message,
-      };
-      const res = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: Object.keys(data)
-          .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
-          .join("&"),
-      });
-      return res.ok;
-    } catch {
-      return false;
-    }
-  };
+      const q = new URLSearchParams(window.location.search).get('interest');
+      if (q) {
+        const match = INTERESTS.find((i) => i.toLowerCase().includes(q.toLowerCase()));
+        if (match) setInterest(match);
+      }
+    } catch {}
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
+    setStatus('sending');
+    setMessage('');
     try {
-      const response = await fetch("/api/leads/capture", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          source: "website_contact_form",
-          page: window.location.href,
-          type: "contact_form",
-          lead: {
-            name: `${formData.firstName} ${formData.lastName}`,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            role: formData.jobTitle
-          },
-          metadata: {
-            interest_category: formData.interest,
-            notes: formData.message,
-            country: formData.country,
-            url: window.location.href,
-            timestamp: new Date().toISOString(),
-            referrer: document.referrer,
-            user_agent: navigator.userAgent,
-            priority: "medium"
-          },
-        }),
+      const res = await fetch('/api/contact/sales', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...form, interest, source: 'intuitv.app/contact' }),
       });
-
-      if (response.ok) {
-        onSuccess();
-      } else if (await submitToNetlify()) {
-        onSuccess();
-      } else {
-        setError("Failed to submit. Please try again or email us directly.");
-      }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+      setStatus('done');
     } catch (err) {
-      // Primary CRM unreachable — fall back to Netlify Forms before giving up.
-      if (await submitToNetlify()) {
-        onSuccess();
-      } else {
-        setError("Network error. Please try again or email us directly.");
-      }
-    } finally {
-      setLoading(false);
+      setStatus('error');
+      setMessage((err as Error).message);
     }
-  };
+  }
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const input =
+    'w-full rounded-xl bg-white/5 border border-hair px-4 py-3 text-mist placeholder:text-muted focus:outline-none focus:border-cyan/50';
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-blue-400 mb-6">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            Discuss how Media Stream AI can deliver sovereign AI infrastructure
-            for your organization
+    <section className="mx-auto max-w-2xl px-6 py-20">
+      <h1 className="font-display text-4xl md:text-5xl mb-3">
+        Let&apos;s talk <span className="text-gradient">IntuiTV</span>
+      </h1>
+      <p className="text-muted mb-10">
+        Book a demo or speak with our team. We&apos;ll get straight back to you.
+      </p>
+
+      {status === 'done' ? (
+        <div className="card-night rounded-2xl border border-hair p-8">
+          <h2 className="text-2xl font-semibold text-mist mb-2">Thanks - message received ✅</h2>
+          <p className="text-muted">
+            Our team at MediaStreamAI will be in touch shortly. For anything urgent, email{' '}
+            <a className="text-cyan" href="mailto:contact@mediastreamai.com">contact@mediastreamai.com</a>.
           </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className="bg-black/40 border border-white/10 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-
-              {success && (
-                <div className="mb-6 p-4 bg-green-500/20 border border-green-400/40 rounded-lg flex items-center gap-3">
-                  <Check className="text-green-400" size={20} />
-                  <p className="text-green-300">
-                    Thank you! We'll be in touch shortly.
-                  </p>
-                </div>
-              )}
-
-              {error && (
-                <div className="mb-6 p-4 bg-red-500/20 border border-red-400/40 rounded-lg">
-                  <p className="text-red-300">{error}</p>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name Fields */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      First Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Last Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Email & Phone */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Company & Job Title */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Company *
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Job Title
-                    </label>
-                    <input
-                      type="text"
-                      name="jobTitle"
-                      value={formData.jobTitle}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Country & Interest */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Country *
-                    </label>
-                    <select
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    >
-                      <option value="United Kingdom">United Kingdom</option>
-                      <option value="France">France</option>
-                      <option value="Germany">Germany</option>
-                      <option value="Ireland">Ireland</option>
-                      <option value="Netherlands">Netherlands</option>
-                      <option value="Other EU">Other EU</option>
-                      <option value="United States">United States</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Interest *
-                    </label>
-                    <select
-                      name="interest"
-                      value={formData.interest}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors"
-                    >
-                      <option value="">Select...</option>
-                      <option value="GPU Infrastructure">
-                        GPU Infrastructure
-                      </option>
-                      <option value="AI Agents & LLMs">
-                        AI Agents & LLMs
-                      </option>
-                      <option value="Data Centres">Data Centres</option>
-                      <option value="Government/Defence">
-                        Government/Defence
-                      </option>
-                      <option value="Partnership">Partnership</option>
-                      <option value="Media Inquiry">Media Inquiry</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg focus:border-blue-400 focus:outline-none transition-colors resize-none"
-                    placeholder="Tell us about your requirements..."
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full px-8 py-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-                >
-                  {loading ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="space-y-8"
-          >
-            {/* Office Locations */}
-            <div className="bg-black/40 border border-white/10 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <MapPin className="text-blue-400" size={24} />
-                Office Locations
-              </h2>
-              <div className="space-y-4 text-white/80">
-                <div className="pb-2 mb-2 border-b border-white/10">
-                  <p className="text-[10px] uppercase tracking-wider text-blue-300 font-semibold mb-2">UK Sovereign</p>
-                  <div className="space-y-3">
-                    <div>
-                      <p className="font-semibold text-white">MSAI Manchester</p>
-                      <p className="text-sm">MOTHER EXO Robotics Lab &amp; Assembly — United Kingdom</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white">MSAI Scotland — Dundee</p>
-                      <p className="text-sm">GPU Clusters (B300 &amp; H200) — Scotland, United Kingdom</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Direct Contact */}
-            <div className="bg-black/40 border border-white/10 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <Mail className="text-blue-400" size={24} />
-                Direct Contact
-              </h2>
-              <div className="space-y-4 text-white/80">
-                <div>
-                  <p className="font-semibold text-white">General Inquiries</p>
-                  <a
-                    href="mailto:contact@mediastreamai.com"
-                    className="text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    contact@mediastreamai.com
-                  </a>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">Sales</p>
-                  <a
-                    href="mailto:sales@mediastreamai.com"
-                    className="text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    sales@mediastreamai.com
-                  </a>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">Support</p>
-                  <a
-                    href="mailto:support@mediastreamai.com"
-                    className="text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    support@mediastreamai.com
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Response Time */}
-            <div className="bg-gradient-to-r from-blue-600/20 to-blue-500/20 border border-blue-400/30 rounded-2xl p-8 text-center">
-              <p className="text-lg font-semibold mb-2">
-                Typical Response Time
-              </p>
-              <p className="text-3xl font-bold text-blue-400 mb-2">
-                &lt; 24 hours
-              </p>
-              <p className="text-sm text-white/70">
-                We aim to respond to all inquiries within one business day
-              </p>
-            </div>
-          </motion.div>
         </div>
-      </div>
-    </main>
+      ) : (
+        <form onSubmit={submit} className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            {INTERESTS.map((i) => (
+              <button
+                type="button"
+                key={i}
+                onClick={() => setInterest(i)}
+                className={`rounded-full px-4 py-2 text-sm border transition-colors ${
+                  interest === i ? 'bg-cyan/15 text-cyan border-cyan/50' : 'border-hair text-muted hover:border-cyan/50'
+                }`}
+              >
+                {i}
+              </button>
+            ))}
+          </div>
+          <input className={input} placeholder="Your name" value={form.name} onChange={set('name')} required />
+          <input className={input} type="email" placeholder="Work email" value={form.email} onChange={set('email')} required />
+          <div className="grid sm:grid-cols-2 gap-4">
+            <input className={input} placeholder="Company" value={form.company} onChange={set('company')} />
+            <input className={input} placeholder="Phone (optional)" value={form.phone} onChange={set('phone')} />
+          </div>
+          <textarea className={input} rows={4} placeholder="How can we help?" value={form.message} onChange={set('message')} />
+          {status === 'error' && <p className="text-red-400 text-sm">{message}</p>}
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="btn-glow inline-flex items-center gap-2 text-lg px-8 py-4"
+          >
+            {status === 'sending' ? 'Sending…' : `Send - ${interest}`}
+          </button>
+          <p className="text-muted text-xs">
+            Goes straight to our team at contact@mediastreamai.com. We&apos;ll never share your details.
+          </p>
+        </form>
+      )}
+    </section>
   );
 }

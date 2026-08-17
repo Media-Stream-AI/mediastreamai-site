@@ -1,47 +1,132 @@
+"use client";
+
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { listPosts } from '../../lib/blog';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import Marquee from '@/components/Marquee';
 
-export const revalidate = 60;
-export const metadata = {
-  title: 'Media Stream AI — Blog',
-  description: 'Sovereign AI infrastructure, MOTHER AI, robotics, GPUaaS, data centres and ESG. AI-generated, human-reviewed.',
-};
+export default function BlogPage() {
+  const posts = [
+    {
+      slug: 'future-of-ai-television',
+      title: 'The Future of AI-Powered Television',
+      excerpt: 'How artificial intelligence is revolutionizing the way we create and consume TV content.',
+      date: '2026-01-04',
+      readTime: '5 min',
+      category: 'AI Technology',
+      image: '🎬'
+    },
+    {
+      slug: 'uk-eu-sovereign-ai',
+      title: 'Why UK/EU Sovereign AI Matters',
+      excerpt: 'Data sovereignty and GDPR compliance in the age of AI-powered media platforms.',
+      date: '2026-01-03',
+      readTime: '7 min',
+      category: 'Sovereignty',
+      image: '🔒'
+    },
+    {
+      slug: 'create-tv-shows-with-ai',
+      title: 'Create Professional TV Shows in Minutes',
+      excerpt: 'A step-by-step guide to using AI for content creation without technical expertise.',
+      date: '2026-01-02',
+      readTime: '6 min',
+      category: 'Tutorial',
+      image: '✨'
+    },
+    {
+      slug: 'personalized-streaming',
+      title: 'The Science of Personalized Streaming',
+      excerpt: 'How MOTHER AI learns your preferences and creates your perfect channel.',
+      date: '2026-01-01',
+      readTime: '8 min',
+      category: 'Technology',
+      image: '🧠'
+    },
+    {
+      slug: 'creator-economy-ai',
+      title: 'AI and the Creator Economy',
+      excerpt: 'How AI tools are democratizing content creation and empowering independent creators.',
+      date: '2025-12-30',
+      readTime: '5 min',
+      category: 'Creators',
+      image: '💰'
+    }
+  ];
 
-export default async function BlogIndex() {
-  const { posts } = await listPosts(48);
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <header className="mb-12">
-          <p className="text-xs uppercase tracking-widest text-cyan-400">Media Stream AI · Blog</p>
-          <h1 className="text-4xl md:text-5xl font-semibold mt-2">Where compute, climate and reasoning meet.</h1>
-          <p className="text-slate-400 mt-3 max-w-2xl">MOTHER AI, MOTHER EXO Robotics, GPU-as-a-Service across H100/H200/B200, data centre design, and our ESG commitments — water cooling, tidal partnerships, solar.</p>
-          <p className="text-xs text-slate-500 mt-4">AI-generated and human-reviewed before publication.</p>
-        </header>
+    <div className="min-h-screen pt-20">
+      <section className="section-padding">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-display mb-6">
+              IntuiTV <span className="text-gradient">Blog</span>
+            </h1>
+            <p className="text-xl text-muted max-w-2xl mx-auto">
+              Insights on AI, television, and the future of personalized media
+            </p>
+          </motion.div>
 
-        {posts.length === 0 ? (
-          <p className="text-slate-500">No posts published yet. The hub's first approval cycle hasn't completed.</p>
-        ) : (
-          <div className="grid md:grid-cols-3 gap-6">
-            {posts.map((p) => (
-              <Link key={p.id} href={`/blog/${p.slug}`}
-                className="group block bg-slate-900/60 border border-slate-800 hover:border-cyan-500 rounded-xl overflow-hidden transition">
-                {p.image_url && (
-                  <img src={p.image_url} alt={p.image_alt || p.title} className="w-full h-44 object-cover" />
-                )}
-                <div className="p-5">
-                  <p className="text-[10px] uppercase tracking-wider text-cyan-400">{p.topic}</p>
-                  <h2 className="text-lg font-medium mt-2 group-hover:text-cyan-300">{p.title}</h2>
-                  <p className="text-sm text-slate-400 mt-2 line-clamp-3">{p.excerpt}</p>
-                  {p.published_at && (
-                    <p className="text-xs text-slate-500 mt-3">{new Date(p.published_at).toLocaleDateString()}</p>
-                  )}
-                </div>
-              </Link>
+          <div className="-mx-4 sm:-mx-6 lg:-mx-8 mb-16">
+            <Marquee text="READ THE BLOG" separator="• INTUITV •" />
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post, i) => (
+              <motion.article
+                key={post.slug}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link href={`/blog/${post.slug}`}>
+                  <div className="card-night card-hover rounded-2xl border border-hair overflow-hidden h-full">
+                    <div className="aspect-video bg-gradient-to-br from-cyan/20 to-violet/20 flex items-center justify-center text-8xl">
+                      {post.image}
+                    </div>
+
+                    <div className="p-6">
+                      <div className="flex items-center gap-4 text-sm text-muted mb-3">
+                        <span className="chip">
+                          {post.category}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(post.date).toLocaleDateString('en-GB', { 
+                            day: 'numeric', 
+                            month: 'short', 
+                            year: 'numeric' 
+                          })}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {post.readTime}
+                        </div>
+                      </div>
+                      
+                      <h2 className="text-2xl font-semibold text-mist mb-3 hover:text-cyan transition-colors">
+                        {post.title}
+                      </h2>
+
+                      <p className="text-muted mb-4 line-clamp-2">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="flex items-center gap-2 text-cyan font-semibold">
+                        Read More <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.article>
             ))}
           </div>
-        )}
+        </div>
       </section>
-    </main>
+    </div>
   );
 }
