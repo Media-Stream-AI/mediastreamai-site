@@ -1,7 +1,19 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  reactStrictMode: true,
+const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-  images: { unoptimized: true }
+
+  // Marketing pages prerender with framer-motion + SVG motifs; give the static
+  // worker more headroom on slower CI boxes than the 60s default.
+  staticPageGenerationTimeout: 180,
+
+  experimental: {
+    serverComponentsExternalPackages: [
+      "pg",
+      "mongodb",
+      "stripe",
+    ],
+  },
 };
+
+module.exports = nextConfig;

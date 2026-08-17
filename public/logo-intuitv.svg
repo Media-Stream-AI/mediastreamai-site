@@ -1,0 +1,36 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="limeGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient id="bgGlow" cx="50%" cy="33%" r="42%">
+      <stop offset="0%" stop-color="#C6F833" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#C6F833" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Black badge -->
+  <rect x="0" y="0" width="1024" height="1024" rx="112" fill="#0A0A0A"/>
+  <rect x="0" y="0" width="1024" height="1024" rx="112" fill="url(#bgGlow)"/>
+
+  <!-- Lime neon rounded play triangle -->
+  <g filter="url(#limeGlow)">
+    <path d="M458.5,219.6 L646.5,325.4 Q690,350 646.5,374.6 L458.5,480.4 Q415,505 415,455 L415,245 Q415,195 458.5,219.6 Z"
+      fill="#C6F833" fill-opacity="0.10"
+      stroke="#C6F833" stroke-width="22" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="512" y="712" text-anchor="middle"
+    font-family="'Liberation Sans','DejaVu Sans','Helvetica Neue',Arial,sans-serif"
+    font-weight="700" font-size="168" letter-spacing="-4" fill="#C6F833">IntuiTV</text>
+
+  <!-- Tagline -->
+  <text x="512" y="792" text-anchor="middle"
+    font-family="'Liberation Sans','DejaVu Sans','Helvetica Neue',Arial,sans-serif"
+    font-weight="500" font-size="50" letter-spacing="1" fill="#C6F833" fill-opacity="0.85">Smart TV, Made Personal</text>
+</svg>

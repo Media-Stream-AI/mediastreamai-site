@@ -1,23 +1,19 @@
+# Netlify config for the Media Stream AI group site (Next.js, SSR).
+# The @netlify/plugin-nextjs adapter handles SSR, route handlers and the
+# publish directory — do not hand-set `publish`.
+
 [build]
   command = "npm run build"
-  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
 
-[functions]
-  node_bundler = "esbuild"
-
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# API redirects
-[[redirects]]
-  from = "/api/contact"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-
+# ------------------------------------------------------------------
 # External service links
+# ------------------------------------------------------------------
 [[redirects]]
   from = "/mother"
   to = "https://mother.mediastreamai.com"
@@ -33,11 +29,79 @@
   to = "https://studio.intuitv.app"
   status = 301
 
-# SPA fallback
+# ------------------------------------------------------------------
+# Legacy routes from the previous mediastreamai.com site → closest page
+# on the rebuilt group site, so existing links and indexed URLs survive.
+# ------------------------------------------------------------------
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  from = "/models"
+  to = "/model-family"
+  status = 301
+
+[[redirects]]
+  from = "/robotics"
+  to = "/exo"
+  status = 301
+
+[[redirects]]
+  from = "/government-defence"
+  to = "/defence"
+  status = 301
+
+[[redirects]]
+  from = "/data-centre"
+  to = "/colocation"
+  status = 301
+
+[[redirects]]
+  from = "/water-cooling"
+  to = "/colocation"
+  status = 301
+
+[[redirects]]
+  from = "/sovereign-infrastructure"
+  to = "/colocation"
+  status = 301
+
+[[redirects]]
+  from = "/vp-studio"
+  to = "/intuitv"
+  status = 301
+
+[[redirects]]
+  from = "/open-api"
+  to = "/technology"
+  status = 301
+
+[[redirects]]
+  from = "/news"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/partnerships"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/thanks"
+  to = "/success"
+  status = 301
+
+[[redirects]]
+  from = "/about"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/solutions"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/sectors"
+  to = "/"
+  status = 301
 
 # ------------------------------------------------------------------
 # Cyber Essentials / Secure Configuration — baseline HTTP security headers.
@@ -55,3 +119,8 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Permissions-Policy = "interest-cohort=(), browsing-topics=()"
     X-XSS-Protection = "0"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

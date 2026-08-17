@@ -1,0 +1,62 @@
+{
+  "name": "Media Stream AI - Sovereign UK AI",
+  "short_name": "Media Stream AI",
+  "description": "Sovereign UK AI group: MOTHER model family, IntuiTV, MOTHER EXO and MOTHER Defence.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0F1E",
+  "theme_color": "#00D4FF",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "business",
+    "technology",
+    "productivity"
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile-1.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-desktop-1.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "MOTHER model family",
+      "short_name": "Models",
+      "description": "The MOTHER 7B sovereign model family",
+      "url": "/model-family"
+    },
+    {
+      "name": "MSAI Scotland colocation",
+      "short_name": "Colocation",
+      "description": "Sovereign GPU colocation in Scotland",
+      "url": "/colocation"
+    }
+  ]
+}
