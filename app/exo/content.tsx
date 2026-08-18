@@ -19,10 +19,12 @@ const data: PillarData = {
     'Built on the CORE 7B backbone, MOTHER EXO learns the latent dynamics of vision and action - a true world model that perceives, predicts and acts. It drives the MOTHER Robotics platform: design, simulate and build embodied systems, from humanoids to autonomous flight.',
   primary: { label: 'Enter the platform', href: '/contact' },
   secondary: { label: 'The AI brain', href: '/model-family' },
-  // The MOTHER Robotics footage now runs in the hero frame, filling the
-  // world model / latent dynamics slot that previously held a placeholder
-  // motif. It is the page's only clip, so there is no separate media band.
-  heroMedia: { src: '/video/exo-robotics.mp4', label: 'world model · latent dynamics' },
+  // The MOTHER EXO film runs in the hero frame, filling the world model /
+  // latent dynamics slot that previously held a placeholder motif. Same cut as
+  // the intro that plays on robotics.mediastreamai.com, so the EXO story opens
+  // identically on both sites. It is this page's only clip, so there is no
+  // separate media band.
+  heroMedia: { src: '/video/mother-exo-v2.mp4', label: 'world model · latent dynamics' },
   stats: [
     { k: '28.9 GB', v: 'World model' },
     { k: '23-DOF', v: 'Humanoid' },
