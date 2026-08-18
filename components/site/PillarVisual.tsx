@@ -4,17 +4,63 @@
 // CSS so they stay crisp, cheap, and reduced-motion friendly. One component,
 // four variants, echoing the product dashboards (telemetry rings, playout
 // timeline, EXO world-model constellation, defence radar).
+//
+// A pillar can hand over real footage instead: pass `media` and the synthetic
+// motif is swapped for the clip, keeping the same frame, wash and caption. The
+// EXO pillar uses this to run the MOTHER Robotics footage in the world model /
+// latent dynamics slot rather than the placeholder constellation.
+
+import { useEffect, useRef } from 'react';
 
 type Variant = 'models' | 'intuitv' | 'exo' | 'defence';
 
-export default function PillarVisual({ variant, className = '' }: { variant: Variant; className?: string }) {
+export default function PillarVisual({
+  variant,
+  className = '',
+  media,
+}: {
+  variant: Variant;
+  className?: string;
+  media?: { src: string; label?: string };
+}) {
   return (
     <div className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-hair bg-night-800/60 ${className}`}>
       <div className="absolute inset-0 grid-bg opacity-40" />
-      {variant === 'models' && <Models />}
-      {variant === 'intuitv' && <IntuiTV />}
-      {variant === 'exo' && <Exo />}
-      {variant === 'defence' && <Defence />}
+      {media ? (
+        <Footage src={media.src} label={media.label} />
+      ) : (
+        <>
+          {variant === 'models' && <Models />}
+          {variant === 'intuitv' && <IntuiTV />}
+          {variant === 'exo' && <Exo />}
+          {variant === 'defence' && <Defence />}
+        </>
+      )}
+    </div>
+  );
+}
+
+/** Real footage filling the pillar frame, with the motif's caption kept. Muted,
+ *  looped and inert - autoplay is skipped under prefers-reduced-motion, which
+ *  leaves the first frame on screen. */
+function Footage({ src, label }: { src: string; label?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.pause(); return; }
+    v.play().catch(() => {});
+  }, []);
+  return (
+    <div className="absolute inset-0">
+      <video ref={ref} className="h-full w-full object-cover" src={src} muted loop playsInline preload="metadata" />
+      <div className="absolute inset-0 bg-gradient-to-t from-night/75 via-night/10 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
+      {label && (
+        <span className="absolute inset-x-0 bottom-3 text-center font-mono text-[10px] tracking-wide text-slate-400">
+          {label}
+        </span>
+      )}
     </div>
   );
 }
