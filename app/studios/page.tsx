@@ -153,7 +153,7 @@ export default function StudiosPage() {
             >
               <div className="rounded-2xl border border-hair overflow-hidden">
                 <Image
-                  src="/ai-platform-diagram.png"
+                  src="/ai-platform-diagram.webp"
                   alt="IntuiTV Enterprise Platform Architecture"
                   width={1200}
                   height={800}
@@ -229,7 +229,7 @@ export default function StudiosPage() {
           >
             <div className="glass-night rounded-2xl p-4 md:p-8 border border-hair mx-auto overflow-hidden">
               <Image
-                src="/ai-platform-diagram.png"
+                src="/ai-platform-diagram.webp"
                 alt="Complete IntuiTV Platform Stack"
                 width={1400}
                 height={900}
@@ -246,7 +246,7 @@ export default function StudiosPage() {
               className="card-night border border-hair rounded-2xl p-6 text-center card-hover"
             >
               <Image
-                src="/vp-studio-icon.png"
+                src="/vp-studio-icon.webp"
                 alt="Content Creation"
                 width={80}
                 height={80}
@@ -264,7 +264,7 @@ export default function StudiosPage() {
               className="card-night border border-hair rounded-2xl p-6 text-center card-hover"
             >
               <Image
-                src="/personalization-icon.png"
+                src="/personalization-icon.webp"
                 alt="AI Personalization"
                 width={80}
                 height={80}
@@ -282,7 +282,7 @@ export default function StudiosPage() {
               className="card-night border border-hair rounded-2xl p-6 text-center card-hover"
             >
               <Image
-                src="/hls-icon.png"
+                src="/hls-icon.webp"
                 alt="Streaming Infrastructure"
                 width={80}
                 height={80}

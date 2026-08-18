@@ -100,7 +100,7 @@ export const metadata: Metadata = {
         type: "image/png",
       },
       {
-        url: "/hero-intuitv.png",
+        url: "/hero-intuitv.jpg",
         width: 1920,
         height: 1080,
         alt: "IntuiTV Platform Interface",

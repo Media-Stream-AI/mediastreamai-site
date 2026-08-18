@@ -113,7 +113,7 @@ export default function ViewersPage() {
             >
               <div className="rounded-2xl border border-hair overflow-hidden">
                 <Image
-                  src="/tv-player-interface.png"
+                  src="/tv-player-interface.webp"
                   alt="IntuiTV Multi-Device Experience - Watch on Mobile, TV, and Web"
                   width={1920}
                   height={1080}
@@ -148,7 +148,7 @@ export default function ViewersPage() {
             className="relative max-w-5xl mx-auto"
           >
             <Image
-              src="/personal-family-diagram.png"
+              src="/personal-family-diagram.webp"
               alt="IntuiTV AI Personalization Technology - MOTHER LLM and Sovereign Data Security"
               width={1400}
               height={900}
@@ -166,7 +166,7 @@ export default function ViewersPage() {
             >
               <div className="w-20 h-20 mx-auto mb-4 relative">
                 <Image
-                  src="/personalization-icon.png"
+                  src="/personalization-icon.webp"
                   alt="AI Personalization"
                   width={80}
                   height={80}
@@ -187,7 +187,7 @@ export default function ViewersPage() {
             >
               <div className="w-20 h-20 mx-auto mb-4 relative">
                 <Image
-                  src="/hls-icon.png"
+                  src="/hls-icon.webp"
                   alt="Instant Content Creation"
                   width={80}
                   height={80}
@@ -322,7 +322,7 @@ export default function ViewersPage() {
             >
               <div className="rounded-2xl border border-hair overflow-hidden">
                 <Image
-                  src="/tv-pairing-qr.png"
+                  src="/tv-pairing-qr.webp"
                   alt="Pair Your TV with IntuiTV - QR Code Setup"
                   width={800}
                   height={600}

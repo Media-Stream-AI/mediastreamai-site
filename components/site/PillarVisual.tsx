@@ -53,7 +53,9 @@ function Footage({ src, label }: { src: string; label?: string }) {
   }, []);
   return (
     <div className="absolute inset-0">
-      <video ref={ref} className="h-full w-full object-cover" src={src} muted loop playsInline preload="metadata" />
+      <video ref={ref} className="h-full w-full object-cover" src={src}
+             poster={src.replace(/\.mp4$/, '.poster.webp')}
+             muted loop playsInline preload="metadata" />
       <div className="absolute inset-0 bg-gradient-to-t from-night/75 via-night/10 to-transparent" />
       <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
       {label && (

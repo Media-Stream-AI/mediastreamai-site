@@ -191,7 +191,7 @@ export default function CreatorsPage() {
             >
               <div className="rounded-2xl border border-hair overflow-hidden">
                 <Image
-                  src="/ai-platform-diagram.png"
+                  src="/ai-platform-diagram.webp"
                   alt="IntuiTV AI Content Creation Platform"
                   width={1200}
                   height={800}
@@ -360,7 +360,7 @@ export default function CreatorsPage() {
 
               <div className="relative">
                 <Image
-                  src="/vp-studio-icon.png"
+                  src="/vp-studio-icon.webp"
                   alt="MOTHER AI Content Creation"
                   width={400}
                   height={400}

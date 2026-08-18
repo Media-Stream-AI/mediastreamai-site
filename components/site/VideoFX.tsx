@@ -6,6 +6,13 @@
 
 import { useEffect, useRef } from 'react';
 
+/** Poster for a clip, by convention: `/video/x.mp4` → `/video/x.poster.webp`.
+ *  scripts/optimize-media.sh writes one alongside every clip in public/video,
+ *  so the frame paints immediately instead of waiting on the video to decode. */
+function posterFor(src: string) {
+  return src.replace(/\.mp4$/, '.poster.webp');
+}
+
 function useAutoPlay() {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
@@ -27,6 +34,7 @@ export function VideoBackdrop({ src, className = '' }: { src: string; className?
         ref={ref}
         className="h-full w-full object-cover opacity-40"
         src={src}
+        poster={posterFor(src)}
         muted
         loop
         playsInline
@@ -43,7 +51,8 @@ export function VideoFrame({ src, label, className = '' }: { src: string; label?
   const ref = useAutoPlay();
   return (
     <div className={`relative overflow-hidden rounded-2xl border border-hair bg-night-800 ${className}`}>
-      <video ref={ref} className="w-full aspect-video object-cover" src={src} muted loop playsInline preload="metadata" />
+      <video ref={ref} className="w-full aspect-video object-cover" src={src} poster={posterFor(src)}
+             muted loop playsInline preload="metadata" />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5 rounded-2xl" />
       {label && (
         <span className="absolute left-3 top-3 chip !text-[9px] !py-0.5 bg-night/70 backdrop-blur">{label}</span>
