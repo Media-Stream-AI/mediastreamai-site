@@ -27,6 +27,8 @@ export interface PillarData {
   sections?: PillarSection[];
   /** Real footage for the hero frame, in place of the synthetic PillarVisual motif. */
   heroMedia?: { src: string; label?: string };
+  /** A still for the hero frame, same idea as heroMedia without the playback cost. */
+  heroImage?: { src: string; alt: string; label?: string; scan?: boolean };
   media?: { src: string; label?: string };
   ctaTitle: string;
   ctaBody: string;
@@ -67,7 +69,7 @@ export default function PillarPage({ data }: { data: PillarData }) {
 
           <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} className="relative">
             <div className={`absolute -inset-6 rounded-3xl blur-3xl opacity-40 ${ember ? 'bg-ember/20' : 'bg-iris/25'}`} />
-            <PillarVisual variant={data.variant} media={data.heroMedia} className="relative" />
+            <PillarVisual variant={data.variant} media={data.heroMedia} image={data.heroImage} className="relative" />
           </motion.div>
         </div>
       </section>
