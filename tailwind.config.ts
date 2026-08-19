@@ -79,6 +79,7 @@ const config: Config = {
         'spin-slow': 'spin 18s linear infinite',
         'gradient-pan': 'gradient-pan 8s ease infinite',
         'sheen': 'sheen 3.5s ease-in-out infinite',
+        'pillar-scan': 'pillar-scan 4.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         float: {
@@ -96,6 +97,11 @@ const config: Config = {
         sheen: {
           '0%': { transform: 'translateX(-120%)' },
           '60%, 100%': { transform: 'translateX(220%)' },
+        },
+        // Light bar sweeping down a pillar still - starts and ends off-frame.
+        'pillar-scan': {
+          '0%': { transform: 'translateY(-140%)' },
+          '80%, 100%': { transform: 'translateY(340%)' },
         },
       },
       boxShadow: {

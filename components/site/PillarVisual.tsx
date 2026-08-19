@@ -9,7 +9,13 @@
 // motif is swapped for the clip, keeping the same frame, wash and caption. The
 // EXO pillar uses this to run the MOTHER Robotics footage in the world model /
 // latent dynamics slot rather than the placeholder constellation.
+//
+// `image` does the same with a still - same frame, wash and caption, no
+// playback cost. The IntuiTV pillar uses it to show the product in the room it
+// is actually watched in. Set `scan` on a still to sweep a light bar down it,
+// which reads as a live instrument rather than a screenshot.
 
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 type Variant = 'models' | 'intuitv' | 'exo' | 'defence';
@@ -18,15 +24,19 @@ export default function PillarVisual({
   variant,
   className = '',
   media,
+  image,
 }: {
   variant: Variant;
   className?: string;
   media?: { src: string; label?: string };
+  image?: { src: string; alt: string; label?: string; scan?: boolean };
 }) {
   return (
     <div className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-hair bg-night-800/60 ${className}`}>
       <div className="absolute inset-0 grid-bg opacity-40" />
-      {media ? (
+      {image ? (
+        <Still src={image.src} alt={image.alt} label={image.label} scan={image.scan} />
+      ) : media ? (
         <Footage src={media.src} label={media.label} />
       ) : (
         <>
@@ -63,6 +73,54 @@ function Footage({ src, label }: { src: string; label?: string }) {
           {label}
         </span>
       )}
+    </div>
+  );
+}
+
+/** A still filling the pillar frame, with the motif's wash, inner ring and
+ *  caption kept so it sits in the same visual system as the SVG variants. */
+function Still({ src, alt, label, scan }: { src: string; alt: string; label?: string; scan?: boolean }) {
+  return (
+    <div className="absolute inset-0">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 1024px) 42vw, 100vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-night/75 via-night/10 to-transparent" />
+      {scan && <ScanBar />}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
+      {label && (
+        <span className="absolute inset-x-0 bottom-3 text-center font-mono text-[10px] tracking-wide text-slate-400">
+          {label}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/** A cyan light bar sweeping down the frame, with a faint scanline grille - the
+ *  same telemetry language as the SVG motifs. Held still under
+ *  prefers-reduced-motion (see `motion-reduce:animate-none`). */
+function ScanBar() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div
+        className="absolute inset-x-0 h-1/3 opacity-70 motion-reduce:animate-none animate-pillar-scan"
+        style={{
+          background:
+            'linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.05) 45%, rgba(94,234,255,0.35) 50%, rgba(34,211,238,0.05) 55%, transparent 100%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-[0.07] mix-blend-screen"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(180deg, rgba(255,255,255,0.9) 0px, rgba(255,255,255,0.9) 1px, transparent 1px, transparent 3px)',
+        }}
+      />
     </div>
   );
 }
