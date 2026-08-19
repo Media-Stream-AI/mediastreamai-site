@@ -4,7 +4,7 @@ import {
   Zap, Snowflake, Cpu, Network, ShieldCheck, Boxes, ArrowRight, MapPin, Factory, Server, Flame,
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import { VideoBackdrop, VideoFrame } from '@/components/site/VideoFX';
+import Image from 'next/image';
 import ColocationForm from '@/components/site/ColocationForm';
 
 export const metadata: Metadata = {
@@ -78,7 +78,13 @@ export default function Page() {
     <div className="overflow-hidden">
       {/* HERO */}
       <section className="relative pt-32 pb-16 md:pt-44 md:pb-24">
-        <VideoBackdrop src="/video/datacentre-aerial.mp4" className="-z-[5]" />
+        {/* Static ember wash - this page carries no video; the DC3 scope-of-supply
+            drawing below does the explaining the aerial footage used to. */}
+        <div aria-hidden className="absolute inset-0 -z-[5] overflow-hidden">
+          <div className="absolute inset-0 grid-bg opacity-30" />
+          <div className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-ember/10 blur-3xl" />
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(70% 60% at 50% 30%, transparent, rgba(5,6,10,0.85))' }} />
+        </div>
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-5">
@@ -140,10 +146,23 @@ export default function Page() {
             ))}
           </div>
           <Reveal>
-            <div className="mt-6 grid md:grid-cols-2 gap-5">
-              <VideoFrame src="/video/dc3-twin.mp4" label="DC3 · digital twin" className="glow-ring" />
-              <VideoFrame src="/video/exo-robotics.mp4" label="MOTHER Vision · live" />
-            </div>
+            <figure className="mt-6">
+              {/* The drawing is drafted on white - kept on a light card so the
+                  single-line diagram stays legible against the dark page. */}
+              <div className="overflow-hidden rounded-2xl border border-hair bg-white p-3">
+                <Image
+                  src="/dc3-protected-power.webp"
+                  alt="DC3 protected power infrastructure, scope of supply: five 1200 kW UPS systems in N+1 parallel giving 6 MW installed, 35 lithium battery cabinets at five minutes autonomy, maintenance bypass system and client handoff panel"
+                  width={1536}
+                  height={1024}
+                  sizes="(min-width: 1024px) 940px, 100vw"
+                  className="h-auto w-full rounded-lg"
+                />
+              </div>
+              <figcaption className="mt-3 text-center font-mono text-[10px] tracking-wide text-slate-400">
+                DC3 · protected power · 6 MW installed, N+1 parallel, 5 min autonomy
+              </figcaption>
+            </figure>
           </Reveal>
           <p className="mt-6 text-xs text-muted/70 max-w-3xl">
             Forward-looking: capacity, hardware and 2026 / 2027 deployment dates are indicative plans, not commitments,
