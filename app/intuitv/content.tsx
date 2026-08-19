@@ -16,6 +16,11 @@ const data: PillarData = {
   gradientWord: 'end to end.',
   intro:
     'The consumer platform where you create the show and the star - plus IntuiStudio: a browser-native Creator editor with studio-grade tooling and a Playout engine driving real, always-on channels. All powered by the sovereign MOTHER brain.',
+  heroImage: {
+    src: '/intuitv-app-site.webp',
+    alt: 'The IntuiTV platform at intuitv.app - "Stop choosing, start imagining" - an AI-powered television platform available on smart TV apps, iOS, Android and in the browser',
+    label: 'intuitv.app · AI television',
+  },
   primary: { label: 'Start watching', href: '/viewers' },
   secondary: { label: 'For creators', href: '/creators' },
   stats: [
