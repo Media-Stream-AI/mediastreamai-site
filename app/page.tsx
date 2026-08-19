@@ -39,9 +39,9 @@ const PILLARS = [
     cta: "Enter IntuiTV",
     accent: "iris",
     image: {
-      src: "/intuitv-family-watching.webp",
-      alt: "A family on the sofa watching an AI-generated jungle adventure episode on their television",
-      label: "personalised channel · living room",
+      src: "/intuitv-app-site.webp",
+      alt: 'The IntuiTV platform at intuitv.app - "Stop choosing, start imagining" - an AI-powered television platform available on smart TV apps, iOS, Android and in the browser',
+      label: "intuitv.app · AI television",
     },
     blurb:
       "The consumer platform where you create the show and the star - plus IntuiStudio: a browser-native Creator editor with Premiere/After-Effects-grade tooling, and a 24/7 Playout engine driving real channels.",
