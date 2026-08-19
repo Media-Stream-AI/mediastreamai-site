@@ -61,6 +61,12 @@ const PILLARS = [
     cta: "Inside MOTHER EXO",
     accent: "violet",
     badge: "2027 RELEASE",
+    image: {
+      src: "/exo-robotics-platform.webp",
+      alt: "The MSAI Robotics platform showing the MOTHER EXO v1 humanoid in the digital twin viewer, with structural substitution figures across 26 links",
+      label: "MSAI Robotics · MOTHER EXO v1",
+      scan: true,
+    },
     blurb:
       "A true world model on the CORE 7B backbone - latent vision + action dynamics - driving the MOTHER Robotics platform: design, simulate and build embodied systems from humanoids to autonomous flight.",
     points: [
