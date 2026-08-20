@@ -5,6 +5,7 @@
 // render together on the client side avoids that serialization error.
 import { Boxes, Cog, Cpu, Bot, Plane, Car, Hand, Activity, Layers } from 'lucide-react';
 import PillarPage, { type PillarData } from '@/components/site/PillarPage';
+import ExoCadViewer from '@/components/site/ExoCadViewer';
 
 
 
@@ -19,12 +20,14 @@ const data: PillarData = {
     'Built on the CORE 7B backbone, MOTHER EXO learns the latent dynamics of vision and action - a true world model that perceives, predicts and acts. It drives the MOTHER Robotics platform: design, simulate and build embodied systems, from humanoids to autonomous flight.',
   primary: { label: 'Enter the platform', href: '/contact' },
   secondary: { label: 'The AI brain', href: '/model-family' },
-  // The MOTHER EXO film runs in the hero frame, filling the world model /
-  // latent dynamics slot that previously held a placeholder motif. Same cut as
-  // the intro that plays on robotics.mediastreamai.com, so the EXO story opens
-  // identically on both sites. It is this page's only clip, so there is no
-  // separate media band.
-  heroMedia: { src: '/video/mother-exo-v2.mp4', label: 'world model · latent dynamics' },
+  // The hero frame is a real CAD area: the humanoid's URDF and meshes are
+  // pulled live from the robotics platform through /api/exo-cad, so the page
+  // always shows the current design rather than a rendered still. The MOTHER
+  // EXO film moves to the media band below.
+  media: { src: '/video/mother-exo-v2.mp4', label: 'world model · latent dynamics' },
+  disclaimer:
+    'MOTHER EXO is an upgraded humanoid model based on the ASIMOV V.1 open-source robotics backbone, ' +
+    'redesigned with over 5,000 modifications and graphene-infused materials throughout.',
   stats: [
     { k: '28.9 GB', v: 'World model' },
     { k: '23-DOF', v: 'Humanoid' },
@@ -66,5 +69,5 @@ const data: PillarData = {
 };
 
 export default function PillarContent() {
-  return <PillarPage data={data} />;
+  return <PillarPage data={{ ...data, heroSlot: <ExoCadViewer className="relative" /> }} />;
 }
