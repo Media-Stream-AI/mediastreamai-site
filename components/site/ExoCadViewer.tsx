@@ -5,8 +5,9 @@
 // rendered with three. Nothing about the model lives in this repo, so whatever
 // the robotics platform is serving is what visitors see.
 //
-// ~7 MB of binary STL loads on demand rather than on page load - the frame
-// shows a still until someone asks for the model.
+// ~7 MB of binary STL is fetched when the frame scrolls into view rather than
+// on page load, so it never sits on the critical path for a visitor who does
+// not reach it. On a metered or very slow connection it waits to be asked.
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { RotateCw, Move3d, Maximize2, Loader2 } from 'lucide-react';
@@ -20,11 +21,14 @@ export default function ExoCadViewer({ className = '' }: { className?: string })
   const [status, setStatus] = useState<Status>('idle');
   const [progress, setProgress] = useState(0);
   const [spin, setSpin] = useState(true);
+  const startedRef = useRef(false);
+  const retriedRef = useRef(false);
 
   useEffect(() => () => cleanupRef.current?.(), []);
 
   const load = useCallback(async () => {
-    if (status === 'loading' || status === 'ready') return;
+    if (startedRef.current) return;
+    startedRef.current = true;
     setStatus('loading');
     setProgress(0);
 
@@ -227,9 +231,40 @@ export default function ExoCadViewer({ className = '' }: { className?: string })
 
       setStatus('ready');
     } catch {
+      if (!retriedRef.current) {
+        retriedRef.current = true;
+        startedRef.current = false;
+        setTimeout(() => { void load(); }, 1500);
+        return;
+      }
       setStatus('error');
     }
-  }, [status]);
+  }, []);
+
+  // Fetch when the frame comes into view - a visitor who never scrolls this far
+  // never pays for the model.
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount || startedRef.current) return;
+
+    const connection = (navigator as any).connection;
+    const metered = connection?.saveData === true || /^(slow-)?2g$/.test(connection?.effectiveType ?? '');
+    if (metered) return;
+
+    if (typeof IntersectionObserver === 'undefined') { void load(); return; }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          observer.disconnect();
+          void load();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(mount);
+    return () => observer.disconnect();
+  }, [load]);
 
   const toggleSpin = () => {
     const next = !spin;
@@ -252,7 +287,7 @@ export default function ExoCadViewer({ className = '' }: { className?: string })
             </p>
           </div>
           {status === 'idle' && (
-            <button onClick={load} className="btn-glow px-5 py-2 text-sm">
+            <button onClick={() => { retriedRef.current = false; void load(); }} className="btn-glow px-5 py-2 text-sm">
               Load the 3D model
             </button>
           )}
@@ -264,7 +299,12 @@ export default function ExoCadViewer({ className = '' }: { className?: string })
           {status === 'error' && (
             <p className="text-sm text-ember">
               The CAD source is unreachable right now.{' '}
-              <button onClick={() => { setStatus('idle'); }} className="underline hover:text-mist">Try again</button>
+              <button
+                onClick={() => { retriedRef.current = false; startedRef.current = false; setStatus('idle'); }}
+                className="underline hover:text-mist"
+              >
+                Try again
+              </button>
             </p>
           )}
         </div>
