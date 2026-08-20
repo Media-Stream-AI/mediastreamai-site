@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Check, type LucideIcon } from 'lucide-react';
@@ -29,6 +30,11 @@ export interface PillarData {
   heroMedia?: { src: string; label?: string };
   /** A still for the hero frame, same idea as heroMedia without the playback cost. */
   heroImage?: { src: string; alt: string; label?: string; scan?: boolean };
+  /** A live component for the hero frame - /exo puts the CAD viewer here. Wins
+   *  over heroImage and heroMedia when set. */
+  heroSlot?: ReactNode;
+  /** Small print at the foot of the page, under the CTA. */
+  disclaimer?: string;
   media?: { src: string; label?: string };
   ctaTitle: string;
   ctaBody: string;
@@ -69,7 +75,9 @@ export default function PillarPage({ data }: { data: PillarData }) {
 
           <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} className="relative">
             <div className={`absolute -inset-6 rounded-3xl blur-3xl opacity-40 ${ember ? 'bg-ember/20' : 'bg-iris/25'}`} />
-            <PillarVisual variant={data.variant} media={data.heroMedia} image={data.heroImage} className="relative" />
+            {data.heroSlot ?? (
+              <PillarVisual variant={data.variant} media={data.heroMedia} image={data.heroImage} className="relative" />
+            )}
           </motion.div>
         </div>
       </section>
@@ -176,6 +184,14 @@ export default function PillarPage({ data }: { data: PillarData }) {
           </Reveal>
         </div>
       </section>
+
+      {data.disclaimer && (
+        <section className="pb-14">
+          <div className="container-custom">
+            <p className="mx-auto max-w-3xl text-center text-xs leading-relaxed text-muted/70">{data.disclaimer}</p>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
