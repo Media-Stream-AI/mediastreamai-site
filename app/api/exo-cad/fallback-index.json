@@ -1,0 +1,853 @@
+{
+ "schema_version": 1,
+ "note": "part_id -> fabrication GLB, mirrored from the robotics platform's fabrication catalogue. Served only when the platform does not publish its own index; see app/api/exo-cad/route.ts.",
+ "source_provenance": "MSAIGlobal/asimov-1 \u00b7 mechanical/ASV1",
+ "tolerance_mm": 0.25,
+ "parts": {
+  "ASV1_100_02A": {
+   "file": "100/ASV1_100_02A-7a4e6f9900125a31-t250.glb",
+   "subassembly": "100",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_100_03A": {
+   "file": "100/ASV1_100_03A-8cb1ed1f81382dc5-t250.glb",
+   "subassembly": "100",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_100_01C": {
+   "file": "100/ASV1_100_01C-c3e24ef9151684af-t250.glb",
+   "subassembly": "100",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_100_04C": {
+   "file": "100/ASV1_100_04C-c5aa469cfcdb2cbc-t250.glb",
+   "subassembly": "100",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_100_05C": {
+   "file": "100/ASV1_100_05C-f2ae179b0fd40c08-t250.glb",
+   "subassembly": "100",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_100_06C": {
+   "file": "100/ASV1_100_06C-2e4ae9777be8c8e7-t250.glb",
+   "subassembly": "100",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_100_10C": {
+   "file": "100/ASV1_100_10C-c31fc896b10a54b1-t250.glb",
+   "subassembly": "100",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_100_12C": {
+   "file": "100/ASV1_100_12C-d732af161ebfe5d0-t250.glb",
+   "subassembly": "100",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_100_07X": {
+   "file": "100/ASV1_100_07X-62d630e612cdb58f-t250.glb",
+   "subassembly": "100",
+   "material": null
+  },
+  "ASV1_100_08X": {
+   "file": "100/ASV1_100_08X-39b83debe8d53437-t250.glb",
+   "subassembly": "100",
+   "material": null
+  },
+  "ASV1_100_09X": {
+   "file": "100/ASV1_100_09X-673e96a8b436e681-t250.glb",
+   "subassembly": "100",
+   "material": null
+  },
+  "ASV1_100_11X": {
+   "file": "100/ASV1_100_11X-c9f2a34991470439-t250.glb",
+   "subassembly": "100",
+   "material": null
+  },
+  "ASV1_100_13X": {
+   "file": "100/ASV1_100_13X-1323788b5ef2d921-t250.glb",
+   "subassembly": "100",
+   "material": null
+  },
+  "ASV1_200_02A": {
+   "file": "200/ASV1_200_02A-2b577f3fd36fd9e9-t250.glb",
+   "subassembly": "200",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_200_03A": {
+   "file": "200/ASV1_200_03A-7c4eb430c930c470-t250.glb",
+   "subassembly": "200",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_200_16A": {
+   "file": "200/ASV1_200_16A-c7f7755e2442866e-t250.glb",
+   "subassembly": "200",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_200_04B": {
+   "file": "200/ASV1_200_04B-74c106f5159f6d2c-t250.glb",
+   "subassembly": "200",
+   "material": "Stainless 316L"
+  },
+  "ASV1_200_05B": {
+   "file": "200/ASV1_200_05B-a6aa835b4a500f86-t250.glb",
+   "subassembly": "200",
+   "material": "Stainless 316L"
+  },
+  "ASV1_200_01C": {
+   "file": "200/ASV1_200_01C-cbaa717718b84576-t250.glb",
+   "subassembly": "200",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_200_06C": {
+   "file": "200/ASV1_200_06C-d8e49b141f061747-t250.glb",
+   "subassembly": "200",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_200_07C": {
+   "file": "200/ASV1_200_07C-d3adf315020605a1-t250.glb",
+   "subassembly": "200",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_200_08C": {
+   "file": "200/ASV1_200_08C-dd078db12aa2fbb2-t250.glb",
+   "subassembly": "200",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_200_09C": {
+   "file": "200/ASV1_200_09C-87e616b82ff6a47c-t250.glb",
+   "subassembly": "200",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_200_15C": {
+   "file": "200/ASV1_200_15C-6087b8c58fcb0cea-t250.glb",
+   "subassembly": "200",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_200_10X": {
+   "file": "200/ASV1_200_10X-3dcdd6b5b9b9a41c-t250.glb",
+   "subassembly": "200",
+   "material": null
+  },
+  "ASV1_200_11X": {
+   "file": "200/ASV1_200_11X-3dcdd6b5b9b9a41c-t250.glb",
+   "subassembly": "200",
+   "material": null
+  },
+  "ASV1_200_12X": {
+   "file": "200/ASV1_200_12X-3dcdd6b5b9b9a41c-t250.glb",
+   "subassembly": "200",
+   "material": null
+  },
+  "ASV1_200_13X": {
+   "file": "200/ASV1_200_13X-7bde50d0470678bc-t250.glb",
+   "subassembly": "200",
+   "material": null
+  },
+  "ASV1_200_14X": {
+   "file": "200/ASV1_200_14X-7bde50d0470678bc-t250.glb",
+   "subassembly": "200",
+   "material": null
+  },
+  "ASV1_300_01A": {
+   "file": "300/ASV1_300_01A-07812db0489408f0-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_03A": {
+   "file": "300/ASV1_300_03A-83c93257cc98fbcd-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_05A": {
+   "file": "300/ASV1_300_05A-1b8396c1224a3e12-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_07A": {
+   "file": "300/ASV1_300_07A-c1498f56a80103fc-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_08A": {
+   "file": "300/ASV1_300_08A-248d4e906dc4dbee-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_09A": {
+   "file": "300/ASV1_300_09A-1e24b85a7b4632fa-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_10A": {
+   "file": "300/ASV1_300_10A-efce31429ac03d20-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_11A": {
+   "file": "300/ASV1_300_11A-5f51beee44a51137-t250.glb",
+   "subassembly": "300",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_300_02B": {
+   "file": "300/ASV1_300_02B-70135615d5d1fce4-t250.glb",
+   "subassembly": "300",
+   "material": "Stainless 316L"
+  },
+  "ASV1_300_04B": {
+   "file": "300/ASV1_300_04B-48c6aa6741ad3311-t250.glb",
+   "subassembly": "300",
+   "material": "Stainless 316L"
+  },
+  "ASV1_300_06B": {
+   "file": "300/ASV1_300_06B-0b44218cac94203a-t250.glb",
+   "subassembly": "300",
+   "material": "Stainless 316L"
+  },
+  "ASV1_300_12B": {
+   "file": "300/ASV1_300_12B-7c1a88cf059c87b9-t250.glb",
+   "subassembly": "300",
+   "material": "Stainless 316L"
+  },
+  "ASV1_300_13C": {
+   "file": "300/ASV1_300_13C-48d71d8397738237-t250.glb",
+   "subassembly": "300",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_300_14C": {
+   "file": "300/ASV1_300_14C-f4a57cf2182bda2c-t250.glb",
+   "subassembly": "300",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_300_15C": {
+   "file": "300/ASV1_300_15C-2d1270c2c0e8d9c4-t250.glb",
+   "subassembly": "300",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_300_16C": {
+   "file": "300/ASV1_300_16C-8c2b7502688f408e-t250.glb",
+   "subassembly": "300",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_300_17X": {
+   "file": "300/ASV1_300_17X-631cacb5eb3c7aeb-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_300_18X": {
+   "file": "300/ASV1_300_18X-eeabb7e86d8ed19e-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_300_19X": {
+   "file": "300/ASV1_300_19X-58a263278cdfc065-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_300_20X": {
+   "file": "300/ASV1_300_20X-a73d61a37981c05f-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_300_21X": {
+   "file": "300/ASV1_300_21X-7387bc99930a19e4-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_300_22X": {
+   "file": "300/ASV1_300_22X-036016b36fae1def-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_300_23X": {
+   "file": "300/ASV1_300_23X-036016b36fae1def-t250.glb",
+   "subassembly": "300",
+   "material": null
+  },
+  "ASV1_400_04A": {
+   "file": "400/ASV1_400_04A-e7ef9af23d01936b-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_05A": {
+   "file": "400/ASV1_400_05A-393074ebb37a814b-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_11A": {
+   "file": "400/ASV1_400_11A-f96d08536bb37bc9-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_13A": {
+   "file": "400/ASV1_400_13A-c1498f56a80103fc-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_14A": {
+   "file": "400/ASV1_400_14A-248d4e906dc4dbee-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_17A": {
+   "file": "400/ASV1_400_17A-ac6846a5a7b48bb2-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_18A": {
+   "file": "400/ASV1_400_18A-11900e3948786299-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_19A": {
+   "file": "400/ASV1_400_19A-8e1272106ec053b4-t250.glb",
+   "subassembly": "400",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_400_02B": {
+   "file": "400/ASV1_400_02B-ed108b17d507feaf-t250.glb",
+   "subassembly": "400",
+   "material": "Stainless 316L"
+  },
+  "ASV1_400_03B": {
+   "file": "400/ASV1_400_03B-fefdff5a1fbed9ee-t250.glb",
+   "subassembly": "400",
+   "material": "Stainless 316L"
+  },
+  "ASV1_400_12B": {
+   "file": "400/ASV1_400_12B-8cd7d15904f6e96e-t250.glb",
+   "subassembly": "400",
+   "material": "Stainless 316L"
+  },
+  "ASV1_400_20B": {
+   "file": "400/ASV1_400_20B-689753057c5c2510-t250.glb",
+   "subassembly": "400",
+   "material": "Stainless 316L"
+  },
+  "ASV1_400_06C": {
+   "file": "400/ASV1_400_06C-417a2a0dce2b7c0b-t250.glb",
+   "subassembly": "400",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_400_07C": {
+   "file": "400/ASV1_400_07C-b13e884e6bd3b7cc-t250.glb",
+   "subassembly": "400",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_400_15C": {
+   "file": "400/ASV1_400_15C-be27cdf2434185cc-t250.glb",
+   "subassembly": "400",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_400_16C": {
+   "file": "400/ASV1_400_16C-f9df3d4943ec53fa-t250.glb",
+   "subassembly": "400",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_400_01X": {
+   "file": "400/ASV1_400_01X-835c0e351a357ce1-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_400_08X": {
+   "file": "400/ASV1_400_08X-5da5aae79f13f593-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_400_09X": {
+   "file": "400/ASV1_400_09X-d46261272cc416c1-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_400_10X": {
+   "file": "400/ASV1_400_10X-6cebacc519452504-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_400_21X": {
+   "file": "400/ASV1_400_21X-946bf62632eccafd-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_400_22X": {
+   "file": "400/ASV1_400_22X-673e96a8b436e681-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_400_23X": {
+   "file": "400/ASV1_400_23X-cf2cbce5c98d46c9-t250.glb",
+   "subassembly": "400",
+   "material": null
+  },
+  "ASV1_500_05A": {
+   "file": "500/ASV1_500_05A-20b18d221452a6dc-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_06A": {
+   "file": "500/ASV1_500_06A-6da718b84db46a51-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_08A": {
+   "file": "500/ASV1_500_08A-29923bede557177d-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_09A": {
+   "file": "500/ASV1_500_09A-5f7b67bd7c598436-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_12A": {
+   "file": "500/ASV1_500_12A-ddfaaa849f7f36a2-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_23A_SS": {
+   "file": "500/ASV1_500_23A_SS-f0d74a60bb065a8e-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_24A_SS": {
+   "file": "500/ASV1_500_24A_SS-c18b819f37734323-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_25A": {
+   "file": "500/ASV1_500_25A-cdb0cf818424a264-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_36A": {
+   "file": "500/ASV1_500_36A-bb404d090ebfce19-t250.glb",
+   "subassembly": "500",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_500_01B": {
+   "file": "500/ASV1_500_01B-813bd80f0287d014-t250.glb",
+   "subassembly": "500",
+   "material": "Stainless 316L"
+  },
+  "ASV1_500_17B": {
+   "file": "500/ASV1_500_17B-ce358d2af2641145-t250.glb",
+   "subassembly": "500",
+   "material": "Stainless 316L"
+  },
+  "ASV1_500_18B": {
+   "file": "500/ASV1_500_18B-ce358d2af2641145-t250.glb",
+   "subassembly": "500",
+   "material": "Stainless 316L"
+  },
+  "ASV1_500_26B": {
+   "file": "500/ASV1_500_26B-e2ac656f47f11cd8-t250.glb",
+   "subassembly": "500",
+   "material": "Stainless 316L"
+  },
+  "ASV1_500_03C": {
+   "file": "500/ASV1_500_03C-0d7653ac2c9a6fae-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_04C": {
+   "file": "500/ASV1_500_04C-bdfdf31f363681e4-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_10C": {
+   "file": "500/ASV1_500_10C-a623d6f59aa5635f-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_13C": {
+   "file": "500/ASV1_500_13C-525daf8a2cf4f48f-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_14C": {
+   "file": "500/ASV1_500_14C-2441fc888a6c3840-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_37C": {
+   "file": "500/ASV1_500_37C-62db8a53895f70d7-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_38C": {
+   "file": "500/ASV1_500_38C-62e1f707955c63b4-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_39C": {
+   "file": "500/ASV1_500_39C-52cb3e620b17dc78-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_40C": {
+   "file": "500/ASV1_500_40C-9916a5180d369da3-t250.glb",
+   "subassembly": "500",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_500_02X": {
+   "file": "500/ASV1_500_02X-b9eeebc987187887-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_07X": {
+   "file": "500/ASV1_500_07X-304d875f7bb7522d-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_11X": {
+   "file": "500/ASV1_500_11X-036016b36fae1def-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_15X": {
+   "file": "500/ASV1_500_15X-4749c76a422d5fda-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_16X": {
+   "file": "500/ASV1_500_16X-4749c76a422d5fda-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_19X": {
+   "file": "500/ASV1_500_19X-fe65362ae1b5cc55-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_20X": {
+   "file": "500/ASV1_500_20X-fe65362ae1b5cc55-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_21X": {
+   "file": "500/ASV1_500_21X-fe65362ae1b5cc55-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_22X": {
+   "file": "500/ASV1_500_22X-fe65362ae1b5cc55-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_27X": {
+   "file": "500/ASV1_500_27X-841815e08479e5f5-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_28X": {
+   "file": "500/ASV1_500_28X-841815e08479e5f5-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_29X": {
+   "file": "500/ASV1_500_29X-841815e08479e5f5-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_30X": {
+   "file": "500/ASV1_500_30X-841815e08479e5f5-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_31X": {
+   "file": "500/ASV1_500_31X-9931a242fd05225d-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_32X": {
+   "file": "500/ASV1_500_32X-bef89c3c39e7c699-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_33X": {
+   "file": "500/ASV1_500_33X-bef89c3c39e7c699-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_34X": {
+   "file": "500/ASV1_500_34X-02eac7574fdaa6ae-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_35X": {
+   "file": "500/ASV1_500_35X-02eac7574fdaa6ae-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_500_41X": {
+   "file": "500/ASV1_500_41X-8aee9880aaa5edac-t250.glb",
+   "subassembly": "500",
+   "material": null
+  },
+  "ASV1_600_05A": {
+   "file": "600/ASV1_600_05A-a12f7dfcd4586e37-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_06A": {
+   "file": "600/ASV1_600_06A-69681202a2ba5905-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_08A": {
+   "file": "600/ASV1_600_08A-b6aab3842d18c8ad-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_09A": {
+   "file": "600/ASV1_600_09A-2adcc8aa9a730575-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_12A": {
+   "file": "600/ASV1_600_12A-3118119108f51e6e-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_23A_SS": {
+   "file": "600/ASV1_600_23A_SS-ccb8ab1ffded74a1-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_24A_SS": {
+   "file": "600/ASV1_600_24A_SS-d87fc0d45a318ff7-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_25A": {
+   "file": "600/ASV1_600_25A-d075232de7171cc6-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_36A": {
+   "file": "600/ASV1_600_36A-8d846207a2c4279f-t250.glb",
+   "subassembly": "600",
+   "material": "Aluminium 7075-T6"
+  },
+  "ASV1_600_01B": {
+   "file": "600/ASV1_600_01B-aa55627da294ad39-t250.glb",
+   "subassembly": "600",
+   "material": "Stainless 316L"
+  },
+  "ASV1_600_17B": {
+   "file": "600/ASV1_600_17B-82eb82e2d38cf819-t250.glb",
+   "subassembly": "600",
+   "material": "Stainless 316L"
+  },
+  "ASV1_600_18B": {
+   "file": "600/ASV1_600_18B-86068d22f5621187-t250.glb",
+   "subassembly": "600",
+   "material": "Stainless 316L"
+  },
+  "ASV1_600_26B": {
+   "file": "600/ASV1_600_26B-1e6d5ce73dd09d8d-t250.glb",
+   "subassembly": "600",
+   "material": "Stainless 316L"
+  },
+  "ASV1_600_03C": {
+   "file": "600/ASV1_600_03C-586988ced753a206-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_10C": {
+   "file": "600/ASV1_600_10C-95cd837e48e9ab3b-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_13C": {
+   "file": "600/ASV1_600_13C-dbbfbe8c57368163-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_14C": {
+   "file": "600/ASV1_600_14C-b1d5fcff01108847-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_37C": {
+   "file": "600/ASV1_600_37C-65b273ddcb1769c0-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_38C": {
+   "file": "600/ASV1_600_38C-181b441dab186d09-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_39C": {
+   "file": "600/ASV1_600_39C-fdc0d9812e3587cf-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_40C": {
+   "file": "600/ASV1_600_40C-a4fcb1ac16633462-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_02X": {
+   "file": "600/ASV1_600_02X-722e30e15a48479c-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_07X": {
+   "file": "600/ASV1_600_07X-34b55d44a2a491cb-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_11X": {
+   "file": "600/ASV1_600_11X-416d8026b797f9d6-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_15X": {
+   "file": "600/ASV1_600_15X-1b99d115cfeb3584-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_16X": {
+   "file": "600/ASV1_600_16X-a489f4473036a1a7-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_19X": {
+   "file": "600/ASV1_600_19X-b791e55f535f2d76-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_20X": {
+   "file": "600/ASV1_600_20X-514f996076c6ca87-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_21X": {
+   "file": "600/ASV1_600_21X-b5e2024e80062ac0-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_22X": {
+   "file": "600/ASV1_600_22X-b4f955782ee8b036-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_27X": {
+   "file": "600/ASV1_600_27X-b80f08a77cf2a418-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_28X": {
+   "file": "600/ASV1_600_28X-672384fa6b1526ef-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_29X": {
+   "file": "600/ASV1_600_29X-d81dfa1b99fbac79-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_30X": {
+   "file": "600/ASV1_600_30X-58890d5a7722e1ac-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_31X": {
+   "file": "600/ASV1_600_31X-318a685028b82c22-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_32X": {
+   "file": "600/ASV1_600_32X-bef89c3c39e7c699-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_33X": {
+   "file": "600/ASV1_600_33X-bef89c3c39e7c699-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_34X": {
+   "file": "600/ASV1_600_34X-02eac7574fdaa6ae-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_35X": {
+   "file": "600/ASV1_600_35X-02eac7574fdaa6ae-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_600_41X": {
+   "file": "600/ASV1_600_41X-8aee9880aaa5edac-t250.glb",
+   "subassembly": "600",
+   "material": null
+  },
+  "ASV1_700_01B": {
+   "file": "700/ASV1_700_01B-7519d14ba4c21b53-t250.glb",
+   "subassembly": "700",
+   "material": "Stainless 316L"
+  },
+  "ASV1_700_02B": {
+   "file": "700/ASV1_700_02B-347e512b59519928-t250.glb",
+   "subassembly": "700",
+   "material": "Stainless 316L"
+  },
+  "ASV1_700_03C": {
+   "file": "700/ASV1_700_03C-5410ccb613e4dcee-t250.glb",
+   "subassembly": "700",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_700_04C": {
+   "file": "700/ASV1_700_04C-e837d1a57a66cf9c-t250.glb",
+   "subassembly": "700",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_700_05C": {
+   "file": "700/ASV1_700_05C-1b6650e6dd9a15e3-t250.glb",
+   "subassembly": "700",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_700_06C": {
+   "file": "700/ASV1_700_06C-2a9301ba39e047c7-t250.glb",
+   "subassembly": "700",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_700_07C": {
+   "file": "700/ASV1_700_07C-33d024c6e1780aad-t250.glb",
+   "subassembly": "700",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_700_11C": {
+   "file": "700/ASV1_700_11C-7967bcb51f38e79f-t250.glb",
+   "subassembly": "700",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_700_08X": {
+   "file": "700/ASV1_700_08X-029b1e0c8c28c755-t250.glb",
+   "subassembly": "700",
+   "material": null
+  },
+  "ASV1_700_09X": {
+   "file": "700/ASV1_700_09X-2ea9c132c15b9beb-t250.glb",
+   "subassembly": "700",
+   "material": null
+  },
+  "ASV1_700_10X": {
+   "file": "700/ASV1_700_10X-8063e55b1367dd94-t250.glb",
+   "subassembly": "700",
+   "material": null
+  },
+  "ASV1_700_12X": {
+   "file": "700/ASV1_700_12X-d01d2551fb54e02e-t250.glb",
+   "subassembly": "700",
+   "material": null
+  },
+  "ASV1_700_13X": {
+   "file": "700/ASV1_700_13X-4749c76a422d5fda-t250.glb",
+   "subassembly": "700",
+   "material": null
+  }
+ }
+}
