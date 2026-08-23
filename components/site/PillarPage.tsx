@@ -2,6 +2,28 @@
 
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+
+/** A pillar CTA that knows whether it is leaving the site.
+ *
+ *  `next/link` will happily render an absolute URL, but it cannot add
+ *  the `target` and `rel` an off-site link wants — so a page that sent
+ *  a visitor to another product would take the tab with it, silently.
+ *  Deciding here means a page author only ever writes the href.
+ */
+function CtaLink({ href, className, children }: {
+  href: string;
+  className: string;
+  children: React.ReactNode;
+}) {
+  if (/^https?:\/\//i.test(href)) {
+    return (
+      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    );
+  }
+  return <Link href={href} className={className}>{children}</Link>;
+}
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Check, type LucideIcon } from 'lucide-react';
 import Reveal from '@/components/Reveal';
@@ -67,11 +89,11 @@ export default function PillarPage({ data }: { data: PillarData }) {
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-xl">{data.intro}</p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link href={data.primary.href} className={`${btn} text-base px-7 py-3.5`}>
+              <CtaLink href={data.primary.href} className={`${btn} text-base px-7 py-3.5`}>
                 {data.primary.label} <ArrowRight className="w-5 h-5" />
-              </Link>
+              </CtaLink>
               {data.secondary && (
-                <Link href={data.secondary.href} className="btn-ghost text-base px-7 py-3.5">{data.secondary.label}</Link>
+                <CtaLink href={data.secondary.href} className="btn-ghost text-base px-7 py-3.5">{data.secondary.label}</CtaLink>
               )}
             </div>
           </motion.div>
@@ -179,9 +201,9 @@ export default function PillarPage({ data }: { data: PillarData }) {
               <div className="relative">
                 <h2 className="font-display text-4xl md:text-5xl leading-[0.95] max-w-3xl mx-auto">{data.ctaTitle}</h2>
                 <p className="mt-4 text-muted text-lg max-w-xl mx-auto">{data.ctaBody}</p>
-                <Link href={data.cta.href} className={`mt-8 inline-flex ${btn} text-base px-7 py-3.5`}>
+                <CtaLink href={data.cta.href} className={`mt-8 inline-flex ${btn} text-base px-7 py-3.5`}>
                   {data.cta.label} <ArrowUpRight className="w-5 h-5" />
-                </Link>
+                </CtaLink>
                 {data.paper && (
                   <div id="paper" className="mt-10 pt-8 border-t border-hair max-w-md mx-auto text-left scroll-mt-32">
                     <p className="text-xs uppercase tracking-[0.18em] text-muted mb-3 text-center">

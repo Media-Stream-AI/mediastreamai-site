@@ -2,6 +2,40 @@
 
 import { motion } from "framer-motion";
 
+/** The three orthographic views under the header.
+ *
+ *  Two files, three figures: the side view is drawn again mirrored,
+ *  which is what a drawing sheet does anyway and saves a request. The
+ *  periods are deliberately co-prime-ish — 11, 13 and 9 seconds — so
+ *  the group never settles into a single visible beat.
+ */
+const WIREFRAMES = [
+  {
+    key: "side-left",
+    src: "/wireframe/exo_side.png",
+    opacity: 0.5,
+    delay: 0.35,
+    period: 11,
+    className: "hidden h-64 w-auto sm:block lg:h-80",
+  },
+  {
+    key: "front",
+    src: "/wireframe/exo_front.png",
+    opacity: 0.62,
+    delay: 0.2,
+    period: 13,
+    className: "h-72 w-auto lg:h-96",
+  },
+  {
+    key: "side-right",
+    src: "/wireframe/exo_side.png",
+    opacity: 0.5,
+    delay: 0.5,
+    period: 9,
+    className: "hidden h-64 w-auto -scale-x-100 sm:block lg:h-80",
+  },
+];
+
 export default function TechnologyPage() {
   const motherFamily = [
     {
@@ -42,7 +76,7 @@ export default function TechnologyPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-display mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl font-display mb-2"
           >
             Our <span className="text-gradient">Technology</span>
           </motion.h1>
@@ -57,6 +91,44 @@ export default function TechnologyPage() {
             AI stack trained in-house from scratch on MSAI-controlled UK compute.
             Weights, data and inference stay under UK control.
           </motion.p>
+
+          {/* MOTHER EXO, drawn from the assembly CAD.
+              These are B-rep edges out of the humanoid's own STEP file —
+              the same drawing the robotics platform serves — rather than
+              an illustration of one. Decorative on this page, hence
+              aria-hidden and empty alt.
+
+              Each figure floats on its own slow cycle, offset from the
+              others, so the group breathes rather than pulsing in
+              lockstep. Framer Motion is already this page's animation
+              layer, and it honours prefers-reduced-motion for us. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none mt-14 flex items-end justify-center
+                       gap-10 sm:gap-20 lg:gap-32 xl:gap-44
+                       [mask-image:linear-gradient(to_bottom,#000_62%,transparent_98%)]
+                       [-webkit-mask-image:linear-gradient(to_bottom,#000_62%,transparent_98%)]"
+          >
+            {WIREFRAMES.map((figure) => (
+              <motion.img
+                key={figure.key}
+                src={figure.src}
+                alt=""
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: figure.opacity, y: [0, -14, 0] }}
+                transition={{
+                  opacity: { duration: 1, delay: figure.delay },
+                  y: {
+                    duration: figure.period,
+                    delay: figure.delay,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                className={figure.className}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
