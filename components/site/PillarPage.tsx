@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Check, type LucideIcon } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import PillarVisual from '@/components/site/PillarVisual';
+import GatedDownload from '@/components/site/GatedDownload';
 import { VideoFrame } from '@/components/site/VideoFX';
 
 type Variant = 'models' | 'intuitv' | 'exo' | 'defence';
@@ -39,6 +40,8 @@ export interface PillarData {
   ctaTitle: string;
   ctaBody: string;
   cta: { label: string; href: string };
+  /** Optional lead-gated paper offered alongside the CTA. */
+  paper?: { file: string; title: string; subtitle?: string };
 }
 
 export default function PillarPage({ data }: { data: PillarData }) {
@@ -179,6 +182,18 @@ export default function PillarPage({ data }: { data: PillarData }) {
                 <Link href={data.cta.href} className={`mt-8 inline-flex ${btn} text-base px-7 py-3.5`}>
                   {data.cta.label} <ArrowUpRight className="w-5 h-5" />
                 </Link>
+                {data.paper && (
+                  <div id="paper" className="mt-10 pt-8 border-t border-hair max-w-md mx-auto text-left scroll-mt-32">
+                    <p className="text-xs uppercase tracking-[0.18em] text-muted mb-3 text-center">
+                      Read the detail
+                    </p>
+                    <GatedDownload
+                      file={data.paper.file}
+                      title={data.paper.title}
+                      subtitle={data.paper.subtitle}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </Reveal>

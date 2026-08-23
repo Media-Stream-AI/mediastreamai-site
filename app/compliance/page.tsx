@@ -189,6 +189,7 @@ export default function Page() {
               keep you informed and route your interest to the right team.</p>
             <div className="grid sm:grid-cols-3 gap-3">
               <GatedDownload file="/downloads/MOTHER-Technology-Due-Diligence.pdf" title="Technology White Paper" subtitle="MOTHER technology & due diligence" />
+              <GatedDownload file="/downloads/MOTHER-EXO-Graphene-Robotics.pdf" title="MOTHER EXO and graphene in robotics" subtitle="Robotics white paper - world model, digital twin & materials" />
               <GatedDownload file="/downloads/MOTHER-EU-Copyright-Policy.pdf" title="EU AI Act - Copyright Policy" subtitle="Art. 53(1)(c)" />
               <GatedDownload file="/downloads/MOTHER-Training-Content-Summary.pdf" title="Training-Content Summary" subtitle="Art. 53(1)(d)" />
             </div>
