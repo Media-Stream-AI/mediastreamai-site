@@ -113,6 +113,9 @@ export default function Footer() {
             <Link href="/compliance#documents" className="hover:text-cyan transition-colors">
               ↓ Technology White Paper (register)
             </Link>
+            <Link href="/exo#paper" className="hover:text-cyan transition-colors">
+              ↓ MOTHER EXO &amp; Graphene in Robotics (register)
+            </Link>
             <Link href="/compliance" className="hover:text-cyan transition-colors">→ Full compliance &amp; transparency</Link>
           </div>
         </section>

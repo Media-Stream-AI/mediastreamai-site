@@ -63,6 +63,11 @@ const data: PillarData = {
   ctaTitle: 'Teach a body to think.',
   ctaBody: 'Partner with us, or apply to test and teach MOTHER EXO on sovereign infrastructure.',
   cta: { label: 'Get involved', href: '/contact' },
+  paper: {
+    file: '/downloads/MOTHER-EXO-Graphene-Robotics.pdf',
+    title: 'MOTHER EXO and graphene in robotics',
+    subtitle: 'White paper - the stages, the research and the engineering',
+  },
 };
 
 export default function PillarContent() {
