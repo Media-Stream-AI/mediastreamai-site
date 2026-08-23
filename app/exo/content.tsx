@@ -18,7 +18,9 @@ const data: PillarData = {
   gradientWord: 'that acts.',
   intro:
     'Built on the CORE 7B backbone, MOTHER EXO learns the latent dynamics of vision and action - a true world model that perceives, predicts and acts. It drives the MOTHER Robotics platform: design, simulate and build embodied systems, from humanoids to autonomous flight.',
-  primary: { label: 'Enter the platform', href: '/contact' },
+  // The robotics platform itself, not a contact form: "Enter the
+  // platform" is a promise this page can actually keep.
+  primary: { label: 'Enter the platform', href: 'https://robotics.mediastreamai.com' },
   secondary: { label: 'The AI brain', href: '/model-family' },
   // The hero frame is a real CAD area: the humanoid's URDF and meshes are
   // pulled live from the robotics platform through /api/exo-cad, so the page

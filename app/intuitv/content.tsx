@@ -46,7 +46,10 @@ const data: PillarData = {
   ],
   ctaTitle: 'Make it. Air it. Own it.',
   ctaBody: 'Create with IntuiStudio and broadcast with Playout - on a platform that keeps your content sovereign.',
-  cta: { label: 'Explore creator tools', href: '/creators' },
+  // IntuiStudio is a live product at studio.intuitv.app; this page
+  // named it in the title and then sent everyone to an internal
+  // marketing page instead.
+  cta: { label: 'Open IntuiStudio', href: 'https://studio.intuitv.app' },
 };
 
 export default function PillarContent() {
