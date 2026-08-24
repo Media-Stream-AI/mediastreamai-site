@@ -34,6 +34,10 @@ export async function POST(request: NextRequest) {
   const name = String(body.name || '').trim();
   const email = String(body.email || '').trim();
   const interest = String(body.interest || 'General enquiry').trim();
+  // Factory open days a document download opted into, e.g. ["Dundee"].
+  const openDays = Array.isArray(body.openDays)
+    ? body.openDays.map((v: unknown) => String(v).trim()).filter(Boolean).slice(0, 4)
+    : [];
   const record = {
     name,
     email,
@@ -42,6 +46,7 @@ export async function POST(request: NextRequest) {
     interest,
     message: String(body.message || '').trim(),
     source: String(body.source || 'intuitv.app').trim(),
+    open_days: openDays.join(' | '),
     segment: SEGMENT,
   };
 
@@ -74,13 +79,13 @@ export async function POST(request: NextRequest) {
   // 4. CSV fallback (gitignored) so a lead is never lost
   try {
     const p = process.env.SALES_CSV_PATH || path.join(process.cwd(), 'data', 'intuitv_customers.csv');
-    const header = 'timestamp,name,email,company,phone,interest,message,source,segment\n';
+    const header = 'timestamp,name,email,company,phone,interest,message,source,open_days,segment\n';
     for (const dest of [p, '/tmp/intuitv_customers.csv']) {
       try {
         await fs.mkdir(path.dirname(dest), { recursive: true });
         try { await fs.access(dest); } catch { await fs.writeFile(dest, header, 'utf8'); }
         const row = [new Date().toISOString(), record.name, record.email, record.company, record.phone,
-          record.interest, record.message, record.source, SEGMENT].map(csvEscape).join(',') + '\n';
+          record.interest, record.message, record.source, record.open_days, SEGMENT].map(csvEscape).join(',') + '\n';
         await fs.appendFile(dest, row, 'utf8');
         captured = true;
         break;
