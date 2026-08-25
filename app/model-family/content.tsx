@@ -5,6 +5,7 @@
 // render together on the client side avoids that serialization error.
 import { Brain, Eye, Mic, Database, Cpu, Bot, Layers, Lock, GitBranch, Code2 } from 'lucide-react';
 import PillarPage, { type PillarData } from '@/components/site/PillarPage';
+import ModelCards from '@/components/site/ModelCards';
 
 
 
@@ -16,6 +17,9 @@ const data: PillarData = {
   gradientWord: 'brain.',
   intro:
     'A single 7B world-model family that perceives, reasons and predicts - vision, language, speech and action fused into one sovereign core. Owned, hosted and trained in Britain, on British infrastructure.',
+  // No hero motif here: the synthetic telemetry rings said nothing about the
+  // models. The cards below carry the page instead.
+  heroVisual: 'none',
   primary: { label: 'Enter the platform', href: '/exo' },
   secondary: { label: 'Technology', href: '/technology' },
   stats: [
@@ -75,5 +79,17 @@ const data: PillarData = {
 };
 
 export default function PillarContent() {
-  return <PillarPage data={data} />;
+  return (
+    <PillarPage
+      data={{
+        ...data,
+        afterHero: {
+          title: 'Every model in the family',
+          body:
+            'Open the card for what a model is, what it was trained on and what it can do. The figures come from the published Art. 53 training-content summary and the model cards on Hugging Face.',
+          content: <ModelCards />,
+        },
+      }}
+    />
+  );
 }
