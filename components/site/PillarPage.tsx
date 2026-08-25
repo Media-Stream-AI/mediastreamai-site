@@ -56,6 +56,11 @@ export interface PillarData {
   /** A live component for the hero frame - /exo puts the CAD viewer here. Wins
    *  over heroImage and heroMedia when set. */
   heroSlot?: ReactNode;
+  /** Drop the hero frame entirely and let the copy run full width - for a page
+   *  whose subject is better served by the block below it than by a motif. */
+  heroVisual?: 'none';
+  /** Full-width block between the hero and the feature grid. */
+  afterHero?: { title: string; body?: string; content: ReactNode };
   /** Small print at the foot of the page, under the CTA. */
   disclaimer?: string;
   media?: { src: string; label?: string };
@@ -76,9 +81,16 @@ export default function PillarPage({ data }: { data: PillarData }) {
     <div className="overflow-hidden">
       {/* HERO */}
       <section className="relative pt-32 pb-16 md:pt-44 md:pb-24">
-        <div className="container-custom grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="flex items-center gap-3 mb-5">
+        <div className={`container-custom ${data.heroVisual === 'none' ? '' : 'grid lg:grid-cols-2 gap-12 items-center'}`}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            /* With no frame beside it, left-aligned copy leaves half the hero
+               empty; centring it reads as a deliberate full-width opening. */
+            className={data.heroVisual === 'none' ? 'mx-auto max-w-3xl text-center' : undefined}
+          >
+            <div className={`flex items-center gap-3 mb-5 ${data.heroVisual === 'none' ? 'justify-center' : ''}`}>
               <span className="chip">{data.eyebrow}</span>
               {data.badge && (
                 <span className="chip !text-ember !border-ember/30" style={{ background: 'rgba(245,158,11,0.08)' }}>{data.badge}</span>
@@ -87,8 +99,8 @@ export default function PillarPage({ data }: { data: PillarData }) {
             <h1 className="font-display text-5xl md:text-7xl leading-[0.9]">
               {data.title}<br /><span className={grad}>{data.gradientWord}</span>
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-xl">{data.intro}</p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <p className={`mt-6 text-lg md:text-xl text-muted leading-relaxed ${data.heroVisual === 'none' ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>{data.intro}</p>
+            <div className={`mt-8 flex flex-col sm:flex-row gap-4 ${data.heroVisual === 'none' ? 'justify-center' : ''}`}>
               <CtaLink href={data.primary.href} className={`${btn} text-base px-7 py-3.5`}>
                 {data.primary.label} <ArrowRight className="w-5 h-5" />
               </CtaLink>
@@ -98,12 +110,14 @@ export default function PillarPage({ data }: { data: PillarData }) {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} className="relative">
-            <div className={`absolute -inset-6 rounded-3xl blur-3xl opacity-40 ${ember ? 'bg-ember/20' : 'bg-iris/25'}`} />
-            {data.heroSlot ?? (
-              <PillarVisual variant={data.variant} media={data.heroMedia} image={data.heroImage} className="relative" />
-            )}
-          </motion.div>
+          {data.heroVisual !== 'none' && (
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} className="relative">
+              <div className={`absolute -inset-6 rounded-3xl blur-3xl opacity-40 ${ember ? 'bg-ember/20' : 'bg-iris/25'}`} />
+              {data.heroSlot ?? (
+                <PillarVisual variant={data.variant} media={data.heroMedia} image={data.heroImage} className="relative" />
+              )}
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -118,6 +132,18 @@ export default function PillarPage({ data }: { data: PillarData }) {
           ))}
         </div>
       </section>
+
+      {data.afterHero && (
+        <section className="section-padding pb-0">
+          <div className="container-custom">
+            <Reveal className="max-w-2xl mb-8">
+              <h2 className="font-display text-3xl md:text-4xl leading-tight">{data.afterHero.title}</h2>
+              {data.afterHero.body && <p className="mt-3 text-muted leading-relaxed">{data.afterHero.body}</p>}
+            </Reveal>
+            <Reveal>{data.afterHero.content}</Reveal>
+          </div>
+        </section>
+      )}
 
       {/* FEATURES */}
       <section className="section-padding">
