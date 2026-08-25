@@ -286,7 +286,13 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <TrialSignupModal source="mediastreamai-site" />
+        {/* IntuiTV is one pillar of the group site, so its consumer trial popup is
+            scoped to the IntuiTV surfaces rather than firing over colocation,
+            compliance or the model pages. */}
+        <TrialSignupModal
+          source="mediastreamai-site"
+          paths={['/intuitv', '/viewers', '/creators', '/studios', '/pricing', '/success']}
+        />
       </body>
     </html>
   );
