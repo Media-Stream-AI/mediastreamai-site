@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "note": "part_id -> fabrication GLB, mirrored from the robotics platform's fabrication catalogue. Served only when the platform does not publish its own index; see app/api/exo-cad/route.ts.",
+ "note": "part_id -> fabrication GLB, mirrored from the robotics platform's fabrication catalogue, plus the parts that catalogue lists under `failures` rather than `parts` (ASV1_600_04C, whose fine tessellation timed out upstream - its shipped mesh and its placement are both published, so the viewer can still draw it). Served only when the platform does not publish its own index; see app/api/exo-cad/[...path]/route.ts.",
  "source_provenance": "MSAIGlobal/asimov-1 \u00b7 mechanical/ASV1",
  "tolerance_mm": 0.25,
  "parts": {
@@ -651,6 +651,11 @@
   },
   "ASV1_600_03C": {
    "file": "600/ASV1_600_03C-586988ced753a206-t250.glb",
+   "subassembly": "600",
+   "material": "Nylon (PA12)"
+  },
+  "ASV1_600_04C": {
+   "file": "600/ASV1_600_04C-163034570355dbad-t250.glb",
    "subassembly": "600",
    "material": "Nylon (PA12)"
   },

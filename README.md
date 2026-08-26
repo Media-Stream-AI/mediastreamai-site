@@ -97,3 +97,19 @@ Cyber Essentials baseline: CodeQL, Semgrep + gitleaks scanning, Dependabot and
 HTTP security headers (`netlify.toml`). See
 [`docs/security/cyber-essentials.md`](docs/security/cyber-essentials.md) and
 [`SECURITY.md`](SECURITY.md).
+
+## Refreshing the Hugging Face still
+
+The models pillar on the homepage shows the real
+[MediaStreamAI organisation on Hugging Face](https://huggingface.co/MediaStreamAI)
+and links to it. `public/huggingface-mediastreamai.webp` is a logged-out capture
+of that page, so refresh it whenever a model or dataset is published:
+
+```bash
+wget -q -p -k -H -e robots=off -nH --adjust-extension https://huggingface.co/MediaStreamAI
+# then screenshot the local copy at 1152x864 (4:3), deviceScaleFactor 2, with
+# `dark` on <html>, and save it as public/huggingface-mediastreamai.webp
+```
+
+Capturing the mirror rather than the live page keeps the shot logged-out (no
+"Edit profile" / "Settings" chrome) and shows only public repositories.
