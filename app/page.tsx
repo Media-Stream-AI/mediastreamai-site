@@ -21,6 +21,14 @@ const PILLARS = [
     href: "/model-family",
     cta: "Explore the models",
     accent: "cyan",
+    // The real Hugging Face organisation stands in for the old synthetic
+    // telemetry rings: the models are public, so show them and link straight out.
+    image: {
+      src: "/huggingface-mediastreamai.webp",
+      alt: "The MediaStreamAI organisation on Hugging Face - MOTHER_CORE_V3, MOTHER_EXO and MOTHER_EXO_T2V models, the blackbird_telemetry and OpenMathReasoning datasets, and the UltraData-SFT-2605 and LocateAnything-3B buckets",
+      label: "huggingface.co/MediaStreamAI",
+      href: "https://huggingface.co/MediaStreamAI",
+    },
     blurb:
       "A 7B sovereign world-model family - MOTHER CORE (48L · 3072d), DeepVision, speech, memory and 26 trained heads - perceiving, reasoning and predicting in one model. Owned, hosted and trained in Britain.",
     points: [
