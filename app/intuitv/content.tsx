@@ -5,6 +5,7 @@
 // render together on the client side avoids that serialization error.
 import { Play, Sparkles, Radio, Scissors, Wand2, Film, Users, Tv, Layers } from 'lucide-react';
 import PillarPage, { type PillarData } from '@/components/site/PillarPage';
+import StudioMockup from '@/components/site/StudioMockup';
 
 
 
@@ -21,7 +22,7 @@ const data: PillarData = {
     alt: 'The IntuiTV platform at intuitv.app - "Stop choosing, start imagining" - an AI-powered television platform available on smart TV apps, iOS, Android and in the browser',
     label: 'intuitv.app · AI television',
   },
-  primary: { label: 'Start watching', href: '/viewers' },
+  primary: { label: 'Watch on IntuiTV', href: 'https://www.intuitv.app' },
   secondary: { label: 'For creators', href: '/creators' },
   stats: [
     { k: '11', v: 'Platforms · HLS' },
@@ -45,7 +46,9 @@ const data: PillarData = {
     },
   ],
   ctaTitle: 'Make it. Air it. Own it.',
-  ctaBody: 'Create with IntuiStudio and broadcast with Playout - on a platform that keeps your content sovereign.',
+  ctaBody:
+    'The full creator studio runs in a browser tab - edit, generate, caption and grade, then render on our own ' +
+    'sovereign GB10 nodes and push straight to Playout. Nothing leaves Britain.',
   // IntuiStudio is a live product at studio.intuitv.app; this page
   // named it in the title and then sent everyone to an internal
   // marketing page instead.
@@ -53,5 +56,7 @@ const data: PillarData = {
 };
 
 export default function PillarContent() {
-  return <PillarPage data={data} />;
+  // The studio is the argument for this page's call to action, so it is shown
+  // inside the CTA card rather than described above it.
+  return <PillarPage data={{ ...data, ctaVisual: <StudioMockup /> }} />;
 }

@@ -15,7 +15,7 @@ const COLUMNS: { title: string; links: [string, string][] }[] = [
   {
     title: 'IntuiTV',
     links: [
-      ['For Viewers', '/viewers'],
+      ['Watch on IntuiTV', 'https://www.intuitv.app'],
       ['For Creators', '/creators'],
       ['For Studios', '/studios'],
       ['Pricing', '/pricing'],

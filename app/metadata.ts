@@ -1,15 +1,15 @@
 
 export const siteMetadata = {
-  title: 'Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence',
-  description: 'AI-powered personalized television platform powered by sovereign UK MOTHER AI models. Create TV shows with AI, watch personalized content, stream on any device. UK sovereign infrastructure, built for UK/EU data residency and GDPR.',
+  title: 'Media Stream AI - Full-Stack Sovereign AI: Compute, MOTHER Models, Applications & Physical AI',
+  description: 'Media Stream AI is a European full-stack sovereign AI company: 34 MW of owned sovereign compute, seven MOTHER models totalling 240B parameters, applications including IntuiTV and IntuiStudio, and MOTHER EXO physical AI built in Britain.',
   url: 'https://www.mediastreamai.com',
   siteName: 'Media Stream AI',
   locale: 'en_GB',
   type: 'website',
   
   openGraph: {
-    title: 'IntuiTV - AI-Powered Personalized Television',
-    description: 'Create & watch AI-powered personalized TV. Stream on mobile, smart TV & web. UK/EU sovereign platform.',
+    title: 'Media Stream AI - Full-Stack Sovereign AI',
+    description: 'Sovereign compute, the MOTHER model family, applications and MOTHER EXO physical AI - owned end to end in Britain.',
     url: 'https://www.mediastreamai.com',
     siteName: 'Media Stream AI',
     locale: 'en_GB',
@@ -19,7 +19,7 @@ export const siteMetadata = {
         url: 'https://www.mediastreamai.com/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'IntuiTV - Smart TV Made Personal',
+        alt: 'Media Stream AI - Full-Stack Sovereign AI',
       }
     ],
   },

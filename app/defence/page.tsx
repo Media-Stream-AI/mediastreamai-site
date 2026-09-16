@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import PillarContent from './content';
 
 export const metadata: Metadata = {
-  title: 'MOTHER Defence - Sovereign, Auditable, Dual-Use AI',
+  title: 'MOTHER Defence - Sovereign Cognitive Defence Platform',
   description:
-    'MOTHER Defence: safety-critical embodied AI with a signed, auditable Guardian action filter, red-line enforcement and on-prem deployment. Built for dual-use, human-in-the-loop operation on sovereign UK infrastructure.',
+    'MOTHER Defence is a UK-built, air-gapped defence AI: multi-source intelligence fusion across 25,000+ live sources, sovereign cyber defence, and the MOTHER EXO world model commanding humanoid, aerial and ground platforms under human authority. Observe-and-advise, Strike 0.',
 };
 
 export const dynamic = 'force-dynamic';

@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import PillarContent from './content';
 
 export const metadata: Metadata = {
-  title: 'MOTHER EXO - Frontier World Model + Robotics (2027)',
+  title: 'MOTHER EXO - Sovereign World Model & Physical AI',
   description:
-    'MOTHER EXO is a frontier world model on the CORE 7B backbone - latent vision + action dynamics - driving the MOTHER Robotics platform to design, simulate and build embodied systems. British sovereign, 2027 release.',
+    'MOTHER EXO is a sovereign world model on the frozen MOTHER CORE backbone - 15 trained weights driving a 60-DOF humanoid, drones, a vehicle and a manipulator from one inference. UK humanoid factory in Manchester from Q1 2027.',
 };
 
 export const dynamic = 'force-dynamic';
