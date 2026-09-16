@@ -7,15 +7,15 @@ import { Menu, X, ChevronDown, Play, Cpu, Boxes, Shield, Atom, Server } from 'lu
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PILLARS: { label: string; href: string; icon: typeof Cpu; blurb: string }[] = [
-  { label: 'MOTHER Models', href: '/model-family', icon: Cpu, blurb: 'Sovereign 7B world-model family' },
-  { label: 'IntuiTV', href: '/intuitv', icon: Play, blurb: 'AI TV · Creator · Playout' },
-  { label: 'MOTHER EXO', href: '/exo', icon: Boxes, blurb: 'Frontier world model + robotics' },
-  { label: 'MOTHER Defence', href: '/defence', icon: Shield, blurb: 'Sovereign, auditable, dual-use' },
+  { label: 'MOTHER Models', href: '/model-family', icon: Cpu, blurb: '7 sovereign models · 240B parameters' },
+  { label: 'IntuiTV · IntuiStudio', href: '/intuitv', icon: Play, blurb: 'AI television · Creator · Playout' },
+  { label: 'MOTHER EXO', href: '/exo', icon: Boxes, blurb: 'Physical AI · humanoid · Manchester 2027' },
+  { label: 'MOTHER Defence', href: '/defence', icon: Shield, blurb: 'Air-gapped, dual-use, sovereign' },
 ];
 
 const EXTRAS: { label: string; href: string; icon: typeof Cpu; blurb: string }[] = [
   { label: 'Quantum-AI', href: '/quantum', icon: Atom, blurb: 'Quantum-enhanced sovereign RAG' },
-  { label: 'MSAI Scotland · Compute', href: '/colocation', icon: Server, blurb: 'GPU-as-a-Service · colocation' },
+  { label: 'MSAI Compute · Colocation', href: '/colocation', icon: Server, blurb: '25 MW colo now · 38 MW site' },
 ];
 
 export default function Navbar() {
@@ -37,14 +37,41 @@ export default function Navbar() {
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Wordmark */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-            <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan via-iris to-magenta shadow-glow-violet">
-              <span className="h-3.5 w-3.5 rounded-full bg-night" />
+          {/* Wordmark. The MSAI mark is drawn as SVG text with a forced
+              advance width (textLength + lengthAdjust="spacing") so it always
+              measures exactly as wide as the "Sovereign UK AI" lockup beneath
+              it - a font-size alone could never guarantee that, and Anton's
+              metrics shift while the webfont loads. */}
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group" aria-label="Media Stream AI - home">
+            <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan via-iris to-magenta shadow-glow-violet">
+              <span className="h-4 w-4 rounded-full bg-night" />
             </span>
-            <span className="leading-none">
-              <span className="block font-display text-2xl tracking-tight text-mist">MSAI</span>
-              <span className="block text-[10px] tracking-[0.28em] text-muted uppercase">Sovereign UK AI</span>
+            <span className="block w-[126px] leading-none sm:w-[150px]">
+              {/* Both lines are drawn with a forced advance width, so the
+                  wordmark and the strapline are guaranteed to measure the same
+                  regardless of which fonts have loaded. */}
+              <svg viewBox="0 0 150 44" className="block h-auto w-full" role="img" aria-label="MSAI - Sovereign UK AI">
+                <text
+                  x="0"
+                  y="30"
+                  textLength="150"
+                  lengthAdjust="spacing"
+                  className="font-display fill-mist"
+                  style={{ fontSize: 36 }}
+                >
+                  MSAI
+                </text>
+                <text
+                  x="0"
+                  y="42"
+                  textLength="150"
+                  lengthAdjust="spacing"
+                  className="font-sans fill-muted"
+                  style={{ fontSize: 8.5, textTransform: 'uppercase' }}
+                >
+                  SOVEREIGN UK AI
+                </text>
+              </svg>
             </span>
           </Link>
 
@@ -83,8 +110,8 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/viewers/signup" className="text-sm text-muted hover:text-mist transition-colors">Sign in</Link>
-            <Link href="/viewers" className="btn-glow text-sm px-5 py-2">Enter Platform</Link>
+            <a href="https://motherai.uk" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-mist transition-colors">MOTHER AI</a>
+            <Link href="/contact" className="btn-glow text-sm px-5 py-2">Talk to us</Link>
           </div>
 
           {/* Mobile toggle */}
@@ -117,14 +144,14 @@ export default function Navbar() {
                   <p.icon className="w-5 h-5 text-cyan" /> {p.label}
                 </Link>
               ))}
-              {[['Quantum-AI', '/quantum'], ['Colocation', '/colocation'], ['Technology', '/technology'], ['Blog', '/blog'], ['Pricing', '/pricing'], ['Sign in', '/viewers/signup']].map(([label, href]) => (
+              {[['Quantum-AI', '/quantum'], ['Colocation', '/colocation'], ['Technology', '/technology'], ['Blog', '/blog'], ['Pricing', '/pricing']].map(([label, href]) => (
                 <Link key={href} href={href} onClick={() => setOpen(false)}
                   className="flex items-center min-h-[48px] py-2 text-muted">
                   {label}
                 </Link>
               ))}
-              <Link href="/viewers" onClick={() => setOpen(false)} className="btn-glow block w-full text-center mt-3">
-                Enter Platform
+              <Link href="/contact" onClick={() => setOpen(false)} className="btn-glow block w-full text-center mt-3">
+                Talk to us
               </Link>
             </div>
           </motion.div>

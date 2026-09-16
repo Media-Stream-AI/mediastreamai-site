@@ -61,6 +61,9 @@ export interface PillarData {
   heroVisual?: 'none';
   /** Full-width block between the hero and the feature grid. */
   afterHero?: { title: string; body?: string; content: ReactNode };
+  /** A visual carried *inside* the closing CTA card, above its heading - for a
+   *  page whose call to action is best made by showing the product. */
+  ctaVisual?: ReactNode;
   /** Small print at the foot of the page, under the CTA. */
   disclaimer?: string;
   media?: { src: string; label?: string };
@@ -225,6 +228,9 @@ export default function PillarPage({ data }: { data: PillarData }) {
             <div className="relative overflow-hidden rounded-3xl border border-hair bg-night-800/60 px-6 py-16 md:py-20 text-center">
               <div className="absolute inset-0 opacity-60" style={{ backgroundImage: ember ? 'radial-gradient(60% 120% at 50% 0%, rgba(245,158,11,0.16), transparent 60%)' : 'radial-gradient(60% 120% at 50% 0%, rgba(99,102,241,0.18), transparent 60%)' }} />
               <div className="relative">
+                {data.ctaVisual && (
+                  <div className="mx-auto mb-12 max-w-4xl">{data.ctaVisual}</div>
+                )}
                 <h2 className="font-display text-4xl md:text-5xl leading-[0.95] max-w-3xl mx-auto">{data.ctaTitle}</h2>
                 <p className="mt-4 text-muted text-lg max-w-xl mx-auto">{data.ctaBody}</p>
                 <CtaLink href={data.cta.href} className={`mt-8 inline-flex ${btn} text-base px-7 py-3.5`}>

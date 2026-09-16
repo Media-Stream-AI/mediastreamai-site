@@ -8,68 +8,82 @@ import Image from 'next/image';
 import ColocationForm from '@/components/site/ColocationForm';
 
 export const metadata: Metadata = {
-  title: 'MSAI Scotland - Sovereign GPU Colocation & 2026/2027 Deployments',
+  title: 'MSAI Scotland - Sovereign GPU Colocation · 38 MW Site, 70 MW from 2027',
   description:
-    'MSAI Scotland (Dundee): 10–15 MW of sovereign UK AI capacity with NVIDIA HGX B300 / GB10 Blackwell, direct liquid cooling and island-mode gas-CHP power. Colocation, private suites, GPU-as-a-Service and build-to-suit available across 2026–2027.',
+    'MSAI Scotland (Dundee): a 38 MW sovereign UK site scaling to 70 MW from 2027, with 25 MW of colocation available now. NVIDIA HGX B300 / H200 / GB10 Blackwell and AMD Instinct MI355X available from 28 December 2026, on direct liquid cooling and island-mode gas-CHP power.',
 };
 
 export const dynamic = 'force-dynamic';
 
 const QUICK = [
-  { k: '10 MW', v: 'Available now' },
-  { k: '2,048×', v: 'H200 · Oct 2026' },
-  { k: '1,600×', v: 'B300 · 2026–27' },
-  { k: 'Dundee', v: 'Scotland, UK' },
+  { k: '38 MW', v: 'Site capacity' },
+  { k: '70 MW', v: 'From 2027' },
+  { k: '25 MW', v: 'Colo available now' },
+  { k: '28 Dec 2026', v: 'GPU available from' },
 ];
 
 const ROADMAP = [
   {
     tag: 'Available now', color: '#22D3EE',
-    title: 'Colocation · 10 MW',
-    body: '10 MW of colocation available now - racks, cages and private suites in a live direct-liquid-cooled hall. Bring your own GPUs onto sovereign UK infrastructure today.',
-    chips: ['10 MW now', 'DLC', 'Racks · cages', 'Private suites'],
+    title: 'Colocation · 25 MW',
+    body: '25 MW of colocation available now - racks, cages and private suites in a live direct-liquid-cooled hall on a 38 MW site. Bring your own GPUs onto sovereign UK infrastructure today.',
+    chips: ['25 MW now', '38 MW site', 'DLC', 'Racks · cages · suites'],
   },
   {
-    tag: 'Oct/Nov 2026 · confirmed', color: '#A855F7',
+    tag: 'Available from 28 Dec 2026', color: '#A855F7',
     title: '2,048× NVIDIA H200',
-    body: 'A confirmed deployment of 2,048 NVIDIA H200 GPUs landing October/November 2026 - reservable now for training and inference on the sovereign estate.',
-    chips: ['2,048× H200', 'Oct/Nov 2026', 'Confirmed', 'Reserve now'],
+    body: 'A confirmed deployment of 2,048 NVIDIA H200 GPUs, available from 28 December 2026 - reservable now for training and inference on the sovereign estate.',
+    chips: ['2,048× H200', 'Available 28 Dec 2026', 'Confirmed', 'Reserve now'],
   },
   {
-    tag: 'Oct 2026 – Feb 2027 · confirmed', color: '#F59E0B',
+    tag: 'Available from 28 Dec 2026', color: '#F59E0B',
     title: '1,600× NVIDIA B300',
-    body: 'A confirmed 1,600× NVIDIA B300 (Blackwell Ultra) deployment phasing in from October 2026 to February 2027 - next-generation capacity for frontier workloads.',
-    chips: ['1,600× B300', 'Oct 2026 – Feb 2027', 'Blackwell Ultra', 'Confirmed'],
+    body: 'A confirmed 1,600× NVIDIA B300 (Blackwell Ultra) deployment, available from 28 December 2026 - next-generation capacity for frontier workloads.',
+    chips: ['1,600× B300', 'Available 28 Dec 2026', 'Blackwell Ultra', 'Confirmed'],
+  },
+  {
+    tag: 'Available from 28 Dec 2026', color: '#EC4899',
+    title: '2,000× AMD Instinct MI355X',
+    body: 'A confirmed 2,000× AMD Instinct MI355X (CDNA 4) deployment, available from 28 December 2026 - an open alternative to CUDA on the same sovereign estate.',
+    chips: ['2,000× MI355X', 'Available 28 Dec 2026', 'CDNA 4', 'ROCm'],
+  },
+  {
+    tag: '2027 · expansion', color: '#34D399',
+    title: '70 MW from 2027',
+    body: 'Phase Two takes the site from 38 MW to 70 MW from 2027, with island-mode gas-CHP power scaling to 100 MWth and build-to-suit floor available on MSAI freehold.',
+    chips: ['70 MW from 2027', 'Phase Two ✓', '100 MWth', 'Build-to-suit'],
   },
 ];
 
 const SPECS = [
-  { icon: Zap, title: 'Power & resilience', body: 'Island-mode gas-CHP (3+1 N+1) plus grid, with a 4 MWh BESS buffer. 10–15 MW available across the estate.' },
-  { icon: Snowflake, title: 'Cooling', body: 'Direct liquid cooling with well-water free cooling through a titanium WRAS Cat-5 PHE - PUE ~1.15, near-zero water waste.' },
-  { icon: Cpu, title: 'Compute', body: 'NVIDIA HGX B300 and GB10 Blackwell, up to ~58 kW per rack. Bring your own hardware or take GPU-as-a-Service.' },
+  { icon: Zap, title: 'Power & resilience', body: 'Island-mode gas-CHP (3+1 N+1) plus grid, with a 4 MWh BESS buffer. A 38 MW site today, 70 MW from 2027.' },
+  { icon: Snowflake, title: 'Cooling', body: 'Direct liquid cooling with Horizon free cooling through a titanium WRAS Cat-5 plate heat exchanger - PUE ~1.10, near-zero water waste, chillers as trim only.' },
+  { icon: Cpu, title: 'Compute', body: 'NVIDIA HGX B300, H200 and GB10 Blackwell plus AMD Instinct MI355X, up to ~58 kW per rack. Bring your own hardware or take GPU-as-a-Service.' },
   { icon: Network, title: 'Network', body: 'Sovereign UK backbone with low-latency routes and dark-fibre options. Private interconnect to your estate.' },
   { icon: ShieldCheck, title: 'Security & compliance', body: 'UK sovereign throughout - GDPR, EASR, on-prem / air-gap options and 24/7 MOTHER Vision monitoring.' },
   { icon: Boxes, title: 'Space & footprint', body: 'DC1-B ~463 m² DLC hall plus DC3 halls. Racks, cages, private suites and build-to-suit floor.' },
 ];
 
 const OPTIONS = [
-  { title: 'Colocation', body: 'Racks and cages in a live DLC hall - you own the GPUs, we run the estate.' },
+  { title: 'Colocation', body: '25 MW available now: racks and cages in a live DLC hall - you own the GPUs, we run the estate.' },
   { title: 'Private suite', body: 'A dedicated, secured suite sized to your deployment, with your own access control.' },
-  { title: 'GPU-as-a-Service', body: 'Reserved HGX B300 / GB10 capacity billed by the hour or committed term - no capex.' },
+  { title: 'GPU-as-a-Service', body: 'Reserved HGX B300 / H200 / MI355X capacity from 28 Dec 2026, billed hourly or on a committed term - no capex.' },
   { title: 'Build-to-suit', body: 'We design and build to your spec on MSAI freehold - powered, cooled and operated by us.' },
 ];
 
 const SHEET: [string, string][] = [
   ['location', 'Dundee, Scotland (A85 / Riverside)'],
-  ['colocation', '10 MW available now'],
-  ['H200', '2,048× · Oct/Nov 2026'],
-  ['B300', '1,600× · Oct 2026 – Feb 2027'],
-  ['estate', '10–15 MW sovereign'],
-  ['cooling', 'DLC + well-water free cooling'],
+  ['site', '38 MW · 70 MW from 2027'],
+  ['colocation', '25 MW available now'],
+  ['GPU available', 'from 28 Dec 2026'],
+  ['H200', '2,048×'],
+  ['B300', '1,600×'],
+  ['MI355X', '2,000× · CDNA 4'],
+  ['cooling', 'DLC + Horizon free cooling'],
   ['rack density', 'up to 58 kW'],
-  ['PUE', '~1.15'],
+  ['PUE', '~1.10'],
   ['power', 'island gas-CHP (3+1 N+1) + grid'],
-  ['heat reuse', 'CHP → building HVAC (absorption)'],
+  ['heat reuse', 'CHP → absorption → building HVAC'],
   ['compliance', 'UK sovereign · GDPR · EASR'],
 ];
 
@@ -91,15 +105,17 @@ export default function Page() {
               <span className="chip !text-ember !border-ember/30" style={{ background: 'rgba(245,158,11,0.08)' }}>
                 <MapPin className="w-3.5 h-3.5" /> MSAI Scotland · Dundee
               </span>
-              <span className="chip">2026 / 2027 deployments</span>
+              <span className="chip">GPU available from 28 Dec 2026</span>
             </div>
             <h1 className="font-display text-5xl md:text-7xl leading-[0.9]">
               Sovereign GPU capacity,<br /><span className="text-gradient-ember">available now.</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-2xl">
-              <span className="text-mist">10 MW of colocation available now</span> in Scotland - plus confirmed GPU
-              deployments: <span className="text-mist">2,048× NVIDIA H200</span> (Oct/Nov 2026) and
-              <span className="text-mist"> 1,600× NVIDIA B300</span> (Oct 2026 – Feb 2027). Direct liquid cooling,
+              A <span className="text-mist">38 MW sovereign site</span> in Scotland scaling to
+              <span className="text-mist"> 70 MW from 2027</span>, with
+              <span className="text-mist"> 25 MW of colocation available now</span>. Confirmed GPU deployments -
+              2,048× NVIDIA H200, 1,600× NVIDIA B300 and 2,000× AMD Instinct MI355X -
+              <span className="text-mist"> available from 28 December 2026</span>. Direct liquid cooling,
               island-mode gas-CHP power, 100% UK sovereign.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -127,8 +143,8 @@ export default function Page() {
         <div className="container-custom">
           <Reveal className="max-w-2xl mb-12">
             <span className="chip mb-5">GPU deployment roadmap</span>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight">2026 / 2027 <span className="text-gradient-ember">deployments.</span></h2>
-            <p className="mt-4 text-muted text-lg">Live capacity today, with new sovereign suites opening through 2027.</p>
+            <h2 className="font-display text-4xl md:text-5xl leading-tight">Capacity &amp; <span className="text-gradient-ember">deployments.</span></h2>
+            <p className="mt-4 text-muted text-lg">25 MW live today, every GPU line available from 28 December 2026, and 70 MW of site capacity from 2027.</p>
           </Reveal>
           <div className="grid lg:grid-cols-3 gap-5">
             {ROADMAP.map((r) => (
@@ -165,8 +181,8 @@ export default function Page() {
             </figure>
           </Reveal>
           <p className="mt-6 text-xs text-muted/70 max-w-3xl">
-            Forward-looking: capacity, hardware and 2026 / 2027 deployment dates are indicative plans, not commitments,
-            and may change. NVIDIA, HGX, Blackwell, GB10, AMD and Instinct are trademarks of their respective owners. See our{' '}
+            Forward-looking: capacity, hardware and 2026 / 2027 deployment dates - including 28 December 2026 GPU
+            availability and the 70 MW 2027 expansion - are indicative plans, not commitments, and may change. NVIDIA, HGX, Blackwell, GB10, AMD and Instinct are trademarks of their respective owners. See our{' '}
             <a href="/compliance" className="underline hover:text-cyan">Compliance &amp; Transparency</a> page.
           </p>
         </div>
@@ -243,8 +259,8 @@ export default function Page() {
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { k: 'PUE ~1.15', v: 'Cooling' }, { k: 'B300 · H200', v: 'NVIDIA' }, { k: 'Instinct', v: 'AMD' },
-                    { k: 'Titanium', v: 'WRAS PHE' }, { k: 'N+1', v: 'Resilient' }, { k: 'Hourly', v: 'or committed' },
+                    { k: 'PUE ~1.10', v: 'Cooling' }, { k: 'B300 · H200', v: 'NVIDIA' }, { k: 'MI355X', v: 'AMD Instinct' },
+                    { k: 'Titanium', v: 'WRAS PHE' }, { k: 'N+1', v: 'Resilient' }, { k: '28 Dec 2026', v: 'Available from' },
                   ].map((s) => (
                     <div key={s.v} className="card-night p-4 text-center">
                       <div className="font-display text-base text-ember">{s.k}</div>
@@ -271,8 +287,8 @@ export default function Page() {
             <ul className="mt-6 space-y-3 text-sm text-mist">
               {[
                 [Factory, 'Island-mode gas-CHP power · N+1'],
-                [Server, 'HGX B300 / GB10 Blackwell · up to 58 kW/rack'],
-                [Flame, 'CHP heat reuse · PUE ~1.15'],
+                [Server, 'HGX B300 / H200 / GB10 · MI355X · up to 58 kW/rack'],
+                [Flame, 'Horizon free cooling + CHP heat reuse · PUE ~1.10'],
                 [ShieldCheck, 'UK sovereign · GDPR · air-gap options'],
               ].map(([Icon, label], i) => {
                 const I = Icon as typeof Factory;

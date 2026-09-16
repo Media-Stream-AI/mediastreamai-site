@@ -38,13 +38,14 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.mediastreamai.com'),
   title: {
-    default: "Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence",
+    default: "Media Stream AI - Full-Stack Sovereign AI: Compute, MOTHER Models & Physical AI",
     template: "%s | Media Stream AI"
   },
-  description: "Media Stream AI is a sovereign UK AI company group: the MOTHER 7B model family, IntuiTV & IntuiStudio (Creator + Playout), MOTHER EXO (frontier world model + robotics, 2027), and MOTHER Defence. Owned, hosted and trained in Britain.",
+  description: "Media Stream AI is a European full-stack sovereign AI company: 34 MW of owned sovereign compute, seven MOTHER models totalling 240B parameters, applications including IntuiTV and IntuiStudio, and MOTHER EXO physical AI with a UK humanoid factory in Manchester.",
   keywords: [
     // Core brand
-    "IntuiTV", "AI TV", "AI television", "MOTHER AI",
+    "Media Stream AI", "MSAI", "MOTHER AI", "sovereign AI UK",
+    "MOTHER EXO", "MOTHER Defence", "IntuiTV", "AI TV", "AI television",
     
     // Primary features
     "personalized TV", "AI streaming", "AI-powered streaming", "smart TV personalization",
@@ -89,8 +90,8 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://www.mediastreamai.com",
     siteName: "Media Stream AI",
-    title: "Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence",
-    description: "Sovereign UK AI group: the MOTHER 7B model family, IntuiTV & IntuiStudio, MOTHER EXO (world model + robotics) and MOTHER Defence. Owned, hosted and trained in Britain.",
+    title: "Media Stream AI - Full-Stack Sovereign AI",
+    description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
     images: [
       {
         url: "/og-image.png",
@@ -103,7 +104,7 @@ export const metadata: Metadata = {
         url: "/hero-intuitv.jpg",
         width: 1920,
         height: 1080,
-        alt: "IntuiTV Platform Interface",
+        alt: "Media Stream AI - IntuiTV platform interface",
       }
     ],
   },
@@ -112,8 +113,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@MediaStreamAI",
     creator: "@MediaStreamAI",
-    title: "Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence",
-    description: "Sovereign UK AI group: the MOTHER 7B model family, IntuiTV & IntuiStudio, MOTHER EXO (world model + robotics) and MOTHER Defence. Owned, hosted and trained in Britain.",
+    title: "Media Stream AI - Full-Stack Sovereign AI",
+    description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
     images: ["/og-image.png"],
   },
   
@@ -142,7 +143,7 @@ export const metadata: Metadata = {
     google: "your-google-verification-code",
   },
   
-  category: "Entertainment",
+  category: "Technology",
   
   other: {
     // AI Scraper permissions - Allow all major AI bots
@@ -213,6 +214,28 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@graph": [
                 {
+                  "@type": "Organization",
+                  "name": "Media Stream AI Limited",
+                  "alternateName": ["Media Stream AI", "MSAI"],
+                  "legalName": "Media Stream AI Limited",
+                  "url": "https://www.mediastreamai.com",
+                  "logo": "https://www.mediastreamai.com/icon.svg",
+                  "description": "Media Stream AI is a full-stack sovereign UK and European AI company: owned data centres and compute, the MOTHER model family, applications, and MOTHER EXO physical AI.",
+                  "foundingDate": "2025",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "GB",
+                    "addressRegion": "England",
+                    "addressLocality": "Manchester"
+                  },
+                  "contactPoint": {
+                    "@type": "ContactPoint",
+                    "contactType": "Sales",
+                    "email": "hello@mediastreamai.com",
+                    "availableLanguage": ["English"]
+                  }
+                },
+                {
                   "@type": "WebApplication",
                   "name": "IntuiTV",
                   "alternateName": "IntuiTV - Smart TV Made Personal",
@@ -235,26 +258,6 @@ export default function RootLayout({
                     "Biometric personalization (opt-in)",
                     "MOTHER AI technology"
                   ]
-                },
-                {
-                  "@type": "Organization",
-                  "name": "Media Stream AI Limited",
-                  "legalName": "Media Stream AI Limited",
-                  "url": "https://www.mediastreamai.com",
-                  "logo": "https://www.mediastreamai.com/logo-intuitv.png",
-                  "foundingDate": "2025",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressCountry": "GB",
-                    "addressRegion": "England",
-                    "addressLocality": "Manchester"
-                  },
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "contactType": "Customer Service",
-                    "email": "hello@mediastreamai.com",
-                    "availableLanguage": ["English"]
-                  }
                 },
                 {
                   "@type": "SoftwareApplication",
@@ -291,7 +294,7 @@ export default function RootLayout({
             compliance or the model pages. */}
         <TrialSignupModal
           source="mediastreamai-site"
-          paths={['/intuitv', '/viewers', '/creators', '/studios', '/pricing', '/success']}
+          paths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
         />
       </body>
     </html>
