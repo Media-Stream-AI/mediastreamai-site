@@ -105,6 +105,7 @@ export default function Navbar() {
             <Link href="/quantum" className="text-muted hover:text-mist transition-colors link-grow">Quantum-AI</Link>
             <Link href="/colocation" className="text-muted hover:text-mist transition-colors link-grow">Compute</Link>
             <Link href="/technology" className="text-muted hover:text-mist transition-colors link-grow">Technology</Link>
+            <Link href="/careers" className="text-muted hover:text-mist transition-colors link-grow">Careers</Link>
             <Link href="/blog" className="text-muted hover:text-mist transition-colors link-grow">Blog</Link>
           </div>
 
@@ -144,7 +145,7 @@ export default function Navbar() {
                   <p.icon className="w-5 h-5 text-cyan" /> {p.label}
                 </Link>
               ))}
-              {[['Quantum-AI', '/quantum'], ['Colocation', '/colocation'], ['Technology', '/technology'], ['Blog', '/blog'], ['Pricing', '/pricing']].map(([label, href]) => (
+              {[['Quantum-AI', '/quantum'], ['Colocation', '/colocation'], ['Technology', '/technology'], ['Careers', '/careers'], ['Blog', '/blog'], ['Pricing', '/pricing']].map(([label, href]) => (
                 <Link key={href} href={href} onClick={() => setOpen(false)}
                   className="flex items-center min-h-[48px] py-2 text-muted">
                   {label}

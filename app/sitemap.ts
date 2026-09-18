@@ -1,9 +1,19 @@
 
 import { MetadataRoute } from 'next';
+import { JOBS } from '@/lib/jobs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.mediastreamai.com';
   const currentDate = new Date();
+
+  // Every vacancy gets its own sitemap entry: Google for Jobs and the job
+  // aggregators discover roles through the sitemap, not through the index page.
+  const jobRoutes: MetadataRoute.Sitemap = JOBS.map((job) => ({
+    url: `${baseUrl}/careers/${job.slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
 
   return [
     {
@@ -120,5 +130,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/careers`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    ...jobRoutes,
   ];
 }

@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   title: 'MSAI Scotland - Sovereign GPU Colocation · 38 MW Site, 70 MW from 2027',
   description:
     'MSAI Scotland (Dundee): a 38 MW sovereign UK site scaling to 70 MW from 2027, with 25 MW of colocation available now. NVIDIA HGX B300 / H200 / GB10 Blackwell and AMD Instinct MI355X available from 28 December 2026, on direct liquid cooling and island-mode gas-CHP power.',
+  alternates: { canonical: '/colocation' },
+  openGraph: { type: 'website', url: '/colocation' },
 };
 
 export const dynamic = 'force-dynamic';
