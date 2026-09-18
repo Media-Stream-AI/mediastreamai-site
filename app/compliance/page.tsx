@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: 'Compliance & Transparency - EU AI Act & UK GDPR',
   description:
     'How MSAI (Media Stream AI Limited) meets the EU AI Act (Regulation (EU) 2024/1689) and UK GDPR: our role as a general-purpose AI provider, Article 53 documentation, transparency and human oversight, lawful bases, data-subject rights, sovereignty and AI-content labelling.',
+  alternates: { canonical: '/compliance' },
+  openGraph: { type: 'website', url: '/compliance' },
 };
 
 export const dynamic = 'force-dynamic';

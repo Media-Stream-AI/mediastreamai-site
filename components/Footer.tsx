@@ -33,6 +33,7 @@ const COLUMNS: { title: string; links: [string, string][] }[] = [
   {
     title: 'Company',
     links: [
+      ['Careers', '/careers'],
       ['Blog', '/blog'],
       ['Contact', '/contact'],
       ['Compliance & Transparency', '/compliance'],

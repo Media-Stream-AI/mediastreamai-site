@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: 'MOTHER Quantum-AI - Sovereign Quantum-Enhanced RAG',
   description:
     'MOTHER is developing a production-grade, national-scale reasoning model with quantum-enhanced RAG retrieval - PennyLane quantum circuits and swap-test similarity over 1.67M chunks at T=0 determinism. Sovereign, air-gapped, live in production.',
+  alternates: { canonical: '/quantum' },
+  openGraph: { type: 'website', url: '/quantum' },
 };
 
 export const dynamic = 'force-dynamic';

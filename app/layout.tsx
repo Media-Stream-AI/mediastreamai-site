@@ -92,21 +92,9 @@ export const metadata: Metadata = {
     siteName: "Media Stream AI",
     title: "Media Stream AI - Full-Stack Sovereign AI",
     description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Media Stream AI - Sovereign UK AI",
-        type: "image/png",
-      },
-      {
-        url: "/hero-intuitv.jpg",
-        width: 1920,
-        height: 1080,
-        alt: "Media Stream AI - IntuiTV platform interface",
-      }
-    ],
+    // No images listed here on purpose: every route ships its own generated
+    // hero card through the `opengraph-image` file convention, and an explicit
+    // list at the root would override all of them. See lib/og.tsx.
   },
   
   twitter: {
@@ -115,7 +103,7 @@ export const metadata: Metadata = {
     creator: "@MediaStreamAI",
     title: "Media Stream AI - Full-Stack Sovereign AI",
     description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
-    images: ["/og-image.png"],
+    // As above - the per-route hero card is used, not a single static image.
   },
   
   robots: {
@@ -132,7 +120,10 @@ export const metadata: Metadata = {
   },
   
   alternates: {
-    canonical: "https://www.mediastreamai.com",
+    // Relative, resolved against metadataBase. Every route below sets its own
+    // canonical (in its page or segment layout) so this value is never
+    // inherited by a child and no page claims to be a copy of the homepage.
+    canonical: "/",
     languages: {
       'en-GB': 'https://www.mediastreamai.com',
       'en-US': 'https://www.mediastreamai.com',
@@ -214,6 +205,14 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@graph": [
                 {
+                  "@type": "WebSite",
+                  "name": "Media Stream AI",
+                  "url": "https://www.mediastreamai.com",
+                  "publisher": { "@id": "https://www.mediastreamai.com/#organization" },
+                  "inLanguage": "en-GB"
+                },
+                {
+                  "@id": "https://www.mediastreamai.com/#organization",
                   "@type": "Organization",
                   "name": "Media Stream AI Limited",
                   "alternateName": ["Media Stream AI", "MSAI"],
@@ -228,12 +227,26 @@ export default function RootLayout({
                     "addressRegion": "England",
                     "addressLocality": "Manchester"
                   },
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "contactType": "Sales",
-                    "email": "hello@mediastreamai.com",
-                    "availableLanguage": ["English"]
-                  }
+                  "contactPoint": [
+                    {
+                      "@type": "ContactPoint",
+                      "contactType": "Sales",
+                      "email": "contact@mediastreamai.com",
+                      "availableLanguage": ["English"]
+                    },
+                    {
+                      "@type": "ContactPoint",
+                      "contactType": "Human Resources",
+                      "email": "contact@mediastreamai.com",
+                      "availableLanguage": ["English"]
+                    }
+                  ],
+                  "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 11 },
+                  "knowsAbout": [
+                    "Sovereign AI", "Foundation models", "Data centre infrastructure",
+                    "Liquid cooling", "GPU compute", "Humanoid robotics", "World models",
+                    "Defence AI", "AI television"
+                  ]
                 },
                 {
                   "@type": "WebApplication",
