@@ -13,7 +13,7 @@
     "@sendgrid/mail": "^8.1.0",
     "@stripe/stripe-js": "^3.0.0",
     "bcryptjs": "^2.4.3",
-    "framer-motion": "^11.0.0",
+    "framer-motion": "^13.1.1",
     "jose": "^5.2.0",
     "lucide-react": "^0.400.0",
     "mongodb": "^6.3.0",
