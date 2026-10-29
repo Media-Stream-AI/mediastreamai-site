@@ -15,7 +15,7 @@ import { ArrowUpRight, ChevronDown, Cpu, Database, Sparkles } from 'lucide-react
 import Image from 'next/image';
 import {
   MOTHER_MODELS, AVAILABILITY_LABEL, type Availability,
-} from '@/lib/mother-models';
+} from '../../lib/mother-models';
 
 const BADGE_CLASS: Record<Availability, string> = {
   open: 'text-cyan border-cyan/30 bg-cyan/[0.08]',

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Anton, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import NeuralField from "@/components/NeuralField";
-import TrialSignupModal from "@/components/TrialSignupModal";
-import SentinelPopup from "@/components/SentinelPopup";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import NeuralField from "../components/NeuralField";
+import TrialSignupModal from "../components/TrialSignupModal";
+import SentinelPopup from "../components/SentinelPopup";
 
 // Display face: Anton - single heavy condensed weight for the chunky billboard look.
 // Exposed on both --font-anton and --font-orbitron so existing `font-orbitron`

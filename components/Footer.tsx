@@ -1,6 +1,6 @@
 // components/Footer.tsx
 import Link from 'next/link';
-import SocialBar from '@/components/site/SocialBar';
+import SocialBar from '../components/site/SocialBar';
 
 const COLUMNS: { title: string; links: [string, string][] }[] = [
   {

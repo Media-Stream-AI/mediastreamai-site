@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 type ButtonVariant = "primary" | "secondary" | "outline";
 type ButtonSize = "sm" | "md" | "lg";

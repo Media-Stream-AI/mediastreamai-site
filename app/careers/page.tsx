@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import CareersContent from './content';
-import { JOBS, SITES, TOTAL_POSITIONS, TOTAL_ROLES, fullTitle } from '@/lib/jobs';
-import { jobPostingLd } from '@/lib/job-schema';
+import { JOBS, SITES, TOTAL_POSITIONS, TOTAL_ROLES, fullTitle } from '../../lib/jobs';
+import { jobPostingLd } from '../../lib/job-schema';
 
 // The careers index. Metadata and structured data are emitted here, on the
 // server, so search engines and AI crawlers get the whole job list without

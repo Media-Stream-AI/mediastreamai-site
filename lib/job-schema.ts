@@ -9,7 +9,7 @@
 // advertised as "salary on application" gets no salary property at all rather
 // than a guessed one - a wrong band in structured data is worse than none.
 
-import { SITES, POSTED_DATE, fullTitle, salaryBand, type Job } from '@/lib/jobs';
+import { SITES, POSTED_DATE, fullTitle, salaryBand, type Job } from '../lib/jobs';
 
 const BASE = 'https://www.mediastreamai.com';
 

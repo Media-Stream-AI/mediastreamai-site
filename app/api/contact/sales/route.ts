@@ -10,8 +10,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { sendSalesContactNotification } from '@/lib/email';
-import { forwardLeadToSalesPlatform } from '@/lib/leads';
+import { sendSalesContactNotification } from '../../../../lib/email';
+import { forwardLeadToSalesPlatform } from '../../../../lib/leads';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
 
   // 3. MongoDB (record of record) - optional
   try {
-    const { getMongoDb } = await import('@/lib/db');
+    const { getMongoDb } = await import('../../../../lib/db');
     const db = await getMongoDb();
     await db.collection('intuitv_customers').insertOne({ ...record, status: 'new', created_at: new Date() });
     captured = true;

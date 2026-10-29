@@ -10,7 +10,7 @@
 
 import { useRef, useState } from 'react';
 import { CheckCircle2, FileText, Loader2, Paperclip, Send, X } from 'lucide-react';
-import { CAREERS_EMAIL, JOBS, SITES, fullTitle, type SiteId } from '@/lib/jobs';
+import { CAREERS_EMAIL, JOBS, SITES, fullTitle, type SiteId } from '../../lib/jobs';
 
 const MAX_CV_BYTES = 5 * 1024 * 1024;
 const ACCEPT = '.pdf,.doc,.docx,.odt,.rtf,.txt';

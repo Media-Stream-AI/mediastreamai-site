@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Atom, Cpu, Search, ShieldCheck, CheckCircle2, Circle, Zap } from 'lucide-react';
-import Reveal from '@/components/Reveal';
+import Reveal from '../../components/Reveal';
 
 export const metadata: Metadata = {
   title: 'MOTHER Quantum-AI - Sovereign Quantum-Enhanced RAG',

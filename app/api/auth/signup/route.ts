@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createUser, generateToken, generateMagicLink } from '@/lib/auth';
-import { sendWelcomeEmail } from '@/lib/email';
-import { trackEvent, AnalyticsEvents } from '@/lib/analytics';
+import { createUser, generateToken, generateMagicLink } from '../../../../lib/auth';
+import { sendWelcomeEmail } from '../../../../lib/email';
+import { trackEvent, AnalyticsEvents } from '../../../../lib/analytics';
 import { cookies } from 'next/headers';
 
 export async function POST(request: NextRequest) {

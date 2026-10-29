@@ -1,5 +1,5 @@
-import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og';
-import { JOBS, SITES, getJob, fullTitle, salaryBand } from '@/lib/jobs';
+import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from '../../../lib/og';
+import { JOBS, SITES, getJob, fullTitle, salaryBand } from '../../../lib/jobs';
 
 // A social hero card per role, so sharing a single vacancy shows that vacancy
 // - its title, its site and its salary band - rather than a generic company

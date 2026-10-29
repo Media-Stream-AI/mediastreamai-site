@@ -3,9 +3,9 @@ import Link from 'next/link';
 import {
   Zap, Snowflake, Cpu, Network, ShieldCheck, Boxes, ArrowRight, MapPin, Factory, Server, Flame,
 } from 'lucide-react';
-import Reveal from '@/components/Reveal';
+import Reveal from '../../components/Reveal';
 import Image from 'next/image';
-import ColocationForm from '@/components/site/ColocationForm';
+import ColocationForm from '../../components/site/ColocationForm';
 
 export const metadata: Metadata = {
   title: 'MSAI Scotland - Sovereign GPU Colocation · 38 MW Site, 70 MW from 2027',

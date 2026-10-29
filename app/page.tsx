@@ -13,10 +13,10 @@ import {
   ArrowRight, ArrowUpRight, Boxes, Shield, Sparkles, Factory,
   Server, Lock, Globe, Brain, Radio, Snowflake, Zap, Bot, AppWindow, Eye,
 } from "lucide-react";
-import Reveal from "@/components/Reveal";
-import StackDiagram from "@/components/site/StackDiagram";
-import { VideoBackdrop, VideoFrame } from "@/components/site/VideoFX";
-import { MOTHER_MODELS, FAMILY_PARAMETERS, FAMILY_COUNT, MOTHER_AI_SITE } from "@/lib/mother-models";
+import Reveal from "../components/Reveal";
+import StackDiagram from "../components/site/StackDiagram";
+import { VideoBackdrop, VideoFrame } from "../components/site/VideoFX";
+import { MOTHER_MODELS, FAMILY_PARAMETERS, FAMILY_COUNT, MOTHER_AI_SITE } from "../lib/mother-models";
 
 /* ------------------------------------------------------------------ */
 /* Headline figures                                                    */
