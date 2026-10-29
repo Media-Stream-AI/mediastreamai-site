@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ShieldCheck, ScrollText, Scale, Globe, Eye, Cookie, FileDown, Lock, UserCheck } from 'lucide-react';
-import GatedDownload from '@/components/site/GatedDownload';
+import GatedDownload from '../../components/site/GatedDownload';
 
 export const metadata: Metadata = {
   title: 'Compliance & Transparency - EU AI Act & UK GDPR',
