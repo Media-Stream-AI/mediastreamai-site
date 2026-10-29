@@ -13,9 +13,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { sendApplicationAcknowledgement, sendJobApplication } from '@/lib/email';
-import { forwardLeadToSalesPlatform } from '@/lib/leads';
-import { getJob, fullTitle, SITES } from '@/lib/jobs';
+import { sendApplicationAcknowledgement, sendJobApplication } from '../../../../lib/email';
+import { forwardLeadToSalesPlatform } from '../../../../lib/leads';
+import { getJob, fullTitle, SITES } from '../../../../lib/jobs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
