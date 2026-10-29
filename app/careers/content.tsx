@@ -13,14 +13,14 @@ import Link from 'next/link';
 import {
   ArrowRight, ArrowUpRight, Banknote, Building2, Clock3, MapPin, Users,
 } from 'lucide-react';
-import Reveal from '@/components/Reveal';
-import ShareBar from '@/components/site/ShareBar';
-import JobApplicationForm from '@/components/site/JobApplicationForm';
+import Reveal from '../../components/Reveal';
+import ShareBar from '../../components/site/ShareBar';
+import JobApplicationForm from '../../components/site/JobApplicationForm';
 import {
   JOBS, SITES, PROCESS, CAREERS_EMAIL, TOTAL_ROLES, TOTAL_POSITIONS,
   fullTitle, salaryBand, positionsLabel, jobsForSite, positionsForSite,
   type Family, type SiteId,
-} from '@/lib/jobs';
+} from '../../lib/jobs';
 
 const SITE_FILTERS: { id: SiteId | 'all'; label: string }[] = [
   { id: 'all', label: 'All sites' },

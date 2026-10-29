@@ -26,10 +26,10 @@ function CtaLink({ href, className, children }: {
 }
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Check, type LucideIcon } from 'lucide-react';
-import Reveal from '@/components/Reveal';
-import PillarVisual from '@/components/site/PillarVisual';
-import GatedDownload from '@/components/site/GatedDownload';
-import { VideoFrame } from '@/components/site/VideoFX';
+import Reveal from '../Reveal';
+import PillarVisual from './PillarVisual';
+import GatedDownload from './GatedDownload';
+import { VideoFrame } from './VideoFX';
 
 type Variant = 'models' | 'intuitv' | 'exo' | 'defence';
 

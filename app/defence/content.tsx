@@ -12,8 +12,8 @@ import {
   Shield, Lock, Server, FileCheck, Eye, Ban, Fingerprint, Medal, Radar,
   Network, Satellite, Bug, Brain, Cpu, Waypoints, Users,
 } from 'lucide-react';
-import PillarPage, { type PillarData } from '@/components/site/PillarPage';
-import AccessGate from '@/components/site/AccessGate';
+import PillarPage, { type PillarData } from '../../components/site/PillarPage';
+import AccessGate from '../../components/site/AccessGate';
 
 const data: PillarData = {
   accent: 'ember',
