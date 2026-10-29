@@ -9,7 +9,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
-import { forwardLeadToSalesPlatform } from "@/lib/leads";
+import { forwardLeadToSalesPlatform } from "../../../lib/leads";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
