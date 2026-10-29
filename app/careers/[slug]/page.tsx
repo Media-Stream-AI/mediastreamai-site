@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import RoleContent from './content';
-import { JOBS, SITES, getJob, fullTitle, salaryBand } from '@/lib/jobs';
-import { jobPostingLd } from '@/lib/job-schema';
+import { JOBS, SITES, getJob, fullTitle, salaryBand } from '../../../lib/jobs';
+import { jobPostingLd } from '../../../lib/job-schema';
 
 // One page per role. This is the unit Google for Jobs indexes, so each one
 // carries its own JobPosting structured data, its own canonical URL and its
