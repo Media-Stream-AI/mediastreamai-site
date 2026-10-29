@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendEnterpriseContactNotification } from '@/lib/email';
-import { getMongoDb } from '@/lib/db';
-import { forwardLeadToSalesPlatform } from '@/lib/leads';
+import { sendEnterpriseContactNotification } from '../../../../lib/email';
+import { getMongoDb } from '../../../../lib/db';
+import { forwardLeadToSalesPlatform } from '../../../../lib/leads';
 
 export async function POST(request: NextRequest) {
   try {
