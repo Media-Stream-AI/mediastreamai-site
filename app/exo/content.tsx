@@ -4,8 +4,8 @@
 // cannot cross the server/client boundary as props. Keeping the data and the
 // render together on the client side avoids that serialization error.
 import { Boxes, Cog, Cpu, Bot, Plane, Car, Hand, Factory, Shield } from 'lucide-react';
-import PillarPage, { type PillarData } from '@/components/site/PillarPage';
-import ExoCadViewer from '@/components/site/ExoCadViewer';
+import PillarPage, { type PillarData } from '../../components/site/PillarPage';
+import ExoCadViewer from '../../components/site/ExoCadViewer';
 
 const ROBOTICS = 'https://robotics.mediastreamai.com';
 

@@ -8,11 +8,11 @@
 // strip and the opening block all speak for all seven. The individual model
 // cards (with their Hugging Face links) carry the detail underneath.
 import { Brain, Eye, Mic, Database, Layers, Lock, Code2, Film, ShieldCheck } from 'lucide-react';
-import PillarPage, { type PillarData } from '@/components/site/PillarPage';
-import ModelCards from '@/components/site/ModelCards';
+import PillarPage, { type PillarData } from '../../components/site/PillarPage';
+import ModelCards from '../../components/site/ModelCards';
 import {
   FAMILY_COUNT, FAMILY_PARAMETERS, MOTHER_AI_SITE, HF_ORG,
-} from '@/lib/mother-models';
+} from '../../lib/mother-models';
 
 const data: PillarData = {
   accent: 'cyan',

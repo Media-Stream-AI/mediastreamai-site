@@ -4,8 +4,8 @@
 // cannot cross the server/client boundary as props. Keeping the data and the
 // render together on the client side avoids that serialization error.
 import { Play, Sparkles, Radio, Scissors, Wand2, Film, Users, Tv, Layers } from 'lucide-react';
-import PillarPage, { type PillarData } from '@/components/site/PillarPage';
-import StudioMockup from '@/components/site/StudioMockup';
+import PillarPage, { type PillarData } from '../../components/site/PillarPage';
+import StudioMockup from '../../components/site/StudioMockup';
 
 
 
