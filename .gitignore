@@ -37,6 +37,7 @@ next-env.d.ts
 
 # Lead capture — runtime CSVs hold personal data, never commit them
 /data/trial_signups.csv
+/data/sentinel_leads.csv
 /data/*.local.csv
 /data/intuitv_customers.csv
 /data/applications.csv
