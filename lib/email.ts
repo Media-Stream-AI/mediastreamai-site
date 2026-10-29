@@ -108,9 +108,12 @@ export async function sendSalesContactNotification(formData: any) {
   await sgMail.send(msg);
 }
 
+// Enterprise enquiries land in the same MSAI inbox as every other contact on
+// the site, rather than a product-specific address nobody watches.
 export async function sendEnterpriseContactNotification(formData: any) {
   const msg = {
-    to: 'enterprise@intuitv.app',
+    to: process.env.SALES_EMAIL || 'contact@mediastreamai.com',
+    replyTo: formData.email,
     from: process.env.FROM_EMAIL || 'noreply@intuitv.app',
     subject: `New Enterprise Inquiry from ${formData.company}`,
     html: `
@@ -128,4 +131,89 @@ export async function sendEnterpriseContactNotification(formData: any) {
   };
 
   await sgMail.send(msg);
+}
+
+interface JobApplicationData {
+  name: string;
+  email: string;
+  phone?: string;
+  roleTitle: string;
+  roleSlug: string;
+  siteLabel: string;
+  location?: string;
+  availability?: string;
+  rightToWork?: string;
+  message?: string;
+  cv?: { filename: string; contentType: string; base64: string };
+}
+
+/** Job applications go to the MSAI recruitment inbox with the CV attached, so
+ *  an interview can be arranged straight from the email. `replyTo` is the
+ *  candidate, so a reply reaches them without anyone copying an address out. */
+export async function sendJobApplication(data: JobApplicationData) {
+  const row = (k: string, v?: string) =>
+    v ? `<p><strong>${k}:</strong> ${escapeHtml(v)}</p>` : '';
+
+  const msg: Record<string, unknown> = {
+    to: process.env.CAREERS_EMAIL || process.env.SALES_EMAIL || 'contact@mediastreamai.com',
+    from: process.env.FROM_EMAIL || 'noreply@mediastreamai.com',
+    replyTo: data.email,
+    subject: `Application: ${data.roleTitle} — ${data.name} (${data.siteLabel})`,
+    html: `
+      <h2>New application — ${escapeHtml(data.roleTitle)}</h2>
+      <p><strong>Site:</strong> ${escapeHtml(data.siteLabel)}</p>
+      ${row('Name', data.name)}
+      ${row('Email', data.email)}
+      ${row('Phone', data.phone)}
+      ${row('Based in', data.location)}
+      ${row('Availability', data.availability)}
+      ${row('Right to work in the UK', data.rightToWork)}
+      ${data.message ? `<p><strong>Covering note:</strong></p><p>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>` : ''}
+      <hr>
+      <p>CV: ${data.cv ? escapeHtml(data.cv.filename) + ' (attached)' : 'not attached'}</p>
+      <p>Role: <a href="https://www.mediastreamai.com/careers/${encodeURIComponent(data.roleSlug)}">mediastreamai.com/careers/${escapeHtml(data.roleSlug)}</a></p>
+      <p>Next step: shortlist and set an interview date with the candidate.</p>
+    `,
+  };
+
+  if (data.cv) {
+    msg.attachments = [{
+      content: data.cv.base64,
+      filename: data.cv.filename,
+      type: data.cv.contentType,
+      disposition: 'attachment',
+    }];
+  }
+
+  await sgMail.send(msg as unknown as Parameters<typeof sgMail.send>[0]);
+}
+
+/** Candidate-facing acknowledgement, so an application never disappears into
+ *  silence. Best-effort: the application is already captured by the time this
+ *  is attempted. */
+export async function sendApplicationAcknowledgement(data: JobApplicationData) {
+  await sgMail.send({
+    to: data.email,
+    from: process.env.FROM_EMAIL || 'noreply@mediastreamai.com',
+    replyTo: process.env.CAREERS_EMAIL || 'contact@mediastreamai.com',
+    subject: `We have your application — ${data.roleTitle}`,
+    html: `
+      <p>Hi ${escapeHtml(data.name.split(' ')[0] || data.name)},</p>
+      <p>Thank you for applying for <strong>${escapeHtml(data.roleTitle)}</strong> at ${escapeHtml(data.siteLabel)}.</p>
+      <p>Your application and CV are with our recruitment team. We review every application against the
+         role requirements and contact shortlisted candidates to arrange an interview — the interview date
+         is set individually with each candidate.</p>
+      <p>If you need to add anything, simply reply to this email.</p>
+      <p>Media Stream AI Limited<br>
+         <a href="https://www.mediastreamai.com/careers">mediastreamai.com/careers</a></p>
+    `,
+  });
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }

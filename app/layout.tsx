@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NeuralField from "@/components/NeuralField";
 import TrialSignupModal from "@/components/TrialSignupModal";
+import SentinelPopup from "@/components/SentinelPopup";
 
 // Display face: Anton - single heavy condensed weight for the chunky billboard look.
 // Exposed on both --font-anton and --font-orbitron so existing `font-orbitron`
@@ -38,13 +39,14 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.mediastreamai.com'),
   title: {
-    default: "Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence",
+    default: "Media Stream AI - Full-Stack Sovereign AI: Compute, MOTHER Models & Physical AI",
     template: "%s | Media Stream AI"
   },
-  description: "Media Stream AI is a sovereign UK AI company group: the MOTHER 7B model family, IntuiTV & IntuiStudio (Creator + Playout), MOTHER EXO (frontier world model + robotics, 2027), and MOTHER Defence. Owned, hosted and trained in Britain.",
+  description: "Media Stream AI is a European full-stack sovereign AI company: 34 MW of owned sovereign compute, seven MOTHER models totalling 240B parameters, applications including IntuiTV and IntuiStudio, and MOTHER EXO physical AI with a UK humanoid factory in Manchester.",
   keywords: [
     // Core brand
-    "IntuiTV", "AI TV", "AI television", "MOTHER AI",
+    "Media Stream AI", "MSAI", "MOTHER AI", "sovereign AI UK",
+    "MOTHER EXO", "MOTHER Defence", "IntuiTV", "AI TV", "AI television",
     
     // Primary features
     "personalized TV", "AI streaming", "AI-powered streaming", "smart TV personalization",
@@ -89,32 +91,20 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://www.mediastreamai.com",
     siteName: "Media Stream AI",
-    title: "Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence",
-    description: "Sovereign UK AI group: the MOTHER 7B model family, IntuiTV & IntuiStudio, MOTHER EXO (world model + robotics) and MOTHER Defence. Owned, hosted and trained in Britain.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Media Stream AI - Sovereign UK AI",
-        type: "image/png",
-      },
-      {
-        url: "/hero-intuitv.jpg",
-        width: 1920,
-        height: 1080,
-        alt: "IntuiTV Platform Interface",
-      }
-    ],
+    title: "Media Stream AI - Full-Stack Sovereign AI",
+    description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
+    // No images listed here on purpose: every route ships its own generated
+    // hero card through the `opengraph-image` file convention, and an explicit
+    // list at the root would override all of them. See lib/og.tsx.
   },
   
   twitter: {
     card: "summary_large_image",
     site: "@MediaStreamAI",
     creator: "@MediaStreamAI",
-    title: "Media Stream AI - Sovereign UK AI: MOTHER Models, IntuiTV, MOTHER EXO & Defence",
-    description: "Sovereign UK AI group: the MOTHER 7B model family, IntuiTV & IntuiStudio, MOTHER EXO (world model + robotics) and MOTHER Defence. Owned, hosted and trained in Britain.",
-    images: ["/og-image.png"],
+    title: "Media Stream AI - Full-Stack Sovereign AI",
+    description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
+    // As above - the per-route hero card is used, not a single static image.
   },
   
   robots: {
@@ -131,7 +121,10 @@ export const metadata: Metadata = {
   },
   
   alternates: {
-    canonical: "https://www.mediastreamai.com",
+    // Relative, resolved against metadataBase. Every route below sets its own
+    // canonical (in its page or segment layout) so this value is never
+    // inherited by a child and no page claims to be a copy of the homepage.
+    canonical: "/",
     languages: {
       'en-GB': 'https://www.mediastreamai.com',
       'en-US': 'https://www.mediastreamai.com',
@@ -142,7 +135,7 @@ export const metadata: Metadata = {
     google: "your-google-verification-code",
   },
   
-  category: "Entertainment",
+  category: "Technology",
   
   other: {
     // AI Scraper permissions - Allow all major AI bots
@@ -213,6 +206,50 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@graph": [
                 {
+                  "@type": "WebSite",
+                  "name": "Media Stream AI",
+                  "url": "https://www.mediastreamai.com",
+                  "publisher": { "@id": "https://www.mediastreamai.com/#organization" },
+                  "inLanguage": "en-GB"
+                },
+                {
+                  "@id": "https://www.mediastreamai.com/#organization",
+                  "@type": "Organization",
+                  "name": "Media Stream AI Limited",
+                  "alternateName": ["Media Stream AI", "MSAI"],
+                  "legalName": "Media Stream AI Limited",
+                  "url": "https://www.mediastreamai.com",
+                  "logo": "https://www.mediastreamai.com/icon.svg",
+                  "description": "Media Stream AI is a full-stack sovereign UK and European AI company: owned data centres and compute, the MOTHER model family, applications, and MOTHER EXO physical AI.",
+                  "foundingDate": "2025",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "GB",
+                    "addressRegion": "England",
+                    "addressLocality": "Manchester"
+                  },
+                  "contactPoint": [
+                    {
+                      "@type": "ContactPoint",
+                      "contactType": "Sales",
+                      "email": "contact@mediastreamai.com",
+                      "availableLanguage": ["English"]
+                    },
+                    {
+                      "@type": "ContactPoint",
+                      "contactType": "Human Resources",
+                      "email": "contact@mediastreamai.com",
+                      "availableLanguage": ["English"]
+                    }
+                  ],
+                  "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 11 },
+                  "knowsAbout": [
+                    "Sovereign AI", "Foundation models", "Data centre infrastructure",
+                    "Liquid cooling", "GPU compute", "Humanoid robotics", "World models",
+                    "Defence AI", "AI television"
+                  ]
+                },
+                {
                   "@type": "WebApplication",
                   "name": "IntuiTV",
                   "alternateName": "IntuiTV - Smart TV Made Personal",
@@ -235,26 +272,6 @@ export default function RootLayout({
                     "Biometric personalization (opt-in)",
                     "MOTHER AI technology"
                   ]
-                },
-                {
-                  "@type": "Organization",
-                  "name": "Media Stream AI Limited",
-                  "legalName": "Media Stream AI Limited",
-                  "url": "https://www.mediastreamai.com",
-                  "logo": "https://www.mediastreamai.com/logo-intuitv.png",
-                  "foundingDate": "2025",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressCountry": "GB",
-                    "addressRegion": "England",
-                    "addressLocality": "Manchester"
-                  },
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "contactType": "Customer Service",
-                    "email": "hello@mediastreamai.com",
-                    "availableLanguage": ["English"]
-                  }
                 },
                 {
                   "@type": "SoftwareApplication",
@@ -286,7 +303,20 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <TrialSignupModal source="mediastreamai-site" />
+        {/* IntuiTV is one pillar of the group site, so its consumer trial popup is
+            scoped to the IntuiTV surfaces rather than firing over colocation,
+            compliance or the model pages. */}
+        <TrialSignupModal
+          source="mediastreamai-site"
+          paths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
+        />
+        {/* MOTHER SENTINEL — our new data-centre tech. Compact teaser popup across
+            the main/sovereign surfaces; kept off the IntuiTV consumer pages so it
+            never collides with the IntuiTV trial popup above. */}
+        <SentinelPopup
+          source="sentinel-datacentre-mediastreamai"
+          excludePaths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
+        />
       </body>
     </html>
   );

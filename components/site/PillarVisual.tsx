@@ -14,8 +14,14 @@
 // playback cost. The IntuiTV pillar uses it to show the product in the room it
 // is actually watched in. Set `scan` on a still to sweep a light bar down it,
 // which reads as a live instrument rather than a screenshot.
+//
+// Give a still an `href` and the frame becomes a link out to the thing it is a
+// picture of. That swaps the heavy bottom wash for an edge glow, so the page in
+// the still stays legible instead of being dimmed into decoration. The models
+// pillar uses this to put the real Hugging Face organisation on the homepage.
 
 import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 type Variant = 'models' | 'intuitv' | 'exo' | 'defence';
@@ -29,24 +35,43 @@ export default function PillarVisual({
   variant: Variant;
   className?: string;
   media?: { src: string; label?: string };
-  image?: { src: string; alt: string; label?: string; scan?: boolean };
+  image?: { src: string; alt: string; label?: string; scan?: boolean; href?: string };
 }) {
-  return (
-    <div className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-hair bg-night-800/60 ${className}`}>
+  const linked = Boolean(image?.href);
+  const frame = (
+    <div
+      className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border bg-night-800/60 ${
+        linked
+          ? 'border-cyan/25 shadow-[0_0_38px_-14px_rgba(34,211,238,0.55)] transition-shadow duration-300 group-hover/frame:border-cyan/50 group-hover/frame:shadow-[0_0_60px_-10px_rgba(34,211,238,0.7)]'
+          : 'border-hair'
+      } ${className}`}
+    >
       <div className="absolute inset-0 grid-bg opacity-40" />
       {image ? (
-        <Still src={image.src} alt={image.alt} label={image.label} scan={image.scan} />
+        <Still src={image.src} alt={image.alt} label={image.label} scan={image.scan} linked={linked} />
       ) : media ? (
         <Footage src={media.src} label={media.label} />
       ) : (
         <>
-          {variant === 'models' && <Models />}
           {variant === 'intuitv' && <IntuiTV />}
           {variant === 'exo' && <Exo />}
           {variant === 'defence' && <Defence />}
         </>
       )}
     </div>
+  );
+
+  if (!image?.href) return frame;
+  return (
+    <a
+      href={image.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${image.label ?? image.alt} (opens in a new tab)`}
+      className="group/frame block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-night"
+    >
+      {frame}
+    </a>
   );
 }
 
@@ -79,7 +104,7 @@ function Footage({ src, label }: { src: string; label?: string }) {
 
 /** A still filling the pillar frame, with the motif's wash, inner ring and
  *  caption kept so it sits in the same visual system as the SVG variants. */
-function Still({ src, alt, label, scan }: { src: string; alt: string; label?: string; scan?: boolean }) {
+function Still({ src, alt, label, scan, linked }: { src: string; alt: string; label?: string; scan?: boolean; linked?: boolean }) {
   return (
     <div className="absolute inset-0">
       <Image
@@ -87,17 +112,54 @@ function Still({ src, alt, label, scan }: { src: string; alt: string; label?: st
         alt={alt}
         fill
         sizes="(min-width: 1024px) 42vw, 100vw"
-        className="object-cover"
+        className={`object-cover ${
+          linked
+            ? // At phone width the frame is ~350px across, so the whole page would
+              // shrink into unreadable texture. Zoom into the model listing there
+              // and only pull back to the full page once there is room for it.
+              'object-top origin-[85%_14%] scale-[1.4] sm:origin-center sm:scale-100 transition-transform duration-500 sm:group-hover/frame:scale-[1.02]'
+            : ''
+        }`}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-night/75 via-night/10 to-transparent" />
+      {linked ? <EdgeGlow /> : <div className="absolute inset-0 bg-gradient-to-t from-night/75 via-night/10 to-transparent" />}
       {scan && <ScanBar />}
       <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
-      {label && (
+      {label && (linked ? <LinkPill label={label} /> : (
         <span className="absolute inset-x-0 bottom-3 text-center font-mono text-[10px] tracking-wide text-slate-400">
           {label}
         </span>
-      )}
+      ))}
     </div>
+  );
+}
+
+/** Glow pressed into the edges of the frame rather than a wash over the middle,
+ *  so a still of a page stays readable while still sitting in the dark
+ *  cinematic system the rest of the site uses. */
+function EdgeGlow() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        boxShadow:
+          'inset 0 0 60px 14px rgba(5,6,10,0.92), inset 0 0 0 1px rgba(34,211,238,0.28), inset 0 0 45px rgba(34,211,238,0.14)',
+      }}
+    />
+  );
+}
+
+/** The caption for a linked still: a Hugging Face-marked pill that reads as the
+ *  destination, not decoration. */
+function LinkPill({ label }: { label: string }) {
+  return (
+    <span className="absolute inset-x-0 bottom-3 flex justify-center">
+      <span className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-night/85 px-3 py-1.5 font-mono text-[10px] tracking-wide text-mist backdrop-blur-sm transition-colors group-hover/frame:border-cyan/60 group-hover/frame:text-white">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/huggingface-logo.svg" alt="" aria-hidden="true" className="h-3.5 w-3.5" />
+        {label}
+        <ArrowUpRight className="h-3 w-3 text-cyan" />
+      </span>
+    </span>
   );
 }
 
@@ -125,52 +187,9 @@ function ScanBar() {
   );
 }
 
-function Ring({ cx, cy, r, val, color, dur }: { cx: number; cy: number; r: number; val: number; color: string; dur: number }) {
-  const c = 2 * Math.PI * r;
-  return (
-    <g>
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3" />
-      <circle
-        cx={cx} cy={cy} r={r} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round"
-        strokeDasharray={c} strokeDashoffset={c * (1 - val)}
-        transform={`rotate(-90 ${cx} ${cy})`}
-        style={{ filter: `drop-shadow(0 0 6px ${color})` }}
-      >
-        <animate attributeName="stroke-dashoffset" dur={`${dur}s`} repeatCount="indefinite"
-          values={`${c};${c * (1 - val)};${c * (1 - val)}`} keyTimes="0;0.6;1" />
-      </circle>
-    </g>
-  );
-}
-
-function Models() {
-  const rings = [
-    { cx: 90, cy: 90, r: 30, val: 1, color: '#22D3EE', dur: 3 },
-    { cx: 200, cy: 78, r: 26, val: 1, color: '#6366F1', dur: 3.5 },
-    { cx: 300, cy: 96, r: 24, val: 0.85, color: '#A855F7', dur: 4 },
-    { cx: 120, cy: 190, r: 24, val: 1, color: '#22D3EE', dur: 3.2 },
-    { cx: 232, cy: 196, r: 30, val: 0.94, color: '#EC4899', dur: 4.2 },
-    { cx: 322, cy: 196, r: 20, val: 1, color: '#34D399', dur: 3.8 },
-  ];
-  return (
-    <svg viewBox="0 0 400 300" className="absolute inset-0 h-full w-full">
-      {/* central gradient core */}
-      <defs>
-        <radialGradient id="core" cx="50%" cy="50%">
-          <stop offset="0%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.1" />
-        </radialGradient>
-      </defs>
-      {rings.map((r, i) => <Ring key={i} {...r} />)}
-      {rings.map((r, i) => (
-        <text key={`t${i}`} x={r.cx} y={r.cy + 4} textAnchor="middle" fontSize="11" fill="#E7ECF3" fontFamily="monospace">
-          {Math.round(r.val * 100)}%
-        </text>
-      ))}
-      <circle cx="205" cy="150" r="0" fill="url(#core)" />
-    </svg>
-  );
-}
+// The models pillar no longer draws synthetic telemetry rings - the percentages
+// were invented and said nothing about the models. It now links out to the real
+// Hugging Face organisation instead (see `image.href` above).
 
 function IntuiTV() {
   const bars = Array.from({ length: 34 });

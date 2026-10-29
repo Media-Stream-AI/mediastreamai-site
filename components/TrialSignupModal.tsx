@@ -10,8 +10,13 @@
  * Self-contained + inline-styled (MOTHER EXO near-black + cyan) so the exact same component drops
  * into every IntuiTV site with no Tailwind-token dependencies. Shows once per browser (localStorage),
  * a few seconds after load; closable with the X, the backdrop, or Esc.
+ *
+ * On the group site it is mounted in the root layout but only appears on the
+ * IntuiTV surfaces - a consumer TV trial has nothing to say to someone reading
+ * the colocation or compliance pages.
  */
 import { useEffect, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 
 const CYAN = "#22D3EE";
 const NIGHT = "#05060A";
@@ -24,9 +29,15 @@ type Props = {
   source?: string;
   /** ms before the popup appears (default 6s) */
   delayMs?: number;
+  /** Route prefixes the popup may appear on. Omit to allow every route, which
+   *  is what a dedicated IntuiTV site wants. */
+  paths?: string[];
 };
 
-export default function TrialSignupModal({ source = "intuitv-website", delayMs = 6000 }: Props) {
+export default function TrialSignupModal({ source = "intuitv-website", delayMs = 6000, paths }: Props) {
+  const pathname = usePathname();
+  const onAllowedPath =
+    !paths || paths.some((p) => pathname === p || pathname.startsWith(`${p}/`));
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -43,6 +54,10 @@ export default function TrialSignupModal({ source = "intuitv-website", delayMs =
   }, []);
 
   useEffect(() => {
+    if (!onAllowedPath) {
+      setOpen(false);
+      return;
+    }
     let seen = false;
     try {
       seen = localStorage.getItem(SEEN_KEY) === "1";
@@ -50,7 +65,7 @@ export default function TrialSignupModal({ source = "intuitv-website", delayMs =
     if (seen) return;
     const t = setTimeout(() => setOpen(true), delayMs);
     return () => clearTimeout(t);
-  }, [delayMs]);
+  }, [delayMs, onAllowedPath]);
 
   useEffect(() => {
     if (!open) return;
