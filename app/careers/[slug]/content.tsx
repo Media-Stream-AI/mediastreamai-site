@@ -8,12 +8,12 @@ import Link from 'next/link';
 import {
   ArrowLeft, ArrowUpRight, Banknote, Building2, Clock3, MapPin, ShieldCheck, Users,
 } from 'lucide-react';
-import Reveal from '@/components/Reveal';
-import ShareBar from '@/components/site/ShareBar';
-import JobApplicationForm from '@/components/site/JobApplicationForm';
+import Reveal from '../../../components/Reveal';
+import ShareBar from '../../../components/site/ShareBar';
+import JobApplicationForm from '../../../components/site/JobApplicationForm';
 import {
   SITES, CAREERS_EMAIL, getJob, fullTitle, salaryBand, positionsLabel, processForSite,
-} from '@/lib/jobs';
+} from '../../../lib/jobs';
 
 export default function RoleContent({ slug }: { slug: string }) {
   const job = getJob(slug)!;
