@@ -1,6 +1,6 @@
 
 import { MetadataRoute } from 'next';
-import { JOBS } from '@/lib/jobs';
+import { JOBS } from '../lib/jobs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.mediastreamai.com';
