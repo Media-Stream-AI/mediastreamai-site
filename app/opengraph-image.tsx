@@ -1,4 +1,4 @@
-import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og';
+import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from '../lib/og';
 
 // Social hero card for /. Generated from the page's own headline so the
 // card and the page can never disagree.
