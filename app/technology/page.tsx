@@ -13,9 +13,9 @@ import {
   ArrowRight, ArrowUpRight, Snowflake, Flame, Zap, Gauge, Droplets, Recycle,
   Cpu, Brain, Eye, Activity, ShieldCheck, Server, Bot, Factory, Layers,
 } from "lucide-react";
-import Reveal from "@/components/Reveal";
-import CoolingDiagram from "@/components/site/CoolingDiagram";
-import { VideoFrame } from "@/components/site/VideoFX";
+import Reveal from "../../components/Reveal";
+import CoolingDiagram from "../../components/site/CoolingDiagram";
+import { VideoFrame } from "../../components/site/VideoFX";
 
 /** The three orthographic views under the humanoid header.
  *
