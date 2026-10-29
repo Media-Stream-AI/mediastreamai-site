@@ -1,5 +1,5 @@
-import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og';
-import { TOTAL_ROLES, TOTAL_POSITIONS } from '@/lib/jobs';
+import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from '../../lib/og';
+import { TOTAL_ROLES, TOTAL_POSITIONS } from '../../lib/jobs';
 
 // Social hero card for /careers - the one that travels when a vacancy is
 // shared to LinkedIn, so it leads with the headline numbers.
