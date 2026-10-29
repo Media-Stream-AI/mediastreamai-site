@@ -284,7 +284,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: `${post.title} | IntuiTV Blog`,
+    title: `${post.title} | Media Stream AI Blog`,
     description: post.excerpt,
     openGraph: {
       title: post.title,

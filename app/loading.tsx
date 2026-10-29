@@ -7,7 +7,7 @@ export default function Loading() {
           <div className="absolute inset-0 border-4 border-neon-blue/30 rounded-full"></div>
           <div className="absolute inset-0 border-4 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
         </div>
-        <p className="text-gray-400 font-space-mono">Loading IntuiTV...</p>
+        <p className="text-gray-400 font-space-mono">Loading Media Stream AI...</p>
       </div>
     </div>
   );

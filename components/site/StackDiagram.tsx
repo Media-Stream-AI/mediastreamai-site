@@ -1,90 +1,139 @@
 'use client';
 
-// "Sovereignty is ownership across every layer" - the vertically-integrated sovereign AI stack, from the
-// land and power at the foundation up to applications, robotics and defence.
-// Applications sit on top; the physical estate is the base. A gradient spine ties
-// the layers together. Animated in with a staggered reveal.
+// The full-stack sovereign AI diagram: seven owned layers from the freehold
+// land and power at the foundation up to physical AI and defence at the top.
+//
+// This is the page's central argument, so it is built to be *read* rather than
+// admired - every layer states what MSAI owns at that level and carries the
+// figures that prove it. The layers stack bottom-up (foundation last in the
+// DOM would reverse the reading order, so the array runs top-down and the
+// spine is drawn top-down to match).
+//
+// Each row links to the page that goes deeper on that layer; a layer with no
+// page of its own simply renders as a non-interactive card.
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Shield, Play, Brain, Cpu, Server, Zap, type LucideIcon } from 'lucide-react';
+import {
+  Shield, Bot, AppWindow, Brain, Cpu, Server, Zap, ArrowUpRight, type LucideIcon,
+} from 'lucide-react';
 
 type Layer = {
   icon: LucideIcon;
+  tier: string;
   name: string;
   blurb: string;
   chips: string[];
-  accent: string; // tailwind text color class
+  accent: string; // tailwind text colour class
   bar: string;    // gradient for the left accent bar
+  href?: string;
 };
 
-// Top (applications) → bottom (foundation).
+// Top (what we deploy) → bottom (what we own the ground of).
 const LAYERS: Layer[] = [
   {
-    icon: Shield, name: 'Embodied & Defence', blurb: 'MOTHER EXO robotics and MOTHER Defence - Guardian-signed, auditable, dual-use.',
-    chips: ['MOTHER EXO', '23-DOF humanoid', 'Guardian filter', '2027'],
-    accent: 'text-magenta', bar: 'linear-gradient(180deg,#EC4899,#A855F7)',
+    icon: Shield, tier: 'Layer 07', name: 'Dual-Use Defence',
+    blurb: 'MOTHER Defence on our own air-gapped secure compute - multi-INT fusion, cyber defence and decision support. Observe-and-advise, human-in-the-loop, Strike = 0.',
+    chips: ['Air-gapped', 'MOTHER OverWatch', 'MOTHER CC', 'Strike 0'],
+    accent: 'text-ember', bar: 'linear-gradient(180deg,#F59E0B,#EC4899)', href: '/defence',
   },
   {
-    icon: Play, name: 'Products', blurb: 'IntuiTV and IntuiStudio - AI television, a browser Creator studio and 24/7 Playout.',
-    chips: ['IntuiTV', 'Creator', 'Playout', '11 platforms'],
-    accent: 'text-violet', bar: 'linear-gradient(180deg,#A855F7,#6366F1)',
+    icon: Bot, tier: 'Layer 06', name: 'Physical AI',
+    blurb: 'MOTHER EXO puts the world model in a body. A UK humanoid factory in Manchester comes online Q1 2027, targeting 1,000 robots a year.',
+    chips: ['MOTHER EXO', '60-DOF humanoid', 'Manchester Q1 2027', '1,000 units/yr'],
+    accent: 'text-magenta', bar: 'linear-gradient(180deg,#EC4899,#A855F7)', href: '/exo',
   },
   {
-    icon: Brain, name: 'MOTHER Models', blurb: 'The sovereign 7B world-model family - CORE, DeepVision, memory and 26 trained heads.',
-    chips: ['CORE 7B', 'DeepVision', 'World model', 'EU AI Act'],
-    accent: 'text-iris', bar: 'linear-gradient(180deg,#6366F1,#22D3EE)',
+    icon: AppWindow, tier: 'Layer 05', name: 'Applications',
+    blurb: 'Products people actually use, all powered by MOTHER: AUTM.ai operational intelligence, IntuiStudio for creators, and IntuiTV for audiences.',
+    chips: ['AUTM.ai', 'IntuiStudio', 'IntuiTV', 'Playout'],
+    accent: 'text-violet', bar: 'linear-gradient(180deg,#A855F7,#6366F1)', href: '/intuitv',
   },
   {
-    icon: Cpu, name: 'Sovereign Compute', blurb: 'GB10 Blackwell / DGX nodes, on-prem by default - weights and data never leave the country.',
-    chips: ['GB10 Blackwell', 'DGX', 'On-prem'],
-    accent: 'text-cyan', bar: 'linear-gradient(180deg,#22D3EE,#0EA5C4)',
+    icon: Brain, tier: 'Layer 04', name: 'MOTHER Foundation Models',
+    blurb: 'Seven sovereign models totalling 240B parameters - reasoning, cyber, language, vision, video, world model and media - trained from scratch on owned data.',
+    chips: ['7 models', '240B parameters', 'Open-weight', 'EU AI Act Art. 53'],
+    accent: 'text-iris', bar: 'linear-gradient(180deg,#6366F1,#22D3EE)', href: '/model-family',
   },
   {
-    icon: Server, name: 'Data Centres', blurb: 'Direct-liquid-cooled halls with MOTHER Vision - DC1-B and DC3, digital-twinned end to end. 2,048× H200 (2026) and 1,600× B300 (2026–27) confirmed.',
-    chips: ['DC1-B · 9.1 MW', '2,048× H200', '1,600× B300', 'PUE 1.15'],
-    accent: 'text-cyan', bar: 'linear-gradient(180deg,#0EA5C4,#F59E0B)',
+    icon: Cpu, tier: 'Layer 03', name: 'Sovereign Compute',
+    blurb: 'A GPU fleet we own and operate - NVIDIA H200 and B300 Blackwell, AMD Instinct MI355X, GB10 nodes - behind our own control plane. No hyperscaler in the path.',
+    chips: ['2,048× H200', '1,600× B300', '2,000× MI355X', 'GB10 Blackwell'],
+    accent: 'text-cyan', bar: 'linear-gradient(180deg,#22D3EE,#0EA5C4)', href: '/colocation',
   },
   {
-    icon: Zap, name: 'Land & Power', blurb: 'UK freehold sites with gas-CHP island power and well-water free cooling - Phase Two power confirmed, scaling to 100 MWth. The foundation of the stack.',
-    chips: ['10 MW colo now', 'Phase Two ✓', 'Gas-CHP island', '100 MWth'],
-    accent: 'text-ember', bar: 'linear-gradient(180deg,#F59E0B,#EA580C)',
+    icon: Server, tier: 'Layer 02', name: 'Data Centres',
+    blurb: 'Direct-liquid-cooled halls on a 38 MW site, digital-twinned end to end and run by MOTHER as the facility mainframe. 25 MW of colocation is available now.',
+    chips: ['38 MW site', '25 MW colo now', 'DLC · PUE 1.10', 'Digital twin'],
+    accent: 'text-cyan', bar: 'linear-gradient(180deg,#0EA5C4,#F59E0B)', href: '/colocation',
+  },
+  {
+    icon: Zap, tier: 'Layer 01', name: 'Land, Power & Heat',
+    blurb: 'UK freehold with island-mode gas-CHP power and the Horizon free-cooling and heat-reuse cascade - sewer-source cooling first, CHP heat reuse second, chillers only as trim.',
+    chips: ['Freehold UK', 'Island gas-CHP', 'Horizon free cooling', 'Heat reuse'],
+    accent: 'text-ember', bar: 'linear-gradient(180deg,#F59E0B,#EA580C)', href: '/technology',
   },
 ];
+
+function Row({ layer, index }: { layer: Layer; index: number }) {
+  const inner = (
+    <>
+      <span className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: layer.bar }} />
+      <span className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-hair bg-white/5 ${layer.accent}`}>
+        <layer.icon className="h-5 w-5" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted/70">{layer.tier}</span>
+          <h3 className="text-base font-semibold text-mist md:text-lg">{layer.name}</h3>
+          {layer.href && (
+            <ArrowUpRight className={`h-4 w-4 ${layer.accent} opacity-0 transition-opacity group-hover:opacity-100`} />
+          )}
+          <span className="hidden h-px flex-1 bg-hair md:block" />
+        </div>
+        <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">{layer.blurb}</p>
+      </div>
+      <div className="flex flex-wrap gap-1.5 sm:max-w-[40%] sm:justify-end">
+        {layer.chips.map((c) => (
+          <span key={c} className="chip !py-1 !text-[10px]">{c}</span>
+        ))}
+      </div>
+    </>
+  );
+
+  const shell =
+    'group relative card-night card-hover flex flex-col gap-4 overflow-hidden p-4 pl-6 sm:flex-row sm:items-center md:p-5 md:pl-7';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -16 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+    >
+      {layer.href ? (
+        <Link href={layer.href} className={shell}>{inner}</Link>
+      ) : (
+        <div className={shell}>{inner}</div>
+      )}
+    </motion.div>
+  );
+}
 
 export default function StackDiagram() {
   return (
     <div className="relative">
-      {/* gradient spine */}
-      <div className="pointer-events-none absolute left-[26px] top-6 bottom-6 w-px bg-gradient-to-b from-magenta via-iris to-ember opacity-60 md:left-[34px]" />
+      {/* gradient spine tying the seven layers together */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[26px] top-6 bottom-6 w-px bg-gradient-to-b from-ember via-iris to-ember opacity-60 md:left-[34px]"
+      />
       <div className="space-y-3">
-        {LAYERS.map((l, i) => (
-          <motion.div
-            key={l.name}
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="relative card-night card-hover flex flex-col sm:flex-row sm:items-center gap-4 p-4 md:p-5 pl-6 md:pl-7 overflow-hidden"
-          >
-            <span className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: l.bar }} />
-            <span className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-hair bg-white/5 ${l.accent}`}>
-              <l.icon className="w-5 h-5" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-3">
-                <h3 className="text-base md:text-lg font-semibold text-mist">{l.name}</h3>
-                <span className="hidden md:block h-px flex-1 bg-hair" />
-              </div>
-              <p className="mt-1 text-sm text-muted leading-relaxed max-w-2xl">{l.blurb}</p>
-            </div>
-            <div className="flex flex-wrap gap-1.5 sm:justify-end sm:max-w-[42%]">
-              {l.chips.map((c) => (
-                <span key={c} className="chip !text-[10px] !py-1">{c}</span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+        {LAYERS.map((l, i) => <Row key={l.name} layer={l} index={i} />)}
       </div>
+      <p className="mt-5 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted/70">
+        Seven layers · one owner · no foreign dependency
+      </p>
     </div>
   );
 }
