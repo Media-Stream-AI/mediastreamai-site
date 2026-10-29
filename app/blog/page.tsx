@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
-import Marquee from '@/components/Marquee';
+import Marquee from '../../components/Marquee';
 
 export default function BlogPage() {
   const posts = [
