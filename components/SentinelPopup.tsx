@@ -30,6 +30,10 @@ type Props = {
   excludePaths?: string[];
   /** ms before the popup auto-opens. */
   delayMs?: number;
+  /** CSS selector of a section the popup must not cover (e.g. the home-page
+   *  hero). While it is on screen the timer waits; it starts once the
+   *  section has scrolled out of view. Ignored when nothing matches. */
+  deferWhileVisible?: string;
 };
 
 const SEEN_KEY = "msai.sentinel.popup.v1";
@@ -49,6 +53,7 @@ export default function SentinelPopup({
   source = "sentinel-popup",
   excludePaths = [],
   delayMs = 1400,
+  deferWhileVisible,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false); // drives enter transition
@@ -67,11 +72,27 @@ export default function SentinelPopup({
     if (excludePaths.some((p) => path === p || path.startsWith(p + "/") || path.startsWith(p))) {
       return;
     }
-    timer.current = setTimeout(() => {
-      setOpen(true);
-      requestAnimationFrame(() => setShown(true));
-    }, delayMs);
+    const start = () => {
+      timer.current = setTimeout(() => {
+        setOpen(true);
+        requestAnimationFrame(() => setShown(true));
+      }, delayMs);
+    };
+    const blocker = deferWhileVisible ? document.querySelector(deferWhileVisible) : null;
+    let io: IntersectionObserver | null = null;
+    if (blocker && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) return;
+        io?.disconnect();
+        io = null;
+        start();
+      });
+      io.observe(blocker);
+    } else {
+      start();
+    }
     return () => {
+      io?.disconnect();
       if (timer.current) clearTimeout(timer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

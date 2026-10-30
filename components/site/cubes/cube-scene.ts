@@ -42,11 +42,13 @@ export interface CubeSceneHandle {
 /* ------------------------------------------------------------------ */
 
 type Pose = { p: THREE.Vector3; q: THREE.Quaternion; s: number };
-type Layout = { formations: Pose[][]; group: { scale: number; x: number; y: number } };
+type Placement = { scale: number; x: number; y: number };
+/** One cluster placement per formation, so the wide grid can sit smaller and further left than the ring. */
+type Layout = { formations: Pose[][]; groups: Placement[] };
 
 const CUBE = 1.9;
-/** Reduced motion holds the readable grid formation. */
-const STATIC_PROGRESS = 0.78;
+/** Reduced motion holds the opening ring, which sits clear of the chapter-1 headline it is shown with. */
+const STATIC_PROGRESS = 0;
 const ISO = new THREE.Euler(Math.atan(1 / Math.SQRT2), Math.PI / 4, 0);
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -101,13 +103,22 @@ function buildLayout(aspect: number): Layout {
     grid.push(pose(x, y, 0, -0.06 + r * 0.04, (c - (cols - 1) / 2) * -0.16, 0, 1));
   }
 
-  const group = portrait
-    ? { scale: Math.max(0.5, Math.min(0.72, aspect * 1.02)), x: 0, y: -1.55 }
-    : aspect < 1.3
-      ? { scale: 0.74, x: 2.1, y: -0.3 }
-      : { scale: 0.92, x: 3.1, y: -0.15 };
+  // [ring, hex, grid, exit]. The 3x2 grid is ~7 units wide, so on landscape
+  // it shrinks and shifts left to stay fully on screen beside the copy.
+  let groups: Placement[];
+  if (portrait) {
+    const s = Math.max(0.5, Math.min(0.72, aspect * 1.02));
+    const g = { scale: s, x: 0, y: -1.55 };
+    groups = [g, g, g, g];
+  } else if (aspect < 1.45) {
+    const g = { scale: 0.68, x: 2.75, y: -0.35 };
+    groups = [g, g, { scale: 0.6, x: 2.55, y: -0.45 }, g];
+  } else {
+    const g = { scale: 0.9, x: 3.3, y: -0.15 };
+    groups = [g, g, { scale: 0.74, x: 3.05, y: -0.2 }, g];
+  }
 
-  return { formations: [ring, hex, grid, exit], group };
+  return { formations: [ring, hex, grid, exit], groups };
 }
 
 /** Maps scroll progress to (from, to, t) across held keyframes. */
@@ -428,13 +439,15 @@ export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
     if (e.pointerType === 'mouse' || e.pointerType === 'pen') setHovered(pick(e.clientX, e.clientY));
   };
   const onLeave = (e: PointerEvent) => { if (e.pointerType !== 'touch') setHovered(null); };
-  const onDown = (e: PointerEvent) => { down = { x: e.clientX, y: e.clientY, t: performance.now(), type: e.pointerType }; };
+  // Event timestamps, not handler run time: on a slow main thread the two
+  // handlers can run far apart even for a quick click.
+  const onDown = (e: PointerEvent) => { down = { x: e.clientX, y: e.clientY, t: e.timeStamp, type: e.pointerType }; };
   const onCancel = () => { down = null; };
   const onUp = (e: PointerEvent) => {
     const d = down;
     down = null;
     // Movement / duration threshold: drags, scroll gestures and long presses never navigate.
-    if (!d || Math.hypot(e.clientX - d.x, e.clientY - d.y) > 6 || performance.now() - d.t > 650) return;
+    if (!d || Math.hypot(e.clientX - d.x, e.clientY - d.y) > 6 || e.timeStamp - d.t > 650) return;
     const idx = pick(e.clientX, e.clientY);
     if (d.type === 'touch') {
       // First tap selects and shows the tooltip (with a real link); second tap opens.
@@ -474,8 +487,10 @@ export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
     const [from, to, t] = segment(smoothed);
     const time = reducedMotion ? 0 : now / 1000;
 
-    root.scale.setScalar(layout.group.scale);
-    root.position.set(layout.group.x, layout.group.y, 0);
+    const ga = layout.groups[from];
+    const gb = layout.groups[to];
+    root.scale.setScalar(ga.scale + (gb.scale - ga.scale) * t);
+    root.position.set(ga.x + (gb.x - ga.x) * t, ga.y + (gb.y - ga.y) * t, 0);
     // Gentle whole-cluster turn while assembled reads as "one block".
     const assembled = from === 1 || to === 1 ? (from === 1 && to === 1 ? 1 : from === 1 ? 1 - t : t) : 0;
     root.rotation.z = reducedMotion ? 0 : assembled * Math.sin(time * 0.25) * 0.12;

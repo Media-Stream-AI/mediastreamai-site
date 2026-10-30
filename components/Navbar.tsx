@@ -76,7 +76,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-7 text-sm">
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm whitespace-nowrap">
             <div className="relative group">
               <button className="flex items-center gap-1 text-muted hover:text-mist transition-colors">
                 Platform <ChevronDown className="w-4 h-4" />
@@ -110,8 +110,9 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a href="https://motherai.uk" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-mist transition-colors">MOTHER AI</a>
+          <div className="hidden lg:flex items-center gap-3 whitespace-nowrap">
+            {/* Hidden at lg so the bar never wraps at 1024px; MOTHER AI is also a hero cube and footer link. */}
+            <a href="https://motherai.uk" target="_blank" rel="noopener noreferrer" className="hidden xl:inline text-sm text-muted hover:text-mist transition-colors">MOTHER AI</a>
             <Link href="/contact" className="btn-glow text-sm px-5 py-2">Talk to us</Link>
           </div>
 

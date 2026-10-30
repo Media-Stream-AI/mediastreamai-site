@@ -15,7 +15,8 @@ const anton = Anton({
   weight: "400",
   variable: "--font-anton",
   display: "swap",
-  preload: false,
+  // Preloaded: Anton sets the home hero headline, and a late swap reflowed it (CLS).
+  preload: true,
   fallback: ["Impact", "system-ui", "sans-serif"],
 });
 
@@ -316,6 +317,7 @@ export default function RootLayout({
         <SentinelPopup
           source="sentinel-datacentre-mediastreamai"
           excludePaths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
+          deferWhileVisible=".cube-hero"
         />
       </body>
     </html>
