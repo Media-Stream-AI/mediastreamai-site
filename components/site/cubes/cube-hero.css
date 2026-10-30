@@ -89,12 +89,15 @@
 }
 .cube-lede {
   margin-top: 1.5rem;
-  max-width: 34rem;
+  max-width: min(34rem, 46vw);
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   line-height: 1.55;
   color: var(--ice-muted);
 }
 .text-electric-ice { color: var(--cyan-bright); }
+/* Headline lines are authored breaks: never re-wrap while the webfont swaps
+   in (that wrap/unwrap was the page's main layout shift). */
+@media (min-width: 360px) { .cube-title .cube-line > span { white-space: nowrap; } }
 
 .cube-line { display: block; overflow: hidden; padding-bottom: 0.04em; }
 .cube-line > span {
@@ -235,7 +238,7 @@
   right: clamp(1rem, 4vw, 4rem);
   top: 50%;
   transform: translateY(-46%);
-  width: min(46vw, 40rem);
+  width: min(40vw, 36rem);
 }
 .cube-tile {
   position: relative;
@@ -261,7 +264,7 @@
 @media (max-width: 767px), (max-aspect-ratio: 17/20) {
   .cube-hero { height: 280vh; }
   .cube-chapter { top: 5.25rem; max-width: none; }
-  .cube-lede { margin-top: 0.9rem; font-size: 0.95rem; }
+  .cube-lede { margin-top: 0.9rem; font-size: 0.95rem; max-width: none; }
   .cube-actions { margin-top: 1.1rem; }
   .cube-actions a { padding: 0.65rem 1.1rem; font-size: 0.9rem; }
   .cube-hero__links { bottom: 0.75rem; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
@@ -271,7 +274,7 @@
   .cube-hero__cue { display: none; }
   .cube-hero__progress { right: 0.5rem; }
   .cube-hero__track { height: 18vh; }
-  .cube-hero__fallback { left: 1rem; right: 1rem; width: auto; top: auto; bottom: 6.5rem; transform: none; }
+  .cube-hero__fallback { left: 1rem; right: 1rem; width: auto; top: auto; bottom: 8.75rem; transform: none; }
   .cube-hero__fallback ul { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; }
   .cube-tile__action { display: none; }
   .cube-tile__name { font-size: 0.72rem; }

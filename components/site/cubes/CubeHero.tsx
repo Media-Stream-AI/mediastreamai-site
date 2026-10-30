@@ -291,10 +291,11 @@ export default function CubeHero() {
             <p className="cube-eyebrow"><Line i={0} state={s(2)}>{CHAPTERS[2].eyebrow}</Line></p>
             <h2 className="cube-title">
               <Line i={1} state={s(2)}>Every cube</Line>
-              <Line i={2} state={s(2)}>opens a <span className="text-electric-ice">platform.</span></Line>
+              <Line i={2} state={s(2)}>opens a</Line>
+              <Line i={3} state={s(2)}><span className="text-electric-ice">platform.</span></Line>
             </h2>
             <p className="cube-lede">
-              <Line i={3} state={s(2)}>Select a cube to open it, or use the platform links. Six entry points, all running on the same seven-layer stack.</Line>
+              <Line i={4} state={s(2)}>Select a cube to open it, or use the platform links. Six entry points, all running on the same seven-layer stack.</Line>
             </p>
           </div>
         </div>
