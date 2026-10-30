@@ -30,7 +30,7 @@ type Layer = {
 };
 
 // Top (what we deploy) → bottom (what we own the ground of).
-const LAYERS: Layer[] = [
+export const LAYERS: Layer[] = [
   {
     icon: Shield, tier: 'Layer 07', name: 'Dual-Use Defence',
     blurb: 'MOTHER Defence on our own air-gapped secure compute - multi-INT fusion, cyber defence and decision support. Observe-and-advise, human-in-the-loop, Strike = 0.',

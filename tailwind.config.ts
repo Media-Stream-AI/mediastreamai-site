@@ -34,6 +34,12 @@ const config: Config = {
           bright: '#FB923C',
           deep: '#EA580C',
         },
+        // Corporate foundation (mirrors the :root tokens in app/globals.css).
+        navy: { DEFAULT: '#070B2A', 700: '#0A1250' },
+        electric: { DEFAULT: '#2443FF', deep: '#0B1BB0' },
+        ice: { DEFAULT: '#EAF1FB', muted: '#A9B6CA' },
+        signal: '#2CF59A',
+        'exo-gold': '#E8B44A',
         mist: '#E7ECF3',   // primary text on night
         muted: '#94A3B8',  // secondary text
         hair: 'rgba(255,255,255,0.08)', // hairline borders
@@ -118,6 +124,18 @@ const config: Config = {
       },
       borderRadius: {
         xl2: '1.25rem',
+      },
+      screens: {
+        '3xl': '1920px',
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'in-out-soft': 'cubic-bezier(0.65, 0, 0.35, 1)',
+      },
+      transitionDuration: {
+        fast: '180ms',
+        base: '420ms',
+        slow: '780ms',
       },
     },
   },
