@@ -9,29 +9,73 @@
    ============================================================ */
 
 :root {
+  /* ── Colour ── near-black + deep navy foundations, ice type, electric blue
+     and cyan highlights; magenta / violet / green kept as restrained accents. */
   --night: #05060A;
   --night-800: #0B0E16;
   --night-600: #12151F;
+  --navy: #070B2A;
+  --navy-700: #0A1250;
+  --electric: #2443FF;
+  --electric-deep: #0B1BB0;
+  --ice: #EAF1FB;
+  --ice-muted: #A9B6CA;
   --mist: #E7ECF3;
   --muted: #94A3B8;
   --hair: rgba(255, 255, 255, 0.08);
+  --hair-strong: rgba(255, 255, 255, 0.16);
+  --grid-line: rgba(255, 255, 255, 0.035);
   --cyan: #22D3EE;
+  --cyan-bright: #5EEAFF;
   --iris: #6366F1;
   --violet: #A855F7;
   --magenta: #EC4899;
+  --signal-green: #2CF59A;
   --ember: #F59E0B;
+  /* Product identities that keep their own colour on the corporate site. */
+  --exo-gold: #E8B44A;
+  --studio-lime: #C6F833;
+
+  /* Black → navy → electric, the reference foundation. */
+  --foundation-gradient: linear-gradient(180deg, #040509 0%, #060A1C 42%, #0A1680 100%);
+
+  /* ── Type scale ── */
+  --type-hero: clamp(2.6rem, 7.2vw, 8.25rem);
+  --type-display: clamp(2.25rem, 5vw, 4.5rem);
+
+  /* ── Spacing / radii ── */
+  --space-section: clamp(5rem, 9vw, 7rem);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* ── Focus / elevation ── */
+  --shadow-panel: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset, 0 20px 60px -24px rgba(0, 0, 0, 0.8);
+
+  /* ── Motion ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 420ms;
+  --dur-slow: 780ms;
 }
 
 @layer base {
+  /* overflow-x: clip (not hidden) so html/body never become scroll
+     containers - "hidden" silently breaks position: sticky. */
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
     background: var(--night);
     color: var(--mist);
     overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -50,6 +94,9 @@
   :target { scroll-margin-top: 6rem; }
 
   ::selection { background: rgba(34, 211, 238, 0.28); color: #ffffff; }
+
+  /* One visible, high-contrast focus treatment sitewide. */
+  :focus-visible { outline: 2px solid var(--cyan-bright); outline-offset: 3px; }
 
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-thumb { background: #1A1E2B; border-radius: 8px; }
@@ -155,6 +202,34 @@
     background-size: 46px 46px;
   }
   .aurora-bg { background-image: var(--tw-aurora, none); }
+
+  /* Reference foundation: black → navy → electric blue with a low glow. */
+  .bg-foundation {
+    background:
+      radial-gradient(70% 60% at 50% 115%, rgba(36, 67, 255, 0.55) 0%, rgba(11, 27, 176, 0.35) 35%, transparent 70%),
+      var(--foundation-gradient);
+  }
+
+  /* Small upper-case section label. */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--cyan-bright);
+  }
+  .eyebrow::before { content: ''; width: 1.5rem; height: 1px; background: currentColor; opacity: 0.7; }
+
+  /* Status label for live / planned products. */
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--hair-strong); color: var(--ice-muted); background: rgba(255, 255, 255, 0.03);
+  }
+  .status-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .status-pill[data-status='live'] { color: var(--signal-green); border-color: rgba(44, 245, 154, 0.35); }
+  .status-pill[data-status='in-development'] { color: var(--exo-gold); border-color: rgba(232, 180, 74, 0.35); }
+  .status-pill[data-status='early-access'],
+  .status-pill[data-status='by-engagement'] { color: var(--cyan-bright); border-color: rgba(94, 234, 255, 0.35); }
 }
 
 @layer utilities {

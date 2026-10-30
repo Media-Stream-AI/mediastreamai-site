@@ -1,13 +1,14 @@
 "use client";
 
-// The MSAI home page. Its one job is to make a visitor understand, without
-// scrolling twice, that Media Stream AI is a European FULL-STACK sovereign AI
-// company: we own the land and power, the data centres and their cooling, the
-// compute, the models, the applications built on them, and the robots they
-// end up inside. The page is therefore ordered as the stack itself - compute
-// at the bottom, physical AI at the top - rather than as a product tour.
+// The MSAI home page. Its one job is to make a visitor understand that Media
+// Stream AI builds every block of British sovereign AI.
+//
+// Order: the six-cube hero (platform entry points) → the seven-layer stack →
+// how the platforms sit on the layers → the platforms themselves → proof
+// points (compute, models, applications, physical AI, defence) → enquiry.
+// The cubes are doors into products; the seven layers are the stack beneath
+// them. Keep the two distinct.
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight, ArrowUpRight, Boxes, Shield, Sparkles, Factory,
@@ -15,7 +16,10 @@ import {
 } from "lucide-react";
 import Reveal from "../components/Reveal";
 import StackDiagram from "../components/site/StackDiagram";
-import { VideoBackdrop, VideoFrame } from "../components/site/VideoFX";
+import StackFit from "../components/site/StackFit";
+import PlatformGrid from "../components/site/PlatformGrid";
+import CubeHero from "../components/site/cubes/CubeHero";
+import { VideoFrame } from "../components/site/VideoFX";
 import { MOTHER_MODELS, FAMILY_PARAMETERS, FAMILY_COUNT, MOTHER_AI_SITE } from "../lib/mother-models";
 
 /* ------------------------------------------------------------------ */
@@ -98,76 +102,9 @@ const SECTORS = [
 
 export default function HomePage() {
   return (
-    <div className="overflow-hidden">
-      {/* ================= HERO ================= */}
-      <section className="relative pt-36 pb-24 md:pt-48 md:pb-32">
-        <VideoBackdrop src="/video/datacentre-aerial.mp4" className="-z-[5]" />
-        <div className="container-custom relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="chip mx-auto mb-8">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan" />
-              European full-stack sovereign AI · built and owned in Britain
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.05 }}
-            className="font-display mx-auto max-w-5xl leading-[0.9]"
-            style={{ fontSize: "clamp(2.8rem, 9vw, 7.5rem)" }}
-          >
-            <span className="text-mist">From power</span>{" "}
-            <span className="text-gradient">to physical AI.</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="mx-auto mt-7 max-w-3xl text-lg leading-relaxed text-muted md:text-xl"
-          >
-            Most AI companies rent a slice of someone else&rsquo;s stack. Media Stream AI owns all of it -
-            the land, power and data centres, the sovereign compute, the seven MOTHER models trained on it,
-            the applications built on those models, and the robots they end up inside.
-            <span className="text-mist"> One stack. One owner. No foreign dependency.</span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25 }}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-          >
-            <Link href="#stack" className="btn-glow group px-7 py-3.5 text-base">
-              See the full stack
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link href="/model-family" className="btn-ghost px-7 py-3.5 text-base">
-              The MOTHER models
-            </Link>
-          </motion.div>
-
-          {/* stat band */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-hair bg-hair md:grid-cols-4"
-          >
-            {STATS.map((s) => (
-              <div key={s.v} className="bg-night-800/70 px-4 py-6">
-                <div className="font-display text-2xl text-gradient md:text-3xl">{s.k}</div>
-                <div className="mt-1 text-xs uppercase tracking-widest text-muted">{s.v}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+    <div className="overflow-x-clip">
+      {/* ================= HERO · six platform cubes ================= */}
+      <CubeHero />
 
       {/* ================= MARQUEE ================= */}
       <div className="relative overflow-hidden border-y border-hair py-4">
@@ -188,18 +125,78 @@ export default function HomePage() {
       <section id="stack" className="section-padding scroll-mt-24">
         <div className="container-custom">
           <Reveal className="mb-12 max-w-3xl">
-            <span className="chip mb-5">Vertically integrated</span>
-            <h2 className="font-display text-4xl leading-tight md:text-5xl">
-              Sovereignty is ownership <span className="text-gradient">across every layer.</span>
+            <span className="eyebrow mb-5">The sovereign stack · seven layers</span>
+            <h2 className="font-display text-4xl leading-tight md:text-6xl">
+              Every block, <span className="text-gradient">one British owner.</span>
             </h2>
             <p className="mt-4 text-lg text-muted">
-              Seven layers, all ours. Buy power and you still rent the models. Buy models and you still rent
-              the compute. MSAI is the only European AI company that owns the ground the racks stand on, the
-              models that train on them, and the humanoid the model ends up driving.
+              Buy power and you still rent the models. Buy models and you still rent the compute. MSAI builds
+              and operates all seven layers - from the ground the racks stand on to the models that train on
+              them and the humanoid the model ends up driving.
             </p>
           </Reveal>
           <Reveal>
             <StackDiagram />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ================= HOW IT FITS ================= */}
+      <section id="how-it-fits" className="section-padding pt-0 scroll-mt-24">
+        <div className="container-custom">
+          <Reveal className="mb-10 max-w-3xl">
+            <span className="eyebrow mb-5">How the stack fits together</span>
+            <h2 className="font-display text-4xl leading-tight md:text-5xl">
+              Six platforms. <span className="text-gradient">Seven layers beneath them.</span>
+            </h2>
+            <p className="mt-4 text-lg text-muted">
+              The cubes above are entry points, not layers. Each platform is a product you can open; every one
+              of them runs on the same owned stack. This is where each one sits.
+            </p>
+          </Reveal>
+          <Reveal>
+            <StackFit />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ================= PLATFORMS ================= */}
+      <section id="platforms" className="section-padding pt-0 scroll-mt-24">
+        <div className="container-custom">
+          <Reveal className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="max-w-3xl">
+              <span className="eyebrow mb-5">The platforms</span>
+              <h2 className="font-display text-4xl leading-tight md:text-5xl">
+                What runs on the stack - <span className="text-gradient">and who it is for.</span>
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm text-muted">
+              Status labels show what is live today and what is offered by walkthrough, engagement or still in
+              development.
+            </p>
+          </Reveal>
+          <PlatformGrid />
+        </div>
+      </section>
+
+      {/* ================= PROOF POINTS ================= */}
+      <section className="pt-4 pb-10 md:pb-16">
+        <div className="container-custom">
+          <Reveal className="mb-8 max-w-3xl">
+            <span className="eyebrow mb-5">Proof points</span>
+            <h2 className="font-display text-4xl leading-tight md:text-5xl">
+              The stack, <span className="text-gradient">in numbers.</span>
+            </h2>
+          </Reveal>
+          <Reveal>
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-hair bg-hair md:grid-cols-4">
+              {STATS.map((s) => (
+                <div key={s.v} className="bg-night-800/90 px-4 py-6 text-center">
+                  <div className="font-display text-2xl text-gradient md:text-4xl">{s.k}</div>
+                  <div className="mt-1 text-xs uppercase tracking-widest text-muted">{s.v}</div>
+                </div>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>
@@ -494,11 +491,12 @@ export default function HomePage() {
       <section className="section-padding pt-0">
         <div className="container-custom">
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl border border-hair bg-night-800/60 px-6 py-16 text-center md:py-24">
-              <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(60% 120% at 50% 0%, rgba(99,102,241,0.18), transparent 60%)" }} />
+            <div className="bg-foundation relative overflow-hidden rounded-3xl border border-hair px-6 py-16 text-center md:py-24">
+              <div className="grid-bg absolute inset-0 opacity-50" aria-hidden />
               <div className="relative">
                 <span className="chip mx-auto mb-6"><Globe className="h-3.5 w-3.5 text-cyan" /> Sovereign by design</span>
-                <h2 className="font-display mx-auto max-w-3xl text-4xl leading-[0.95] md:text-6xl">
+                <p className="font-display text-lg tracking-[0.12em] text-cyan-bright">One stack. Built in Britain.</p>
+                <h2 className="font-display mx-auto mt-4 max-w-3xl text-4xl leading-[0.95] md:text-7xl">
                   Build on a stack that <span className="text-gradient">stays in Britain.</span>
                 </h2>
                 <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
