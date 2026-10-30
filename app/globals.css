@@ -40,7 +40,7 @@
   --foundation-gradient: linear-gradient(180deg, #040509 0%, #060A1C 42%, #0A1680 100%);
 
   /* ── Type scale ── */
-  --type-hero: clamp(2.6rem, 7.2vw, 8.25rem);
+  --type-hero: clamp(2.6rem, 6.6vw, 8rem);
   --type-display: clamp(2.25rem, 5vw, 4.5rem);
 
   /* ── Spacing / radii ── */

@@ -103,9 +103,9 @@ function buildLayout(aspect: number): Layout {
 
   const group = portrait
     ? { scale: Math.max(0.5, Math.min(0.72, aspect * 1.02)), x: 0, y: -1.55 }
-    : aspect < 1.3
-      ? { scale: 0.74, x: 2.1, y: -0.3 }
-      : { scale: 0.92, x: 3.1, y: -0.15 };
+    : aspect < 1.45
+      ? { scale: 0.68, x: 2.75, y: -0.35 }
+      : { scale: 0.9, x: 3.3, y: -0.15 };
 
   return { formations: [ring, hex, grid, exit], group };
 }

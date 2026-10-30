@@ -316,6 +316,7 @@ export default function RootLayout({
         <SentinelPopup
           source="sentinel-datacentre-mediastreamai"
           excludePaths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
+          deferWhileVisible=".cube-hero"
         />
       </body>
     </html>
