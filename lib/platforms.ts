@@ -9,11 +9,13 @@
 // itself or this repository already publishes. Changes need sign-off (see
 // docs/audit/homepage-route-audit.md, "Status labels").
 
-export type PlatformStatus = 'group' | 'live' | 'early-access' | 'by-engagement' | 'in-development';
+export type PlatformStatus = 'group' | 'live' | 'rolling-out' | 'early-access' | 'by-engagement' | 'in-development';
 
 export const PLATFORM_STATUS_LABEL: Record<PlatformStatus, string> = {
   group: 'Group',
   live: 'Live',
+  // gpu.mediastreamai.com: GPU clusters "going live throughout 2026".
+  'rolling-out': 'Rolling out 2026',
   'early-access': 'Walkthroughs on request',
   'by-engagement': 'By engagement',
   'in-development': 'In development',
@@ -107,19 +109,19 @@ export const PLATFORMS: Platform[] = [
     accent: '#F59E0B',
   },
   {
-    id: 'mother-defence',
-    name: 'MOTHER DEFENCE',
-    href: 'https://www.mediastreamai.com/defence',
-    external: false,
-    kicker: 'Decision support under human authority',
-    audience: 'Defence, security and critical national infrastructure teams',
-    problem: 'Fused situational awareness on air-gapped, UK-controlled compute.',
-    action: 'Explore Defence',
-    status: 'by-engagement',
-    layers: [7],
-    image: '/msai-cubes/mother-defence-overwatch',
-    alt: 'MOTHER DEFENCE OverWatch workspace with a 3D globe of live tracks and space-object catalogue panels.',
-    accent: '#EC4899',
+    id: 'msai-cloud',
+    name: 'MSAI CLOUD & COMPUTE',
+    href: 'https://gpu.mediastreamai.com',
+    external: true,
+    kicker: 'Sovereign GPU cloud',
+    audience: 'AI teams, model builders and enterprises that need UK/EU GPU capacity',
+    problem: 'Multi-tenant, metered GPU clusters under one sovereign control plane, with no hyperscaler in the path.',
+    action: 'Open the control plane',
+    status: 'rolling-out',
+    layers: [2, 3],
+    image: '/msai-cubes/msai-cloud-compute-gpu',
+    alt: 'MSAI Cloud control plane for MSAI Compute: GPU capacity counters, a rack illustration and the Compute, Models and Control service cards.',
+    accent: '#5FB82A',
   },
   {
     id: 'intuistudio',

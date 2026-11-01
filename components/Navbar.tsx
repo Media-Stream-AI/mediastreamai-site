@@ -15,6 +15,7 @@ const PILLARS: { label: string; href: string; icon: typeof Cpu; blurb: string }[
 
 const EXTRAS: { label: string; href: string; icon: typeof Cpu; blurb: string }[] = [
   { label: 'Quantum-AI', href: '/quantum', icon: Atom, blurb: 'Quantum-enhanced sovereign RAG' },
+  { label: 'MSAI Cloud & Compute', href: 'https://gpu.mediastreamai.com', icon: Cpu, blurb: 'Sovereign GPU-as-a-service' },
   { label: 'MSAI Compute · Colocation', href: '/colocation', icon: Server, blurb: '25 MW colo now · 38 MW site' },
 ];
 
