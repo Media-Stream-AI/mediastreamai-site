@@ -227,6 +227,7 @@
   }
   .status-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
   .status-pill[data-status='live'] { color: var(--signal-green); border-color: rgba(44, 245, 154, 0.35); }
+  .status-pill[data-status='rolling-out'] { color: var(--signal-green); border-color: rgba(44, 245, 154, 0.35); }
   .status-pill[data-status='in-development'] { color: var(--exo-gold); border-color: rgba(232, 180, 74, 0.35); }
   .status-pill[data-status='early-access'],
   .status-pill[data-status='by-engagement'] { color: var(--cyan-bright); border-color: rgba(94, 234, 255, 0.35); }

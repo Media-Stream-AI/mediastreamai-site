@@ -18,6 +18,7 @@ import Reveal from "../components/Reveal";
 import StackDiagram from "../components/site/StackDiagram";
 import StackFit from "../components/site/StackFit";
 import PlatformGrid from "../components/site/PlatformGrid";
+import CloudSection from "../components/site/CloudSection";
 import CubeHero from "../components/site/cubes/CubeHero";
 import { VideoFrame } from "../components/site/VideoFX";
 import { MOTHER_MODELS, FAMILY_PARAMETERS, FAMILY_COUNT, MOTHER_AI_SITE } from "../lib/mother-models";
@@ -178,6 +179,9 @@ export default function HomePage() {
           <PlatformGrid />
         </div>
       </section>
+
+      {/* ================= MSAI CLOUD & COMPUTE ================= */}
+      <CloudSection />
 
       {/* ================= PROOF POINTS ================= */}
       <section className="pt-4 pb-10 md:pb-16">
