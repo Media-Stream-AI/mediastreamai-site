@@ -2,7 +2,9 @@
 
 // Enforced security headers applied to every response (SSR pages + route
 // handlers included). CSP origins: same-origin app + API routes, the intuitv.app
-// / mediastreamai service subdomains, Supabase, Google Fonts, and Stripe.
+// / mediastreamai service subdomains, Supabase, Google Fonts, Stripe, and
+// Cloudflare Web Analytics (beacon script injected at the Cloudflare edge,
+// reporting to cloudflareinsights.com).
 const securityHeaders = [
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -20,12 +22,12 @@ const securityHeaders = [
       "object-src 'none'",
       "frame-ancestors 'none'",
       "form-action 'self' https://hooks.stripe.com",
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://js.stripe.com",
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://js.stripe.com https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: blob: https:",
       "media-src 'self' blob: https://streams.intuitv.app https://stream.intuitv.app https://cdn.intuitv.app https://*.intuitv.app https://*.mediastreamai.com",
-      "connect-src 'self' https://*.intuitv.app https://api.intuitv.app https://*.mediastreamai.com https://*.supabase.co wss://*.supabase.co https://api.stripe.com",
+      "connect-src 'self' https://*.intuitv.app https://api.intuitv.app https://*.mediastreamai.com https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://cloudflareinsights.com",
       "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
       "worker-src 'self' blob:",
       "manifest-src 'self'",
