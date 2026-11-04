@@ -16,7 +16,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { PLATFORMS, PLATFORM_STATUS_LABEL, type Platform } from '@/lib/platforms';
-import type { CubeSceneHandle } from './cube-scene';
+import type { CubeSceneHandle, SafeArea } from './cube-scene';
 import './cube-hero.css';
 
 type Mode = 'loading' | 'webgl' | 'fallback';
@@ -35,6 +35,52 @@ function hasWebGL(): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * Free rectangle for the cubes inside the sticky stage, from the live DOM:
+ * either beside the copy (wide screens) or below it (narrow / near-square),
+ * whichever leaves the bigger cubes. Always clear of the fixed nav, the
+ * platform links and the progress rail.
+ */
+function measureSafeArea(section: HTMLElement, stage: HTMLElement, chapter: number): SafeArea | null {
+  const box = stage.getBoundingClientRect();
+  if (box.width < 50 || box.height < 50) return null;
+  const W = box.width;
+  const H = box.height;
+  const gap = Math.max(12, Math.min(28, W * 0.02));
+
+  // Extents of this chapter's copy. Text width comes from Ranges so
+  // block-level lines report their glyphs, not their box.
+  const copy = section.querySelectorAll<HTMLElement>('.cube-chapter')[chapter];
+  if (!copy) return null;
+  let copyRight = 0;
+  let copyBottom = 0;
+  copy.querySelectorAll<HTMLElement>('.cube-line, .cube-actions').forEach((el) => {
+    const r = el.getBoundingClientRect();
+    if (!r.height) return; // hidden on short screens
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    copyRight = Math.max(copyRight, range.getBoundingClientRect().right - box.left);
+    copyBottom = Math.max(copyBottom, r.bottom - box.top);
+  });
+
+  const navBottom = (document.querySelector('nav')?.getBoundingClientRect().bottom ?? 0) - box.top;
+  const linksTop = (section.querySelector('.cube-hero__links')?.getBoundingClientRect().top ?? box.bottom) - box.top;
+  const rail = section.querySelector('.cube-hero__progress')?.getBoundingClientRect();
+  const right = (rail && rail.width ? rail.left - box.left : W) - gap;
+  const top = Math.max(navBottom, 0) + gap;
+  const bottom = Math.min(linksTop, H) - gap;
+
+  const beside: SafeArea = { left: copyRight + gap * 2, top, right, bottom };
+  const below: SafeArea = { left: gap, top: Math.max(copyBottom + gap, top), right, bottom };
+  // Rough cube size each option allows (best of a 3x2 or 2x3 grid).
+  const room = (a: SafeArea) => {
+    const w = a.right - a.left;
+    const h = a.bottom - a.top;
+    return w <= 0 || h <= 0 ? 0 : Math.max(Math.min(w / 3, h / 2), Math.min(w / 2, h / 3));
+  };
+  return room(beside) >= room(below) ? beside : below;
 }
 
 function navigate(p: Platform) {
@@ -143,6 +189,7 @@ export default function CubeHero() {
             container: stage,
             platforms: PLATFORMS,
             getProgress: () => progressRef.current,
+            getSafeArea: (chapter) => measureSafeArea(section, stage, chapter),
             reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
             tooltip,
             onHover,
@@ -155,6 +202,8 @@ export default function CubeHero() {
             },
           });
           setMode('webgl');
+          // Headline metrics change when the webfont arrives; refit then.
+          document.fonts?.ready.then(() => { if (!cancelled) sceneRef.current?.relayout(); });
           sync();
         } catch (err) {
           console.warn('[CubeHero] WebGL scene unavailable, using fallback', err);

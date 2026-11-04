@@ -16,6 +16,7 @@ import {
 import Reveal from "../../components/Reveal";
 import CoolingDiagram from "../../components/site/CoolingDiagram";
 import { VideoFrame } from "../../components/site/VideoFX";
+import { CAPACITY_SUMMARY, PHASE_ONE, PHASE_TWO } from "../../lib/capacity";
 
 /** The three orthographic views under the humanoid header.
  *
@@ -279,8 +280,8 @@ export default function TechnologyPage() {
             </h2>
             <p className="mt-4 text-lg text-muted">
               The site runs island-mode gas-CHP with the grid as an alternate, not a dependency - which is what
-              makes a 38 MW site possible on a connection queue that would not otherwise allow it, and what makes
-              70 MW from 2027 a build programme rather than a wait.
+              makes Phase One ({PHASE_ONE.capacity}) possible on a connection queue that would not otherwise allow it, and what
+              makes Phase Two ({PHASE_TWO.capacity}, December 2026) a build programme rather than a wait.
             </p>
           </Reveal>
 
@@ -303,7 +304,7 @@ export default function TechnologyPage() {
                 <div className="mb-4 text-xs uppercase tracking-widest text-muted">Plant sheet</div>
                 <dl className="space-y-2.5">
                   {([
-                    ["site", "38 MW · 70 MW from 2027"],
+                    ["capacity", CAPACITY_SUMMARY],
                     ["generation", "island gas-CHP · 3+1 N+1"],
                     ["cascade", "gas → grid → diesel → tidal/solar"],
                     ["UPS", "5 × 1,200 kW · N+1 · 6 MW"],

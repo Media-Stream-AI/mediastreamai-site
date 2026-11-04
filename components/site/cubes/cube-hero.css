@@ -14,7 +14,7 @@
   top: 0;
   height: 100vh;
   height: 100svh;
-  min-height: 560px;
+  /* No min-height: the stage must equal the viewport or the cubes' fit area is clipped. */
   overflow: hidden;
   isolation: isolate;
   background: var(--foundation-gradient);
@@ -269,7 +269,17 @@
   .cube-actions a { padding: 0.65rem 1.1rem; font-size: 0.9rem; }
   .cube-hero__links { bottom: 0.75rem; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
   .cube-hero__links-label { display: none; }
-  .cube-hero__links ul { gap: 0.35rem; }
+  /* One swipeable row instead of three wrapped rows, so the cubes keep the height. */
+  .cube-hero__links { left: 0; right: 0; transform: none; width: auto; padding: 0 1rem; }
+  .cube-hero__links ul {
+    gap: 0.35rem; flex-wrap: nowrap; overflow-x: auto; max-width: 100%;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+    mask-image: linear-gradient(90deg, #000 85%, transparent);
+    padding-right: 1.5rem;
+  }
+  .cube-hero__links ul::-webkit-scrollbar { display: none; }
+  .cube-hero__links li { flex: 0 0 auto; }
   .cube-hero__links a { min-height: 2rem; padding: 0.35rem 0.6rem; font-size: 0.6rem; }
   .cube-hero__cue { display: none; }
   .cube-hero__progress { right: 0.5rem; }
