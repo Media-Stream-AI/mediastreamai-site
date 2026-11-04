@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import {
   Shield, Bot, AppWindow, Brain, Cpu, Server, Zap, ArrowUpRight, type LucideIcon,
 } from 'lucide-react';
+import { PHASE_ONE, PHASE_TWO } from '@/lib/capacity';
 
 type Layer = {
   icon: LucideIcon;
@@ -63,8 +64,8 @@ export const LAYERS: Layer[] = [
   },
   {
     icon: Server, tier: 'Layer 02', name: 'Data Centres',
-    blurb: 'Direct-liquid-cooled halls on a 38 MW site, digital-twinned end to end and run by MOTHER as the facility mainframe. 25 MW of colocation is available now.',
-    chips: ['38 MW site', '25 MW colo now', 'DLC · PUE 1.10', 'Digital twin'],
+    blurb: `Direct-liquid-cooled halls, digital-twinned end to end and run by MOTHER as the facility mainframe. Phase One (${PHASE_ONE.capacity}) is live; Phase Two (${PHASE_TWO.capacity}) follows in December 2026.`,
+    chips: [`${PHASE_ONE.capacity} live`, `${PHASE_TWO.capacity} Dec 2026`, 'DLC · PUE 1.10', 'Digital twin'],
     accent: 'text-cyan', bar: 'linear-gradient(180deg,#0EA5C4,#F59E0B)', href: '/colocation',
   },
   {

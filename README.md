@@ -19,11 +19,11 @@ Dark-cinematic group site built around the four MSAI pillars:
 | Route | What it covers |
 | --- | --- |
 | `/` | Group homepage — the full-stack story, pillars, infrastructure band, stack diagram |
-| `/model-family` | MOTHER 7B sovereign model family (CORE, DeepVision, speech, memory, 26 heads) |
+| `/model-family` | MOTHER sovereign model family: 7 models, 240B parameters (CORE, DeepVision, speech, memory, 26 heads) |
 | `/intuitv` | IntuiTV + IntuiStudio (Creator editor, 24/7 Playout) |
 | `/exo` | MOTHER EXO — frontier world model + robotics (2027) |
 | `/defence` | MOTHER Defence — Guardian signed action filter, on-prem / air-gap |
-| `/colocation` | MSAI Scotland — confirmed GPU deployments and 10 MW colocation |
+| `/colocation` | MSAI Scotland colocation: Phase One 25 MWth live, Phase Two 75 MWth (Dec 2026), Phase Three 25 MW (Q1 2028) |
 | `/compliance` | EU AI Act Art. 53 transparency, gated white paper / due-diligence dossier |
 | `/quantum`, `/technology`, `/blog`, `/pricing`, `/contact`, `/privacy`, `/terms` | Supporting pages |
 

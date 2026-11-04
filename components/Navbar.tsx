@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Menu, X, ChevronDown, Play, Cpu, Boxes, Shield, Atom, Server } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PHASE_ONE, PHASE_TWO } from '@/lib/capacity';
 
 const PILLARS: { label: string; href: string; icon: typeof Cpu; blurb: string }[] = [
   { label: 'MOTHER Models', href: '/model-family', icon: Cpu, blurb: '7 sovereign models · 240B parameters' },
@@ -16,7 +17,7 @@ const PILLARS: { label: string; href: string; icon: typeof Cpu; blurb: string }[
 const EXTRAS: { label: string; href: string; icon: typeof Cpu; blurb: string }[] = [
   { label: 'Quantum-AI', href: '/quantum', icon: Atom, blurb: 'Quantum-enhanced sovereign RAG' },
   { label: 'MSAI Cloud & Compute', href: 'https://gpu.mediastreamai.com', icon: Cpu, blurb: 'Sovereign GPU-as-a-service' },
-  { label: 'MSAI Compute · Colocation', href: '/colocation', icon: Server, blurb: '25 MW colo now · 38 MW site' },
+  { label: 'MSAI Compute · Colocation', href: '/colocation', icon: Server, blurb: `Phase One ${PHASE_ONE.capacity} live · ${PHASE_TWO.capacity} Dec 2026` },
 ];
 
 export default function Navbar() {

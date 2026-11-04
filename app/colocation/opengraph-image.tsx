@@ -10,8 +10,8 @@ export default function Image() {
   return renderOgImage({
     eyebrow: 'MSAI Scotland',
     title: 'Sovereign GPU capacity, available now.',
-    subtitle: 'A 38 MW site in Dundee scaling to 70 MW from 2027, with 25 MW of colocation available today.',
-    facts: ['38 MW site', '25 MW colo now', '70 MW from 2027', 'GPU 28 Dec 2026'],
+    subtitle: 'Sovereign GPU colocation in Dundee: Phase One 25 MWth live, Phase Two 75 MWth from December 2026, Phase Three 25 MW from Q1 2028.',
+    facts: ['25 MWth live', '75 MWth Dec 2026', '25 MW Q1 2028', 'GPU 28 Dec 2026'],
     accent: 'ember',
   });
 }

@@ -22,6 +22,7 @@ import CloudSection from "../components/site/CloudSection";
 import CubeHero from "../components/site/cubes/CubeHero";
 import { VideoFrame } from "../components/site/VideoFX";
 import { MOTHER_MODELS, FAMILY_PARAMETERS, FAMILY_COUNT, MOTHER_AI_SITE } from "../lib/mother-models";
+import { CAPACITY_PHASES, PHASE_ONE, PHASE_TWO, PHASE_THREE } from "../lib/capacity";
 
 /* ------------------------------------------------------------------ */
 /* Headline figures                                                    */
@@ -29,9 +30,7 @@ import { MOTHER_MODELS, FAMILY_PARAMETERS, FAMILY_COUNT, MOTHER_AI_SITE } from "
 
 const STATS = [
   { k: FAMILY_PARAMETERS, v: "MOTHER AI parameters" },
-  { k: "34 MW IT", v: "Total current compute" },
-  { k: "25 MW IT", v: "Upgrade Q4 2027" },
-  { k: "25 MW", v: "Colo available now" },
+  ...CAPACITY_PHASES.map((p) => ({ k: p.capacity, v: `${p.phase} · ${p.when}` })),
 ];
 
 const MARQUEE = [
@@ -45,8 +44,8 @@ const MARQUEE = [
 /* ------------------------------------------------------------------ */
 
 const COMPUTE_TILES = [
-  { k: "38 MW", v: "Site capacity" },
-  { k: "70 MW", v: "From 2027" },
+  { k: PHASE_ONE.capacity, v: "Phase One · live" },
+  { k: PHASE_TWO.capacity, v: "Phase Two · Dec 2026" },
   { k: "2,048", v: "× NVIDIA H200" },
   { k: "1,600", v: "× NVIDIA B300" },
   { k: "2,000", v: "× AMD MI355X" },
@@ -218,16 +217,17 @@ export default function HomePage() {
                       Layers 01–03 · we own the compute
                     </span>
                     <span className="chip !border-emerald-400/30 !text-emerald-300" style={{ background: "rgba(52,211,153,0.08)" }}>
-                      ● 25 MW colo available now
+                      ● Phase One · {PHASE_ONE.capacity} live
                     </span>
                   </div>
                   <h2 className="mt-5 font-display text-4xl leading-[0.95] md:text-5xl">
-                    34 MW of sovereign<br />
-                    <span className="text-gradient-ember">data centre.</span>
+                    Sovereign data centre,<br />
+                    <span className="text-gradient-ember">built in three phases.</span>
                   </h2>
                   <p className="mt-5 max-w-xl text-lg text-muted">
-                    A 38 MW UK freehold site running <span className="text-mist">34 MW IT of current compute</span>,
-                    scaling to 70 MW from 2027 with a further <span className="text-mist">25 MW IT upgrade in Q4 2027</span>.
+                    A UK freehold site with <span className="text-mist">Phase One at {PHASE_ONE.capacity}, live now</span>,
+                    <span className="text-mist"> Phase Two at {PHASE_TWO.capacity} from December 2026</span> and Phase Three
+                    at {PHASE_THREE.capacity} from Q1 2028.
                     Island-mode gas-CHP power, direct liquid cooling and the Horizon free-cooling and heat-reuse
                     cascade - and MOTHER AI running the facility itself.
                   </p>
