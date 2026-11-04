@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.0",
-    "@stripe/stripe-js": "^3.0.0",
+    "@stripe/stripe-js": "^10.2.0",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^11.0.0",
     "jose": "^6.2.14",
