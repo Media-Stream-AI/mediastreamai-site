@@ -6,11 +6,12 @@ import {
 import Reveal from '../../components/Reveal';
 import Image from 'next/image';
 import ColocationForm from '../../components/site/ColocationForm';
+import { CAPACITY_PHASES, CAPACITY_SUMMARY, PHASE_ONE, PHASE_TWO, PHASE_THREE } from '../../lib/capacity';
 
 export const metadata: Metadata = {
-  title: 'MSAI Scotland - Sovereign GPU Colocation · 38 MW Site, 70 MW from 2027',
+  title: 'MSAI Scotland - Sovereign GPU Colocation · 25 MWth Live, 75 MWth from Dec 2026',
   description:
-    'MSAI Scotland (Dundee): a 38 MW sovereign UK site scaling to 70 MW from 2027, with 25 MW of colocation available now. NVIDIA HGX B300 / H200 / GB10 Blackwell and AMD Instinct MI355X available from 28 December 2026, on direct liquid cooling and island-mode gas-CHP power.',
+    'MSAI Scotland (Dundee): sovereign UK colocation with Phase One (25 MWth) live now, Phase Two (75 MWth) from December 2026 and Phase Three (25 MW) from Q1 2028. NVIDIA HGX B300 / H200 / GB10 Blackwell and AMD Instinct MI355X available from 28 December 2026, on direct liquid cooling and island-mode gas-CHP power.',
   alternates: { canonical: '/colocation' },
   openGraph: { type: 'website', url: '/colocation' },
 };
@@ -18,18 +19,16 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 const QUICK = [
-  { k: '38 MW', v: 'Site capacity' },
-  { k: '70 MW', v: 'From 2027' },
-  { k: '25 MW', v: 'Colo available now' },
+  ...CAPACITY_PHASES.map((p) => ({ k: p.capacity, v: `${p.phase} · ${p.when}` })),
   { k: '28 Dec 2026', v: 'GPU available from' },
 ];
 
 const ROADMAP = [
   {
     tag: 'Available now', color: '#22D3EE',
-    title: 'Colocation · 25 MW',
-    body: '25 MW of colocation available now - racks, cages and private suites in a live direct-liquid-cooled hall on a 38 MW site. Bring your own GPUs onto sovereign UK infrastructure today.',
-    chips: ['25 MW now', '38 MW site', 'DLC', 'Racks · cages · suites'],
+    title: `Colocation · ${PHASE_ONE.capacity} live`,
+    body: `Phase One colocation (${PHASE_ONE.capacity}) is live now - racks, cages and private suites in a direct-liquid-cooled hall. Bring your own GPUs onto sovereign UK infrastructure today.`,
+    chips: [`${PHASE_ONE.capacity} live`, 'Phase One', 'DLC', 'Racks · cages · suites'],
   },
   {
     tag: 'Available from 28 Dec 2026', color: '#A855F7',
@@ -51,14 +50,14 @@ const ROADMAP = [
   },
   {
     tag: '2027 · expansion', color: '#34D399',
-    title: '70 MW from 2027',
-    body: 'Phase Two takes the site from 38 MW to 70 MW from 2027, with island-mode gas-CHP power scaling to 100 MWth and build-to-suit floor available on MSAI freehold.',
-    chips: ['70 MW from 2027', 'Phase Two ✓', '100 MWth', 'Build-to-suit'],
+    title: `${PHASE_TWO.capacity} from Dec 2026`,
+    body: `Phase Two brings ${PHASE_TWO.capacity} from December 2026 and Phase Three ${PHASE_THREE.capacity} from Q1 2028, with island-mode gas-CHP power and build-to-suit floor available on MSAI freehold.`,
+    chips: [`Phase Two · ${PHASE_TWO.capacity}`, `Phase Three · ${PHASE_THREE.capacity}`, 'Build-to-suit'],
   },
 ];
 
 const SPECS = [
-  { icon: Zap, title: 'Power & resilience', body: 'Island-mode gas-CHP (3+1 N+1) plus grid, with a 4 MWh BESS buffer. A 38 MW site today, 70 MW from 2027.' },
+  { icon: Zap, title: 'Power & resilience', body: `Island-mode gas-CHP (3+1 N+1) plus grid, with a 4 MWh BESS buffer. Phase One ${PHASE_ONE.capacity} today, Phase Two ${PHASE_TWO.capacity} from December 2026.` },
   { icon: Snowflake, title: 'Cooling', body: 'Direct liquid cooling with Horizon free cooling through a titanium WRAS Cat-5 plate heat exchanger - PUE ~1.10, near-zero water waste, chillers as trim only.' },
   { icon: Cpu, title: 'Compute', body: 'NVIDIA HGX B300, H200 and GB10 Blackwell plus AMD Instinct MI355X, up to ~58 kW per rack. Bring your own hardware or take GPU-as-a-Service.' },
   { icon: Network, title: 'Network', body: 'Sovereign UK backbone with low-latency routes and dark-fibre options. Private interconnect to your estate.' },
@@ -67,7 +66,7 @@ const SPECS = [
 ];
 
 const OPTIONS = [
-  { title: 'Colocation', body: '25 MW available now: racks and cages in a live DLC hall - you own the GPUs, we run the estate.' },
+  { title: 'Colocation', body: `Phase One (${PHASE_ONE.capacity}) live now: racks and cages in a DLC hall - you own the GPUs, we run the estate.` },
   { title: 'Private suite', body: 'A dedicated, secured suite sized to your deployment, with your own access control.' },
   { title: 'GPU-as-a-Service', body: 'Reserved HGX B300 / H200 / MI355X capacity from 28 Dec 2026, billed hourly or on a committed term - no capex.' },
   { title: 'Build-to-suit', body: 'We design and build to your spec on MSAI freehold - powered, cooled and operated by us.' },
@@ -75,8 +74,8 @@ const OPTIONS = [
 
 const SHEET: [string, string][] = [
   ['location', 'Dundee, Scotland (A85 / Riverside)'],
-  ['site', '38 MW · 70 MW from 2027'],
-  ['colocation', '25 MW available now'],
+  ['capacity', CAPACITY_SUMMARY],
+  ['colocation', 'Phase One live now'],
   ['GPU available', 'from 28 Dec 2026'],
   ['H200', '2,048×'],
   ['B300', '1,600×'],
@@ -113,9 +112,9 @@ export default function Page() {
               Sovereign GPU capacity,<br /><span className="text-gradient-ember">available now.</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-2xl">
-              A <span className="text-mist">38 MW sovereign site</span> in Scotland scaling to
-              <span className="text-mist"> 70 MW from 2027</span>, with
-              <span className="text-mist"> 25 MW of colocation available now</span>. Confirmed GPU deployments -
+              A sovereign site in Scotland with <span className="text-mist">Phase One ({PHASE_ONE.capacity}) live now</span>,
+              <span className="text-mist"> Phase Two ({PHASE_TWO.capacity}) from December 2026</span> and Phase Three
+              ({PHASE_THREE.capacity}) from Q1 2028. Confirmed GPU deployments -
               2,048× NVIDIA H200, 1,600× NVIDIA B300 and 2,000× AMD Instinct MI355X -
               <span className="text-mist"> available from 28 December 2026</span>. Direct liquid cooling,
               island-mode gas-CHP power, 100% UK sovereign.
@@ -146,7 +145,7 @@ export default function Page() {
           <Reveal className="max-w-2xl mb-12">
             <span className="chip mb-5">GPU deployment roadmap</span>
             <h2 className="font-display text-4xl md:text-5xl leading-tight">Capacity &amp; <span className="text-gradient-ember">deployments.</span></h2>
-            <p className="mt-4 text-muted text-lg">25 MW live today, every GPU line available from 28 December 2026, and 70 MW of site capacity from 2027.</p>
+            <p className="mt-4 text-muted text-lg">Phase One {PHASE_ONE.capacity} live today, every GPU line available from 28 December 2026, Phase Two {PHASE_TWO.capacity} from December 2026 and Phase Three {PHASE_THREE.capacity} from Q1 2028.</p>
           </Reveal>
           <div className="grid lg:grid-cols-3 gap-5">
             {ROADMAP.map((r) => (
@@ -184,7 +183,7 @@ export default function Page() {
           </Reveal>
           <p className="mt-6 text-xs text-muted/70 max-w-3xl">
             Forward-looking: capacity, hardware and 2026 / 2027 deployment dates - including 28 December 2026 GPU
-            availability and the 70 MW 2027 expansion - are indicative plans, not commitments, and may change. NVIDIA, HGX, Blackwell, GB10, AMD and Instinct are trademarks of their respective owners. See our{' '}
+            availability and the Phase Two and Phase Three expansions - are indicative plans, not commitments, and may change. NVIDIA, HGX, Blackwell, GB10, AMD and Instinct are trademarks of their respective owners. See our{' '}
             <a href="/compliance" className="underline hover:text-cyan">Compliance &amp; Transparency</a> page.
           </p>
         </div>

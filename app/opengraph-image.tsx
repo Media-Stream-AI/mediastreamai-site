@@ -11,7 +11,7 @@ export default function Image() {
     eyebrow: 'Sovereign UK AI',
     title: 'From power to physical AI.',
     subtitle: 'A European full-stack sovereign AI company: our own data centres, compute, models, applications and robots.',
-    facts: ['240B parameters', '34 MW IT', '7 models', 'UK sovereign'],
+    facts: ['240B parameters', '25 MWth live', '7 models', 'UK sovereign'],
     accent: 'cyan',
   });
 }
