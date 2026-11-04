@@ -120,7 +120,7 @@ export const PLATFORMS: Platform[] = [
     status: 'rolling-out',
     layers: [2, 3],
     image: '/msai-cubes/msai-cloud-compute-gpu',
-    alt: 'MSAI Cloud control plane for MSAI Compute: GPU capacity counters, a rack illustration and the Compute, Models and Control service cards.',
+    alt: 'MSAI Cloud control plane for MSAI Compute: a rack illustration and the Compute, Models and Control service cards.',
     accent: '#5FB82A',
   },
   {

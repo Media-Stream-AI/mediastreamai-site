@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     default: "Media Stream AI - Full-Stack Sovereign AI: Compute, MOTHER Models & Physical AI",
     template: "%s | Media Stream AI"
   },
-  description: "Media Stream AI is a European full-stack sovereign AI company: 34 MW of owned sovereign compute, seven MOTHER models totalling 240B parameters, applications including IntuiTV and IntuiStudio, and MOTHER EXO physical AI with a UK humanoid factory in Manchester.",
+  description: "Media Stream AI is a European full-stack sovereign AI company: sovereign data centres with 25 MWth live and 75 MWth from December 2026, seven MOTHER models totalling 240B parameters, applications including IntuiTV and IntuiStudio, and MOTHER EXO physical AI with a UK humanoid factory in Manchester.",
   keywords: [
     // Core brand
     "Media Stream AI", "MSAI", "MOTHER AI", "sovereign AI UK",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     url: "https://www.mediastreamai.com",
     siteName: "Media Stream AI",
     title: "Media Stream AI - Full-Stack Sovereign AI",
-    description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
+    description: "sovereign data centres with 25 MWth live and 75 MWth from December 2026, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
     // No images listed here on purpose: every route ships its own generated
     // hero card through the `opengraph-image` file convention, and an explicit
     // list at the root would override all of them. See lib/og.tsx.
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
     site: "@MediaStreamAI",
     creator: "@MediaStreamAI",
     title: "Media Stream AI - Full-Stack Sovereign AI",
-    description: "34 MW of owned sovereign compute, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
+    description: "sovereign data centres with 25 MWth live and 75 MWth from December 2026, seven MOTHER models at 240B parameters, applications, and MOTHER EXO physical AI - built and owned in Britain.",
     // As above - the per-route hero card is used, not a single static image.
   },
   
