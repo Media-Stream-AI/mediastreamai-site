@@ -72,9 +72,9 @@ export default function CloudSection() {
                       src="/msai-cubes/msai-cloud-compute-gpu-1024.webp"
                       srcSet="/msai-cubes/msai-cloud-compute-gpu-1024.webp 1024w, /msai-cubes/msai-cloud-compute-gpu-1600.webp 1600w"
                       sizes="(min-width: 1024px) 45vw, 100vw"
-                      alt="The MSAI Cloud home screen: the sovereign control plane for MSAI Compute, with GPU capacity counters, a rack illustration and Compute, Models and Control service cards."
+                      alt="The MSAI Cloud home screen: the sovereign control plane for MSAI Compute, with a rack illustration and the Compute, Models and Control service cards."
                       width={1024}
-                      height={692}
+                      height={540}
                       loading="lazy"
                       decoding="async"
                       className="block h-auto w-full"

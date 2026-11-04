@@ -29,11 +29,22 @@ export interface CubeSceneOptions {
   onActivate: (index: number) => void;
   /** Fires if WebGL is lost after start-up. */
   onContextLost: () => void;
+  /**
+   * The free rectangle (CSS px, relative to the container) the cubes must fit
+   * inside while chapter 0, 1 or 2 is showing: clear of that chapter's copy,
+   * the nav, platform links and progress rail. Each formation is scaled and
+   * placed to sit wholly within its chapter's rectangle.
+   */
+  getSafeArea?: (chapter: number) => SafeArea | null;
 }
+
+export type SafeArea = { left: number; top: number; right: number; bottom: number };
 
 export interface CubeSceneHandle {
   setActive: (active: boolean) => void;
   clearSelection: () => void;
+  /** Re-measure the safe area and refit (e.g. once webfonts have loaded). */
+  relayout: () => void;
   dispose: () => void;
 }
 
@@ -59,16 +70,62 @@ const pose = (x: number, y: number, z: number, rx: number, ry: number, rz: numbe
   s,
 });
 
+/** Camera distance per formation (dolly in on the assembled block). */
+const DOLLY = [15, 12.6, 13.6, 14.5];
+/** Largest cluster scale per formation, so big screens do not get giant cubes. */
+const MAX_SCALE = [0.95, 0.95, 0.85];
+
+function gridPoses(cols: number): Pose[] {
+  const rows = 6 / cols;
+  const gap = 2.6;
+  const out: Pose[] = [];
+  for (let i = 0; i < 6; i++) {
+    const c = i % cols;
+    const r = Math.floor(i / cols);
+    const x = (c - (cols - 1) / 2) * gap;
+    const y = ((rows - 1) / 2 - r) * gap;
+    out.push(pose(x, y, 0, -0.06 + r * 0.04, (c - (cols - 1) / 2) * -0.16, 0, 1));
+  }
+  return out;
+}
+
+/** Local bounding box of a formation, including each rotated cube's reach and the float. */
+function extents(poses: Pose[]) {
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (const { p, s } of poses) {
+    const reach = CUBE * 0.82 * s + 0.15;
+    minX = Math.min(minX, p.x - reach); maxX = Math.max(maxX, p.x + reach);
+    minY = Math.min(minY, p.y - reach); maxY = Math.max(maxY, p.y + reach);
+  }
+  return { minX, maxX, minY, maxY };
+}
+
+/**
+ * Scale and offset that put a formation wholly inside the safe area, as seen
+ * from that formation's camera distance. The 0.88 margin covers perspective
+ * growth of cubes nearer the camera, hover lift and pointer parallax.
+ */
+function fit(poses: Pose[], dist: number, fovDeg: number, w: number, h: number, area: SafeArea, maxScale: number): Placement {
+  const unit = (2 * dist * Math.tan((fovDeg * Math.PI) / 360)) / h; // world units per CSS px at z = 0
+  const x0 = (area.left - w / 2) * unit, x1 = (area.right - w / 2) * unit;
+  const y0 = (h / 2 - area.bottom) * unit, y1 = (h / 2 - area.top) * unit;
+  const e = extents(poses);
+  const scale = Math.max(0.15, Math.min(maxScale, (x1 - x0) / (e.maxX - e.minX), (y1 - y0) / (e.maxY - e.minY)) * 0.88);
+  return {
+    scale,
+    x: (x0 + x1) / 2 - (scale * (e.minX + e.maxX)) / 2,
+    y: (y0 + y1) / 2 - (scale * (e.minY + e.maxY)) / 2,
+  };
+}
+
 /**
  * Keyframes: 0 = scattered ring (hero), 1 = assembled hexagon ("one stack"),
- * 2 = readable platform grid, 3 = exit drift. Built per aspect ratio so the
- * composition stays clear of the copy on portrait screens.
+ * 2 = readable platform grid, 3 = exit drift. Each is fitted to the measured
+ * safe area, and the grid uses whichever of 3x2 / 2x3 comes out larger.
  */
-function buildLayout(aspect: number): Layout {
-  const portrait = aspect < 0.85;
+function buildLayout(w: number, h: number, fovDeg: number, areas: [SafeArea, SafeArea, SafeArea]): Layout {
   const ring: Pose[] = [];
   const hex: Pose[] = [];
-  const grid: Pose[] = [];
   const exit: Pose[] = [];
   const isoQ = new THREE.Quaternion().setFromEuler(ISO);
 
@@ -84,41 +141,30 @@ function buildLayout(aspect: number): Layout {
     // Hexagon: tight isometric cluster around the stack's centre.
     const hr = 1.72;
     hex.push({ p: new THREE.Vector3(Math.cos(a) * hr, Math.sin(a) * hr, 0), q: isoQ.clone(), s: 0.86 });
-    // Exit: drift up and outward.
+    // Exit: drift up and outward (leaves the frame by design).
     exit.push(pose(
       Math.cos(a) * 5.2, Math.sin(a) * 3.4 + 5.5, -2 - (i % 3),
       0.9 + i * 0.3, -0.7 + i * 0.4, 0.3, 0.8,
     ));
   }
 
-  // Grid: 3x2 landscape, 2x3 portrait. Faces nearly square-on for reading.
-  const cols = portrait ? 2 : 3;
-  const gap = portrait ? 2.55 : 2.6;
-  for (let i = 0; i < 6; i++) {
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    const rows = 6 / cols;
-    const x = (c - (cols - 1) / 2) * gap;
-    const y = ((rows - 1) / 2 - r) * gap;
-    grid.push(pose(x, y, 0, -0.06 + r * 0.04, (c - (cols - 1) / 2) * -0.16, 0, 1));
-  }
+  const wide = gridPoses(3);
+  const tall = gridPoses(2);
+  const gWide = fit(wide, DOLLY[2], fovDeg, w, h, areas[2], MAX_SCALE[2]);
+  const gTall = fit(tall, DOLLY[2], fovDeg, w, h, areas[2], MAX_SCALE[2]);
+  const useWide = gWide.scale >= gTall.scale;
+  const gGrid = useWide ? gWide : gTall;
 
-  // [ring, hex, grid, exit]. The 3x2 grid is ~7 units wide, so on landscape
-  // it shrinks and shifts left to stay fully on screen beside the copy.
-  let groups: Placement[];
-  if (portrait) {
-    const s = Math.max(0.5, Math.min(0.72, aspect * 1.02));
-    const g = { scale: s, x: 0, y: -1.55 };
-    groups = [g, g, g, g];
-  } else if (aspect < 1.45) {
-    const g = { scale: 0.68, x: 2.75, y: -0.35 };
-    groups = [g, g, { scale: 0.6, x: 2.55, y: -0.45 }, g];
-  } else {
-    const g = { scale: 0.9, x: 3.3, y: -0.15 };
-    groups = [g, g, { scale: 0.74, x: 3.05, y: -0.2 }, g];
-  }
-
-  return { formations: [ring, hex, grid, exit], groups };
+  return {
+    formations: [ring, hex, useWide ? wide : tall, exit],
+    // The exit drift leaves from the grid's placement.
+    groups: [
+      fit(ring, DOLLY[0], fovDeg, w, h, areas[0], MAX_SCALE[0]),
+      fit(hex, DOLLY[1], fovDeg, w, h, areas[1], MAX_SCALE[1]),
+      gGrid,
+      gGrid,
+    ],
+  };
 }
 
 /** Maps scroll progress to (from, to, t) across held keyframes. */
@@ -259,7 +305,7 @@ const RIM_CHUNK = `
 `;
 
 export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
-  const { container, platforms, getProgress, reducedMotion, tooltip, onHover, onActivate, onContextLost } = opts;
+  const { container, platforms, getProgress, reducedMotion, tooltip, onHover, onActivate, onContextLost, getSafeArea } = opts;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   const maxDpr = window.matchMedia('(pointer: coarse)').matches ? 1.5 : 1.75;
@@ -392,9 +438,20 @@ export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
   });
 
   /* ---------------- sizing ---------------- */
-  let layout = buildLayout(16 / 9);
   let width = 1;
   let height = 1;
+  const fallbackArea = (): SafeArea => ({ left: width * 0.04, top: height * 0.1, right: width * 0.96, bottom: height * 0.9 });
+  const measure = (chapter: number): SafeArea => {
+    const a = getSafeArea?.(chapter);
+    // Ignore a degenerate measurement (e.g. before layout) rather than collapse the cubes.
+    return a && a.right - a.left > 40 && a.bottom - a.top > 40 ? a : fallbackArea();
+  };
+  const initialArea = { left: 4, top: 1, right: 15, bottom: 8 };
+  let layout = buildLayout(16, 9, 34, [initialArea, initialArea, initialArea]);
+  const relayout = () => {
+    layout = buildLayout(width, height, camera.fov, [measure(0), measure(1), measure(2)]);
+    if (!running) renderOnce();
+  };
   const resize = () => {
     width = Math.max(1, container.clientWidth);
     height = Math.max(1, container.clientHeight);
@@ -402,8 +459,7 @@ export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
     camera.aspect = width / height;
     camera.fov = camera.aspect < 0.85 ? 44 : 34;
     camera.updateProjectionMatrix();
-    layout = buildLayout(camera.aspect);
-    if (!running) renderOnce();
+    relayout();
   };
   const ro = new ResizeObserver(resize);
   ro.observe(container);
@@ -530,8 +586,7 @@ export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
     });
 
     // Camera dolly + pointer parallax.
-    const dolly = [15, 12.6, 13.6, 14.5];
-    camera.position.z = dolly[from] + (dolly[to] - dolly[from]) * t;
+    camera.position.z = DOLLY[from] + (DOLLY[to] - DOLLY[from]) * t;
     if (!reducedMotion) {
       camX += (pointer.x * 0.35 - camX) * (1 - Math.exp(-dt * 3));
       camY += (-pointer.y * 0.22 - camY) * (1 - Math.exp(-dt * 3));
@@ -591,6 +646,7 @@ export function createCubeScene(opts: CubeSceneOptions): CubeSceneHandle {
   return {
     setActive,
     clearSelection: () => setHovered(null),
+    relayout,
     dispose: () => {
       disposed = true;
       running = false;
