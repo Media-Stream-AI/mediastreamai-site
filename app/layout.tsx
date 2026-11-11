@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NeuralField from "../components/NeuralField";
 import TrialSignupModal from "../components/TrialSignupModal";
-import SentinelPopup from "../components/SentinelPopup";
+import ExoVideoPopup from "../components/ExoVideoPopup";
 
 // Display face: Anton - single heavy condensed weight for the chunky billboard look.
 // Exposed on both --font-anton and --font-orbitron so existing `font-orbitron`
@@ -311,13 +311,11 @@ export default function RootLayout({
           source="mediastreamai-site"
           paths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
         />
-        {/* MOTHER SENTINEL — our new data-centre tech. Compact teaser popup across
-            the main/sovereign surfaces; kept off the IntuiTV consumer pages so it
-            never collides with the IntuiTV trial popup above. */}
-        <SentinelPopup
-          source="sentinel-datacentre-mediastreamai"
+        {/* MOTHER EXO video popup — autoplays the EXO voice-over film (sound on,
+            muted fallback + tap-for-sound). Kept off the IntuiTV consumer pages so
+            it never collides with the IntuiTV trial popup above. */}
+        <ExoVideoPopup
           excludePaths={['/intuitv', '/creators', '/studios', '/pricing', '/success']}
-          deferWhileVisible=".cube-hero"
         />
       </body>
     </html>
