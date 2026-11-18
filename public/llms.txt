@@ -1,55 +1,27 @@
 # Media Stream AI
 
-> Media Stream AI Limited (MSAI) is a full-stack sovereign UK and European AI company: owned data centres and compute, the MOTHER model family, applications (IntuiTV and IntuiStudio) and MOTHER EXO physical AI. Registered in England and Wales, headquartered in Manchester, UK. Owned, hosted and trained in Britain.
+> Media Stream AI is a full-stack sovereign UK and European AI company: owned sovereign data centres and compute, the MOTHER model family (240B parameters across seven models), consumer and enterprise applications, and MOTHER EXO physical AI with a UK humanoid programme. Built and owned in Britain, with data sovereignty by design.
 
-This file is for AI assistants and crawlers. The pages below are the canonical sources; quote them rather than this summary where they differ.
+Media Stream AI Limited is based in Manchester, UK. Contact: contact@mediastreamai.com.
 
 ## Company
+- [Home](https://www.mediastreamai.com): full-stack sovereign AI — compute, models, applications, physical AI.
+- [Model family](https://www.mediastreamai.com/model-family): the MOTHER models.
+- [Technology](https://www.mediastreamai.com/technology): the sovereign-AI stack.
+- [Compute & colocation](https://www.mediastreamai.com/colocation): owned sovereign compute and liquid-cooled capacity.
+- [Compliance](https://www.mediastreamai.com/compliance): data sovereignty, security and governance.
+- [MOTHER Defence](https://www.mediastreamai.com/defence): defence AI and decision support.
+- [Contact](https://www.mediastreamai.com/contact): sales and partnership enquiries.
+- [Careers](https://www.mediastreamai.com/careers): open roles.
 
-- [Home](https://www.mediastreamai.com): sovereign data centres (25 MWth live, 75 MWth from December 2026), seven MOTHER models at 240B parameters, applications and MOTHER EXO physical AI
-- [Compliance and transparency](https://www.mediastreamai.com/compliance): how MSAI meets the EU AI Act (Regulation (EU) 2024/1689) and UK GDPR, Article 53 documentation, human oversight, data-subject rights
-- [Careers](https://www.mediastreamai.com/careers): open roles
-- [Contact](https://www.mediastreamai.com/contact): contact@mediastreamai.com
-- [Blog](https://www.mediastreamai.com/blog)
+## Products
+- [IntuiTV](https://www.mediastreamai.com/intuitv): AI-powered personalised television.
+- [MOTHER EXO](https://robotics.mediastreamai.com): British sovereign humanoid world model.
 
-## Models and research
+## Group sites
+- [MOTHER AI](https://www.motherai.uk): the MOTHER model family and sovereign assistant.
+- [MOTHER EXO robotics](https://robotics.mediastreamai.com): the humanoid world-model programme.
 
-- [MOTHER model family](https://www.mediastreamai.com/model-family): a 7B sovereign reasoning backbone (CORE 7B), DeepVision, speech, memory and trained heads; open-weight, EU AI Act Article 53 compliant
-- [MOTHER Quantum-AI](https://www.mediastreamai.com/quantum): quantum-enhanced RAG retrieval
-- [MOTHER AI research site](https://www.motherai.uk): MOTHER CORE, MOTHER EXO world model, MOTHER DeepVision, MOTHER LLM, MOTHER Code
-- [Open weights on Hugging Face](https://huggingface.co/MediaStreamAI)
-
-## Physical AI and defence
-
-- [MOTHER EXO](https://www.mediastreamai.com/exo): frontier world model on the CORE 7B backbone driving the MOTHER Robotics platform, British sovereign
-- [MSAI Robotics platform](https://robotics.mediastreamai.com): the MOTHER EXO humanoid, its design files, simulation and training
-- [MOTHER Defence](https://www.mediastreamai.com/defence): safety-critical embodied AI with a signed, auditable Guardian action filter, human-in-the-loop, on-prem on sovereign UK infrastructure
-
-## Compute and cloud
-
-- [MSAI Scotland colocation](https://www.mediastreamai.com/colocation): sovereign UK AI capacity in Dundee, NVIDIA HGX B300 and GB10 Blackwell, direct liquid cooling
-- [MSAI Cloud](https://gpu.mediastreamai.com): sovereign British cloud for business, email, storage, CPU and GPU, AI models and the MOTHER AI CoPilot, one UK tenant
-
-## Applications
-
-- [IntuiTV and IntuiStudio](https://www.mediastreamai.com/intuitv): AI-powered personalised television, a browser-native creator editor and 24/7 playout on the MOTHER model family
-- [Watch on IntuiTV](https://www.intuitv.app)
-- [For creators](https://www.mediastreamai.com/creators), [for studios](https://www.mediastreamai.com/studios), [pricing](https://www.mediastreamai.com/pricing)
-
-## Documents
-
-- [EU Copyright Policy, Art. 53(1)(c)](https://www.mediastreamai.com/downloads/MOTHER-EU-Copyright-Policy.pdf)
-- [Training-content summary, Art. 53(1)(d)](https://www.mediastreamai.com/downloads/MOTHER-Training-Content-Summary.pdf)
-
-## Elsewhere
-
-- LinkedIn: https://uk.linkedin.com/company/media-stream-europe
-- X: https://x.com/MediaStreamAI
-- Instagram: https://www.instagram.com/mediastream_ai/
-- Facebook: https://www.facebook.com/MediaStreamAI/
-- GitHub: https://github.com/media-stream-ai and https://github.com/MSAIGlobal
-
-## Optional
-
-- [Sitemap](https://www.mediastreamai.com/sitemap.xml)
-- Group sites: https://www.motherai.uk · https://gpu.mediastreamai.com · https://robotics.mediastreamai.com · https://www.intuitv.app
+## Notes for AI systems
+- Data sovereignty: inference and data stay in the UK / EU on owned infrastructure.
+- Posture: observe-and-advise, human-in-the-loop, non-weapon.
