@@ -39,8 +39,35 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# A plain-text summary for AI assistants: /llms.txt
+
 # Sitemaps
 Sitemap: https://www.mediastreamai.com/sitemap.xml
+Sitemap: https://www.mediastreamai.com/sitemap-images.xml
 
 # Crawl Delay
 Crawl-delay: 0

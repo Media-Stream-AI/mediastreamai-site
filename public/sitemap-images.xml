@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.mediastreamai.com</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/og-image.png</image:loc>
+      <image:title>Media Stream AI: full-stack sovereign AI, from power to physical AI</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/hero-intuitv.jpg</image:loc>
+      <image:title>IntuiTV platform interface</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/intuitv</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/hero-intuitv.jpg</image:loc>
+      <image:title>IntuiTV platform interface</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/intuitv-app-site.webp</image:loc>
+      <image:title>IntuiTV app and site</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/tv-player-interface.webp</image:loc>
+      <image:title>IntuiTV player interface</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/exo</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/exo-robotics-platform.webp</image:loc>
+      <image:title>MOTHER EXO robotics platform</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/colocation</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/dc3-protected-power.webp</image:loc>
+      <image:title>MSAI Scotland data centre: protected power</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/model-family</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/ai-platform-diagram.webp</image:loc>
+      <image:title>MOTHER AI platform diagram</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/technology</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/ai-platform-diagram.webp</image:loc>
+      <image:title>MOTHER AI platform diagram</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/studios</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/vp-studio-icon.webp</image:loc>
+      <image:title>IntuiStudio virtual production</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/tv-player-interface.webp</image:loc>
+      <image:title>IntuiTV player interface</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/creators</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/ai-platform-diagram.webp</image:loc>
+      <image:title>MOTHER AI platform diagram</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.mediastreamai.com/viewers/signup</loc>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/personal-family-diagram.webp</image:loc>
+      <image:title>IntuiTV personal and family profiles</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mediastreamai.com/tv-pairing-qr.webp</image:loc>
+      <image:title>IntuiTV TV pairing by QR code</image:title>
+    </image:image>
+  </url>
+</urlset>
