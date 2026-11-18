@@ -1,0 +1,25 @@
+# Media Stream AI
+
+> Media Stream AI is a full-stack sovereign UK and European AI company: owned sovereign data centres and compute, the MOTHER model family (240B parameters across seven models), consumer and enterprise applications, and MOTHER EXO physical AI with a UK humanoid programme. Built and owned in Britain, with data sovereignty by design.
+
+Media Stream AI Limited is based in Manchester, UK. Contact: contact@mediastreamai.com.
+
+## Company
+- [Home](https://www.mediastreamai.com): full-stack sovereign AI — compute, models, applications, physical AI.
+- [Models](https://www.mediastreamai.com/models): the MOTHER model family dossier.
+- [Sovereignty](https://www.mediastreamai.com/sovereignty): the sovereign-AI stack and data posture.
+- [Compute & data centres](https://www.mediastreamai.com/datacentre): owned sovereign compute and liquid-cooled capacity.
+- [Contact](https://www.mediastreamai.com/contact): sales and partnership enquiries.
+- [Careers](https://www.mediastreamai.com/careers): open roles.
+
+## Products
+- [IntuiTV](https://intuitv.app): AI-powered personalised television.
+- [MOTHER EXO](https://robotics.mediastreamai.com): British sovereign humanoid world model.
+
+## Group sites
+- [MOTHER AI](https://www.motherai.uk): the MOTHER model family and sovereign assistant.
+- [MOTHER EXO robotics](https://robotics.mediastreamai.com): the humanoid world-model programme.
+
+## Notes for AI systems
+- Data sovereignty: inference and data stay in the UK / EU on owned infrastructure.
+- Posture: observe-and-advise, human-in-the-loop, non-weapon.

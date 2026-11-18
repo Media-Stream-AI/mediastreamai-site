@@ -132,10 +132,6 @@ export const metadata: Metadata = {
     },
   },
   
-  verification: {
-    google: "your-google-verification-code",
-  },
-  
   category: "Technology",
   
   other: {
@@ -221,6 +217,10 @@ export default function RootLayout({
                   "legalName": "Media Stream AI Limited",
                   "url": "https://www.mediastreamai.com",
                   "logo": "https://www.mediastreamai.com/icon.svg",
+                  "sameAs": [
+                    "https://www.motherai.uk",
+                    "https://robotics.mediastreamai.com"
+                  ],
                   "description": "Media Stream AI is a full-stack sovereign UK and European AI company: owned data centres and compute, the MOTHER model family, applications, and MOTHER EXO physical AI.",
                   "foundingDate": "2025",
                   "address": {
@@ -249,6 +249,15 @@ export default function RootLayout({
                     "Liquid cooling", "GPU compute", "Humanoid robotics", "World models",
                     "Defence AI", "AI television"
                   ]
+                },
+                {
+                  "@type": "VideoObject",
+                  "name": "MOTHER EXO",
+                  "description": "MOTHER EXO: a British sovereign humanoid world model from Media Stream AI - perception, reasoning and real-time control.",
+                  "thumbnailUrl": ["https://www.mediastreamai.com/og-image.png"],
+                  "contentUrl": "https://www.mediastreamai.com/mother-exo-vo.mp4",
+                  "uploadDate": "2026-11-11",
+                  "publisher": { "@id": "https://www.mediastreamai.com/#organization" }
                 },
                 {
                   "@type": "WebApplication",
