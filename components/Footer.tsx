@@ -43,6 +43,16 @@ const COLUMNS: { title: string; links: [string, string][] }[] = [
   },
 ];
 
+// The group's other sites. Visible once, in the bottom bar, so every page
+// links the sister properties and crawlers see the family as one.
+const GROUP_SITES: [string, string][] = [
+  ['MOTHER AI', 'https://www.motherai.uk'],
+  ['MSAI Cloud', 'https://gpu.mediastreamai.com'],
+  ['MSAI Robotics', 'https://robotics.mediastreamai.com'],
+  ['IntuiTV', 'https://www.intuitv.app'],
+  ['Hugging Face', 'https://huggingface.co/MediaStreamAI'],
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -84,6 +94,11 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-hair flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted">
           <div>© {year} Media Stream AI Limited · Manchester, UK. All rights reserved.</div>
+          <nav aria-label="Media Stream AI group sites" className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            {GROUP_SITES.map(([label, href]) => (
+              <a key={href} href={href} className="hover:text-cyan transition-colors">{label}</a>
+            ))}
+          </nav>
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-cyan animate-pulse" />

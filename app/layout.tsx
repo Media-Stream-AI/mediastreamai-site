@@ -221,6 +221,26 @@ export default function RootLayout({
                   "legalName": "Media Stream AI Limited",
                   "url": "https://www.mediastreamai.com",
                   "logo": "https://www.mediastreamai.com/icon.svg",
+                  "image": "https://www.mediastreamai.com/og-image.png",
+                  "sameAs": [
+                    "https://uk.linkedin.com/company/media-stream-europe",
+                    "https://x.com/MediaStreamAI",
+                    "https://www.instagram.com/mediastream_ai/",
+                    "https://www.facebook.com/MediaStreamAI/",
+                    "https://github.com/media-stream-ai",
+                    "https://github.com/MSAIGlobal",
+                    "https://huggingface.co/MediaStreamAI",
+                    "https://www.motherai.uk",
+                    "https://gpu.mediastreamai.com",
+                    "https://robotics.mediastreamai.com",
+                    "https://www.intuitv.app"
+                  ],
+                  "subOrganization": [
+                    { "@type": "Organization", "name": "MOTHER AI", "url": "https://www.motherai.uk", "description": "The MOTHER model family: CORE, EXO world model, DeepVision, LLM and Code." },
+                    { "@type": "Organization", "name": "MSAI Cloud", "url": "https://gpu.mediastreamai.com", "description": "Sovereign British cloud: email, storage, CPU and GPU, AI models and the MOTHER AI CoPilot." },
+                    { "@type": "Organization", "name": "MSAI Robotics", "url": "https://robotics.mediastreamai.com", "description": "The MOTHER EXO humanoid platform: design files, simulation and training." },
+                    { "@type": "Organization", "name": "IntuiTV", "url": "https://www.intuitv.app", "description": "AI-powered personalised television on the MOTHER models." }
+                  ],
                   "description": "Media Stream AI is a full-stack sovereign UK and European AI company: owned data centres and compute, the MOTHER model family, applications, and MOTHER EXO physical AI.",
                   "foundingDate": "2025",
                   "address": {
