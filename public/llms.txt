@@ -6,14 +6,16 @@ Media Stream AI Limited is based in Manchester, UK. Contact: contact@mediastream
 
 ## Company
 - [Home](https://www.mediastreamai.com): full-stack sovereign AI — compute, models, applications, physical AI.
-- [Models](https://www.mediastreamai.com/models): the MOTHER model family dossier.
-- [Sovereignty](https://www.mediastreamai.com/sovereignty): the sovereign-AI stack and data posture.
-- [Compute & data centres](https://www.mediastreamai.com/datacentre): owned sovereign compute and liquid-cooled capacity.
+- [Model family](https://www.mediastreamai.com/model-family): the MOTHER models.
+- [Technology](https://www.mediastreamai.com/technology): the sovereign-AI stack.
+- [Compute & colocation](https://www.mediastreamai.com/colocation): owned sovereign compute and liquid-cooled capacity.
+- [Compliance](https://www.mediastreamai.com/compliance): data sovereignty, security and governance.
+- [MOTHER Defence](https://www.mediastreamai.com/defence): defence AI and decision support.
 - [Contact](https://www.mediastreamai.com/contact): sales and partnership enquiries.
 - [Careers](https://www.mediastreamai.com/careers): open roles.
 
 ## Products
-- [IntuiTV](https://intuitv.app): AI-powered personalised television.
+- [IntuiTV](https://www.mediastreamai.com/intuitv): AI-powered personalised television.
 - [MOTHER EXO](https://robotics.mediastreamai.com): British sovereign humanoid world model.
 
 ## Group sites
